@@ -8,6 +8,9 @@ bool prior_connected=false;
 void login()
 {
 if(local_server_mode)
+{
+apply_local_server_defaults();
+}
 apply_local_server_defaults();
 if(name==""||password=="")
 {
@@ -16,7 +19,9 @@ mainmenu();
 return;
 }
 if(connected==false and prior_connected==false)
+{
 speak("connecting the server, please wait!",1,true);
+if(local_server_mode)
 {
 if(local_server_mode)
 {
@@ -32,12 +37,21 @@ if(SCRIPT_COMPILED==false||beta==true)
 {
 }
 else
+{
 speak("connecting the server, please wait!",1,true);
+}
+int connect_attempts=0;
+int max_attempts=2;
+if(local_server_mode)
+{
+max_attempts=5;
+}
+bool connection_established=false;
+while(connect_attempts<max_attempts and connection_established==false)
 int connect_attempts=0;
 int max_attempts=(local_server_mode?5:2);
 bool connection_established=false;
 while(connect_attempts<max_attempts and connection_established==false)
-=======
 bool connection_established=false;
 while(connect_attempts<2 and connection_established==false)
 {
@@ -51,8 +65,8 @@ connection_established=true;
 break;
 }
 connect_attempts++;
+if(local_server_mode and connect_attempts<max_attempts)
 if(local_server_mode && connect_attempts<max_attempts)
-=======
 }
 else
 {
@@ -65,7 +79,6 @@ else
 break;
 }
 }
-=======
 connect_attempts++;
 }
 if(connection_established==false)
