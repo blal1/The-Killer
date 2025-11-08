@@ -1144,6 +1144,9 @@ netport=sd.readn("netport");
 tk_local_server_apply_defaults();
 }
 void tk_local_server_apply_defaults()
+apply_local_server_defaults();
+}
+void apply_local_server_defaults()
 {
 if(local_server_path=="")
 local_server_path=get_current_directory()+default_local_server_executable;
@@ -1160,6 +1163,43 @@ bool tk_local_server_ensure_internal(bool force_start)
 if(local_server_mode==false)
 return true;
 tk_local_server_apply_defaults();
+bool ensure_local_server_internal(bool force_start)
+{
+if(local_server_mode==false)
+return false;
+apply_local_server_defaults();
+if(local_server_started and force_start==false)
+return true;
+if(file_exists(local_server_path)==false)
+{
+if(local_server_warning_shown==false)
+{
+alert("Local server missing","The bundled server executable could not be found at "+local_server_path+". Disable the local server option in the settings if you want to connect to a remote host.");
+local_server_warning_shown=true;
+}
+return false;
+}
+}
+void apply_local_server_defaults()
+{
+if(local_server_path=="")
+local_server_path=get_current_directory()+default_local_server_executable;
+else if(string_contains(local_server_path,":",1)==-1 and string_contains(local_server_path,"/",1)==-1 and string_contains(local_server_path,"\\",1)==-1)
+local_server_path=get_current_directory()+local_server_path;
+if(local_server_mode)
+{
+netaddress="127.0.0.1";
+if(netaddress=="" or netaddress=="82.163.78.62" or netaddress=="blindmasters.org")
+netaddress="127.0.0.1";
+if(netport==0)
+netport=4456;
+}
+}
+bool ensure_local_server_internal(bool force_start)
+{
+if(local_server_mode==false)
+return false;
+apply_local_server_defaults();
 if(local_server_started and force_start==false)
 return true;
 if(file_exists(local_server_path)==false)
@@ -1178,6 +1218,9 @@ return true;
 bool tk_local_server_ensure_running()
 {
 return tk_local_server_ensure_internal(false);
+bool ensure_local_server_running()
+{
+return ensure_local_server_internal(false);
 }
 
 int menumusvol=0;
