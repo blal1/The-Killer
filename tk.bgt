@@ -22,6 +22,11 @@ bool profiler=false;
 bool inbox=false;
 bool ereboot=false;
 string mapstring;
+bool local_server_mode=true;
+bool local_server_started=false;
+bool local_server_warning_shown=false;
+string local_server_path="";
+const string default_local_server_executable="server/server.exe";
 const string decryption_key="blind_developers";
 joystick jstick;
 //sound music;
@@ -1128,9 +1133,55 @@ buffers[i].interrupt=sd.readn("b"+i+"int");
 }
 if(sd.d.exists("regname")) regname=sd.read("regname");
 if(sd.d.exists("regkey")) regkey=sd.read("regkey");
-if(sd.d.exists("netaddress")) sd.d.delete("netaddress");
-if(sd.d.exists("netport")) sd.d.delete("netport");
+if(sd.d.exists("local_server_mode"))
+local_server_mode=int_to_bool(sd.readn("local_server_mode"));
+if(sd.d.exists("local_server_path"))
+local_server_path=sd.read("local_server_path");
+if(sd.d.exists("netaddress"))
+netaddress=sd.read("netaddress");
+if(sd.d.exists("netport"))
+netport=sd.readn("netport");
+apply_local_server_defaults();
 }
+void apply_local_server_defaults()
+{
+if(local_server_path=="")
+local_server_path=get_current_directory()+default_local_server_executable;
+else if(string_contains(local_server_path,":",1)==-1 and string_contains(local_server_path,"/",1)==-1 and string_contains(local_server_path,"\\",1)==-1)
+local_server_path=get_current_directory()+local_server_path;
+if(local_server_mode)
+{
+if(netaddress=="" or netaddress=="82.163.78.62" or netaddress=="blindmasters.org")
+netaddress="127.0.0.1";
+if(netport==0)
+netport=4456;
+}
+}
+bool ensure_local_server_internal(bool force_start)
+{
+if(local_server_mode==false)
+return false;
+apply_local_server_defaults();
+if(local_server_started and force_start==false)
+return true;
+if(file_exists(local_server_path)==false)
+{
+if(local_server_warning_shown==false)
+{
+alert("Local server missing","The bundled server executable could not be found at "+local_server_path+". Disable the local server option in the settings if you want to connect to a remote host.");
+local_server_warning_shown=true;
+}
+return false;
+}
+run(local_server_path,"",false,false);
+local_server_started=true;
+return true;
+}
+bool ensure_local_server_running()
+{
+return ensure_local_server_internal(false);
+}
+
 int menumusvol=0;
 void writeprefs()
 {
@@ -1171,6 +1222,8 @@ sd.add("b"+i+"int",buffers[i].interrupt);
 sd.add("readerinterrupt",readerinterrupt);
 sd.add("regname", regname);
 sd.add("regkey", regkey);
+sd.add("local_server_mode",bool_to_int(local_server_mode));
+sd.add("local_server_path",local_server_path);
 sd.add("netaddress",netaddress);
 sd.add("netport",netport);
 sd.save();
@@ -2717,9 +2770,9 @@ return ret;
 }
 string keygen(string fn) {
 string key=fn;
-key=string_replace(key, "a","æ", true);
-key=string_replace(key, "l","¦", true);
-key=string_replace(key, " ","÷", true);
+key=string_replace(key, "a","Ã¦", true);
+key=string_replace(key, "l","Â¦", true);
+key=string_replace(key, " ","Ã·", true);
 key=string_reverse(key);
 key=string_hash(key, 2, true);
 key=string_encrypt(key, key);
