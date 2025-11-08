@@ -1,5 +1,8 @@
 		welcome to the killer, a super fun multiplayer shooter!
 Getting started
+Playing without an external server
+The client now starts the bundled server executable located in the server folder and connects to it over 127.0.0.1 by default. This means you can play without relying on the public server being online. The first time you log in the game will try to launch server/server.exe automatically; make sure that file exists in your installation. You can disable this behaviour or point the game back to a remote host from the Options menu by toggling the "Built-in local server" entry.
+
 When you first create an account, you will start out on a random location on the map. You can start killing with the following keys.
 Up down, left right: walk.
 Space: jump.

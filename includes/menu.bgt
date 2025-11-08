@@ -154,6 +154,10 @@ else
 {
 m.add_item_tts("disable menu side scrolling","ss","d");
 }
+if(local_server_mode)
+m.add_item_tts("Disable built-in local server","localserver");
+else
+m.add_item_tts("Enable built-in local server","localserver");
 if(!SCRIPT_COMPILED)
 {
 if(translator==0)
@@ -192,6 +196,26 @@ password=pass;
 writeprefs();
 dlg("Success!");
 mainmenu();
+}
+if(m.get_item_name(mres)=="localserver")
+{
+if(local_server_mode)
+{
+local_server_mode=false;
+local_server_started=false;
+local_server_warning_shown=false;
+speak("Built-in local server disabled. Existing network settings will be used.");
+}
+else
+{
+local_server_mode=true;
+local_server_started=false;
+local_server_warning_shown=false;
+tk_local_server_apply_defaults();
+speak("Built-in local server enabled. The bundled server will launch automatically when you connect.");
+}
+writeprefs();
+optionsmenu();
 }
 if(m.get_item_name(mres)=="readerinterrupt")
 {
