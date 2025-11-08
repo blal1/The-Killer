@@ -212,7 +212,8 @@ local_server_mode=true;
 local_server_started=false;
 local_server_warning_shown=false;
 tk_local_server_apply_defaults();
-apply_local_server_defaults();
+netaddress="127.0.0.1";
+netport=4456;
 speak("Built-in local server enabled. The bundled server will launch automatically when you connect.");
 }
 writeprefs();

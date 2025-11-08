@@ -1142,6 +1142,12 @@ netaddress=sd.read("netaddress");
 if(sd.d.exists("netport"))
 netport=sd.readn("netport");
 tk_local_server_apply_defaults();
+if(local_server_mode)
+{
+netaddress="127.0.0.1";
+netport=4456;
+}
+
 }
 void tk_local_server_apply_defaults()
 apply_local_server_defaults();

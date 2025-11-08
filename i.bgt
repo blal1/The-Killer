@@ -17,6 +17,7 @@
 #include"includes/sizer.bgt"
 #include"includes/door.bgt"
 #include"includes/sound_progress.bgt"
+#include"includes/local_server.bgt"
 #include"includes/reg.bgt"
 #include"includes/progress_bar.bgt"
 #include"includes/speed_stop_sound.bgt"
