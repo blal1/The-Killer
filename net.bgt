@@ -1,5 +1,6 @@
-//string netaddress="82.163.78.62";
-string netaddress="82.163.78.62";
+#include"includes/local_server.bgt"
+//string netaddress="127.0.0.1";
+string netaddress="127.0.0.1";
 int netport=4456;
 uint peer_id=0;
 string oldservers;
@@ -7,6 +8,15 @@ string lookname;
 bool prior_connected=false;
 void login()
 {
+int connect_attempts=0;
+int max_attempts=2;
+bool connection_established=false;
+tk_local_server_apply_defaults();
+if(local_server_mode)
+{
+netaddress="127.0.0.1";
+netport=4456;
+}
 if(name==""||password=="")
 {
 dlg("error! No account configured. Please click setup an account, or create a new one");
@@ -14,18 +24,48 @@ mainmenu();
 return;
 }
 if(connected==false and prior_connected==false)
-speak("connecting the server, please wait!",1,true);
 {
+speak("connecting the server, please wait!",1,true);
+if(local_server_mode)
+{
+if(tk_local_server_ensure_running()==false)
+{
+alert("error","The built-in server could not be started. Please verify that "+local_server_path+" exists or disable the local server option in the settings.");
+mainmenu();
+return;
+}
+wait(1000);
+max_attempts=5;
+}
 if(SCRIPT_COMPILED==false||beta==true)
 {
 }
 else
+{
 speak("connecting the server, please wait!",1,true);
+}
+while(connect_attempts<max_attempts and connection_established==false)
+{
 if(n.active)
 reset_network();
 n.setup_client(20, 500);
 n.connect(netaddress, netport);
-if(get_last_error()!=0)
+if(get_last_error()==0)
+{
+connection_established=true;
+break;
+}
+connect_attempts++;
+if(local_server_mode and connect_attempts<max_attempts)
+{
+wait(1500);
+}
+else
+{
+break;
+}
+}
+if(connection_established==false)
 {
 alert("error","network failed to initialize. Error code: "+get_last_error());
 exit();
