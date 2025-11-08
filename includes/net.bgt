@@ -7,6 +7,8 @@ string lookname;
 bool prior_connected=false;
 void login()
 {
+if(local_server_mode)
+apply_local_server_defaults();
 if(name==""||password=="")
 {
 dlg("error! No account configured. Please click setup an account, or create a new one");
@@ -32,6 +34,10 @@ if(SCRIPT_COMPILED==false||beta==true)
 else
 speak("connecting the server, please wait!",1,true);
 int connect_attempts=0;
+int max_attempts=(local_server_mode?5:2);
+bool connection_established=false;
+while(connect_attempts<max_attempts and connection_established==false)
+=======
 bool connection_established=false;
 while(connect_attempts<2 and connection_established==false)
 {
@@ -42,6 +48,11 @@ n.connect(netaddress, netport);
 if(get_last_error()==0)
 {
 connection_established=true;
+break;
+}
+connect_attempts++;
+if(local_server_mode && connect_attempts<max_attempts)
+=======
 }
 else
 {
@@ -54,6 +65,7 @@ else
 break;
 }
 }
+=======
 connect_attempts++;
 }
 if(connection_established==false)
