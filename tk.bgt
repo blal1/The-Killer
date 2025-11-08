@@ -1152,6 +1152,10 @@ local_server_path=get_current_directory()+local_server_path;
 if(local_server_mode)
 {
 netaddress="127.0.0.1";
+=======
+if(netaddress=="" or netaddress=="82.163.78.62" or netaddress=="blindmasters.org")
+netaddress="127.0.0.1";
+if(netport==0)
 netport=4456;
 }
 }

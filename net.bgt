@@ -37,6 +37,9 @@ int connect_attempts=0;
 int max_attempts=(local_server_mode?5:2);
 bool connection_established=false;
 while(connect_attempts<max_attempts and connection_established==false)
+=======
+bool connection_established=false;
+while(connect_attempts<2 and connection_established==false)
 {
 if(n.active)
 reset_network();
@@ -49,6 +52,11 @@ break;
 }
 connect_attempts++;
 if(local_server_mode && connect_attempts<max_attempts)
+=======
+}
+else
+{
+if(local_server_mode and connect_attempts==0)
 {
 wait(1500);
 }
@@ -56,6 +64,9 @@ else
 {
 break;
 }
+}
+=======
+connect_attempts++;
 }
 if(connection_established==false)
 {
