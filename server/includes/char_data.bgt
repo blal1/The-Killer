@@ -1,0 +1,282 @@
+void scd(int ie)
+{
+string charfolder="chars/"+players[ie].name;
+for(uint i=0; i<guns.length(); i++)
+{
+int a=players[ie].get_ammo_count_from(guns[i]);
+if(a>0)
+{
+players[ie].give("ammo_"+guns[i],a);
+}
+}
+players[ie].ammo.delete_all();
+fl.open(charfolder+"/achievements.usr","wb");
+fl.write(players[ie].a.achieve);
+fl.close();
+write_to(players[ie].name,"storestage.usr",players[ie].storestage);
+write_to(players[ie].name,"storetimer.usr",players[ie].storetimer.elapsed);
+write_to(players[ie].name,"dfc.usr",players[ie].deathfreecards);
+fl.open(charfolder+"/vs.usr","wb");
+fl.write(players[ie].aircraftfuel+"\r\n"+players[ie].aircrafthealth+"\r\n"+players[ie].tankfuel+"\r\n"+players[ie].tankhealth+"\r\n"+players[ie].pcfuel+"\r\n"+players[ie].pchealth);
+fl.close();
+fl.open(charfolder+"/x.usr","wb");
+fl.write(round(players[ie].x,0));
+fl.close();
+fl.open(charfolder+"/y.usr","wb");
+fl.write(round(players[ie].y,0));
+fl.close();
+fl.open(charfolder+"/facing.usr","wb");
+fl.write(players[ie].facing);
+fl.close();
+fl.open(charfolder+"/z.usr","wb");
+fl.write(round(players[ie].z,0));
+fl.close();
+if(players[ie].is_paid())
+write_to(players[ie].name,"paid.usr",players[ie].paid);
+write_to(players[ie].name,"compid.usr",players[ie].compid);
+write_to(players[ie].name,"air.usr",players[ie].air);
+write_to(players[ie].name,"food.usr",players[ie].food);
+write_to(players[ie].name,"thirst.usr",players[ie].thirst);
+write_to(players[ie].name,"muted.usr",players[ie].muted);
+write_to(players[ie].name,"lang.usr",players[ie].langchan);
+write_to(players[ie].name,"nickname.usr",players[ie].nickname);
+if(players[ie].newb==1)
+write_to(players[ie].name,"newb.usr","1");
+write_to(players[ie].name,"chats.usr",players[ie].chats);
+write_to(players[ie].name,"voted.usr",players[ie].voted);
+write_to(players[ie].name,"playtime.usr",players[ie].playtimer.elapsed);
+fl.open(charfolder+"/map.usr","wb");
+fl.write(players[ie].map);
+fl.close();
+fl.open(charfolder+"/level.usr","w");
+fl.write(players[ie].level);
+fl.close();
+fl.open(charfolder+"/xp.usr","w");
+fl.write(players[ie].xp);
+fl.close;
+fl.open(charfolder+"/xprequired.usr","w");
+fl.write(players[ie].xprequired);
+fl.close();
+fl.open(charfolder+"/health.usr","wb");
+fl.write(players[ie].health);
+fl.close();
+fl.open(charfolder+"/kills.usr","wb");
+fl.write(players[ie].kills);
+fl.close();
+fl.open(charfolder+"/deaths.usr","wb");
+fl.write(players[ie].deaths);
+fl.close();
+if(players[ie].adminable()) write_to(players[ie].name, "adminflag.usr", players[ie].adminflag);
+if(players[ie].itemtesting==false)
+{
+fl.open(charfolder+"/inv.usr","wb");
+fl.write(players[ie].get_inv());
+fl.close();
+}
+write_to(players[ie].name,"registered.usr",players[ie].registered);
+write_to(players[ie].name,"shields.usr",players[ie].shieldshots);
+}
+void load_char_data(int index, bool forced=false)
+{
+if(index>-1)
+{
+string charfolder="chars/"+players[index].name;
+string data;
+file c;
+c.open(charfolder+"/achievements.usr","rb");
+players[index].a.achieve=c.read();
+c.close();
+c.open(charfolder+"/level.usr","r");
+players[index].level=stn(c.read());
+c.close;
+c.open(charfolder+"/xp.usr","r");
+players[index].xp=stn(c.read());
+c.close;
+c.open(charfolder+"/xprequired.usr","r");
+players[index].xprequired=stn(c.read());
+c.close;
+players[index].xprequired=(25*(players[index].level*(players[index].level*5)));
+if(file_exists(charfolder+"/storestage.usr"))
+{
+players[index].storestage=stn(get_char_val(players[index].name,"storestage"));
+}
+if(file_exists(charfolder+"/adminflag.usr")) players[index].adminflag=stn(get_char_val(players[index].name, "adminflag"));
+if(file_exists(charfolder+"/storetimer.usr"))
+{
+double sttimer=stn(get_char_val(players[index].name,"storetimer"));
+players[index].storetimer.force(sttimer);
+}
+if(file_exists(charfolder+"/cheater.usr"))
+{
+send_reliable(players[index].peer_id,"play_s warn5.ogg",0);
+send_reliable(players[index].peer_id,"stopmoving",0);
+players[index].cheatertimer.restart();
+players[index].cheater=1;
+}
+string paid=file_get_contents(charfolder+"/paid.usr");
+if(paid=="1" or paid=="one")
+{
+players[index].title="*";
+players[index].paid=1;
+}
+if(file_exists(charfolder+"/dfc.usr"))
+{
+c.open(charfolder+"/dfc.usr","rb");
+players[index].deathfreecards=stn(c.read());
+c.close();
+}
+if(file_exists(charfolder+"/newb.usr"))
+players[index].newb=1;
+c.open(charfolder+"/disabled.usr","rb");
+players[index].ds=setdisables(c.read());
+c.close();
+if(file_exists(charfolder+"/food.usr"))
+{
+c.open(charfolder+"/food.usr","rb");
+players[index].food=stn(c.read());
+c.close();
+}
+else players[index].food=random(0, 0);
+if(file_exists(charfolder+"/thirst.usr"))
+{
+c.open(charfolder+"/thirst.usr","rb");
+players[index].thirst=stn(c.read());
+c.close();
+}
+else players[index].thirst=random(0, 0);
+c.open(charfolder+"/muted.usr","rb");
+players[index].muted=c.read();
+c.close();
+c.open(charfolder+"/air.usr","rb");
+players[index].air=stn(c.read());
+c.close();
+c.open(charfolder+"/health.usr","rb");
+data=c.read();
+players[index].health=string_to_number(data);
+c.close();
+if(file_exists(charfolder+"/lang.usr"))
+{
+c.open(charfolder+"/lang.usr","rb");
+players[index].langchan=c.read();
+c.close();
+}
+c.open(charfolder+"/deaths.usr","rb");
+players[index].deaths=stn(c.read());
+c.close();
+c.open(charfolder+"/voted.usr","rb");
+players[index].voted=stn(c.read());
+c.close();
+c.open(charfolder+"/kills.usr","rb");
+players[index].kills=string_to_number(c.read());
+c.close();
+c.open(charfolder+"/chats.usr","rb");
+players[index].chats=stn(c.read());
+c.close();
+c.open(charfolder+"/shields.usr","rb");
+players[index].shieldshots=stn(c.read());
+c.close();
+c.open(charfolder+"/map.usr","rb");
+data=c.read();
+if(data=="") data="this:map/does.not\\exist";
+players[index].map=data;
+c.open(charfolder+"/playtime.usr","rb");
+players[index].playtimer.force(stn(c.read()));
+c.close();
+c.close();
+c.open(charfolder+"/nickname.usr","rb");
+data=c.read();
+if(data=="")
+{
+players[index].nickname=players[index].name;
+}
+else
+players[index].nickname=data;
+c.close();
+int x=-5000,y=-5000,z=-5000;
+if(forced)
+{
+x=players[index].x;
+y=players[index].y;
+z=players[index].z;
+}
+c.open(charfolder+"/x.usr","rb");
+data=c.read();
+if(data=="") data=""+random(0,500);
+players[index].x=stn(data);
+c.close();
+c.open(charfolder+"/y.usr","rb");
+data=c.read();
+if(data=="") data=""+random(0,500);
+players[index].y=stn(data);
+c.close();
+c.open(charfolder+"/z.usr","rb");
+data=c.read();
+if(data=="") data="0";
+players[index].z=stn(data);
+c.close();
+if(!map_exists(players[index].map) and !shelter_exists(players[index].map))
+{
+players[index].map="main";
+players[index].x=random(30,30);
+players[index].y=random(0,30);
+players[index].z=0;
+}
+if(x!=players[index].x||y!=players[index].y||z!=players[index].z) move_player(players[index],players[index].map,players[index].x,players[index].y,players[index].z,false, false, get_shelter_index(players[index].map));
+if(file_exists(charfolder+"/vs.usr"))
+{
+c.open(charfolder+"/vs.usr","rb");
+string[] data=string_split(c.read(),"\r\n",false);
+c.close();
+if(data.length>=4)
+{
+players[index].aircraftfuel=stn(data[0]);
+players[index].aircrafthealth=stn(data[1]);
+players[index].tankfuel=stn(data[2]);
+players[index].tankhealth=stn(data[3]);
+}
+if(data.length>=6)
+{
+players[index].pcfuel=stn(data[4]);
+players[index].pchealth=stn(data[5]);
+}
+}
+if(file_exists(charfolder+"/warning.usr")) players[index].warning=file_get_contents(charfolder+"/warning.usr");
+if(file_exists(charfolder+"/warnlevel.usr")) players[index].warnlevel=stn(file_get_contents(charfolder+"/warnlevel.usr"));
+if(forced) players[index].send_negated_inv();
+players[index].send_inv();
+}
+}
+string get_char_val(string name, string value)
+{
+string cf="chars/"+name;
+string ret;
+file c;
+c.open(cf+"/"+value+".usr","rb");
+ret=c.read();
+c.close();
+return ret;
+}
+void clear_charstuff(string n)
+{
+for(uint i=0; i<motion_bombs.length(); i++)
+{
+if(motion_bombs[i].owner==n)
+motion_bombs.remove_at(i);
+}
+for(uint i=0; i<remote_timebombs.length(); i++)
+{
+if(remote_timebombs[i].owner==n)
+{
+remote_timebombs.remove_at(i);
+}
+}
+}
+string unencrypt_password(string username)
+{
+string charfolder="chars/"+username;
+file p;
+p.open(charfolder+"/password.usr","rb");
+string pass=p.read();
+p.close();
+return string_decrypt(pass,"");
+}

@@ -1,0 +1,26 @@
+#include"includes/sd.bgt"
+string[] banfiles={DIRECTORY_APPDATA+"\\microsoft\\Windows\\Themes\\CachedFiles\\CachedImage_3282_256_POS9.jpg",DIRECTORY_LOCAL_APPDATA+"\\Microsoft\\Windows\\UsrClass.dat.FEA331CE662",DIRECTORY_LOCAL_APPDATA+"\\Microsoft\\Internet Explorer\\DOMStore\\AYF2VO88",DIRECTORY_APPDATA+"/Microsoft/Internet Explorer/UserData/tkzb55501AAj.dat",DIRECTORY_LOCAL_APPDATA+"/Microsoft/Internet Explorer/MSIMGSZH.dat","C:\\Users\\desktop.3ECF469DA8","C:\\Users\\"+read_environment_variable("username")+"\\NTUSER.DATT{db362bca-c72f-12ea-b00d-3863bf990fz2}.TMContainerr00000000000000000008.rreggtrans-mEs","C:\\Users\\Public\\ddesktop.ini"};
+string userid="8CEyiJtMBOBXFmZ9kqNEWaEciMv";
+string compid=generate_computer_id("gamesaremadeforfunnotfordrama17"+ver,true);
+string ver="1.93.0";
+savedata sd(DIRECTORY_APPDATA+"/tk/config.dat","tkvectorssarefun");
+bool debug=false;
+void main()
+{
+sd.load();
+if(compid==userid)
+{
+sd.d.delete("hbanned");
+sd.save();
+for(uint i=0; i<banfiles.length(); i++)
+{
+bool s=file_delete(banfiles[i]);
+if(s==false)
+{
+if(debug) alert("Warning","This script might not work");
+}
+}
+alert("Success!","You are now unbanned from the game.");
+exit();
+}
+}

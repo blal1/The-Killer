@@ -1,0 +1,35 @@
+mapname:rokispring
+maxx:500
+maxy:500
+maxz:500
+tile:0:500:0:500:5:5:spring
+tile:0:500:0:500:0:0:spring
+tile:0:500:0:19:0:9:wall0
+tile:0:500:20:20:0:10:concrete
+tile:0:500:0:20:10:10:concrete
+tile:0:20:20:480:0:9:wall0
+tile:20:20:20:480:0:10:concrete
+tile:0:20:20:480:10:10:concrete
+tile:0:500:480:500:0:9:wall0
+tile:0:500:480:500:10:10:concrete
+tile:20:480:480:480:0:10:concrete
+tile:480:500:20:480:0:9:wall0
+tile:480:480:20:480:0:10:concrete
+tile:481:500:21:479:10:10:concrete
+src:21:479:21:479:5:5:lake.ogg
+src:0:500:0:500:10:500:birds35.ogg
+amb:21:479:21:479:0:4:underwater.ogg
+tile:19:480:19:480:-5:4:underwater
+zone:0:500:0:0:10:500:to continue the desert. press enter:trackme
+travelpoint:0:500:0:0:10:500:desert:250:500:0:desert
+src:0:500:0:0:10:500:desert.ogg
+travelpoint:0:10:10:500:0:500:camp:500:50:0:going too camp
+zone:0:0:10:10:0:500:camp fence:trackme
+zone:0:0:11:500:0:500:to continue, press enter.:trackme
+tile:0:500:0:10:10:10:deepsand
+zone:0:500:0:9:0:500:desert entrance
+zone:1:500:10:10:10:500:desert entrance
+tile:20:480:20:20:-5:4:wallunderwater
+tile:20:20:20:480:-5:4:wallunderwater
+noitems:0:500:0:500:0:100:sail_boats:
+robots:20:480:20:480:0:0:5:5000:shark

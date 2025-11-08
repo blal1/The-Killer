@@ -1,0 +1,72 @@
+#include"dlfile.bgt"
+#include"hip.bgt"
+void cfu(string name, string zipname, bool silent)
+{
+sound updating;
+speak("checking version...");
+string l=get_from_url("blindmasters.org/tk/version.txt");
+string[] latest=string_split(l,".",true);
+double version=string_to_number(latest[0]);
+double subversion;
+if(latest.length()>1) subversion=stn(latest[1]);
+double build;
+if(latest.length()>2) build=stn(latest[2]);
+string[] yourversion=string_split(ver,".",true);
+double yv=stn(yourversion[0]);
+double sb;
+if(yourversion.length()>1) sb=stn(yourversion[1]);
+double b;
+if(yourversion.length()>2) b=stn(yourversion[2]);
+if ((yv>version or sb>subversion or b>build) and silent==false)
+{
+alert("Alert","You are running a version newer than the one on the site. This could mean either you are running a beta, or there was an error contacting the page. Your version: "+yv+"."+sb+"."+b+". Latest version: "+version+"."+subversion+"."+build);
+optionsmenu();
+}
+else if (yv==version and b==build and sb==subversion and silent==false)
+{
+alert("Alert","Your "+name+" is up to date. Your version: "+yv+"."+sb+"."+b+". Latest version: "+version+"."+subversion+"."+build);
+optionsmenu();
+}
+else if (yv<version or sb<subversion or b<build)
+{
+string description=get_from_url("blindmasters.org"+name+"/description.txt");
+updating.stream("updating.ogg");
+updating.volume=-15;
+p.play_stationary("update.ogg",false);
+wait(1);
+int q=yesno("New update "+l+" has been found! Description: "+description+"\r\nWould you like to download it?");
+if (q==1)
+{
+updating.play_looped();
+string status=dl_file("blindmasters.org/"+name+"/"+zipname,zipname);
+//download_file_as("blindmasters.org/"+name+"/"+zipname,zipname);
+if(status=="finished")
+{
+updating.stop();
+p.play_stationary("update_complete.ogg",false);
+alert("success","update downloaded! Please extract release.zip");
+exit();
+}
+}
+}
+}
+void sndcheck()
+{
+string latest=get_from_url("blindmasters.org/tk/soundsver.txt");
+double lv=string_to_number(latest);
+string[] yourversion=string_split(sndver," ",true);
+double yv=string_to_number(yourversion[0]);
+if (yv<lv or !file_exists("sounds.dat"))
+{
+dlg("New sounds available. Press enter to download now");
+string status=dl_file("blindmasters.org/tk/sounds.dat","sounds.dat",true,"Downloading new sounds version "+lv+"...");
+if (status=="finished")
+{
+if(!SCRIPT_COMPILED)
+run("c:\\windows\\explorer.exe","\""+get_script_path()+"\"",false,false);
+else
+run(get_script_path(),"",false,false);
+exit();
+}
+}
+}

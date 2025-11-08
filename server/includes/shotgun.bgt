@@ -1,0 +1,98 @@
+shotgun@[]shotguns(0);
+class shotgun {
+double x,y,z;
+int dir=0;
+bool explode=false;
+timer explodetimer;
+int range=1;
+int distance=0;
+int mindammage=50000;
+int maxdammage=50000;
+string map;
+string owner;
+int spread=5;
+
+shotgun(double gx, double gy, double gz, double gdir, string gmap, string gowner)
+{
+x=gx;
+y=gy;
+z=gz;
+dir=gdir;
+map=gmap;
+owner=gowner;
+play("shotgunwarn",x,y,z,map);
+} // constructor.
+} // class.shotgun.
+
+void shotgunloop()
+{
+for(uint j=0; j<shotguns.length(); j++)
+{
+if(shotguns[j].explodetimer.elapsed>=1)
+{
+shotguns[j].explodetimer.restart();
+play("shotgun",shotguns[j].x,shotguns[j].y,shotguns[j].z,shotguns[j].map);
+send_reliable(0,"distsound shotgunadist "+shotguns[j].x+" "+shotguns[j].y+" "+shotguns[j].z+" "+shotguns[j].map,0);
+for(uint s=0; s<shelters.length; s++)
+{
+if(get_3d_distance(shotguns[j].x,shotguns[j].y,shotguns[j].z,shelters[s].x,shelters[s].y,shelters[s].z)<=shotguns[j].range&&shelters[s].map==shotguns[j].map)
+shelters[s].hit(random(50000,50000),shotguns[j].owner+"'s shotgun","shotgun");
+}
+for(uint x=0; x<players.length(); x++)
+{
+if(in_vehicle(players[x].name)>-1 or players[x].newb==1 or players[x].is_dead or players[x].invinsible) continue;
+if(get_3d_distance(shotguns[j].x,shotguns[j].y,shotguns[j].z,players[x].x,players[x].y,players[x].z)<=shotguns[j].range and players[x].map==shotguns[j].map)
+{
+players[x].hit(shotguns[j].mindammage,shotguns[j].maxdammage);
+players[x].should_subtract=true;
+players[x].hitby=shotguns[j].owner+"'s shotgun";
+players[x].playsound("shotgunhit");
+}
+}
+for (uint i2=0; i2<objs.length(); i2++)
+{
+if (get_3d_distance(shotguns[j].x,shotguns[j].y,shotguns[j].z,objs[i2].x,objs[i2].y,objs[i2].z)<=shotguns[j].range and objs[i2].map==shotguns[j].map)
+{
+play("obj_break"+random(1,3),objs[i2].x,objs[i2].y,objs[i2].z,objs[i2].map);
+objs.remove_at(i2);
+}
+}
+for(uint i2=0; i2<horbs.length; i2++)
+{
+if(get_3d_distance(shotguns[j].x,shotguns[j].y,shotguns[j].z,horbs[i2].x,horbs[i2].y,horbs[i2].z)<=shotguns[j].range&&horbs[i2].map==shotguns[j].map) horbs[i2].shoot();
+}
+for (uint i2=0; i2<remguns.length(); i2++)
+{
+if (get_3d_distance(shotguns[j].x,shotguns[j].y,shotguns[j].z,remguns[i2].x,remguns[i2].y,remguns[i2].z)<=shotguns[j].range and remguns[i2].map==shotguns[j].map)
+{
+remguns[i2].health-=random(50000,500000);
+remguns[i2].hitby=shotguns[j].owner+"'s shotgun";
+play("remgunhit"+random(1, 3),remguns[i2].x,remguns[i2].y,remguns[i2].z,remguns[i2].map);
+}
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_2d_distance(vs[v].x,vs[v].y,shotguns[j].x,shotguns[j].y)<=shotguns[j].range)
+{
+vs[v].hit(random(shotguns[j].mindammage,shotguns[j].maxdammage),shotguns[j].owner+"'s shotgun","shotgun");
+}
+}
+for(uint x=0; x<impact_bombs.length(); x++)
+{
+if(get_3d_distance(shotguns[j].x,shotguns[j].y,shotguns[j].z,impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z)<=30 and shotguns[j].map==impact_bombs[x].map)
+{
+play("ibombhit"+random(1,3),impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z,impact_bombs[x].map);
+impact_bombs[x].health-=random(shotguns[j].mindammage,shotguns[j].maxdammage);
+}
+}
+@shotguns[j]=null;
+shotguns.remove_at(j);
+continue;
+}
+}
+}
+void spawn_shotgun(double x, double y, double z, double dir, string map, string owner)
+{
+shotgun f1(x, y, z, dir, map, owner);
+shotguns.insert_last(f1);
+}

@@ -1,0 +1,42 @@
+mapname:colton_room
+maxx:44
+maxy:21
+maxz:10
+tile:0:50:0:50:0:0:shelter
+src:0:50:0:50:0:50:shelteramb.ogg:-1
+zone:0:50:0:50:0:50:colton's room
+src:10:10:10:10:0:5:generator.ogg:-1
+zone:9:11:9:11:0:2:next to the item generator
+tile:10:10:10:10:0:2:wallbigmetal2
+tile:10:10:10:10:3:3:metal6
+zone:10:10:10:10:3:10:on top of the fucking generator that generates all the items on the main map.
+src:15:15:15:15:0:0:desktop1.ogg:-1
+zone:15:15:15:15:0:0:the computer that I can use to control the items
+src:20:20:20:20:0:10:wploop.ogg:-1
+zone:20:20:20:20:0:10:my personal transporter that allows me to move wherever I wish via /move
+src:30:30:20:20:0:0:obj.ogg:-1
+zone:30:30:20:20:0:0:the ultimate item of power, the magical command thingy! So powerful you can't even pick it up!
+tile:30:30:10:10:0:0:mud
+zone:30:30:10:10:0:0:yesterday's pizza. The kitty knocked it off my tray.
+tile:35:35:10:10:0:3:wallscreen2
+tile:35:35:10:10:4:4:plank
+zone:34:36:9:11:0:3:there's a tray here
+zone:35:35:10:10:4:10:on top of my multipurpose tray
+tile:38:42:0:15:0:0:carpet
+zone:38:42:0:15:0:6:my bed
+tile:38:42:16:20:0:2:walldoor2
+tile:38:42:16:20:3:3:wood
+zone:38:42:16:20:3:10:my headboard/shelf thing with stuff on it
+src:40:40:20:20:3:3:laptop1.ogg:-1
+zone:40:40:20:20:3:3:my laptop. Don't touch it!
+tile:0:43:21:21:0:10:wallsheetrock
+tile:43:43:0:20:0:10:wallsheetrock
+zone:36:37:19:20:0:2:the garbage can
+tile:37:37:20:20:0:2:wallcone
+zone:39:39:20:20:3:3:a sleeping soft kitty
+zone:41:41:20:20:3:3:a 4 port USB2/USB3 hub, connected to the computer
+zone:42:42:20:20:3:3:a 6 plug power strip currently holding plugs for my phone, the USB hub and the laptop
+zone:42:42:19:19:3:3:my phone is charging over here
+zone:42:42:18:18:3:3:two 1 terabyte external drives, one a western digital my passport and the other a seegate backup+
+zone:42:42:17:17:3:3:two cases of cd's I bought at the trans-siberian orchestra concert in december 2016
+zone:40:40:18:18:3:3:the external keyboard I plug into my laptop for regular usage on my bed

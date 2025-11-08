@@ -1,0 +1,6 @@
+mapname:admin
+maxx:100
+maxy:100
+maxz:100
+tile:0:100:0:100:0:0:carpet
+tile:20:20:0:0:0:10:wallbank

@@ -1,0 +1,9 @@
+mapname:123
+maxx:100
+maxy:100
+maxz:100
+tile:0:100:0:100:0:0:concrete22
+tile:0:100:0:100:0:0:carpet
+zone:0:100:0:100:0:100:test fighting area:trackme
+src:0:100:0:100:0:100:calm.ogg
+tile:0:100:0:100:0:0:grass2

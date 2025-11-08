@@ -1,0 +1,15 @@
+name wolf
+health 10000
+defence 1000
+speed 400
+damage 500,10000
+shoot 2000
+distance 5
+aggro 1000
+spread 1
+angle 90
+steps 0
+loot dollar
+amount 100
+voices 5
+kills 5

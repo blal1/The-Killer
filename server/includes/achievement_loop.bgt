@@ -1,0 +1,72 @@
+void achloop(int i, int k)
+{
+if(i>-1 and k>-1)
+{
+if(i==k)
+{
+if(players[k].hitby==players[i].name+"'s grenade") add_achievement("I'm just bad at this grenade thing.",k,"",true);
+else if(players[k].hitby==players[i].name+"'s ultrabomb") add_achievement("bad at dodging",k,"20 warp_box");
+else if(players[k].hitby==players[i].name+"'s impact bomb") add_achievement("I really like booms!",i,"4 ultrabomb",true);
+else add_achievement("I wanna die now",i,"2 antibiotic_pack");
+}
+else
+{
+if(players[i].kills>=10) add_achievement("Killed 10 players",i,"1000 dollar");
+if(players[i].kills>=50) add_achievement("Killed 50 players",i,"5000 dollar",false);
+if(players[i].kills>=150) add_achievement("150 kills",i,"5 ultrabomb",true);
+if(players[i].kills>=200) add_achievement("200 kills",i,"15 metal_pack",true);
+if(players[i].kills>=500) add_achievement("500 kills",i,"5 police_car",true);
+if(players[i].kills>=1000) add_achievement("1000 kills",i,"1 tk_ultra_health_potion_set",true);
+if(players[i].kills>=2000) add_achievement("2000 kills",i,"2 tk_ultra_health_potion_set",true);
+if(players[i].kills>=5000) add_achievement("5000 kills",i,"100 tk_ultra_health_potion",true);
+if(players[i].kills>=9000) add_achievement("It's over 9000!",i,"1 tk_donation_pack",true);
+if(players[i].kills>=10000) add_achievement("Holy! Motherfucking! Shit! 10000 kills",i,"1 tk_deluxe_pack",true);
+if(players[k].invisible) add_achievement("kill an invisible player",i,"10 invisibility_shield",true);
+if(players[k].hitby==players[i].name+"'s knife")
+{
+add_achievement("butcher",i,"3 glock_ammo_pack",true);
+if(players[k].stunned==false) add_achievement("Commander Blade",i,"5 shotgun_ammo_pack",true);
+}
+if(players[k].hitby==players[i].name+"'s grenade")
+{
+add_achievement("grenade in your face",i,"3 sniper_ammo_pack",false);
+add_achievement("tastes like grenade",k,"",true);
+}
+int vi=in_vehicle(players[i].name);
+int vk=in_vehicle(players[k].name);
+if(vk>-1&&vi==-1)
+{
+if(vs[vk].type=="tank") add_achievement("killed somebody in a tank",i,"1 tank",true);
+else if(vs[vk].type=="aircraft") add_achievement("blow an aircraft out of the sky",i,"1 aircraft",true);
+else if(vs[vk].type=="police_car") add_achievement("bring down the popo",i,"1 police_car",true);
+if(vs[vk].hitby==players[i].name+"'s knife") add_achievement("killed a vehicle with your knife",i,"4 shotgun_ammo_pack",true);
+}
+else if(vk>-1&&vi>-1)
+{
+if((vs[vi].type=="aircraft"||vs[vi].type=="police_car")&&vs[vk].type=="tank") add_achievement("laser a tank to death",i,"8 metal_pack",true);
+if(vs[vi].type=="aircraft"&&vs[vk].type=="aircraft") add_achievement("professional dogfighter",i,"5 fuel_tank",true);
+if(vs[vi].type=="police_car"&&vs[vk].type=="police_car")
+{
+add_achievement("AWOL",i,"1 police_car",true);
+add_achievement("nailed by a rogue",k,"1 police_car",false);
+}
+}
+if(players[i].kills>=100) add_achievement("Killed 100 players",i,"5 guided_missile",false);
+if(players[k].hitby==players[i].name+"'s missile")
+{
+add_achievement("eat my missile",k,"50 missile_interceptor");
+if(players[k].intercepting) add_achievement("almost had it",k,"2 antibiotic_pack");
+}
+if(players[k].hitby==players[i].name+"'s shotgun") add_achievement("Private Shotgun",i,"3 shotgun_ammo_pack");
+if(players[k].hitby==players[i].name+"'s shotgun"&&players[k].stunned==false) add_achievement("General Shotgun",i,"2000 dollar",true);
+if(players[i].health<=1000&&players[i].health>0&&players[i].name!=players[k].name)
+{
+add_achievement("holy shit that was close",i,"1 ultra_antibiotic_pack",true);
+add_achievement("close, but no cigar",k,"2 shotgun_ammo_pack");
+}
+if(players[k].oldhealth>=2000) add_achievement("Youch! That hurt",i,"2 ultrabomb");
+if(players[k].shieldshots>0&&string_contains(players[k].hitby,"bomb",1)<0) add_achievement("you beat my shield",i,"25 shield");
+if(string_contains(players[k].hitby,"dart",1)>-1) add_achievement("Bullseye",i,"2 police_car",true);
+}
+}
+}

@@ -1,0 +1,106 @@
+j_player@[]jplayers(0);
+class j_player
+{
+bool jstarted=false;
+int coins,extracoins;
+int stime;
+string musicloop;
+int x,y,z;
+string map;
+timer songtimer;
+timer stimer;
+j_player(int jx,int jy,int jz,string jmap)
+{
+x=jx;
+y=jy;
+z=jz;
+map=jmap;
+}
+void start(bool restarttimer=true)
+{
+destroy_moving_sound(musicloop);
+int rand=random(0,26);
+if(restarttimer==true)
+{
+stimer.restart();
+songtimer.restart();
+}
+stime=get_loop_ms(rand);
+jstarted=true;
+musicloop=spawn_moving_sound("jloop"+rand+".ogg",x,y,z,map);
+}
+}
+void jplayerloop()
+{
+for(uint i=0; i<jplayers.length(); i++)
+{
+if(jplayers[i].jstarted==true)
+{
+if(jplayers[i].stimer.elapsed>=100000*5)
+{
+jplayers[i].jstarted=false;
+destroy_moving_sound(jplayers[i].musicloop);
+jplayers[i].extracoins+=jplayers[i].coins;
+jplayers[i].coins=0;
+jplayers[i].start(true);
+}
+if(jplayers[i].songtimer.elapsed>=jplayers[i].stime)
+{
+jplayers[i].songtimer.restart();
+jplayers[i].start(false);
+}
+}
+}
+}
+void spawn_jplayer(int x,int y,int z,string map)
+{
+j_player jp(x,y,z,map);
+jplayers.insert_last(jp);
+}
+int get_jplayer_index(int x,int y, int z, string map)
+{
+for(uint i=0; i<jplayers.length(); i++)
+{
+if(jplayers[i].x==x and jplayers[i].y==y and jplayers[i].z==z and jplayers[i].map==map)
+{
+return i;
+}
+}
+return -1;
+}
+void destroy_all_jplayers()
+{
+for(uint i=0; i<jplayers.length(); i++)
+{
+jplayers[i].jstarted=false;
+destroy_moving_sound(jplayers[i].musicloop);
+@jplayers[i]=null;
+jplayers.remove_at(i);
+continue;
+}
+}
+int get_loop_ms(int songindex)
+{
+if(songindex==0) return 49033;
+if(songindex==1) return 36000;
+if(songindex==2) return 303124;
+if(songindex==3) return 68324;
+if(songindex==4) return 325459;
+if(songindex==5) return 236068;
+if(songindex==6) return 44643;
+if(songindex==7) return 61335;
+if(songindex==8) return 49423;
+if(songindex==9) return 344571;
+if(songindex==10) return 36075;
+if(songindex==11) return 113554;
+if(songindex==12) return 205453;
+if(songindex==13) return 97920;
+if(songindex==14) return 94896;
+if(songindex==15) return 23849;
+if(songindex==16) return 97081;
+if(songindex==17) return 20871;
+if(songindex==18) return 225410;
+if(songindex==19) return 308062;
+else
+return -1;
+}

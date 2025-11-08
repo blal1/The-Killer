@@ -1,0 +1,336 @@
+enum ROBOTSTATES
+{
+	ROBOT_STOP, ROBOT_MOVE, ROBOT_KILL, ROBOT_WAIT
+} // enum.ROBOTSTATES.
+
+
+class RobotTemplate // Template robot.
+{
+	string name; // Robot name.
+	int health,defence,speed,damage,shoot,distance,aggro,spread,angle; // stats.
+	int mindamage,maxdamage;
+	int steps; // Steps numbers.
+	string loot; // Robot loot.
+	int amount,voices,loops,shoots,hits,pains,kills; // loot is amount then killed.
+
+RobotTemplate () {} // Empty constructor.
+} // class.robottemplate.
+
+uint robotid=0;
+class Robot : RobotTemplate // Class robot.
+{
+	double x,y,z,up; // Robot position.
+	int index; // Robot template index.
+	uint id;
+	int look,reangle,state; // Robot look, reangle to left turn, state.
+	string player,weapon; // Player to shoting.
+	string map,voice; // Robot location.
+	string ll,loop; // Robot location.
+	string[] loots;
+	timer movetimer,shoottimer,looptimer,voicetimer; // Timers moving, shooting.
+
+Robot ()
+	{
+		this.map="main"; this.id=0;
+		this.health=100; this.defence=0;
+		this.speed=1000; this.shoot=3000;
+		this.damage=5; this.state=ROBOT_WAIT;
+		this.mindamage=this.damage; this.maxdamage=this.damage;
+		this.distance=1; this.aggro=50;
+		this.spread=5; this.angle=0; this.reangle=0;
+		this.look=0; this.steps=0;
+		this.shoots=0; this.hits=0; this.pains=0; this.kills=0;
+		this.name=""; this.loot=0; this.amount=0;
+		this.loots=string_split(this.loot,",",true);
+		this.voice="";
+		this.loop="";
+	} // constructor.
+
+Robot (RobotTemplate@ tr, int index, double x, double y, double z, string map)
+	{
+		this.index=index; this.map=map;
+		this.x=x; this.y=y; this.z=z; this.up=z;
+		this.health=tr.health; this.defence=tr.defence;
+		this.speed=tr.speed; this.shoot=tr.shoot;
+		this.damage=tr.damage; this.state=ROBOT_STOP;
+		this.mindamage=tr.mindamage; this.maxdamage=tr.maxdamage;
+		this.distance=tr.distance; this.aggro=tr.aggro;
+		this.spread=tr.spread; this.angle=tr.angle; this.reangle=360-this.angle;
+		this.look=random(0,359); this.steps=tr.steps;
+		this.loot=tr.loot; this.amount=tr.amount;
+		this.loots=string_split(this.loot,",",true);
+		this.voices=tr.voices; this.shoots=tr.shoots; this.loops=tr.loops; this.hits=tr.hits; this.pains=tr.pains; this.kills=tr.kills;
+		if (robotid>4000000000) {robotid=0;}
+		robotid+=1; this.id=robotid;
+		this.name=tr.name;
+		if (this.voices>1) {this.voice=spawn_moving_sound(this.name+"_voice"+random(1,this.voices)+".ogg",this.x,this.y,this.z,this.map);}
+		else {this.voice=spawn_moving_sound(this.name+"_voice.ogg",this.x,this.y,this.z,this.map);}
+		if (this.loops>1) {this.loop=spawn_moving_sound(this.name+"_loop"+random(1,this.loops)+".ogg",this.x,this.y,this.z,this.map);}
+		else {this.loop=spawn_moving_sound(this.name+"_loop.ogg",this.x,this.y,this.z,this.map);}
+	} // constructor.params.
+
+void update ()
+	{
+		update_moving_sound(this.voice,this.x,this.y,this.z);
+		update_moving_sound(this.loop,this.x,this.y,this.z);
+		if (this.voices<2 or this.steps==1) {return;}
+		else if (voicetimer.elapsed>=15000)
+		{
+			voicetimer.restart();
+			destroy_moving_sound(this.voice);
+			//destroy_moving_sound(this.loop);
+			this.voice=spawn_moving_sound(this.name+"_voice"+random(1,this.voices)+".ogg",this.x,this.y,this.z,this.map);
+	} // if.timer.
+	} // method.update.
+
+void hit (int damage, string weaponname, string playername="")
+	{
+		if(this.pains==0) play("remgunhit"+random(1,2),this.x,this.y,this.z,this.map);
+		if (damage>this.defence) {
+			this.health-=(damage-this.defence);
+			if (this.health>0) {
+				if (this.pains>1) play(this.name+"_pain"+random(1,this.pains), this.x, this.y, this.z, this.map);
+				else play(this.name+"_pain", this.x, this.y, this.z, this.map);
+			} // if.health.
+			this.player=playername; this.weapon=weaponname;
+		} // if.damage.
+	} // method.hit.
+
+~Robot ()
+	{
+		destroy_moving_sound(this.voice);
+		destroy_moving_sound(this.loop);
+	} // destroy.
+} // class.Robot.
+
+RobotTemplate@[] robottemps(0); // Robot template array.
+Robot@[] robots(0); // Robot array.
+
+int get_rt_index (string name)
+{
+	int r,l=robottemps.length();
+	for (r=0; r<l; r++) {
+		if (robottemps[r].name==name) {return(r);}
+	} // for.robottemps.
+	return(-1);
+} // func.get_rt_index.
+
+void robot_spawn (string name, double x, double y, double z, int mid)
+{
+	int id=get_rt_index(name);
+	if (id<0) {return;}
+	Robot@ r=Robot(robottemps[id],id,x,y,z,maps[mid].name);
+	robots.insert_last(r);
+	maps[mid].currobots+=1;
+} // func.robot_spawn.
+
+int sign (int n1, int n2)
+{
+	if (n1==n2) return(0);
+	if (n1<n2) return(-1);
+	return(1);
+} // func.sign.
+
+bool robot_move (Robot@ r, int m)
+{
+	double rx=r.x+sine(r.look*pi/180);
+	double ry=r.y+cosine(r.look*pi/180);
+	if (m<0 or (rx==r.x or ry==r.y) or (rx<0 or rx>maps[m].max.x) or (ry<0 or ry>maps[m].max.y)) {return(false);}
+	r.x=rx; r.y=ry;
+	return(true);
+} // robot_move.
+
+void robotsloop ()
+{
+	int m,r,l=robots.length();
+	int c,p=players.length();
+	double angle,dist;
+	for (r=0; r<l; r++) {
+		m=get_map_index(robots[r].map);
+		switch (robots[r].state) {
+		case ROBOT_STOP:
+			if ((robots[r].state<ROBOT_KILL and robots[r].health<=0) or (m>=0 and maps[m].plays<=0 and robots[r].map==maps[m].name)) {robots[r].state=ROBOT_KILL; break;}
+			for (c=0; c<p; c++) {
+					if (robots[r].map!=players[c].map or players[c].invinsible or players[c].frequency or players[c].newb==1) {continue;}
+				if (get_3d_distance(robots[r].x,robots[r].y,robots[r].z,players[c].x,players[c].y,players[c].z)<=robots[r].aggro) {robots[r].state=ROBOT_MOVE;}
+			} // for.players.
+		break;
+
+		case ROBOT_MOVE:
+			if (robots[r].health<=0 or (m>=0 and maps[m].plays<=0 and robots[r].map==maps[m].name)) {robots[r].state=ROBOT_KILL; break;}
+			if (robots[r].shoottimer.elapsed>=robots[r].shoot) {
+				robots[r].shoottimer.restart();
+				for (c=0; c<p; c++) {
+					if (robots[r].map!=players[c].map or players[c].invinsible or players[c].frequency or players[c].newb==1) {continue;}
+					if (get_3d_distance(robots[r].x,robots[r].y,robots[r].z,players[c].x,players[c].y,players[c].z)>robots[r].distance) {continue;}
+					angle=calculate_x_y_angle(robots[r].x,robots[r].y,players[c].x,players[c].y,robots[r].look);
+					if (angle<=robots[r].angle or angle>=robots[r].reangle) {
+						if (robots[r].shoots>1) play(robots[r].name+"_shoot"+random(1,robots[r].shoots),robots[r].x,robots[r].y,robots[r].z,robots[r].map);
+						else play(robots[r].name+"_shoot",robots[r].x,robots[r].y,robots[r].z,robots[r].map);
+						if (players[c].is_dead) break;
+						if (absolute(robots[r].z-players[c].z)<=robots[r].spread) {
+							if (players[c].shielded) {
+								players[c].playsound("shieldhit"+random(1,12));
+	players[c].shieldshots-=square_root(robots[r].damage)/12;
+														}else{
+								if (robots[r].hits>1) play(robots[r].name+"_hit"+random(1,robots[r].hits),players[c].x,players[c].y,players[c].z,players[c].map);
+								else play(robots[r].name+"_hit",players[c].x,players[c].y,players[c].z,players[c].map);
+								players[c].hitby=robots[r].name; players[c].zone=robots[r].map;
+								players[c].hit(robots[r].mindamage,robots[r].maxdamage);
+							} // if.shild.
+						} // if.spread.
+						break;
+					}else if (angle<180) {robots[r].look=turnright(robots[r].look,robots[r].angle/2); break;
+					}else{robots[r].look=turnleft(robots[r].look,robots[r].angle/2); break;
+					} // if.turn.
+				} // for.players.
+				break;
+			} // if.shoottimer.
+
+			if (robots[r].movetimer.elapsed>=robots[r].speed) {
+				robots[r].movetimer.restart();
+				if (robots[r].up<robots[r].z) robots[r].up=robots[r].z;
+				for (c=0; c<p; c++) {
+					if (robots[r].map!=players[c].map or players[c].invinsible or players[c].frequency or players[c].newb==1) {continue;}
+					angle=calculate_x_y_angle(robots[r].x,robots[r].y,players[c].x,players[c].y,robots[r].look);
+					dist=get_2d_distance(robots[r].x,robots[r].y,players[c].x,players[c].y);
+					if (robots[r].steps==1 and robots[r].z!=players[c].z) {robots[r].z+=sign(players[c].z,robots[r].z);
+					}else if (dist<=2 and robots[r].z<players[c].z) {
+						int type=get_tile_type(robots[r].x,robots[r].y,robots[r].z+1,robots[r].map);
+						if (robots[r].steps==0 and type==TILE_TILE) {robots[r].z+=1;}
+						if (robots[r].steps==0) {play(get_tile_at(robots[r].x,robots[r].y,robots[r].z,robots[r].map)+"step"+random(1,5),robots[r].x,robots[r].y,robots[r].z,robots[r].map);}
+						else if (robots[r].steps>1) {play(robots[r].name+"_step"+random(1,robots[r].steps),robots[r].x,robots[r].y,robots[r].z,robots[r].map);}
+						break;
+					}else if (robots[r].steps!=1 and get_tile_type(robots[r].x,robots[r].y,robots[r].z,robots[r].map)==TILE_NONE) {
+						robots[r].z-=1;
+						if (robots[r].z<0) robots[r].z=0;
+						if (robots[r].up>robots[r].z and get_tile_type(robots[r].x,robots[r].y,robots[r].z,robots[r].map)>TILE_NONE) {
+							play(get_tile_at(robots[r].x,robots[r].y,robots[r].z,robots[r].map)+"hardland",robots[r].x,robots[r].y,robots[r].z,robots[r].map);
+							robots[r].up=robots[r].z;
+						} // if.down.
+						break;
+					}else if (dist<=robots[r].aggro and absolute(robots[r].z-players[c].z)<=robots[r].aggro) {
+						if (angle<=robots[r].angle or angle>=robots[r].reangle) {
+							if (robot_move(robots[r],m)) {
+								if (robots[r].steps==0) {play(get_tile_at(robots[r].x,robots[r].y,robots[r].z,robots[r].map)+"step"+random(1,5),robots[r].x,robots[r].y,robots[r].z,robots[r].map);}
+								else if (robots[r].steps>1) {play(robots[r].name+"_step"+random(1,robots[r].steps),robots[r].x,robots[r].y,robots[r].z,robots[r].map);}
+								break;
+							} // if.robot_move.
+						}else if (angle<180) {robots[r].look=turnright(robots[r].look,robots[r].angle); break;
+						}else {robots[r].look=turnleft(robots[r].look,robots[r].angle); break;
+						} // if.angle.
+					} // if.distance.
+				} // for.players.
+				robots[r].update();
+			} // if.movetimer.
+		break;
+
+		case ROBOT_KILL:
+			destroy_moving_sound(robots[r].voice);
+			destroy_moving_sound(robots[r].loop);
+			if (robots[r].kills>1) {play(robots[r].name+"_kill"+random(1,robots[r].kills),robots[r].x,robots[r].y,robots[r].z,robots[r].map);}
+			else {play(robots[r].name+"_kill",robots[r].x,robots[r].y,robots[r].z,robots[r].map);}
+			robots[r].movetimer.restart();
+			robots[r].state=ROBOT_WAIT;
+		break;
+
+		case ROBOT_WAIT:
+			if (robots[r].movetimer.elapsed>=1000) {
+			if (robots[r].amount>0 and robots[r].loot!="" and robots[r].player!="") {
+				spawn_obj(robots[r].x, robots[r].y, robots[r].z, robots[r].map, robots[r].loots[random(0,robots[r].loots.length()-1)], random(1,robots[r].amount),true);
+				send_reliable(0, "playerdeath "+killmsg(robots[r].name,robots[r].player,robots[r].map), 0);
+				string player=robots[r].player;
+				if(string_contains(player,"'",1)>-1) player=string_left(player,string_contains(player,"'",1));
+				int ind=get_player_index_from(player);
+				if(ind>-1) {
+					players[ind].kills++;
+					int tm=is_in_team(players[ind].name);
+					if(tm>-1) {
+						int l=random(400,800);
+						teams[tm].points+=l;
+						teams[tm].transmit("This team just got "+l+" extra points!");
+						teams[tm].teamkills+=1;
+					}
+				}
+			} // if.amount.
+				@robots[r]=null;
+				robots.remove_at(r);
+				if (maps[m].currobots>0) {maps[m].currobots-=1;}
+				return;
+			} // if.timer.
+		} // switch.state.
+	} // for.robots.
+} // func.robotsloop.
+
+int kill_robots ()
+{
+	int res=0;
+	for (int r=0; r<robots.length(); r++) {
+		destroy_moving_sound(robots[r].voice);
+		destroy_moving_sound(robots[r].loop);
+		robots[r].player=""; robots[r].weapon=""; robots[r].state=ROBOT_WAIT;
+		res+=1;
+	} // for.robots.
+	return(res);
+} // func.kill_robots.
+
+void load_robots ()
+{
+	if (!directory_exists("robots")) {return;}
+	string[] files=find_files("robots/*.txt");
+	string[] lines,params,damages;
+	string damage;
+	int line,l,f,size=files.length();
+	file fh;
+	for (f=0; f<size; f++) {
+		if (!fh.open("robots/"+files[f],"r")) {continue;}
+		RobotTemplate r;
+		lines=string_split(string_replace(fh.read(),"\r","",true),"\n",true);
+		fh.close();
+		line=lines.length();
+		for (l=0; l<line; l++) {
+			params=string_split(lines[l]," ",true);
+			if (params.length()!=2) {
+				log("robots","Error: Not enough parameters in file: "+files[f]+". Line: "+lines[l]+".",false);
+				line=0;
+				break;
+			} // if.params.
+			if (params[0]=="name") {r.name=params[1];}
+			else if (params[0]=="health") {r.health=string_to_number(params[1]);}
+			else if (params[0]=="defence") {r.defence=string_to_number(params[1]);}
+			else if (params[0]=="speed") {r.speed=string_to_number(params[1]);}
+			else if (params[0]=="shoot") {r.shoot=string_to_number(params[1]);}
+			else if (params[0]=="damage") {
+				damage=params[1];
+				damages=string_split(damage,",",true);
+				if (damages.length()==1) {r.mindamage=string_to_number(damages[0]); r.maxdamage=r.mindamage;}
+				else if (damages.length()>1) {r.mindamage=string_to_number(damages[0]); r.maxdamage=string_to_number(damages[1]);}
+				else {r.mindamage=0; r.maxdamage=0;}
+				r.damage=r.mindamage;
+			} // if.damage.
+			else if (params[0]=="distance") {r.distance=string_to_number(params[1]);}
+			else if (params[0]=="aggro") {r.aggro=string_to_number(params[1]);}
+			else if (params[0]=="spread") {r.spread=string_to_number(params[1]);}
+			else if (params[0]=="angle") {r.angle=string_to_number(params[1]);
+				if (r.angle>90) {r.angle=90;}
+			} // if.angle.
+			else if (params[0]=="steps") {r.steps=string_to_number(params[1]);}
+			else if (params[0]=="loot") {r.loot=params[1];}
+			else if (params[0]=="amount") {r.amount=string_to_number(params[1]);}
+			else if (params[0]=="voices") {r.voices=string_to_number(params[1]);}
+			else if (params[0]=="shoots") {r.shoots=string_to_number(params[1]);}
+			else if (params[0]=="hits") {r.hits=string_to_number(params[1]);}
+			else if (params[0]=="pains") {r.pains=string_to_number(params[1]);}
+			else if (params[0]=="kills") {r.kills=string_to_number(params[1]);}
+		} // for.lines.
+		if (line>0) {robottemps.insert_last(r);}
+	} // for.files.
+} // func.robot_load.
+void reset_robots() {
+robots.resize(0);
+robottemps.resize(0);
+load_robots();
+for(uint i=0; i<maps.length; i++) {
+maps[i].currobots=0;
+}
+}

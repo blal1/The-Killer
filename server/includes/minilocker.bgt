@@ -1,0 +1,320 @@
+int hack_successtime=138;
+int hack_failedtime=19000;
+minilocker@[]lockers(0);
+class minilocker
+{
+double code;
+double x,y,z;
+string lockid;
+int security_boosts=0;
+string owner;
+timer hacktimer;
+string hacker="noone";
+int hackmode=-1;
+int hacktime;
+bool hacking=false;
+string map;
+minilocker(int lx,int ly,int lz,string lmap, string lowner, int c,string lid="")
+{
+x=lx;
+y=ly;
+z=lz;
+code=c;
+owner=lowner;
+map=lmap;
+if(lid=="") lockid=randomstring(4,2);
+}
+dictionary inventory;
+int count_total_items()
+{
+int amount=0;
+for (uint i=0; i<inventory.get_keys().length(); i++)
+{
+int a;
+inventory.get(inventory.get_keys()[i],a);
+amount+=a;
+}
+return amount;
+}
+int get_item_count(string item)
+{
+int amount=0;
+for (uint i=0; i<inventory.get_keys().length(); i++)
+{
+int a=0;
+if (inventory.get_keys()[i]==item)
+inventory.get(inventory.get_keys()[i],a);
+amount+=a;
+}
+return amount;
+}
+string invdic_to_string(bool showall=true)
+{
+string ss;
+string[] ds;
+if(inventory.get_keys().length()<=0)
+return "";
+ds=inventory.get_keys();
+for(uint i=0; i<ds.length(); i++)
+{
+if(!showall&&string_left(ds[i],5)=="ammo_") continue;
+int val;
+inventory.get(ds[i],val);
+ss+=ds[i]+"="+val+"\r\n";
+}
+return ss;
+}
+void main_ui(player@pl) {
+if(@pl==null) return;
+server_menu m;
+m.initial_packet="lockcommand";
+m.intro="Welcome to your locker! Select an option";
+m.add("Get items", "g");
+m.add("store items", "s");
+if(pl.name==owner) m.add("change locker code", "c");
+m.send(pl.peer_id);
+}
+void give(string item, double amount)
+{
+int a;
+if (!inventory.exists(item))
+{
+inventory.set(item,amount);
+}
+else
+{
+inventory.get(item,a);
+if (a+amount<=0)
+inventory.delete(item);
+else
+{
+int b=(a+amount);
+//inventory.delete(item);
+inventory.set(item,b);
+}
+}
+this.neg_inv_check();
+}
+void neg_inv_check()
+{
+string[] k=inventory.get_keys();
+for(uint i=0; i<k.length; i++)
+{
+int v;
+inventory.get(k[i],v);
+if(v<=0) inventory.delete(k[i]);
+}
+}
+void command(string cmd,int peer)
+{
+int index = get_player_index(peer);
+string[] parsed=string_split(cmd," ",false);
+if(parsed[0]=="g")
+{
+if(inventory.get_size()==0)
+{
+string stuff="Nothing inside";
+send_serverbox(peer,0,-1,1,1,"lockstoragecommand",stuff);
+}
+else
+{
+string items=invdic_to_string();
+string[] p=string_split(items,"\r\n",false);
+server_menu m;
+m.initial_packet="locktake";
+m.intro="Select the item you want to take out of the locker";
+m.add("everything!", "invall");
+for(uint i=0; i<p.length(); i++)
+{
+string[] another_p=string_split(p[i],"=",false);
+m.add(another_p[0]+": you have "+another_p[1], another_p[0]);
+}
+m.send(peer);
+}
+}
+else if(parsed[0]=="s")
+{
+string menuitems;
+string items=players[index].get_inv();
+if(items=="")
+{
+send_reliable(peer,"Sorry, your inventory is empty",0);
+return;
+}
+server_menu menu;
+menu.intro="What would you like to store in your locker";
+menu.initial_packet="lockgive";
+menu.add("Your entire inventory", "invall");
+string[] p=string_split(items,"\r\n",false);
+for(uint i=0; i<p.length(); i++)
+{
+string[] another_p=string_split(p[i],"=",false);
+menu.add(another_p[0]+": you have "+another_p[1], another_p[0]);
+}
+menu.send(peer);
+}
+else if(parsed[0]=="c")
+{
+if(players[index].name==owner)
+{
+send_serverbox(players[index].peer_id,2,0,1,4,"changelockcode", "enter the new code you wish your locker will have");
+}
+else
+{
+send_reliable(players[index].peer_id, "you seem to not be the owner of the locker.", 2);
+}
+}
+else if(parsed[0]=="[cncel]")
+{
+lockplay("doorclose");
+send_reliable(peer,"You shut the door",0);
+}
+}
+void lockplay(string soundfile)
+{
+play("locker_"+soundfile,x,y,z,"store");
+}
+}
+void save_lockers()
+{
+file lockfile;
+if(directory_exists("lockers")==false)
+directory_create("lockers");
+for(uint i=0; i<lockers.length(); i++)
+{
+string inv=lockers[i].invdic_to_string();
+inv=string_replace(inv,"\r\n",";",true);
+lockfile.open("lockers/"+lockers[i].lockid+".locker","wb");
+lockfile.write("locker:"+lockers[i].lockid+"\r\nlockerx:"+lockers[i].x+"\r\nlockery:"+lockers[i].y+"\r\nz:"+lockers[i].z+"\r\nmap:"+lockers[i].map+"\r\ncode:"+lockers[i].code+"\r\nsecurity_boosts:"+lockers[i].security_boosts+"\r\nowner:"+lockers[i].owner);
+if(inv!="") lockfile.write("\r\ninventory:"+inv);
+lockfile.close();
+}
+}
+void load_locker(string fn)
+{
+string[] invvalues;
+string lid,owner,map;
+int x,y,z,code,sec_boosts;
+file f;
+f.open("lockers/"+fn,"rb");
+string[] sdata=string_split(f.read(),"\r\n",false);
+f.close();
+for(uint i=0; i<sdata.length(); i++)
+{
+string[] parsed=string_split(sdata[i],":",false);
+if(parsed[0]=="locker" and parsed.length>1)
+{
+lid=parsed[1];
+}
+if(parsed[0]=="security_boosts" and parsed.length()>1)
+{
+sec_boosts=stn(parsed[1]);
+}
+if(parsed[0]=="inventory" and parsed.length()>1)
+{
+invvalues=string_split(parsed[1],";",false);
+}
+else if(parsed[0]=="map" and parsed.length()>1) {
+map=parsed[1];
+}
+else if(parsed[0]=="code" and parsed.length()>1)
+{
+code=stn(parsed[1]);
+}
+else if(parsed[0]=="lockerx" and parsed.length()>1)
+{
+x=stn(parsed[1]);
+}
+else if(parsed[0]=="lockery" and parsed.length()>1)
+{
+y=stn(parsed[1]);
+}
+else if(parsed[0]=="lockerz" and parsed.length()>1)
+{
+z=stn(parsed[1]);
+}
+else if(parsed[0]=="owner" and parsed.length()>1)
+{
+owner=parsed[1];
+}
+}
+minilocker lock(x,y,z,map, owner,code,lid);
+lock.security_boosts=sec_boosts;
+for(uint i=0; i<invvalues.length(); i++)
+{
+string[] parsed=string_split(invvalues[i],"=",false);
+lock.give(parsed[0],stn(parsed[1]));
+}
+lockers.insert_last(lock);
+}
+void create_new_locker(int x,int y,int z,string map, string owner, int code,string id)
+{
+minilocker lock1(x,y,z,map, owner,code,id);
+lockers.insert_last(lock1);
+}
+int find_locker(string i)
+{
+for(uint l=0; l<lockers.length(); l++)
+{
+if(lockers[l].lockid==i)
+{
+return l;
+}
+}
+return -1;
+}
+int get_locker_at(int x,int y,int z,string map)
+{
+for(uint i=0; i<lockers.length(); i++)
+{
+if(lockers[i].x==x and lockers[i].y==y and lockers[i].z==z and lockers[i].map==map)
+{
+return i;
+}
+}
+return -1;
+}
+void load_all_lockers()
+{
+string[] lockers=find_files("lockers/*.locker");
+for(uint i=0; i<lockers.length(); i++)
+{
+load_locker(lockers[i]);
+}
+}
+int has_locker(string who)
+{
+for(uint i=0; i<lockers.length(); i++)
+{
+if(lockers[i].owner==who)
+{
+return i;
+}
+}
+return -1;
+}
+void lockerloop()
+{
+for(uint i=0; i<lockers.length(); i++)
+{
+if(lockers[i].hacking==true)
+{
+if(lockers[i].hacktimer.elapsed>lockers[i].hacktime)
+{
+int h=get_player_index_from(lockers[i].hacker);
+if(h>-1)
+{
+string packet;
+if(lockers[i].hackmode==1)
+packet="Hack successfull! The locker code is "+lockers[i].code;
+else
+packet="The hack did not complete successfully";
+send_reliable(players[h].peer_id,packet,2);
+send_reliable(players[h].peer_id,"startmoving",0);
+}
+lockers[i].hacking=false;
+//lockers[i].hacker="";
+}
+}
+}
+}

@@ -1,0 +1,13 @@
+name tank
+health 70000
+defence 15000
+speed 500
+damage 500,50000
+shoot 4200
+distance 25
+aggro 1000
+spread 2
+angle 10
+steps 2
+loot tank
+amount 1

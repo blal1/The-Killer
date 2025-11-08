@@ -1,0 +1,129 @@
+sound p;
+tts_voice tts;
+network net;
+int found_reader=0;
+network_event event;
+string netaddress="nbm-studios.tk";
+int netport=45532;
+string character;
+string e;
+bool beta=false;
+void main()
+{
+string c=input_box("Name","Enter the name of the character you would like to change their email");
+if(c=="")
+{
+alert("Sorry","Can not leave this field blank!");
+exit();
+}
+e=input_box("Email","Enter new email you would like to use for "+c);
+if(e=="")
+exit();
+character=c;
+if(beta==true) netport=19932;
+net.setup_client(20, 500);
+net.connect(netaddress,netport);
+timer t;
+while(true)
+{
+wait(5);
+event=net.request();
+if(event.type==event_connect)
+{
+changeeml();
+exit();
+}
+if(t.elapsed>5000)
+{
+alert("error", "can't connect");
+exit();
+}
+}
+}
+void changeeml()
+{
+p.stream("pingstart.ogg");
+p.play();
+send_reliable(event.peer_id,"changeeml "+character+" "+e,0);
+timer t;
+while(true)
+{
+wait(5);
+event=net.request();
+if(event.type==event_receive and get_event_message()=="changed" and event.channel==0)
+{
+p.stream("pingstop.ogg");
+p.play();
+alert("Success!","Changed email");
+exit();
+}
+if(event.type==event_receive and get_event_message()=="nochar" and event.channel==0)
+{
+p.stream("error.ogg");
+p.play();
+alert("error!","Could not hide. Char not found on server");
+exit();
+}
+if(t.elapsed>5000)
+{
+alert("error", "ping lost");
+exit();
+}
+}
+}
+void send_reliable(uint peer, string mess, uint channel)
+{
+mess=string_encrypt(mess, "bomber42");
+net.send_reliable(peer, mess, channel);
+}
+void send_unreliable(uint peer, string mess, uint channel)
+{
+mess=string_encrypt(mess, "bomber42");
+net.send_unreliable(peer, mess, channel);
+}
+string get_event_message()
+{
+string r=event.message;
+if(r=="")
+{
+return "";
+}
+r=string_decrypt(r, "jerk23");
+return r;
+}
+bool speak(string text, int interrupt=1)
+{
+if(found_reader==0)
+found_reader=auto_select_screen_reader();
+if(found_reader==0)
+{
+if(interrupt==1)
+tts.speak_interrupt(text);
+else
+tts.speak_wait(text);
+}
+if(interrupt==1)
+screen_reader_speak_interrupt(found_reader, text);
+else
+screen_reader_speak(found_reader, text);
+return true;
+}
+int auto_select_screen_reader()
+{
+if (screen_reader_is_running(1))
+{
+return 1;
+}
+if (screen_reader_is_running(3))
+{
+return 3;
+}
+if (screen_reader_is_running(4))
+{
+return 4;
+}
+else
+{
+return 0;
+}
+}

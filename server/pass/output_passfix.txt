@@ -1,0 +1,7 @@
+passfix log
+saturday dec 16 2017 run 1
+0 passwords fixed
+0 passwords rehashed
+0 errors
+0 files in pw archive
+any error output will follow

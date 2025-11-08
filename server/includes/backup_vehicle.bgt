@@ -1,0 +1,486 @@
+vehicle@[] vs;
+int aircraftspawn=6130,tankspawn=4510,aircraftstart=2000,aircraftstop=3497,tankstop=1000,tankstart=1954,aircraftdie=1750,aircraftfire=751,tankfire=686,repair=5500;
+void playext(string soundname, int x, int y, int z, string map, string noname)
+{
+int index=get_player_index_from(noname);
+for(uint i=0; i<players.length; i++)
+{
+if(i!=index) send_reliable(players[i].peer_id,soundname+" "+x+" "+y+" "+z+" "+map,3);
+}
+}
+void playint(string soundname, string name)
+{
+int index=get_player_index_from(name);
+if(index>-1) send_reliable(players[index].peer_id,"play_s "+soundname+".ogg",0);
+}
+void sendint(string packet, string name,int channel=0)
+{
+int index=get_player_index_from(name);
+if(index>-1) send_reliable(players[index].peer_id,packet,channel);
+}
+class vehicle
+{
+double x,y,z,facing,health,fuel=100;
+string type,owner,map,mid,doing,hitby="nothing";
+int speed=0,soundtime=0,fueltime,movetime,firetime,vmovetime,vfueltime,falldist;
+timer firetimer,movetimer,fueltimer,soundtimer,falltimer;
+bool remove=false,lowfuel=false,lowhealth=false,falling=false;
+double pitch;
+vector max;
+vehicle(string vtype,int pind)
+{
+owner=players[pind].name;
+x=players[pind].x;y=players[pind].y;z=players[pind].z;facing=players[pind].facing;map=players[pind].map;
+max=get_max_values(map);
+type=vtype;
+send_reliable(players[pind].peer_id,"move "+x+" "+y+" "+z,0);
+play(type+"_spawn",x,y,z,map);
+send_reliable(players[pind].peer_id,"vespawning",0);
+if(type=="tank")
+{
+health=players[pind].tankhealth;
+fuel=players[pind].tankfuel;
+fueltime=2000;
+firetime=7000;
+soundtime=tankspawn;soundtimer.restart();
+vmovetime=560;
+vfueltime=100;
+}
+else if(type=="aircraft")
+{
+health=players[pind].aircrafthealth;
+fuel=players[pind].aircraftfuel;
+fueltime=1500;
+firetime=3000;
+soundtime=aircraftspawn;soundtimer.restart();
+vmovetime=500;
+vfueltime=75;
+}
+}
+void command(string cmd,bool force=false)
+{
+int index=get_player_index_from(owner);
+if(soundtimer.elapsed<soundtime&&(!updatingsvr&&!force)) return;
+if(force==false&&updatingsvr) return;
+if(fuel<=0 and cmd!="escape") return;
+if(cmd!="repair") playint(type+"_command",owner);
+if(cmd=="repair")
+{
+if(speed>0)
+{
+sendint("speak your vehicle must be off to receive repairs.",owner);
+return;
+}
+sendint("speak just a sec...",owner);
+soundtime=repair;
+soundtimer.restart();
+playext("vehicle_repair",x,y,z,map,owner);
+playint("vehicle_repair",owner);
+doing="repair";
+}
+if(cmd=="enter")
+{
+doing=(speed==0 ? "start" : "stop");
+if(type=="aircraft")
+{
+if(doing=="start" ) soundtime=aircraftstart;
+if(doing=="stop") soundtime=aircraftstop;
+}
+if(type=="tank")
+{
+if(doing=="start") soundtime=tankstart;
+if(doing=="stop") soundtime=tankstop;
+}
+if(doing=="start" ) lowfuel=false;
+if(doing=="stop")
+{
+destroy_moving_sound(mid);
+mid="";
+sendint("vestop",owner);
+sendint("goodfuel",owner);
+}
+soundtimer.restart();
+playext(type+"_"+doing+"_ext",x,y,z,map,owner);
+playint(type+"_"+doing+"_int",owner);
+speed=(speed==0 ? 1 : 0);
+return;
+}
+if(cmd=="firegun"&&firetimer.elapsed>=firetime and map!="store" and speed>0)
+{
+doing="prefire";
+if(type=="aircraft")
+{
+soundtime=aircraftfire;
+soundtimer.restart();
+playext("aircraft_shot_start",x,y,z,map,owner);
+playint("aircraft_shot_start",owner);
+}
+else if(type=="tank")
+{
+soundtime=tankfire;
+soundtimer.restart();
+playint("tank_artillery_beforeshot",owner);
+}
+return;
+}
+else if(cmd=="escape")
+{
+if(speed!=0)
+{
+int index=get_player_index_from(owner);
+if(index>-1)
+{	 
+if(type=="aircraft"&&speed==1) send_reliable(players[index].peer_id,"you may be still, but you're still in the air. I don't think jumping out of a plane is a good idea, do you?",2);
+if(type=="aircraft"&&speed>1) send_reliable(players[index].peer_id,"you're crazy! Jumping out of a moving plane? This game doesn't have sky diving, because this game doesn't have parachutes!",2);
+if(type=="tank"&&speed==1) send_reliable(players[index].peer_id,"hey, um, do you really wanna jump out of your tank and leave it open for somebody to steel it? Stay at your post, soldier!",2);
+if(type=="tank"&&speed>1) send_reliable(players[index].peer_id,"yeah, great idea, jump out of a moving tank and then get squished by it. Sounds great, huh?",2);
+}
+return;
+}
+sendint("veunspawn",owner);
+play(type+"_unspawn",x,y,z,map);
+int index=get_player_index_from(owner);
+if(index>-1)
+{
+if(type=="aircraft")
+{
+players[index].aircrafthealth=health;
+players[index].aircraftfuel=fuel;
+}
+if(type=="tank")
+{
+players[index].tankhealth=health;
+players[index].tankfuel=fuel;
+}
+if(force==false) players[index].statchangetimer.restart();
+}
+remove=true;
+}
+else if(cmd=="speedup"&&speed<5&&speed>0)
+{
+speed++;
+movetime=vmovetime-((speed-1)*100);
+double pi=(type=="tank" ? 50 : 100);
+double inc=(type=="tank" ? 12.5 : 25);
+pi+=inc*(speed-1);
+update_moving_sound(mid,x,y,z,pi);
+this.pitch=pi;
+int index=get_player_index_from(owner);
+if(index>-1) send_reliable(players[index].peer_id,"vepitch "+pitch,0);
+}
+else if(cmd=="speeddown"&&speed>1)
+{
+speed--;
+movetime=vmovetime-((speed-1)*100);
+double pi=(type=="tank" ? 50 : 100);
+double inc=(type=="tank" ? 12.5 : 25);
+pi+=inc*(speed-1);
+update_moving_sound(mid,x,y,z,pi);
+this.pitch=pi;
+int index=get_player_index_from(owner);
+if(index>-1) send_reliable(players[index].peer_id,"vepitch "+pitch,0);
+}
+else if(cmd=="turnleft"&&speed>0)
+{
+facing=snapleft(facing,getdir(facing),90);
+int index=get_player_index_from(owner);
+if(index>-1) players[index].facing=facing;
+sendint("facing "+facing,owner);
+playint(type+"_turn",owner);
+}
+else if(cmd=="turnright"&&speed>0)
+{
+facing=snapright(facing,getdir(facing),90);
+int index=get_player_index_from(owner);
+if(index>-1) players[index].facing=facing;
+sendint("facing "+facing,owner);
+playint(type+"_turn",owner);
+}
+}
+void hit(int damage,string hb,string type="")
+{
+this.health-=damage;
+this.hitby=hb;
+if(type=="" or type=="knife")
+{
+int rand=random(1,6);
+playext("h"+rand,x,y,z,map,owner);
+playint("h"+rand,owner);
+}
+else
+{
+playext(type+"hit_vehicle",x,y,z,map,owner);
+playint(type+"hit_vehicle",owner);
+}
+}
+void loop()
+{
+netloop();
+if(get_player_index_from(owner)<0) remove=true;
+if(health<=0)
+{
+sendint("vestop",owner);
+sendint("veunspawn",owner);
+play(type+"_die",x,y,z,map);
+send_reliable(0,"distsound vehicle_die_dist "+x+" "+y+" "+z+" "+map,0);
+remove=true;
+int index=get_player_index_from(owner);
+string hb=hitby;
+if(string_contains(hb,"'",1)>-1) hb=string_left(hb,string_contains(hb,"'",1));
+int k=get_player_index_from(hb);
+if(index>-1&&k>-1) achloop(k,index);
+if(index>-1)
+{
+if(type=="aircraft")
+{
+players[index].aircraftfuel=100;
+players[index].aircrafthealth=15000;
+}
+if(type=="tank")
+{
+players[index].tankfuel=100;
+players[index].tankhealth=30000;
+}
+players[index].give(type,-1);
+string km=killmsg(players[index].name+"'s "+type,hitby,players[index].zone);
+send_reliable(0,"playerdeath "+km,0);
+players[index].health-=random(20000, 50000);
+players[index].hitby="internal:vehicle:"+type;
+}
+}
+if(doing!=""&&soundtimer.elapsed>=soundtime)
+{
+if(doing=="repair")
+{
+health=(type=="tank" ? 30000 : 15000);
+sendint("speak your "+type+" has been repaired!",owner);
+}
+if(doing=="fall")
+{
+remove=true;
+send_reliable(0,"distsound vehicle_die_dist "+x+" "+y+" "+z+" "+map,0);
+sendint("veunspawn",owner);
+int index=get_player_index_from(owner);
+if(index>-1)
+{
+players[index].give("aircraft",-1);
+players[index].aircraftfuel=100;
+players[index].aircrafthealth=15000;
+players[index].health=-1;
+players[index].hitby="gravity";
+}
+}
+if(doing=="start")
+{
+int pitch=(type=="tank" ? 50 : 100);
+if(type=="aircraft") z+=10;
+mid=spawn_moving_sound(type+"_engine_ext.ogg",x,y,z,map,owner,pitch);
+this.pitch=pitch;
+sendint("vestart "+type+"_engine_int.ogg "+pitch,owner);
+sendint("move "+x+" "+y+" "+z,owner);
+int index=get_player_index_from(owner);
+if(index>-1) {players[index].x=x;players[index].y=y;players[index].z=z;}
+}
+if(doing=="stop")
+{
+if(type=="aircraft") z-=10;
+sendint("move "+x+" "+y+" "+z,owner);
+int index=get_player_index_from(owner);
+if(index>-1) {players[index].x=x;players[index].y=y;players[index].z=z;}
+}
+if(doing=="prefire")
+{
+firetimer.restart();
+if(type=="aircraft")
+{
+send_reliable(0,"distsound aircraft_shot_fire_dist "+x+" "+y+" "+z+" "+map,0);
+playext("aircraft_shot_fire",x,y,z,map,owner);
+playint("aircraft_shot_fire",owner);
+int hit=0;
+int o=get_player_index_from(owner);
+for(uint i=0; i<players.length; i++)
+{
+if(players[i].name==owner or players[i].invinsible or players[i].is_dead or players[i].map!=map or in_vehicle(players[i].name)>-1 or are_teamed(owner,players[i].name)) continue;
+if(get_2d_distance(x,y,players[i].x,players[i].y)<=20 and (players[i].z>=(z-10)&&players[i].z<=z))
+{
+hit++;
+players[i].playsound("hit"+random(1,3));
+players[i].health-=random(2000,4000);
+players[i].should_subtract=false;
+players[i].hitby=owner+"'s aircraft";
+}
+}
+int remhit=0;
+for(uint i=0; i<remguns.length; i++)
+{
+if(get_2d_distance(x,y,remguns[i].x,remguns[i].y)<=20 and map==remguns[i].map and (remguns[i].z>=(z-10)&&remguns[i].z<=z))
+{
+remhit++;
+remguns[i].health-=random(2000,4000);
+remguns[i].hitby=owner+"'s aircraft";
+play("remgunhit"+random(1, 3),remguns[i].x,remguns[i].y,remguns[i].z,remguns[i].map);
+}
+}
+int vhit=0;
+for(uint i=0; i<vs.length; i++)
+{
+if(are_teamed(owner,vs[i].owner)) continue;
+if(get_2d_distance(x,y,vs[i].x,vs[i].y)<=20 and vs[i].map==map and vs[i].owner!=owner and (vs[i].z>=(z-10)&&vs[i].z<=z))
+{
+vs[i].hit(random(2000,4000),owner+"'s aircraft","artillery");
+vhit++;
+}
+}
+for(uint j=0; j<impact_bombs.length(); j++)
+{
+if(get_2d_distance(x,y,impact_bombs[j].x,impact_bombs[j].y)<=20 and impact_bombs[j].map==map and (impact_bombs[j].z>=(z-10)&&impact_bombs[j].z<=z))
+{
+play("ibombhit"+random(1,3),impact_bombs[j].x,impact_bombs[j].y,impact_bombs[j].z,impact_bombs[j].map);
+impact_bombs[j].health-=random(2000,4000);
+}
+}
+if(hit==0&&remhit==0&&vhit==0) sendint("speak hit nothing",owner);
+else if(hit>0&&remhit==0&&vhit==0) sendint("speak hit "+hit+" players",owner);
+else if(remhit>0&&hit==0&&vhit==0) sendint("speak hit "+remhit+" remote guns",owner);
+else if(remhit>0&&vhit>0&&hit==0) sendint("speak hit "+vhit+" vehicles and "+remhit+" remote guns",owner);
+else if(hit>0&&remhit==0&&vhit>0) sendint("speak hit "+hit+" players and "+vhit+" vehicles",owner);
+else if(vhit>0&&hit==0&&remhit==0) sendint("speak hit "+vhit+" vehicles",owner);
+else sendint("speak hit "+hit+" players, "+vhit+" vehicles and "+remhit+" remote guns",owner);
+}
+else if(type=="tank")
+{
+int rand=random(1,4);
+send_reliable(0,"distsound tank_artillery_fire_dist "+x+" "+y+" "+z+" "+map,0);
+playext("tank_artillery_fire"+rand+"_ext",x,y,z,map,owner);
+playint("tank_artillery_fire"+rand+"_int",owner);
+spawn_weapon(x,y,z,facing,"artillery",map,owner);
+}
+}
+doing="";
+}
+if(fueltimer.elapsed>=(fueltime-(vfueltime*(speed-1)))&&speed>0)
+{
+fuel-=0.1;
+fuel=round(fuel,1);
+fueltimer.restart();
+}
+if(fuel<=5&&lowfuel==false&&speed>0)
+{
+lowfuel=true;
+sendint("lowfuel",owner);
+}
+if(fuel<=0&&doing!="fall")
+{
+sendint("goodfuel",owner);
+if(type=="aircraft")
+{
+doing="fall";
+sendint("vestop",owner);
+destroy_moving_sound(mid);
+mid="";
+speed=0;
+playext("aircraft_nofuel_ext",x,y,z,map,owner);
+playint("aircraft_nofuel_int",owner);
+soundtime=aircraftdie;
+soundtimer.restart();
+}
+else if(type=="tank")
+{
+sendint("vestop",owner);
+destroy_moving_sound(mid);
+playext("tank_stop_ext",x,y,z,map,owner);
+playint("tank_stop_int",owner);
+mid="";
+speed=0;
+}
+}
+string tile=get_tile_at(x,y,z,map);
+if(falling&&falltimer.elapsed>=70)
+{
+falltimer.restart();
+if(tile=="")
+{
+z--;
+falldist++;
+update_moving_sound(mid,x,y,z,pitch);
+int index=get_player_index_from(owner);
+if(index>-1)
+{
+players[index].x=x;
+players[index].y=y;
+players[index].z=z;
+send_reliable(players[index].peer_id,"move "+x+" "+y+" "+z,0);
+}
+}
+else
+{
+falling=false;
+hit(falldist*random(180,300),"gravity","artillery");
+falldist=0;
+}
+}
+if(movetimer.elapsed>=movetime&&soundtimer.elapsed>=soundtime&&speed>1&&!falling)
+{
+movetimer.restart();
+vector m=move(x,y,facing);
+x=m.x;y=m.y;
+if(x<0) x=0;
+if(y<0) y=0;
+if(x>max.x) x=max.x;
+if(y>max.y) y=max.y;
+if(tile=="" and not falling and type!="aircraft")
+{
+falling=true;
+falldist=0;
+falltimer.restart();
+}
+update_moving_sound(mid,x,y,z,pitch);
+int index=get_player_index_from(owner);
+if(index>-1)
+{
+players[index].x=x;
+players[index].y=y;
+players[index].z=z;
+send_reliable(players[index].peer_id,"move "+x+" "+y+" "+z,0);
+}
+}
+if(doing!="stop"&&falling==false&&type=="aircraft"&&speed==0&&tile=="")
+{
+falling=true;
+falldist=0;
+falltimer.restart();
+}
+if(fuel>5&&lowfuel)
+{
+lowfuel=false;
+sendint("goodfuel",owner);
+}
+}
+}
+void spawn_vehicle(string type, int pind)
+{
+vehicle v1(type,pind);
+vs.insert_last(v1);
+}
+int in_vehicle(string name)
+{
+for(uint i=0; i<vs.length; i++)
+{
+if(vs[i].owner==name) return i;
+}
+return -1;
+}
+void vloop()
+{
+for(uint i=0; i<vs.length; i++)
+{
+if(vs[i].remove)
+{
+if(vs[i].mid!="") destroy_moving_sound(vs[i].mid);
+@vs[i]=null;
+vs.remove_at(i);
+return;
+}
+vs[i].loop();
+}
+}

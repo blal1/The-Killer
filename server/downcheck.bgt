@@ -1,0 +1,156 @@
+timer checktimer;
+int checktime=10000;
+string ip="enes-productions.tr.ht";
+int port=31318;
+network_event e;
+network@ n;
+bool connected=false;
+timer timeout;
+int timeouttime=10000;
+tts_voice v;
+uint pid;
+file f;
+void send_reliable(uint peer, string mess, uint channel)
+{
+mess=string_encrypt(mess, "stupdengoanddeniz");
+n.send_reliable(peer, mess, channel);
+}
+void send_unreliable(uint peer, string mess, uint channel)
+{
+mess=string_encrypt(mess, "stupdengoanddeniz");
+n.send_unreliable(peer, mess, channel);
+}
+string get_event_message()
+{
+string r=e.message;
+if(r=="")
+{
+return "";
+}
+r=string_decrypt(r, "stupdengoanddeniz");
+return r;
+}
+void put(string text, string mode="wb")
+{
+f.open("out_downcheck.txt",mode);
+f.write(text);
+f.close();
+}
+void main()
+{
+put("downcheck initialized");
+initial_check();
+while(true)
+{
+wait(5);
+if(checktimer.elapsed>=checktime)
+{
+checktimer.pause();checktimer.force(0);
+if(connected==false) initial_check();
+else active_check();
+checktimer.restart();
+}
+}
+}
+void initial_check()
+{
+if(file_exists("real_offline.txt"))
+{
+checktimer.restart();
+put("real offline is queued");
+return;
+}
+v.speak("initial check");
+network temp;
+@n=temp;
+bool s;
+s=n.setup_client(20,500);
+if(!s)
+{
+string tw="network init error. Error code: "+get_last_error()+", "+get_last_error_text();
+v.speak_wait(tw);
+put(tw);
+exit();
+}
+n.connect(ip,port);
+if(get_last_error()!=0)
+{
+string tw="network init error. Error code: "+get_last_error()+", "+get_last_error_text();
+v.speak_wait(tw);
+put(tw);
+exit();
+}
+timeout.restart();
+while(true)
+{
+wait(5);
+e=n.request();
+if(e.type==event_connect)
+{
+v.speak("found");
+put("server is running");
+pid=e.peer_id;
+connected=true;
+timeout.pause();timeout.force(0);
+return;
+}
+if(timeout.elapsed>=timeouttime)
+{
+v.speak("timed out");
+timeout.pause();timeout.force(0);
+relaunch();
+return;
+}
+}
+}
+void active_check()
+{
+if(file_exists("real_offline.txt"))
+{
+checktimer.restart();
+connected=false;
+n.disconnect_peer(pid);
+n.destroy();
+@n=null;
+v.speak("check reset, offline received");
+put("received offline signal");
+return;
+}
+timeout.restart();
+send_reliable(0,"ping",0);
+while(true)
+{
+e=n.request();
+if(e.type==event_receive)
+{
+timeout.pause();timeout.force(0);
+return;
+}
+if(timeout.elapsed>=timeouttime)
+{
+v.speak("timed out");
+timeout.pause();timeout.force(0);
+run("C:\\Windows\\system32\\taskkill.exe","/f /im server.exe",true,true);
+relaunch();
+return;
+}
+}
+}
+void relaunch()
+{
+if(file_exists("real_offline.txt"))
+{
+checktimer.restart();
+return;
+}
+v.speak("relaunch");
+connected=false;
+@n=null;
+bool s=run("server.exe","",false,false);
+if(!s||get_last_error()!=0)
+{
+put("error running server during relaunch. "+get_last_error()+", "+get_last_error_text());
+exit();
+}
+else put("server relaunched");
+}

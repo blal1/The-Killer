@@ -1,0 +1,8 @@
+#include"includes/sizer.bgt"
+void main()
+{
+string sz=input_box("size num","Enter size");
+if(sz=="")
+exit();
+alert("b",convert_size(string_to_number(sz)));
+}

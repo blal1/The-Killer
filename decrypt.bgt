@@ -1,0 +1,49 @@
+string final;
+string strin;
+dictionary dic;
+file d;
+string[] ds;
+void main()
+{
+string filename=input_box("file", "enter the save data file");
+if (filename=="")
+{
+exit();
+}
+if(file_exists(filename)==false)
+{
+alert("error","This file was not found. Make sure that you type the name correctly");
+exit();
+}
+string deckey=input_box("key?","Enter the key. If there is no key, enter \"none\"");
+if (deckey=="")
+{
+exit();
+}
+d.open(filename, "rb");
+if (deckey=="none")
+{
+dic=deserialize(d.read());
+}
+else
+{
+dic=deserialize(string_decrypt(d.read(), deckey));
+}
+ds=dic.get_keys();
+for (uint i=0;i<ds.length();i++)
+{
+bool s=dic.get(ds[i], strin);
+if(!s)
+{
+double jerk=-555;
+s=dic.get(ds[i],jerk);
+if(jerk==-555) strin="unknown";
+else strin=""+jerk;
+}
+if(strin=="") strin="blank";
+final+=ds[i]+"="+strin+"\r\n";
+}
+clipboard_copy_text(final);
+alert("done","Look in your clipboard");
+exit();
+}

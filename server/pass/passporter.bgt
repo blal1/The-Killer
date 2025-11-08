@@ -1,0 +1,21 @@
+void main()
+{
+show_game_window("password porter");
+alert("Hello","This program will port all existing password files to the new encryption key to avoid char wipe. Press okay to continue...");
+string[] dirs=find_directories("chars/*");
+uint changed=0;
+file f;
+for(uint i=0; i<dirs.length; i++)
+{
+f.open("chars/"+dirs[i]+"/password.usr","rb");
+string pass=f.read();
+f.close();
+pass=string_decrypt(pass,"tk3dcharpass_encrypted");
+pass=string_hash(pass,2,false);
+f.open("chars/"+dirs[i]+"/password.usr","wb");
+f.write(pass);
+f.close();
+changed++;
+}
+alert("success",""+changed+" passwords were changed! Please do not run this utility ever again, because it will result in passwords being wrongly decrypted and encrypted and cause password varification to fail. Press okay to exit");
+}

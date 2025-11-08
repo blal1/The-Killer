@@ -1,0 +1,60 @@
+health_drink@[] health_drinks(0);
+class health_drink
+{
+int z;
+string map;
+int x, y;
+int ms=1;
+string type;
+timer actiontimer;
+health_drink(int cx,int cy,int cz, string cmap, string ctype)
+{
+x=cx;
+y=cy;
+z=cz;
+map=cmap;
+type=ctype;
+play("health_drinkuse",x,y,z,map);
+}
+}
+void health_drinkloop()
+{
+for (uint i=0; i<health_drinks.length(); i++)
+{
+if (health_drinks[i].actiontimer.elapsed>=health_drinks[i].ms)
+{
+health_drinks[i].actiontimer.restart();
+play("health_drink",health_drinks[i].x,health_drinks[i].y,health_drinks[i].z,health_drinks[i].map);
+send_reliable(0,"distsound caaaaaaaaaanisterdist "+health_drinks[i].x+" "+health_drinks[i].y+" "+health_drinks[i].z+" "+health_drinks[i].map,0);
+for (uint i2=0; i2<players.length(); i2++)
+{
+if(players[i2].invinsible==true || players[i2].newb==1 || players[i2].is_dead==true||in_vehicle(players[i2].name)>-1) continue;
+if (get_3d_distance(health_drinks[i].x,health_drinks[i].y,health_drinks[i].z,players[i2].x,players[i2].y,players[i2].z)<=3 and players[i2].map==health_drinks[i].map)
+{
+if(health_drink[i].type=="antibiotic")
+{
+players[i].statchangetimer.restart();
+players[i2].health+=random(1000, 1000);
+players[i2].oldhealth=players[i2].health;
+}
+if(health_drinks[i].type=="air")
+{
+players[i2].air+=random(10000,10000);
+}
+play("health_drinkhit",players[i2].x,players[i2].y,players[i2].z,players[i2].map);
+}
+}
+@health_drinks[i]=null;
+health_drinks.remove_at(i);
+}
+}
+}
+void spawn_health_drink(int x,int y, int z, string map,string type)
+{
+health_drink can1(x,y,z,map,type);
+health_drinks.insert_last(can1);
+}
+void destroy_all_health_drinks()
+{
+health_drinks.resize(0);
+}

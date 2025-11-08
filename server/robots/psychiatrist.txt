@@ -1,0 +1,13 @@
+name psychiatrist
+health 30000
+defence 500
+speed 230
+damage 100,15000
+shoot 420
+distance 5
+aggro 1000
+spread 1
+angle 90
+steps 0
+loot dollar
+amount 400

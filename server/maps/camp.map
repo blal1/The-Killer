@@ -1,0 +1,30 @@
+mapname:camp
+maxx:500
+maxy:300
+maxz:500
+tile:0:500:0:20:0:0:deepsand
+tile:0:500:21:110:0:0:dirt
+tile:0:500:20:20:0:4:wallfence
+tile:0:500:110:115:0:0:mud
+tile:0:500:115:125:0:0:shallow
+tile:0:500:125:128:0:0:mud
+tile:0:500:129:500:0:0:dirt
+tile:0:20:115:125:-5:-1:underwater
+tile:0:20:115:115:-5:-1:wallunderwater
+tile:0:20:124:124:-5:-1:wallunderwater
+tile:20:20:115:125:-5:-1:wallunderwater
+amb:0:20:115:125:-5:-1:underwater.ogg
+src:0:500:115:125:0:0:lake.ogg
+src:0:500:0:300:0:500:birds14.ogg
+zone:0:20:115:125:0:500:deep off sallow stream:trackme
+zone:20:480:115:125:0:500:sallow stream:trackme
+amb:0:20:115:125:-1:1:lake.ogg
+src:0:500:0:0:0:500:desert.ogg
+travelpoint:0:500:0:0:0:500:desert:400:500:0:desert
+tile:0:500:21:21:0:5:fence
+travelpoint:500:500:21:300:0:500:rokispring:0:0:10:you going too roki spring
+zone:500:500:22:300:0:500:go too du roki spring, press enter.:trackme
+noitems:0:500:0:500:0:100:sail_boats:
+tile:250:260:280:300:0:0:metal8
+zone:250:260:280:300:0:1:large metal cover that is not possible to open
+robots:0:500:0:300:0:0:5:500:soldier,manager

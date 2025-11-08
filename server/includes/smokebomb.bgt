@@ -1,0 +1,45 @@
+smokebomb@[]smokebombs(0);
+class smokebomb
+{
+double x,y,z;
+int dir=0;
+bool explode=false;
+timer explodetimer;
+int range=35;
+int distance=0;
+int mindammage=100;
+int maxdammage=250;
+string map;
+string owner;
+int spread=7;
+smokebomb(double sbx, double sby, double sbz, double sbdir, string sbmap, string sbowner)
+{
+x=sbx;
+y=sby;
+z=sbz;
+dir=sbdir;
+map=sbmap;
+owner=sbowner;
+play("smokebombstart",x,y,z,map);
+}
+}
+void smokebombloop()
+{
+for(uint j=0; j<smokebombs.length(); j++)
+{
+if(smokebombs[j].explodetimer.elapsed>=5000)
+{
+smokebombs[j].explodetimer.restart();
+play("smokebombexplode",smokebombs[j].x,smokebombs[j].y,smokebombs[j].z,smokebombs[j].map);
+send_reliable(0,"distsound smokebombexplodedist "+smokebombs[j].x+" "+smokebombs[j].y+" "+smokebombs[j].z+" "+smokebombs[j].map,0);
+@smokebombs[j]=null;
+smokebombs.remove_at(j);
+continue;
+}
+}
+}
+void spawn_smokebomb(double x, double y, double z, double dir, string map, string owner)
+{
+smokebomb f1(x, y, z, dir, map, owner);
+smokebombs.insert_last(f1);
+}

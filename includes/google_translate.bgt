@@ -1,0 +1,41 @@
+//an attempt to make a google translator with the google translate API.
+//use php(make sure you write a script that handles it and sends it to google.)
+class google_translate
+{
+//enjoy.
+private http req;
+private string from;
+private string to;
+private string phpscript_url;
+bool set_php_url(string phpscript){
+this.phpscript_url=url_encode(phpscript);
+this.phpscript_url=string_replace(this.phpscript_url, "%3a", ":", true);
+this.phpscript_url=string_replace(this.phpscript_url, "%2f", "/", true);
+return this.phpscript_url!="";
+}
+bool select_lang(string lang){
+this.from=lang;
+return this.from==lang;
+}
+bool set_destination_lng(string lang)
+{
+this.to=lang;
+return this.to==lang;
+}
+string translate(string text) {
+string t="origem="+from+"&destino="+to+"&texto="+text;
+string trans=this.req.post(this.phpscript_url, t);
+if(trans==""){
+if(get_last_error()==0){
+while(this.req.progress){
+mainloop();
+trans+=this.req.request();
+}
+string textotxt=trans;
+if(textotxt!="")return textotxt;
+else return "";
+}
+}
+return "";
+}
+}

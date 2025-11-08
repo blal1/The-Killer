@@ -1,0 +1,8 @@
+mapname:testfight
+maxx:100
+maxy:100
+maxz:100
+tile:0:100:0:100:0:0:carpet2
+
+tile:0:500:0:500:0:0:ash
+tile:0:500:0:500:0:0:bare

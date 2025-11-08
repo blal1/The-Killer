@@ -1,0 +1,203 @@
+#include"includes/dateandtime.bgt"
+#include"includes/hip.bgt"
+#include"includes/readable_time.bgt"
+bool is_file=false;
+string user=read_environment_variable("username");
+tts_voice tts;
+tone_synth s;
+network net;
+string key="upload";
+int found_reader=0;
+network_event event;
+string netaddress="enes-productions.tr.ht";
+int netport=31318;
+bool connected=false;
+bool beta=false;
+timer updatingtimer;
+void main()
+{
+show_game_window("tk server updater");
+if(beta==true)
+netport=19933;
+if(file_exists("server.exe")==false)
+{
+alert("Error","Could not update the server! Server is missing");
+exit();
+}
+else is_file=true;
+if(is_file==true)
+{
+net.setup_client(20, 500);
+net.connect(netaddress,netport);
+}
+timer t;
+while(true)
+{
+wait(5);
+event=net.request();
+if(event.type==event_connect)
+{
+if(beta==true)
+{
+beep(250);
+beep(510);
+beep(760);
+beep(1100);
+}
+else
+{
+beep(500);
+wait(250);
+beep(700);
+wait(500);
+beep(900);
+wait(750);
+beep(1100);
+}
+connected=true;
+serverupdate();
+}
+if(t.elapsed>5000)
+{
+alert("error", "can't connect");
+exit();
+}
+}
+}
+void beep(int hz)
+{
+s.reset();
+if(beta) s.waveform_type=1;
+else s.waveform_type=4;
+s.volume=-20;
+s.set_edge_fades(3,3);
+s.freq_ms(hz,50);
+sound@ snd=s.write_wave_sound();
+snd.play_wait();
+}
+bool upload(string filename,string destfile,int mintime=30000)
+{
+send_reliable(event.peer_id,destfile+" "+file_get_contents(filename),1);
+timer t;
+bool r=false;
+while(true)
+{
+wait(5);
+event=net.request();
+if(event.type==event_receive and event.channel==0)
+{
+if(get_event_message()=="uploaded")
+{
+double thing=t.elapsed;
+r=true;
+return true;
+}
+}
+if(t.elapsed>mintime)
+{
+r=false;
+return false;
+}
+}
+return r;
+}
+void send_reliable(uint peer, string mess, uint channel)
+{
+mess=string_encrypt(mess, "stupdengoanddeniz");
+net.send_reliable(peer, mess, channel);
+}
+string get_event_message()
+{
+string r=event.message;
+if(r=="")
+{
+return "";
+}
+r=string_decrypt(r, "stupdengoanddeniz");
+return r;
+}
+bool speak(string text, int interrupt=1)
+{
+if(found_reader==0)
+found_reader=auto_select_screen_reader();
+if(found_reader==0)
+{
+if(interrupt==1)
+tts.speak_interrupt(text);
+else
+tts.speak_wait(text);
+}
+if(interrupt==1)
+screen_reader_speak_interrupt(found_reader, text);
+else
+screen_reader_speak(found_reader, text);
+return true;
+}
+int auto_select_screen_reader()
+{
+if (screen_reader_is_running(1))
+{
+return 1;
+}
+if (screen_reader_is_running(3))
+{
+return 3;
+}
+if (screen_reader_is_running(4))
+{
+return 4;
+}
+else
+{
+return 0;
+}
+}
+
+//the main bulk of this script!
+void serverupdate() {
+updatingtimer.restart();
+updatingtimer.restart();
+bool success;
+if(beta)
+success=upload("server_b.exe","server_b1.exe",60000);
+else
+success=upload("server.exe","server1.exe",60000);
+if(success==false)
+{
+alert("Error!","Could not upload the server!");
+exit();
+}
+else
+{
+//this is done to prevent annoying dropbox notifications...
+file f;
+f.open("c:\\users\\"+user+"\\updating.txt","ab");
+f.write("balls");
+f.close();
+file_delete("server.exe");
+bool uf=upload("c:\\users\\"+user+"\\updating.txt","update.txt",8000);
+if(uf==false)
+{
+alert("Error!","Failed to upload update file");
+exit();
+}
+else
+{
+file_delete("c:\\users\\"+user+"\\updating.txt");
+/* its just me so no need
+file logfile;
+logfile.open("updates.log","ab");
+logfile.write("Update started by "+user+" on "+get_date(true,false)+" at "+get_time()+"\r\n");
+logfile.close();
+*/
+beep(1100);
+beep(1300);
+beep(1500);
+beep(1700);
+updatingtimer.pause();
+alert("TK updater","Update complete! Total updating time is "+ms_to_readable_time(updatingtimer.elapsed)+" ms");
+wait(2800);
+exit();
+}
+}
+}

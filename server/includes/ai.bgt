@@ -1,0 +1,1958 @@
+string[] dontlose={"dollar","tank","aircraft","Truck","dogan_slx","police_car","ammo_shotgun","ammo_glock","ammo_sniper","ammo_ML7TinyMG","ammo_FRNTAssaultRifle","ammo_crossbow","ammo_FlameThrower","tk_dollar","tk_ultra_health_potion","tk_donation_pack","tk_warp_box_pack","tk_mini_warp_box_pack","tk_ultra_warp_box_pack","tk_dollar_pack","tk_ultra_health_potion_set","tk_shelter_pack","jet","police_car_super"};
+string[] drunkmsglist={"I am so sweet! really! I'm so beautiful!","i'm sweet!","Ohm: I feel very comfortable!","I feel so fucked up right now","asdfasdfasdfadsfasdfasdf","zzz","lmao","roflflflflflflflflflflflflflflflflflflflflflflflflflf", "i need to puke!"};
+string[] randsounds={"beacon","move","timebombexplodedist","ibombdist","menuenter","codeclick","canisterdrop"};
+timer waittimer, firetimer;;
+timer walktimer;
+player@[] players(0);
+class player
+{
+bool is_admin=false, is_builder=false, is_mod=false, master=false, dev=false;
+bool bbombplacing=false;
+timer bbombtimer;
+bool bulletbombplacing=false;
+timer bullettimer;
+bool itemgrabbing=false;
+timer itemgrabbingtimer;
+bool helicopterspawning=false;
+timer helicoptertimer;
+string computer_id;
+double x,y,z;
+bool is_have_client=true;
+string version;
+string map;
+int missilex;
+int missiley;
+int missilez;
+int remgunid=-1;
+int level;
+int xpmaster;
+double xp=0;
+double xprequired;
+double air;
+int unstuntrys;
+int storestage=0;
+int stunagaintime=0;
+timer stunagaintimer;
+int persisttime=60000;
+timer persisttimer;
+timer arenaopenedtimer;
+timer projectiletimer;
+timer falltimer;
+timer unstuntrytimer;timer storetimer;
+timer spamtimer;
+int spammedmsgs;
+int stuntime;
+int pmreceiving=1;
+int workingammo;
+int food;
+int bikehelmet=0;
+int mask=0;
+bool itemtesting=false;
+bool disconnected=false;
+bool reloading;
+bool falling=false;
+bool vomited=false;
+bool drunk=false;
+bool hungry=false;
+bool underwater=false;
+bool dmoving=false;
+bool lowhealth=false;
+bool antibioticed=false;
+bool unstunplay=false;
+bool active=false;
+bool bleeding=false;
+bool firing=false;
+int paid=1;
+int sitting=0;
+int adminflag=0;
+int gnplaying=0;
+int guessnum=0;
+int deathfreecards=0;
+int reloadtime;
+int arenaopened=0;
+int firetime;
+int drunkacttime=random(15000, 25000);
+int beerswigs=0;
+int drunkstage=0;
+timer reloadtimer;
+timer biketimer;
+timer lockerplacetimer;
+bool lockerplacing=false;
+timer eattimer;
+timer foodtimer;
+timer activitytimer;
+timer drunkacttimer;
+timer drunktimer;
+timer drinktimer;
+timer airwarntimer;
+timer airlifetimer;
+timer airtimer;
+timer firetimer;
+timer cheatertimer;
+timer walktimer;
+timer nicktimer;
+timer newbtimer;
+timer bleedtimer;
+string biketile;
+string langchan="English";
+string shitem;
+string e_id;
+string cmitem="";
+int cmmode=-1;
+string features;
+string bleedsound;
+string[] ds;
+timer invinsibilitytimer;
+timer strtimer;
+bool ultrabombplacing=false;
+timer ultrabombtimer;
+timer statchangetimer;
+timer antibiotictimer, awarnouttimer;
+timer interceptortimer,usetimer;
+int hidden=0;
+int cheater=0;
+int newb=0;
+int maxshields=300;
+timer playtimer;
+bool takeammo=true;
+bool shielded=false;
+int shieldshots;
+bool inshelter=false;
+int invseconds=6;
+int playtime;
+bool using=false;
+bool intercepting=false;
+timer stunthrowtimer;
+timer maptraveltimer;
+timer chattimer;
+string ammostuff;
+string muted;
+achievements a;
+playerweapon w(this);
+string zone;
+string ip;
+string vtype;
+timer timeouttimer;
+int timeouttime=30000;
+int rbomblimit=200;
+int rbombs=0;
+int registered=0;
+int sbomblimit=200;
+int sbombs=0;
+int voted=0;
+bool shelter_building=false;
+timer buildtimer;
+string sheltername;
+timer healtimer;
+timer mbombtimer;
+bool sbombplacing=false;
+timer sbombtimer;
+string ttitle;
+string ptitle;
+string title="";
+string nickname;
+string ctext,location;
+timer hurttimer;
+timer rmtimer, missiletimer,rbombtimer, bsheltertimer;
+string teamname;
+bool hurt=false;
+int hurtlevel=0;
+string replyname;
+bool can_fire_rem=true;
+bool missilespawning=false;
+bool placing_sbomb=false;
+bool remconnecting=false;
+bool placing_rbomb=false;
+bool poisoned=false;
+timer poisontimer;
+int kills,deaths;
+bool invinsible=false, frequency=false, invinsibility_starting=false, invisible=false, insz=false, is_dead=false;
+int facing=0;
+int health=10000,oldhealth;
+double chats;
+int beacon=1;
+timer beacontimer;
+int beacontime=600;
+string name;
+int peer_id;
+string compid;
+string hitby="no one";
+timer invisibilitytimer;
+timer frequencyscramblertimer;
+bool mod=false;
+bool stunned=false;
+timer stuntimer;
+timer invusetimer;
+timer grabtimer;
+timer waitingtimer;
+timer grenadetimer;
+timer stonetimer;
+timer rockettimer;
+timer poison_daggertimer;
+timer hand_grenadetimer;
+timer pipe_bombtimer;
+timer stp429timer;
+timer nucleartimer;
+timer sound_grenadetimer;
+timer bottlebombtimer;
+timer stungrenadetimer;
+timer masstimer;
+timer concussivegrenadetimer;
+timer shotguntimer;
+timer revolvertimer;
+timer suicidetimer;
+int aircraftfuel=100,aircrafthealth=25000,tankfuel=100,tankhealth=50000,pchealth=40000,pcfuel=100,Truckhealth=60000,Truckfuel=100,dogan_slxhealth=10000,dogan_slxfuel=100,jethealth=10000,jetfuel=100,police_car_superhealth=60000,police_car_superfuel=100,armored_tankhealth=100000,armored_tankfuel=100,old_carhealth=100000,old_carfuel=200;
+string sellitem;
+bool should_subtract=false;
+string warning="";
+uint8 warnlevel=0;
+timer warptimer;
+bool warping=false;
+uint warpstage=0;
+string weapon="",following="",follower="";
+bool following_on=false,cremguns=false;
+player(int px, int py, int pz, string pmap, string pname, int ppeer_id, string cid, string pver, string pip, string compt,int phid, bool player_have_client=true)
+{
+x=px;y=py;z=pz;map=pmap;
+name=pname;
+peer_id=ppeer_id;
+compid=cid;
+version=pver;
+ip=pip;
+ctext=compt;
+if(file_exists("chars/"+name+"/playtime.usr"))
+playtimer.force(stn(read_from(name,"playtimer.usr")));
+hidden=phid;
+is_have_client=player_have_client;
+if(hidden>0) is_dead=true;
+}
+~player()
+{
+if(bleeding or bleedsound!="") destroy_moving_sound(bleedsound);
+}
+float antibiotic_hit_factor=1.5;
+void hit(int mindamage, int maxdamage)
+{
+playsound("hit"+random(1,3));
+if(antibioticed==false) this.health-=random(mindamage,maxdamage);
+else this.health-=random(round(mindamage*antibiotic_hit_factor,0),round(maxdamage*antibiotic_hit_factor,0));
+}
+void acheck()
+{
+string anouncement;
+if(get_ammo_count(weapon)<=0){
+anouncement="no_ammo";
+}
+if(anouncement=="") return;
+playsound("anouncement_"+anouncement);
+}
+void pmove(string d, int index)
+{
+int dir=string_to_number(d);
+if(dir==Up) z++;
+else if(dir==Down) z--;
+else if(dir==Left or dir==Right or dir==Backward or dir==Forward)
+{
+vector me=move(x,y,z,facing,(dir==Forward ? north : dir==Backward ? south : dir==Left ? west : dir==Right ? east : 0));
+x=round(me.x, 3);y=round(me.y, 3);
+}
+this.moveact(index);
+}
+void moveact(int index)
+{
+this.activitytimer.restart();
+if(this.active==false) this.active=true;
+if(this.bleedsound!=""||this.lowhealth||this.bleeding) update_moving_sound(this.bleedsound,this.x,this.y,this.z);
+int v=in_vehicle(this.name);
+if(v>-1)
+{
+vs.remove_at(v);
+send_reliable(this.peer_id,"veunspawn",0);
+}
+string gpt=get_tile_at(this.x,this.y,this.z,this.map);
+int a=string_contains(gpt,"glass",1);
+int isair=string_contains(gpt,"underwater",1);
+if(isair>-1 and this.dmoving==false and this.is_dead==false)
+{
+if(this.underwater==false) { this.airwarntimer.restart();this.airlifetimer.restart();
+this.underwater=true;
+}
+}
+if(isair<0 and this.dmoving==false)
+{
+if(this.underwater==true) this.underwater=false;
+}
+if(a>-1and this.dmoving==false and this.is_dead==false) {
+this.health-=random(10,25);
+this.hitby="shards of glass";
+}
+if(this.dmoving==false and this.hidden==0 and gpt!="")
+{
+int sh=in_shelter(this.name);
+if(sh>-1)
+play("hardwoodstep1"+random(1,5),this.x,this.y,this.z,this.map,index,true,false);
+else
+play(gpt+"step"+random(1,5),this.x,this.y,this.z,this.map,index,true,false);
+}
+//send_reliable(this.peer_id, "move "+this.x+" "+this.y+" "+this.z, 0);
+}
+void eat(string fooditem)
+{
+eattimer.restart();
+playsound("eat"+fooditem);
+if(fooditem=="chips")
+{
+food+=random(200,300);
+health+=random(200,300);
+}
+if(fooditem=="health_potion")
+{
+food+=random(200,300);
+health+=random(5000,5000);
+}
+if(fooditem=="food")
+{
+food+=random(200,300);
+health+=random(2000,2000);
+}
+if(fooditem=="health_drink")
+{
+food+=random(200,300);
+health+=random(1000,1000);
+}
+if(fooditem=="apple")
+{
+food+=random(200,300);
+health+=random(500,500);
+}
+if(fooditem=="berry")
+{
+food+=random(200,300);
+health+=random(50,50);
+}
+if(fooditem=="biscuit")
+{
+food+=random(200,300);
+health+=random(200,300);
+}
+if(fooditem=="candy")
+{
+food+=random(200,300);
+health+=random(100,100);
+}
+if(fooditem=="cola")
+{
+food+=random(200,300);
+health+=random(10000,15000);
+}
+if(fooditem=="cracker")
+{
+food+=random(200,300);
+health+=random(600,600);
+}
+if(fooditem=="juce_box")
+{
+food+=random(200,300);
+health+=random(1000,1000);
+}
+if(fooditem=="meat")
+{
+food+=random(200,300);
+health+=random(200,200);
+}
+if(fooditem=="melon")
+{
+food+=random(200,300);
+health+=random(400,500);
+}
+if(fooditem=="mint")
+{
+food+=random(200,300);
+health+=random(100,100);
+}
+if(fooditem=="nut")
+{
+food+=random(200,300);
+health+=random(350,400);
+}
+if(fooditem=="popcorn")
+{
+food+=random(200,300);
+health+=random(700,700);
+}
+if(fooditem=="pretzel")
+{
+food+=random(200,300);
+health+=random(500,500);
+}
+if(fooditem=="protein_bar")
+{
+food+=random(200,300);
+health+=random(1000,1000);
+}
+if(fooditem=="water_bottle")
+{
+food+=random(200,300);
+health+=random(5000,5000);
+}
+if(fooditem=="syringe")
+{
+food+=random(200,300);
+health+=random(10000,12000);
+}
+else if(fooditem=="chocolate_bar")
+{
+food+=random(50, 150);
+health+=random(100, 150);
+}
+else if(fooditem=="banana_bread")
+{
+food+=random(300, 500);
+health+=random(300, 500);
+}
+}
+void get_weapon_propperties(string wname)
+{
+int walktime=200;
+int canjump=1;
+if(wname=="ML7TinyMG")
+{
+firetime=200;
+}
+if(wname=="famas")
+{
+firetime=100;
+}
+if(wname=="sniper")
+{
+walktime=400;
+canjump=0;
+}
+if(wname=="mp5")
+{
+firetime=300;
+}
+if(wname=="machinegun")
+{
+firetime=300;
+}
+if(wname=="m8a7")
+{
+firetime=100;
+}
+if(wname=="m1921a1")
+{
+firetime=200;
+canjump=0;
+}
+if(wname=="s&w_model66_revolver")
+{
+firetime=300;
+}
+if(wname=="mk48")
+{
+firetime=100;
+}
+if(wname=="benelli")
+{
+firetime=300;
+}
+if(wname=="beretta_m1951_machine_pistol")
+{
+firetime=200;
+}
+if(wname=="blz83_portable_machine_gun")
+{
+firetime=500;
+}
+if(wname=="browning_m2_heavy_50_cal_machinegun")
+{
+firetime=200;
+canjump=0;
+walktime=500;
+}
+if(wname=="m4a1_assault_rifle")
+{
+firetime=400;
+}
+if(wname=="m16_assault_rifle")
+{
+firetime=200;
+}
+if(wname=="m134_minigun")
+{
+firetime=500;
+canjump=0;
+walktime=500;
+}
+if(wname=="modern_sub_machine_gun_carbine")
+{
+firetime=100;
+}
+if(wname=="nunchaku")
+{
+firetime=200;
+}
+if(wname=="sky_372_laser_machinegun")
+{
+firetime=200;
+}
+if(wname=="stp_s84q_automatic_suppressed_pistol")
+{
+firetime=200;
+}
+if(wname=="str_301_long_barreled_machine_pistol")
+{
+firetime=150;
+}
+if(wname=="m4")
+{
+firetime=100;
+}
+if(wname=="ak47_assault_rifle")
+{
+firetime=400;
+}
+if(wname=="m8a7")
+{
+firetime=150;
+}
+if(wname=="m16")
+{
+firetime=200;
+}
+if(wname=="m1891")
+{
+firetime=200;
+}
+if(wname=="m1921a1")
+{
+firetime=300;
+}
+if(wname=="barrett_m82_sniper_rifle")
+{
+walktime=1000;
+}
+if(wname=="cannon")
+{
+walktime=10000;
+canjump=0;
+}
+if(wname=="rocketlauncher")
+{
+walktime=10000;
+canjump=0;
+}
+if(wname=="rpg7")
+{
+walktime=10000;
+canjump=0;
+}
+if(wname=="bazooka")
+{
+walktime=10000;
+canjump=0;
+}
+if(wname=="ml_Automatic_machinegun")
+{
+walktime=70;
+firetime=150;
+}
+if(wname=="dragunovp_sniper")
+{
+walktime=700;
+}
+if(wname=="mp5_machine_pistol")
+{
+firetime=250;
+}
+if(wname=="FRNTAssaultRifle")
+{
+firetime=200;
+}
+send_reliable(peer_id,"walkmod "+walktime+" "+canjump,0);
+}
+int get_ammo_count(string w)
+{
+return get_ammo_count_from(w);
+}
+bool hasammo(string w)
+{
+if(get_item_count("ammo_"+w)<=0)
+return true;
+return true;
+}
+bool sheltercheck()
+{
+bool ret=false;
+for(uint i=0; i<shelters.length(); i++)
+{
+ret= (shelters[i].aplayers.find(name)>-1||name==shelters[i].owner||(shelters[i].teamname!=""&&is_part_of_team(name,shelters[i].teamname)));
+}
+return ret;
+}
+bool adminable()
+{
+return (this.is_admin or this.master or this.dev);
+}
+bool masterable()
+{
+return (this.master or this.dev);
+}
+bool buildable()
+{
+return (this.is_builder or this.masterable());
+}
+bool modable()
+{
+return (this.is_mod or this.adminable());
+}
+int distancecheck(double xx,double yy,double zz)
+{
+return get_3d_distance(x,y,z,xx,yy,zz);
+}
+int warpdist=0;
+int warpmoved=0;
+vector max,warp;
+void warpcheck()
+{
+if(warpstage==0 and warptimer.elapsed>=1)
+{
+invinsible=false;
+z+=1000;
+//send_reliable(peer_id,"move "+x+" "+y+" "+z,0);
+warpstage=1;
+warpdist=random(10,10);
+max=get_max_values(map);
+warp.x=x;
+warp.y=y;
+warp.z=z;
+warptimer.restart();
+}
+if(warpstage==1 and warpmoved<warpdist and warptimer.elapsed<400)
+{
+warp=move(warp.x,warp.y,facing);
+warpmoved++;
+if(warp.x>=max.x)
+{
+warp.x=max.x;
+}
+if(warp.y>=max.y)
+{
+warp.y=max.y;
+}
+if(warp.x<=0) warp.x=0;
+if(warp.y<=0) warp.y=0;
+}
+if(warpstage==1 and warptimer.elapsed>=400)
+{
+if(warpmoved<warpdist)
+{
+do
+{
+warp=move(warp.x,warp.y,facing);
+warpmoved++;
+if(warp.x>=max.x)
+{
+warp.x=max.x;
+}
+if(warp.y>=max.y)
+{
+warp.y=max.y;
+}
+if(warp.x<=0) warp.x=0;
+if(warp.y<=0) warp.y=0;
+}
+while(warpmoved<warpdist);
+}
+warpstage=0;warpdist=0;warpmoved=0;
+warping=false;
+warp.x=round(warp.x,0);
+warp.y=round(warp.y,0);
+x=warp.x;y=warp.y;z-=1000;
+send_reliable(peer_id,"move "+x+" "+y+" "+z,0);
+invinsible=false;
+}
+}
+vector get_coords()
+{
+vector ret;
+ret.x=x;
+ret.y=y;
+ret.z=z;
+return ret;
+}
+void sendpacket(string packet,int chan=2,bool reliable=true)
+{
+if(reliable) send_reliable(peer_id,packet,chan);
+else send_unreliable(peer_id,packet,chan);
+}
+void add_log_entry(string n,string w)
+{
+log(name+"_"+n,name+"("+nickname+") "+w);
+}
+void playobjs()
+{
+for(uint i=0; i<objs.length(); i++)
+{
+if(objs[i].map==map and distancecheck(objs[i].x,objs[i].y,objs[i].z)<=20)
+{
+sendint("obj "+objs[i].x+" "+objs[i].y+" "+objs[i].z+" "+objs[i].map,name);
+}
+}
+}
+void vo(string a)
+{
+send_reliable(this.peer_id,"play_s speaker_"+a+".ogg",0);
+}
+void playsound(string sound, bool include_me=true)
+{
+if(include_me) send_reliable(peer_id,"play_s "+sound+".ogg",0);
+send_plus(peer_id, sound+" "+x+" "+y+" "+z+" "+map, 3);
+}
+bool is_muted(string name)
+{
+string[] t=string_split(muted,"\r\n",false);
+for (uint i=0; i<t.length(); i++)
+{
+if (t[i]==name)
+{
+return true;
+}
+}
+return false;
+}
+void mute(string name)
+{
+muted+="\r\n"+name;
+}
+bool unmute(string name)
+{
+string[] t=string_split(muted,"\r\n",false);
+string newmuted;
+bool succeeded=false;
+for (uint i=0; i<t.length(); i++)
+{
+if (t[i]!=name)
+newmuted+="\r\n"+t[i];
+else
+succeeded=true;
+}
+muted=newmuted;
+return succeeded;
+}
+bool is_paid()
+{
+return true;
+}
+bool is_teammember(string n)
+{
+if(is_in_team(name)>-1 and n==teamname) return true;
+return false;
+}
+int invpos;
+dictionary ammo;
+int get_ammo_count_from(string we)
+{
+int amount=0;
+for (uint i=0; i<ammo.get_keys().length(); i++)
+{
+int a=0;
+if (ammo.get_keys()[i]==we)
+ammo.get(we,a);
+amount+=a;
+}
+return amount;
+}
+void ammo_give(string we, int amount)
+{
+int a;
+if (!ammo.exists(we))
+{
+ammo.set(we,amount);
+}
+else
+{
+ammo.get(we,a);
+if (a+amount<=0)
+ammo.delete(we);
+else
+{
+int b=(a+amount);
+ammo.delete(we);
+ammo.set(we,b);
+}
+}
+}
+dictionary inventory;
+bool newbuseable(string item)
+{
+if(newbitems.find(item)>-1)
+return true;
+return false;
+}
+bool is_food(string what)
+{
+if(snackitems.find(what)>-1)
+return true;
+return false;
+}
+void chat(string message)
+{
+spammedmsgs++;
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].langchan==langchan and players[i].is_muted(name)==false)
+{
+send_reliable(players[i].peer_id,"chat "+message,1);
+}
+}
+}
+string get_inv(bool showall=true)
+{
+string ss;
+string[] ds;
+if(inventory.get_size()==0) return "";
+ds=inventory.get_keys();
+for(uint i=0; i<ds.length(); i++)
+{
+if(!showall&&string_left(ds[i],5)=="ammo_") continue;
+int val;
+inventory.get(ds[i],val);
+ss+=ds[i]+"="+val+"\r\n";
+}
+return ss;
+}
+void send_inv()
+{
+string charfolder="chars/"+name;
+if(file_exists(charfolder+"/inv.usr")==false and !sheltercheck() and has_locker(this.name)==-1)
+file_copy("prefs/default_inv.svr",charfolder+"/inv.usr",true);
+file f;
+f.open(charfolder+"/inv.usr","rb");
+string inv=f.read();
+f.close();
+if(inv=="" and !sheltercheck() and has_locker(this.name)==-1)
+{
+f.open("prefs/default_inv.svr","rb");
+inv=f.read();
+f.close();
+f.open(charfolder+"/inv.usr","wb");
+f.write(inv);
+f.close();
+}
+if(inv=="") return;
+string[] invvalues=string_split(inv,"\r\n",false);
+for(uint i=0; i<invvalues.length(); i++)
+{
+string[] invparser=string_split(invvalues[i],"=",false);
+if(invparser.length()>1)
+give(invparser[0],stn(invparser[1]));
+}
+}
+void send_negated_inv()
+{
+inventory.delete_all();
+}
+void give(string item, int amount,bool singlegive=true)
+{
+int a;
+if (!inventory.exists(item))
+{
+inventory.set(item,amount);
+}
+else
+{
+inventory.get(item,a);
+if (a+amount<=0)
+inventory.delete(item);
+else
+{
+int b=(a+amount);
+inventory.delete(item);
+inventory.set(item,b);
+}
+}
+this.neg_inv_check();
+if(singlegive) send_reliable(this.peer_id,"invstring "+string_compress(this.get_inv(false)),0);
+}
+void neg_inv_check()
+{
+string[] k=inventory.get_keys();
+for(uint i=0; i<k.length; i++)
+{
+int v;
+inventory.get(k[i],v);
+if(v<=0) inventory.delete(k[i]);
+}
+}
+void cycle_inv(int dir)
+{
+if (dir==1)
+invpos+=1;
+else
+invpos-=1;
+if (invpos>=inventory.get_keys().length())
+{
+invpos=0;
+}
+else if (invpos<0)
+{
+invpos=inventory.get_keys().length()-1;
+}
+if (inventory.get_size()==0)
+{
+send_reliable(peer_id,"No items",0);
+}
+else
+{
+int a;
+inventory.get(inventory.get_keys()[invpos],a);
+if(a==1)
+send_reliable(peer_id,string_replace(inventory.get_keys()[invpos],"_"," ",true)+". "+(invpos+1)+" of "+inventory.get_keys().length,0);
+else
+send_reliable(peer_id,string_replace(inventory.get_keys()[invpos], "_", " ", true)+": you have "+a+". "+(invpos+1)+" of "+inventory.get_keys().length,0);
+send_reliable(e.peer_id,"invitem "+inventory.get_keys()[invpos],0);
+}
+}
+int count_total_items()
+{
+int amount=0;
+for (uint i=0; i<inventory.get_keys().length(); i++)
+{
+int a;
+inventory.get(inventory.get_keys()[i],a);
+amount+=a;
+}
+return amount;
+}
+int get_item_count(string item)
+{
+int amount=0;
+if(inventory.exists(item)==false) return 0;
+else
+{
+inventory.get(item,amount);
+return amount;
+}
+}
+void stun(int ms,bool playafter=false,bool fall=false,int cooldown=0)
+{
+if(this.stunagaintimer.elapsed<=this.stunagaintime)
+{
+return;
+}
+else
+{
+this.stunagaintime=0;
+this.stunagaintimer.restart();
+}
+send_reliable(peer_id,"stopmoving",0);
+stunned=true;
+stuntime=ms;
+stuntimer.restart();
+this.stunagaintime=ms+cooldown;
+unstunplay=playafter;
+if(fall==true) {
+vo("standup");
+spawn_bodyfall(x,y,z,map,500,get_player_index_from(name));
+}
+}
+void fire_auto()
+{
+firing=true;
+}
+void speak_inv()
+{
+int a;
+inventory.get(inventory.get_keys()[invpos],a);
+if(a==1)
+send_reliable(peer_id,string_replace(inventory.get_keys()[invpos],"_"," ",true)+". "+(invpos+1)+" of "+inventory.get_keys().length,0);
+else
+send_reliable(peer_id,a+" "+string_replace(inventory.get_keys()[invpos], "_", " ", true)+"s. "+(invpos+1)+" of "+inventory.get_keys().length,0);
+}
+}
+void playerloop()
+{
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].name=="die" and players[i].is_have_client==false)
+{
+for(uint i2=0; i2<players.length(); i2++)
+{
+if(players[i].x<players[i2].x and walktimer.elapsed>=140)
+{
+walktimer.restart();
+players[i].x+=1;
+play(get_tile_at(players[i].x,players[i].y,players[i].z,players[i].map)+"step"+random(1,5),players[i].x,players[i].y,players[i].z,players[i].map);
+}
+else if(players[i].x>players[i2].x and walktimer.elapsed>=140)
+{
+walktimer.restart();
+players[i].x-=1;
+play(get_tile_at(players[i].x,players[i].y,players[i].z,players[i].map)+"step"+random(1,5),players[i].x,players[i].y,players[i].z,players[i].map);
+}
+else if(players[i].y<players[i2].y and walktimer.elapsed>=200and walktimer.elapsed>=140)
+{
+walktimer.restart();
+players[i].y+=1;
+play(get_tile_at(players[i].x,players[i].y,players[i].z,players[i].map)+"step"+random(1,5),players[i].x,players[i].y,players[i].z,players[i].map);
+}
+else if(players[i].y>players[i2].y and walktimer.elapsed>=140)
+{
+walktimer.restart();
+players[i].y-=1;
+play(get_tile_at(players[i].x,players[i].y,players[i].z,players[i].map)+"step"+random(1,5),players[i].x,players[i].y,players[i].z,players[i].map);
+}
+if(get_3d_distance(players[i].x,players[i].y,players[i].z,players[i2].x,players[i2].y,players[i2].z)<=10 and firetimer.elapsed>=100 and i!=i2)
+{
+firetimer.restart();
+play("modern_sub_machine_gun_carbine"+random(1,1),players[i].x,players[i].y,players[i].z,players[i].map);
+players[i2].hit(5000,10000);
+players[i2].hitby="die's machinegun";
+}
+}
+}
+if(players[i].level>=1 and players[i].level<=4) players[i].ptitle="novice";
+if(players[i].level>=5 and players[i].level<=19) players[i].ptitle="soldier";
+if(players[i].level>=20 and players[i].level<=49) players[i].ptitle="corporal";
+if(players[i].level>=50 and players[i].level<=99) players[i].ptitle="general";
+if(players[i].level>=100 and players[i].level<=199) players[i].ptitle="cornel";
+if(players[i].level>=200 and players[i].level<=249) players[i].ptitle="sub_sergeant";
+if(players[i].level>=250 and players[i].level<=319) players[i].ptitle="sergeant";
+if(players[i].level>=320 and players[i].level<=399) players[i].ptitle="capitan";
+if(players[i].level>=400 and players[i].level<=499) players[i].ptitle="death_bringer";
+if(players[i].level>=500 and players[i].level<=599) players[i].ptitle="is_officer";
+if(players[i].level>=600 and players[i].level<=699) players[i].ptitle="admiral";
+if(players[i].level>=700 and players[i].level<=799) players[i].ptitle="warrier";
+if(players[i].level>=800 and players[i].level<=999) players[i].ptitle="executioner";
+if(players[i].level>=1000 and players[i].level<=1299) players[i].ptitle="earth_blaster";
+if(players[i].level>=1300 and players[i].level<=10000) players[i].ptitle="best_killer";
+if(players[i].map=="jail") players[i].ptitle="prisoner";
+if (players[i].xp>=players[i].xprequired)
+{
+players[i].level+=1;
+int extradollars=20;
+players[i].give("dollar",extradollars*players[i].level*players[i].level);
+players[i].xprequired=(25*(players[i].level*(players[i].level*5)));
+send_reliable(0,"play_s level.ogg",0);
+send_reliable(0,players[i].name+" has reached to level "+players[i].level,2);
+}
+if(players[i].disconnected==true&&players[i].persisttimer.elapsed>=players[i].persisttime)
+{
+remove_player(players[i].name);
+continue;
+}
+if(players[i].falling==true and players[i].falltimer.elapsed>125)
+{
+players[i].falltimer.restart();
+if(players[i].z>0) players[i].z--;
+}
+if(players[i].spamtimer.elapsed>5000 and players[i].spammedmsgs>0)
+{
+players[i].spamtimer.restart();
+players[i].spammedmsgs=0;
+}
+if(players[i].spammedmsgs>=10)
+{
+players[i].ds.insert_last("chat");
+send_reliable(players[i].peer_id,"You're chat feature has just been disabled! Please contact an administrator!",2);
+write_to(players[i].name,"disabled.usr",getdisables(players[i].ds));
+send_reliable(0,players[i].name+" was just caught spamming and can no longer send any messages",2);
+players[i].spammedmsgs=0;
+}
+if(players[i].storetimer.elapsed>4*60000 and players[i].storestage==1 and players[i].map=="store" and players[i].hidden==0 and players[i].invinsible)
+{
+players[i].storetimer.restart();
+players[i].storestage=2;
+players[i].playsound("storewarning");
+send_reliable(players[i].peer_id,"alert! You will be moved out of the store in the next 60 seconds. Please finish any remaining purchases!",2);
+}
+if(players[i].storetimer.elapsed>60000 and players[i].storestage==2 and players[i].map=="store")
+{
+int newx=random(0,500);
+int newy=random(0,500);
+int newz=0;
+move_player(players[i],"main",newx,newy,newz,false);
+players[i].storestage=3;
+}
+if(players[i].storestage==0 and players[i].storetimer.elapsed>5*60000 and players[i].map!="store")
+{
+players[i].storestage=1;
+}
+if(players[i].unstuntrys>30 and players[i].stunned==true)
+{
+players[i].unstuntrys=0;
+players[i].stuntimer.force(players[i].stuntime);
+}
+if(players[i].unstuntrytimer.elapsed>700 and players[i].unstuntrys>0)
+{
+players[i].unstuntrytimer.restart();
+players[i].unstuntrys-=1;
+}
+if(players[i].reloading)
+{
+if(players[i].reloadtimer.elapsed>players[i].reloadtime)
+{
+players[i].reloading=false;
+players[i].w.reload();
+send_reliable(players[i].peer_id, "candraw", 0);
+}
+}
+if(players[i].beerswigs>5)
+{
+players[i].give("open_beer_bottle",-1);
+players[i].give("emtpy_beer_bottle",1);
+players[i].playsound("beerbottlesmash");
+players[i].beerswigs=0;
+}
+if(players[i].beerswigs>5)
+{
+players[i].give("open_raki_bottle",-1);
+players[i].give("emtpy_raki_bottle",1);
+players[i].playsound("beerbottlesmash");
+players[i].beerswigs=0;
+}
+if(players[i].drunkstage>49 and players[i].drunk==false)
+{
+players[i].drunktimer.restart();
+players[i].drunkacttimer.restart();
+players[i].drunkacttime=random(15000, 25000);
+players[i].drunk=true;
+send_reliable(players[i].peer_id,"Your head is spinning, you suddenly lose balance, you start to feel extremely dizzy and you suddenly have an urge to vomet!",0);
+spawn_bodyfall(players[i].x,players[i].y,players[i].z,players[i].map,0,i);
+}
+if(players[i].drunk==true)
+{
+if(players[i].drunkacttimer.elapsed>=players[i].drunkacttime)
+{
+players[i].drunkacttime=random(8000, 13000);
+players[i].drunkacttimer.restart();
+int action=random(1,4);
+if(action==1)
+{
+players[i].chat(players[i].title+" "+players[i].teamname+" "+players[i].nickname+": "+random_string_from_array(drunkmsglist));
+}
+else if(action==2)
+{
+send_reliable(players[i].peer_id,"You feel so dizzy you lose your balance again!",2);
+spawn_bodyfall(players[i].x,players[i].y,players[i].z,players[i].map,0,i);
+}
+else if(action==3)
+{
+send_reliable(players[i].peer_id,"You grab your stomach and bend over, suddenly you throw up!",2);
+players[i].playsound("vomit");
+players[i].vomited=true;
+}
+else if(action==4)
+{
+string sf=random_string_from_array(randsounds);
+send_reliable(players[i].peer_id,"play_s "+sf+".ogg",0);
+}
+}
+if(players[i].drunktimer.elapsed>120000)
+{
+send_reliable(players[i].peer_id,"Things finally start getting back to normal!",0);
+players[i].drunkstage=0;
+players[i].drunk=false;
+}
+}
+if(players[i].mask==1)
+{
+if(players[i].airtimer.elapsed>=3500)
+{
+players[i].airtimer.restart();
+if(players[i].air>0)
+{
+players[i].air--;
+players[i].playsound("gas_mask_breathe");
+}
+else
+{
+send_reliable(players[i].peer_id,"You need air!",0);
+players[i].hitby="suffocation";
+players[i].health-=random(100,10000);
+}
+}
+}
+if(players[i].underwater==true and players[i].mask==0)
+{
+if(players[i].airwarntimer.elapsed>=15000)
+{
+players[i].airwarntimer.restart();
+send_reliable(players[i].peer_id,"You need to breathe!",0);
+}
+if(players[i].airlifetimer.elapsed>=60015)
+{
+players[i].airlifetimer.restart();
+players[i].hitby="internal:drown";
+players[i].health=0;
+}
+}
+if(players[i].cheater==1 and players[i].cheatertimer.elapsed>=30000)
+{
+players[i].statchangetimer.restart();
+players[i].cheater=0;
+players[i].cheatertimer.restart();
+send_reliable(players[i].peer_id,"You may now play again",0);
+players[i].playsound("confirmation");
+send_reliable(players[i].peer_id,"startmoving",0);
+file_delete("chars/"+players[i].name+"/cheater.usr");
+file_delete("chars/"+players[i].name+"/cheater.usr");
+}
+if(players[i].firetimer.elapsed>=players[i].firetime and players[i].firing==true and players[i].weapon!="" and players[i].newb==0 and automatic(players[i].weapon)==true and players[i].get_ammo_count(players[i].weapon)>0)
+{
+players[i].firetimer.restart();
+players[i].playsound(players[i].weapon);
+send_reliable_x(0,"distsound "+players[i].weapon+"dist "+players[i].x+" "+players[i].y+" "+players[i].z+" "+players[i].map,0,players[i].x,players[i].y,players[i].z,players[i].map,100);
+if(hasammo(players[i].weapon)==true)
+{
+players[i].ammo_give(players[i].weapon,-1);
+if(players[i].get_ammo_count(players[i].weapon)<=0) players[i].vo("reload");
+}
+spawn_weapon(players[i].x, players[i].y, players[i].z, players[i].facing, players[i].weapon, players[i].map, players[i]);
+}
+if(i>=players.length()) return;
+if(players[i].warping) players[i].warpcheck();
+if(players[i].cremguns&&has_remgun(players[i].name)==false)
+{
+players[i].cremguns=false;
+send_reliable(players[i].peer_id,"remdisconnect",0);
+send_reliable(players[i].peer_id,"all your remote guns have disconnected!",2);
+}
+if(players[i].health<1500 and players[i].lowhealth==false)
+{
+players[i].lowhealth=true;
+send_reliable(players[i].peer_id,"lowhealth "+players[i].health,0);
+players[i].bleedsound=spawn_moving_sound("bleeding.ogg",players[i].x,players[i].y,players[i].z,players[i].map);
+players[i].bleeding=true;
+}
+if(players[i].health>=1500 and players[i].lowhealth==true)
+{
+players[i].lowhealth=false;
+send_reliable(players[i].peer_id,"goodhealth",0);
+destroy_moving_sound(players[i].bleedsound);
+players[i].bleedsound="";
+players[i].bleeding=false;
+}
+if(players[i].newb==1 and players[i].newbtimer.elapsed>=20*60000)
+{
+players[i].newbtimer.restart();
+send_reliable(players[i].peer_id,"Time's up!",0);
+players[i].newb=2;
+}
+if(players[i].newb==2 and players[i].newbtimer.elapsed>=3000)
+{
+players[i].newb=0;
+players[i].newbtimer.restart();
+send_reliable(players[i].peer_id,"Your newbie flag has been disabled!",0);
+send_reliable(0,"notify "+players[i].nickname+" is no longer a newbie!",0);
+log("eventstream","server notification: "+players[i].nickname+" is no longer a newbie!");
+file_delete("chars/"+players[i].name+"/newb.usr");
+}
+if(players[i].following!="")
+{
+int ind=get_player_index_from(players[i].following);
+if(players[i].following_on&&ind<0)
+{
+players[i].following_on=false;
+send_reliable(players[i].peer_id,"the player you are following has gone offline. You are free to move until they return.",2);
+send_reliable(players[i].peer_id,"followstop",0);
+}
+if(players[i].following_on==false&&ind>-1)
+{
+players[i].following_on=true;
+players[ind].follower=players[i].name;
+send_reliable(players[i].peer_id,"your followed link has returned. You are now following them again.",2);
+send_reliable(players[i].peer_id,"followstart",0);
+}
+}
+if(players[i].follower!="")
+{
+int j=get_player_index_from(players[i].follower);
+if(j<0)
+{
+players[i].follower="";
+return;
+}
+if(players[j].map!=players[i].map)
+{
+if(in_shelter(players[i].name)<0) move_player(players[j],players[i].map,players[i].x,players[i].y,players[i].z,false);
+else move_player(players[j],players[i].map,players[i].x,players[i].y,players[i].z,false,false,in_shelter(players[i].name));
+}
+else
+{
+if(players[j].x!=players[i].x or players[j].y!=players[i].y or players[j].z!=players[i].z)
+{
+players[j].x=players[i].x;players[j].y=players[i].y;players[j].z=players[i].z;
+send_reliable(players[j].peer_id,"move "+players[j].x+" "+players[j].y+" "+players[j].z,0);
+}
+}
+}
+if(players[i].sbombplacing==true and players[i].sbombtimer.elapsed>=11000 and players[i].map!="store")
+{
+players[i].sbombplacing=false;
+players[i].sbombtimer.pause();
+send_reliable(players[i].peer_id,"Done!",0);
+send_reliable(players[i].peer_id,"startmoving",0);
+spawn_security_bomb(round(players[i].x,0),round(players[i].y,0),players[i].z,players[i].map,players[i].name);
+}
+if(players[i].helicopterspawning==true and players[i].helicoptertimer.elapsed>=4400 and players[i].map!="store")
+{
+players[i].helicopterspawning=false;
+players[i].helicoptertimer.pause();
+send_reliable(players[i].peer_id,"Done!",0);
+send_reliable(players[i].peer_id,"startmoving",0);
+spawn_helicopter(round(players[i].x,0),round(players[i].y,0),players[i].z,players[i].map,players[i].name);
+}
+if(players[i].bbombplacing==true and players[i].bbombtimer.elapsed>=15000 and players[i].map!="store")
+{
+players[i].bbombplacing=false;
+players[i].bbombtimer.pause();
+send_reliable(players[i].peer_id,"Done!",0);
+send_reliable(players[i].peer_id,"startmoving",0);
+spawn_barricade_bomb(round(players[i].x,0),round(players[i].y,0),players[i].z,players[i].map,players[i].name);
+}
+if(players[i].bulletbombplacing==true and players[i].bullettimer.elapsed>=10000 and players[i].map!="store")
+{
+players[i].bulletbombplacing=false;
+players[i].bullettimer.pause();
+send_reliable(players[i].peer_id,"Done!",0);
+send_reliable(players[i].peer_id,"startmoving",0);
+spawn_bullet_bomb(round(players[i].x,0),round(players[i].y,0),players[i].z,players[i].map,players[i].name);
+}
+if(players[i].itemgrabbing==true and players[i].itemgrabbingtimer.elapsed>=25000)
+{
+players[i].itemgrabbing=false;
+play("itemgrabberfire",players[i].x,players[i].y,players[i].z,players[i].map);
+send_reliable(0,"play_s itemgrabberdist.ogg",0);
+move_objs_to(players[i].x, players[i].y, players[i].z, players[i].map, random(0, 130));
+send_reliable(players[i].peer_id,"startmoving",0);
+}
+if(players[i].shieldshots<0)
+{
+players[i].shieldshots=0;
+}
+if(players[i].health!=players[i].oldhealth)
+{
+players[i].statchangetimer.restart();
+players[i].oldhealth=players[i].health;
+if(players[i].lowhealth==true) send_reliable(players[i].peer_id,"lowhealth "+players[i].health,0);
+}
+if(players[i].ultrabombplacing==true)
+{
+if(players[i].ultrabombtimer.elapsed>=4921)
+{
+players[i].ultrabombplacing=false;
+players[i].ultrabombtimer.restart();
+send_reliable(players[i].peer_id,"startmoving",0);
+spawn_ultrabomb(round(players[i].x,0),round(players[i].y,0),players[i].z,players[i].map,players[i].name);
+}
+}
+if(players[i].antibioticed==true)
+{
+if(players[i].awarnouttimer.elapsed>=20000)
+{
+players[i].antibioticed=false;
+}
+if(players[i].antibiotictimer.elapsed>=500)
+{
+players[i].antibiotictimer.restart();
+players[i].health=antibiotic(players[i].health);
+players[i].oldhealth=players[i].health;
+}
+}
+if(players[i].invseconds>0 and players[i].invinsibility_starting==true)
+{
+if(players[i].invinsibilitytimer.elapsed>=1000)
+{
+if(in_vehicle(players[i].name)>-1 or players[i].bulletbombplacing==true or players[i].itemgrabbing==true or players[i].shelter_building==true or players[i].ultrabombplacing==true or players[i].bbombplacing==true or players[i].stunned==true or players[i].helicopterspawning==true or players[i].sbombplacing==true)
+{
+players[i].health=-1;
+players[i].hitby="heavy hammer";
+send_reliable(0, players[i].name+" is a cheater! ", 2);
+}
+players[i].invinsibilitytimer.restart();
+if(players[i].invseconds!=0)
+play("invtimer",players[i].x,players[i].y,players[i].z,players[i].map);
+players[i].invseconds--;
+send_reliable(players[i].peer_id,number_to_words(players[i].invseconds,false),0);
+}
+}
+if(players[i].invseconds<=0 and players[i].invinsibility_starting==true)
+{
+players[i].invinsibility_starting=false;
+players[i].invseconds=5;
+players[i].invinsible=true;
+send_reliable(players[i].peer_id,"stopmoving",0);
+send_reliable(0,"notify "+players[i].nickname+" is AFK!",0);
+send_reliable(players[i].peer_id,"AFK started!",0);
+players[i].playsound("invstart");
+}
+if(players[i].shieldshots>players[i].maxshields)
+{
+players[i].shieldshots=players[i].maxshields;
+}
+if(players[i].shieldshots>0)
+{
+players[i].shielded=true;
+}
+if(players[i].shielded==true)
+{
+if(players[i].shieldshots<=0)
+{
+players[i].shielded=false;
+play("shieldbreak",players[i].x,players[i].y,players[i].z,players[i].map);
+}
+}
+if(players[i].health>100000)
+{
+players[i].health=100000;
+players[i].oldhealth=100000;
+if(players[i].antibioticed)
+{
+players[i].antibioticed=false;
+send_reliable(players[i].peer_id,"you are at max health and you can't go any higher!",0);
+}
+}
+if(players[i].shelter_building==true and players[i].map!="store")
+{
+if(players[i].buildtimer.elapsed>=7660)
+{
+send_reliable(players[i].peer_id,"startmoving",0);
+build_shelter(players[i].x,players[i].y,players[i].z,players[i].map,players[i].name,players[i].sheltername);
+send_reliable(0,"The "+players[i].sheltername+" shelter has been created!",2);
+log("eventstream","server notification: The "+players[i].sheltername+" shelter has been created!");
+send_reliable(players[i].peer_id,"Shelter created!",2);
+players[i].shelter_building=false;
+}
+}
+if(players[i].stunned==true&&players[i].stuntimer.elapsed>=players[i].stuntime)
+{
+send_reliable(players[i].peer_id,"startmoving",0);
+if(players[i].unstunplay==true) 
+{
+players[i].playsound("stun_dartstop");
+}
+players[i].stunned=false;
+}
+if(players[i].remconnecting==true and players[i].rmtimer.elapsed>=6343 and players[i].map!="store")
+{
+placeremgun(players[i].x,players[i].y,players[i].z,players[i].map,players[i].name);
+players[i].remconnecting=false;
+send_reliable(players[i].peer_id,"startmoving",0);
+}
+if(players[i].interceptortimer.elapsed>=775 and players[i].intercepting==true)
+{
+players[i].intercepting=false;
+send_reliable(players[i].peer_id,"startmoving",0);
+intercept(players[i].x,players[i].y,players[i].z,players[i].map,i);
+}
+if(players[i].invisibilitytimer.elapsed>=30000 and players[i].invisible==true)
+{
+players[i].invisible=false;
+play("invisibility_stop",players[i].x,players[i].y,players[i].z,players[i].map);
+players[i].invisibilitytimer.restart();
+players[i].invisibilitytimer.pause();
+}
+if(players[i].frequencyscramblertimer.elapsed>=60000 and players[i].frequency==true)
+{
+players[i].frequency=false;
+play("frequency_scrambleroff",players[i].x,players[i].y,players[i].z,players[i].map);
+players[i].frequencyscramblertimer.restart();
+players[i].frequencyscramblertimer.pause();
+}
+if(players[i].health<=0)
+{
+players[i].health=1000;
+players[i].deaths++;
+string killer;
+if(string_contains(players[i].hitby,"'",1)>-1)
+{
+string[] s=string_split(players[i].hitby, "'", true);
+killer=s[0];
+}
+else
+{
+killer=players[i].hitby;
+}
+players[i].firing=false;
+int p=get_player_index_from(killer);
+if(p>-1)
+{
+players[p].kills++;
+}
+if(players[i].inventory.get_keys().length()>0) {
+string cid=randomstring(1);
+string[] akeys=players[i].ammo.get_keys();
+if(akeys.length()>0) {
+for(uint j=0; j<akeys.length(); j+=1) {
+int val;
+players[i].ammo.get(akeys[j],val);
+players[i].inventory.set("ammo_"+akeys[j],val);
+}
+}
+spawn_bodyfall(players[i].x, players[i].y ,players[i].z, players[i].map,2500);
+spawn_timeitem(players[i].x, players[i].y, players[i].z, players[i].map, "corpse_of_"+players[i].name+"_"+cid);
+}
+players[i].inventory.delete_all();
+send_reliable(players[i].peer_id,"inventoryis "+serialize(players[i].inventory),0);
+players[i].ammo.delete_all();
+dictionary ammotemp;
+ammotemp.set("shotgun",20);
+ammotemp.set("tiny_mg",15);
+ammotemp.set("pistol",20);
+ammotemp.set("machinegun",35);
+ammotemp.set("rifle",5);
+ammotemp.set("rocket_launcher",10);
+players[i].ammo=ammotemp;
+send_reliable(players[i].peer_id,"resetwalktime",0);
+send_reliable(0,"play_s kill.ogg",0);
+send_reliable(0,killmsg(players[i].name,players[i].hitby,players[i].zone),2);
+send_reliable(players[i].peer_id,"death",0);
+players[i].is_dead=true;
+players[i].mask=0;
+players[i].underwater=false;
+players[i].sbombplacing=false;
+players[i].ultrabombplacing=false;
+players[i].bbombplacing=false;
+players[i].is_dead=true;
+if(players[i].name=="die" and players[i].is_have_client==false)
+if(players[i].name!="die" and players[i].is_have_client!=false)
+send_reliable(players[i].peer_id, "death", 0);
+else
+respawn(i);
+players[i].shelter_building=false;
+players[i].is_dead=true;
+players[i].deaths+=1;
+players[i].health=10000;
+players[i].oldhealth=10000;
+write_to(players[i].name,"lasthit.usr",players[i].hitby);
+write_to(players[i].name,"health.usr",players[i].health);
+players[i].statchangetimer.force(30000);
+int t=is_in_team(players[i].name);
+if(t>-1)
+{
+int l=random(100,600);
+string kname;
+if(string_contains(players[i].hitby, "'", 1)>-1)
+{
+string[] p=string_split(players[i].hitby, "'", false);
+kname=p[0];
+}
+else kname=players[i].hitby;
+if(are_teamed(players[i].name, kname)&&players[i].name!=kname&&players[i].hitby!=kname+"'s ultrabomb") l=l*2;
+teams[t].points-=l;
+teams[t].transmit("This team has lost "+l+" points!");
+}
+int v=is_part_of_event(players[i].name);
+if(v>-1)
+{
+players[i].map=events[v].map;
+players[i].x=events[v].joinx;
+players[i].y=events[v].joiny;
+players[i].z=events[v].joinz;
+}
+else
+{
+players[i].storetimer.restart();
+players[i].storestage=1;
+players[i].map="main";
+players[i].x=random(0,500);
+players[i].y=random(0,500);
+players[i].z=0;
+send_reliable(players[i].peer_id, "entershelter 100 100 30 main", 0);
+}
+if(players[i].hitby=="a fire") add_achievement("it burns",i,"20 fire_extinguisher",true);
+string hb;
+if(string_contains(players[i].hitby,"'",1)>-1)
+{
+string[] parsed_data=string_split(players[i].hitby,"'",false);
+hb=parsed_data[0];
+}
+else
+hb=players[i].hitby;
+int k=get_player_index_from(hb);
+if(k>-1)
+{
+achloop(k,i);
+if(players[k].name!=players[i].name)
+{
+if(string_contains(players[i].hitby,"bomb",1)<0)
+{
+int extradollars=random(1,10000);
+players[k].give("dollar",extradollars);
+players[k].xp+=random(1000,3000);
+send_reliable(players[k].peer_id,"You get "+extradollars+"extra dollars! Nice job!",2);
+}
+players[k].kills+=1;
+int tm=is_in_team(players[k].name);
+if(tm>-1 and !are_teamed(players[i].name, players[k].name)) {
+int l=random(500,1000);
+teams[tm].points+=l;
+teams[tm].transmit("This team just got "+l+" extra points!");
+teams[tm].teamkills+=1;
+}
+if(players[i].should_subtract)
+{
+string[] keys=players[i].inventory.get_keys();
+for(uint j=0; j<dontlose.length; j++)
+{
+int l=keys.find(dontlose[j]);
+if(l>-1) keys.remove_at(l);
+}
+if(keys.length>0)
+{
+string choice=keys[random(0,(keys.length()-1))];
+double loseperc=(random(0,5)/100.0);
+int lost=round((players[i].get_item_count(choice)*loseperc),0);
+if(lost>0)
+{
+players[i].give(choice,-lost);
+send_reliable(players[i].peer_id,"you lost "+lost+" "+choice+"s!",2);
+}
+for(uint g=0; g<guns.length; g++)
+{
+if(players[i].get_item_count("ammo_"+guns[g])<=0) players[i].give("ammo_"+guns[g],random(50,90));
+}
+}
+}
+if(players[i].stunned)
+{
+send_reliable(players[i].peer_id,"startmoving",0);
+players[i].stunned=false;
+}
+}
+}
+scd(i);
+}
+if( players[i].beacontimer.elapsed>=players[i].beacontime and players[i].invisible==false and players[i].is_dead==false and players[i].invinsible==false and players[i].hidden==0)
+{
+players[i].beacontimer.restart();
+for(uint pl=0; pl<players.length(); pl++)
+{
+if(pl>(players.length()-1) or i>(players.length()-1)) return;
+if(players[pl].name!=players[i].name and players[pl].beacon>0 and players[i].distancecheck(players[pl].x,players[pl].y,players[pl].z)<=50 and players[i].map==players[pl].map)
+{
+if(are_teamed(players[i].name,players[pl].name)) send_unreliable(players[pl].peer_id,"invsecond "+players[i].x+" "+players[i].y+" "+players[i].z+" "+players[i].map,3);
+else send_unreliable(players[pl].peer_id,"beacon "+players[i].x+" "+players[i].y+" "+players[i].z+" "+players[i].map,3);
+netloop();
+}
+}
+}
+}
+}
+void spawn_player(int x, int y, int z, string map, string name,int pi, string cid, string ip, string ver, string ctext,int hid, bool have_client=true)
+{
+player p1(x,y,z,map,name,pi,cid,ip,ver,ctext,hid,have_client);
+players.insert_last(p1);
+int index=get_player_index_from(name);
+players[index].statchangetimer.force(100000);
+if(hid==0)
+send_reliable(0, "online "+x+" "+y+" "+z+" "+name+" "+map,0);
+connections++;
+}
+bool is_on_server(string playername,bool hiddentoo=true)
+{
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].name==playername and (hiddentoo or (hiddentoo==false&&players[i].hidden==0)))
+{
+return true;
+}
+}
+return false;
+}
+int get_nearest_player(int px, int py, int pz, string pmap, int pindex=-1)
+{
+int current_distance=-1;
+int final_index=-1;
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].map!=pmap or i==pindex or players[i].invisible or players[i].invinsible or players[i].is_dead and players[i].hidden!=0)
+{
+continue;
+}
+int dist=get_3d_distance(px, py, pz, players[i].x, players[i].y, players[i].z);
+if(current_distance==-1)
+{
+current_distance=dist;
+final_index=i;
+}
+else
+{
+if(dist<current_distance)
+{
+current_distance=dist;
+final_index=i;
+}
+}
+}
+return final_index;
+}
+int get_gnwinner()
+{
+if(guessthenumber_guesses.is_empty()) return -1;
+int[] guesses=guessthenumber_guesses;
+int winnum=get_closest_value(gntarget,guesses);
+int final_index=-1;
+for(uint i=0; i<players.length(); i++) {
+if(players[i].gnplaying==0) continue;
+if(players[i].guessnum==winnum) final_index=i;
+}
+return final_index;
+}
+//function to see if a number is already there in guess the number.
+bool num_is_active(int num)
+{
+bool active=false;
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].gnplaying==0) continue;
+if(players[i].guessnum==num) active=true;
+}
+return active;
+}
+int get_best_player()
+{
+int current_killcount=-1;
+int final_index=-1;
+for(uint i=0; i<players.length(); i++)
+{
+int count=players[i].kills;
+if(current_killcount==-1)
+{
+current_killcount=count;
+final_index=i;
+}
+else
+{
+if(count>current_killcount)
+{
+current_killcount=count;
+final_index=i;
+}
+}
+}
+return final_index;
+}
+void remove_player(string name,bool got_kicked=false, bool lost=false)
+{
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].name==name)
+{
+int e=is_part_of_event(name);
+if(e>-1)
+{
+events[e].leave(players[i],true,true);
+}
+int teamindex=is_in_team(name);
+if(teamindex>-1)
+teams[teamindex].remove_member(name,false,false);
+uint oldid=(players[i].disconnected ? 4294967294 : players[i].peer_id);
+if(got_kicked==true)
+{
+send_reliable(0,players[i].name+" was kicked from the server",2);
+log("eventstream",players[i].name+" was kicked from the server");
+}
+if(cheatercheck(i,lost) and !got_kicked)
+{
+write_to(players[i].name,"cheater.usr",players[i].name+" is a cheater! They closed the game in "+ms_to_readable_time(players[i].statchangetimer.elapsed)+" of being hit");
+send_reliable(0,players[i].name+" is a cheater!",2);
+}
+if(players[i].following!="")
+{
+int ind=get_player_index_from(players[i].following);
+if(ind>-1) players[ind].following="";
+}
+disconnections++;
+for(uint j=0; j<guns.length(); j++)
+{
+int a=players[i].get_ammo_count_from(guns[j]);
+if(a>0)
+{
+players[i].give("ammo_"+guns[j],a);
+}
+}
+scd(i);
+if(players[i].hidden==0) send_reliable(0, "offline "+players[i].x+" "+players[i].y+" "+players[i].z+" "+players[i].name+" "+players[i].map, 0);
+else
+{
+if(!players[i].disconnected)
+send_reliable(players[i].peer_id, "offline "+players[i].x+" "+players[i].y+" "+players[i].z+" "+players[i].name+" "+players[i].map, 0);
+}
+@players[i]=null;
+players.remove_at(i);
+if(oldid!=4294967294) send_reliable(oldid,"killclient",0);
+continue;
+}
+}
+}
+class pld
+{
+double tx,ty,tz;
+double sx,sy,sz;
+double dist;
+int index;
+pld(player@ p1, player@ p2)
+{
+sx=p1.x;sy=p1.y;sz=p1.z;
+tx=p2.x;ty=p2.y;tz=p2.z;
+index=get_player_index_from(p2.name);
+dist=get_3d_distance(sx,sy,sz,tx,ty,tz);
+}
+int opCmp(pld@ o)
+{
+if(o.dist<dist) return -1;
+if(o.dist>dist) return 1;
+return 0;
+}
+}
+string[] nearest_player_sorted_array(player@ p)
+{
+pld@[] t;
+for(uint i=0; i<players.length; i++)
+{
+if(players[i].name==p.name||players[i].is_dead||players[i].invinsible||p.map!=players[i].map||players[i].hidden==1 or players[i].newb==1) continue;
+pld temp(p,players[i]);
+t.insert_last(temp);
+}
+string[] blankret;
+if(t.is_empty()) return blankret;
+t.sort_descending();
+string[] names;
+for(uint i=0; i<t.length; i++)
+{
+names.insert_last(players[t[i].index].name);
+}
+return names;
+}
+string cn2n(string pname,bool vi=false)
+{
+string ret=pname;
+for(uint i=0; i<players.length; i++)
+{
+if(players[i].name==pname)
+{
+ret=players[i].nickname;
+if(vi)
+{
+for(uint v=0; v<vs.length; v++)
+{
+if(vs[v].owner==pname) ret+="'s "+vs[v].type;
+}
+}
+}
+}
+if(ret==pname&&file_exists("chars/"+pname+"/nickname.usr"))
+{
+ret=get_char_val(pname,"nickname");
+}
+return ret;
+}
+bool are_teamed(string pn1, string pn2)
+{
+int x1=get_player_index_from(pn1);
+int x2=get_player_index_from(pn2);
+if(x1==-1||x2==-1) return false;
+int tx1=is_in_team(pn1);
+int tx2=is_in_team(pn2);
+if(tx1==-1||tx2==-1) return false;
+if(tx1==tx2 or teams[tx1].is_member(pn2) or teams[tx2].is_member(pn1)) return true;
+return false;
+}
+string getdisables(string[] f)
+{
+dictionary temp;
+for(uint i=0; i<f.length; i++)
+{
+temp.set(f[i],"d");
+}
+return serialize(temp);
+}
+string[] setdisables(string temp)
+{
+dictionary t=deserialize(temp);
+return t.get_keys();
+}
+bool cheatercheck(int index, bool excludepaid=false)
+{
+if(index<0) return false;
+if(file_exists("chars/"+players[index].name+"/cheater.usr")) return false; //server already caught it in reception of close
+bool missilesnear=false;
+for(uint i=0; i<missiles.length(); i++)
+{
+int missiledist=players[index].distancecheck(missiles[i].x,missiles[i].y,missiles[i].z);
+if(missiledist<=30 and missiles[i].map==players[index].map and players[index].name==missiles[i].targetname)
+{
+missilesnear=true;
+}
+}
+bool near_ultrabomb=false;
+for(int i=0; i<ultrabombs.length(); i++)
+{
+int distance=players[index].distancecheck(ultrabombs[i].x, ultrabombs[i].y, ultrabombs[i].z);
+if(distance<80 and players[index].map==ultrabombs[i].map and ultrabombs[i].d==true) near_ultrabomb=true;
+}
+if((players[index].statchangetimer.elapsed<15000||missilesnear==true || near_ultrabomb==true))
+{
+if(!excludepaid) return true;
+else if(excludepaid&&players[index].paid==0) return false;
+}
+return false;
+}
+int antibiotic(int ch)
+{
+double limit=100000,scaler=100;
+if(ch<=5000&&ch>=3500) 
+{
+scaler=70;
+limit=40000;
+}
+else if(ch<3500&&ch>=2000)
+{
+scaler=50;
+limit=30000;
+}
+else if(ch<2000&&ch>1000)
+{
+scaler=25;
+limit=20000;
+}
+else if(ch<=1000)
+{
+scaler=15;
+limit=15000;
+}
+if(ch==0) return 10000;
+else ch+=floor((limit/ch)*scaler);
+return ch;
+}
+class chartime
+{
+string name,extrainfo;
+float lastlog;
+chartime(string name, float lastlog)
+{
+this.name=name;
+this.lastlog=lastlog;
+}
+int opCmp(chartime@ otherlog)
+{
+if(this.lastlog==otherlog.lastlog) return 0;
+else if(this.lastlog<otherlog.lastlog) return -1;
+else return 1;
+
+}
+}
+player@[] get_paid_online()
+{
+player@[] ret;
+for(int i=0; i<players.length(); i++)
+{
+if(players[i].is_paid()&&players[i].hidden==0)
+ret.insert_last(players[i]);
+}
+return ret;
+}

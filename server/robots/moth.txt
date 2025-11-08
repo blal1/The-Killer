@@ -1,0 +1,13 @@
+name moth
+health 10000
+defence 1000
+speed 200
+damage 50,5000
+shoot 900
+distance 5
+aggro 1000
+spread 1
+angle 90
+steps 1
+loot ammo,dollar
+amount 100

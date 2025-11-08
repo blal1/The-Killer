@@ -1,0 +1,8 @@
+mapname:flamer
+maxx:30
+maxy:30
+maxz:30
+tile:0:30:0:30:0:0:glass
+tile:30:30:30:30:0:1200:glass
+tile:29:29:29:30:0:1222:wallbuilding
+tile:30:30:29:29:1:1222:wallbuilding

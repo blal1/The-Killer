@@ -1,0 +1,47 @@
+string custom="saturday dec 16 2017 run 1";
+file f;
+string file_get_contents(string fname)
+{
+string ret;
+f.open(fname,"rb");
+ret=f.read();
+f.close();
+return ret;
+}
+void file_put_contents(string fname,string cont)
+{
+f.open(fname,"wb");
+f.write(cont);
+f.close();
+}
+void main()
+{
+directory_create("pwarchive");
+string[] dirs=find_directories("chars/*");
+int fixed=0,rehashed=0,errors=0;
+string errorstring="any error output will follow\r\n";
+for(uint i=0; i<dirs.length; i++)
+{
+string path="chars/"+dirs[i]+"/";
+if(!file_exists(path+"pass.usr")&&!string_is_alphanumeric(file_get_contents(path+"password.usr")))
+{
+string curpass=string_decrypt(file_get_contents(path+"password.usr"),"tk3dcharpass_encrypted");
+file_put_contents(path+"password.usr",string_hash(curpass,2,false));
+rehashed++;
+}
+else if(file_exists(path+"pass.usr")&&!string_is_alphanumeric(file_get_contents(path+"password.usr")))
+{
+file_put_contents(path+"password.usr",file_get_contents(path+"pass.usr"));
+file_copy(path+"pass.usr","pwarchive/"+dirs[i]+".usr",true);
+file_delete(path+"pass.usr");
+fixed++;
+}
+else
+{
+errors++;
+errorstring+=dirs[i]+"\r\n";
+}
+}
+string output="passfix log\r\n"+custom+"\r\n"+fixed+" passwords fixed\r\n"+rehashed+" passwords rehashed\r\n"+errors+" errors\r\n"+find_files("pwarchive/*.usr").length()+" files in pw archive\r\n"+errorstring;
+file_put_contents("output_passfix.txt",output);
+}

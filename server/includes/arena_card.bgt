@@ -1,0 +1,56 @@
+arena_card@[] arena_cards(0);
+class arena_card
+{
+string owner;
+timer explodetimer;
+int z;
+string map;
+int x, y;
+arena_card(int tx,int ty,int tz, string tmap, string towner)
+{
+owner=towner;
+x=tx;
+y=ty;
+z=tz;
+map=tmap;
+play("arena_cardstart",x,y,z,map);
+}
+}
+void arena_cardloop()
+{
+for (uint i=0; i<arena_cards.length(); i++)
+{
+if(arena_cards[i].explodetimer.elapsed>=1)
+{
+arena_cards[i].explodetimer.restart();
+play("arena_card",arena_cards[i].x,arena_cards[i].y,arena_cards[i].z,arena_cards[i].map);
+send_reliable(0,"distsound arena_carddist "+arena_cards[i].x+" "+arena_cards[i].y+" "+arena_cards[i].z+" "+arena_cards[i].map,0);
+for (uint i2=0; i2<players.length(); i2++)
+{
+if(players[i2].invinsible==true || players[i2].newb==1 || players[i2].is_dead==true||in_vehicle(players[i2].name)>-1) continue;
+if (get_3d_distance(arena_cards[i].x,arena_cards[i].y,arena_cards[i].z,players[i2].x,players[i2].y,players[i2].z)<=50 and players[i2].map==arena_cards[i].map)
+{
+players[i2].should_subtract=true;
+vector max=get_max_values(players[i2].map);
+move_player(players[i2],players[i2].map,random(0,max.x),random(0,max.y),0);
+}
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_3d_distance(arena_cards[i].x,arena_cards[i].y,arena_cards[i].z,vs[v].x,vs[v].y,vs[v].z)<=30&&vs[v].map==arena_cards[i].map)
+vs[v].hit(random(500,1500),arena_cards[i].owner+"'s concussive grenade");
+}
+@arena_cards[i]=null;
+arena_cards.remove_at(i);
+}
+}
+}
+void placearena_card(int x,int y, int z, string map,string owner)
+{
+arena_card bomb1(x,y,z,map,owner);
+arena_cards.insert_last(bomb1);
+}
+void destroy_all_arena_cards()
+{
+arena_cards.resize(0);
+}

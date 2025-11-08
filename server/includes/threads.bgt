@@ -1,0 +1,40 @@
+/*
+threading attempt
+this set of code is an attempt to do threading, or at least fake threading, in a single threaded language.
+The way this will be done is through functions that will not block, but instead will be run in loops, such as internet requests, or something done in stages. An expandable base class will be used, with a callback set as it's return, containing a dictionary result.
+Currently there will be no way to stop a thread once it has been started, since the callback function is only called on it's return.
+the base class will define the result and a few other features, it is the job of the subclass to define the so called tick method, and also, when a task is completed, to set the thread_done boolean provided by the base to true so the class can then return it's data and be destroyed. The result dictionary should be used to set the returnable data.
+you must call threading_process() in your main loop for all this to work.
+*/
+funcdef handle_thread_result(dictionary@ res);
+class thread_base
+{
+dictionary result;
+bool thread_done=false;
+handle_thread_result@ resfunc;
+thread_base(handle_thread_result@ outres)
+{
+@resfunc=outres;
+}
+~thread_base()
+{
+this.resfunc(this.result);
+}
+void tick()
+{
+//this must be defined in children!
+}
+}
+thread@[] threads;
+void threading_process()
+{
+for(uint i=0; i<threads.length; i++)
+{
+if(threads[i].thread_done)
+{
+threads.remove_at(i);
+return;
+}
+threads[i].tick();
+}
+}

@@ -1,0 +1,15 @@
+name lion
+health 30000
+defence 3000
+speed 600
+damage 1000,100000
+shoot 3000
+distance 5
+aggro 1000
+spread 5
+angle 90
+steps 0
+loot dollar
+amount 1000
+voices 5
+kills 5

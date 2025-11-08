@@ -1,0 +1,35 @@
+item@[]items(0);
+class item
+{
+int x,y,z;
+string map;
+int id=-1;
+int itemsound;
+timer beeptimer;
+item(int ix,int iy,int iz,string imap, int iid)
+{
+x=ix;
+y=iy;
+z=iz;
+map=imap;
+id=iid;
+itemsound=p.play_3d("item.ogg",me.x,me.y,me.z,x,y,z,calculate_theta(facing),true);
+}
+}
+void spawn_item(int x,int y, int z, string map,int id)
+{
+item i1(x,y,z,map,id);
+items.insert_last(i1);
+}
+void remove_item(int id)
+{
+for(uint i=0; i<items.length(); i++)
+{
+if(items[i].id==id)
+{
+p.destroy_sound(items[i].itemsound);
+@items[i]=null;
+items.remove_at(i);
+}
+}
+}

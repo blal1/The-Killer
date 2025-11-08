@@ -1,0 +1,7 @@
+mapname:mega_dragon
+maxx:50
+maxy:50
+maxz:50
+tile:0:50:0:50:0:0:carpet2
+zone:0:100:0:100:0:100:dragon_area!:trackme
+robots:0:50:0:50:0:0:1:2000:mega_dragon,mega_dragon

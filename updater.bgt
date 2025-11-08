@@ -1,0 +1,101 @@
+//new updater.
+#include"includes/HIP.bgt"
+#include"includes/dlfile.bgt"
+string ver="6.0";
+void main()
+{
+if(!SCRIPT_COMPILED)
+{
+alert("excuse me","I don't think you should be running this!");
+exit();
+}
+show_game_window("TK updater by blindmasters");
+string ver="3.3";
+speak("Downloading update...");
+/*
+string d=dl_file("http://blindmasters.org/tk/tk.exe","tk.exe");
+if(d=="finished")
+d=dl_file("http://blindmasters.org/tk/changelog.txt","changelog.txt",false);
+if(d=="finished")
+d=dl_file("http://blindmasters.org/tk/GameEngine.dll","GameEngine.dll",false);
+if(d=="finished")
+d=dl_file("http://blindmasters.org/tk/readme.txt","readme.txt",false);
+*/
+string d=dl_file("http://blindmasters.org/tk/release.zip","release.zip");
+if(d=="finished")
+{
+speak("Update downloaded");
+wait(2800);
+pack_file p;
+p.open("sounds.dat");
+file@ v=p.get_file("ver.txt");
+double cursver=string_to_number(v.read());
+v.close();
+double newsver=string_to_number(url_get("http://enes-productions.tr.ht/tk/soundsver.txt"));
+if(newsver>cursver)
+{
+show_game_window("TK updater");
+speak("new sounds are available. Would you like to download them now? Press y or n");
+while(true)
+{
+if(key_pressed(KEY_Y) or key_pressed(KEY_RETURN))
+{
+d=dl_file("http://enes-productions.tr.ht/tk/sounds.dat","sounds.dat",false,"Downloading sounds. This may take a while.");
+if(d=="finished")
+{
+speak("sounds have been downloaded successfully");
+break;
+}
+else
+{
+speak("there was an error downloading the sounds. Please try again later");
+break;
+}
+}
+else if(key_pressed(KEY_N) or key_pressed(KEY_ESCAPE))
+{
+speak("okay, sounds will not be downloaded");
+break;
+}
+wait(5);
+}
+wait(2000);
+}
+run("tk.exe","",false,false);
+}
+}
+
+int interrupt=0;
+tts_voice tts;
+int found_reader=0;
+bool speak(string text, bool interrupt=true)
+{
+if(found_reader==0)
+found_reader=auto_select_screen_reader();
+if(found_reader==0)
+{
+
+// We cannot find a running screen reader, so we use a global tts_voice object.
+if(interrupt)
+tts.speak_interrupt(text);
+else
+tts.speak(text);
+}
+
+if(interrupt)
+screen_reader_speak_interrupt(found_reader, text);
+else
+screen_reader_speak(found_reader, text);
+return true;
+}
+
+int auto_select_screen_reader()
+{
+for(int i=1;i<=4;i++)
+{
+if(screen_reader_is_running(i)==false)
+continue;
+return i;
+}
+return 0;
+}

@@ -1,0 +1,12 @@
+name crossbow
+dammage 500 1100
+range 75
+spread 5
+bullet 0
+stunning 0
+stuntime 0
+hitsounds 3
+shieldchance 10
+speedtime 20
+shieldhits2
+reloadable 1

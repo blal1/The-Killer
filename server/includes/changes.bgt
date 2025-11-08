@@ -1,0 +1,154 @@
+string version="7.1";
+string lastupdate="29/03/2020 17:12 PM central standard time";
+string changes="
+new in 7.1
+fixed the bgt runtime rror.
+changed the little one feature
+new in 7.0
+/ officials command added!
+Now when you are in a difficult situation, you can use the / suicide command! note! when you do this you will lose 30000 dollars
+Added the /deleteme command!
+now you will be rewarded when you finish the maps! I started doing these in order
+You'll die when you hit the fire!
+You will no longer die after eating banana!
+Now all the sounds and tiles in the game have been added to the list of builders!
+now a message will sound when you press f1
+fixed the travel point error give you bgt runtime rror, thanks to moonlight
+the cliend's bgt runtime rror fixed
+added the /disablebombs /enablebombs command for DEVS
+Robots can now attack vehicles!
+if someone attack you, you must wait one minute don't teleport the travel point
+weapon system as before!
+/ gamestop / gamestart issues fixed!
+fixed in-game problems
+Added / mt command for masters! good chats!
+vehicles are now faster and more troublesome! Escape from the aircraft!
+If the hunger and thirst system has been added, I think it is a good idea to lose them if the players do not comply with it! that is, if you do not take care of your health, you will lose 30000 dollars!
+For daily life, chips and water bottle were added!
+now 5 launch sounds have been added to the grenade!
+antibiotic sound has been changed!
+Mine place sound has been changed!
+hunger and thirst system added! The letter j tells hunger, the letter k tells thirst! According to my current opinion, you can find them on the vending machine! thanks for helping moonlight!
+You can now destroy a mine without bursting! Before you go where you think it is a trap, enter 1 step ahead and bring yourself a chance!
+The sound of beacon has been changed!
+added horn!
+new in 6.0.
+now you can get a player right in front of you and make him hit the bullet
+Now, / garbage will solve more server's lag problem!
+fixed the dog problem
+fixed the robocop problem
+things have been edited
+removed the store_card.
+added poison_dart and poison_drink.
+Now the ammo problem is completely resolved!
+He will not say anything like no ammo for weapons that no longer receive bullets!
+Moderator rank changed to INS
+robocop and dog added.
+many tiles and sounds added to the game
+Now when you get the gun like counterstrike, it will sound different.
+fixed the much bugs
+added /killall command for admins.
+now has a 3-choice test speaker menu!
+The select the music track option in the settings has been removed, random music will now play in the game's menu!
+rules system is better now!
+when I entered the game, I solved the problem with the door opening sound
+rank names are now changed
+chat tone has been changed
+Numerous foods were boring now, cola and Health Potion are here for now!
+online and offline sounds were changed.
+added sail boats
+old maps have been developed, we will use the maps that moonlight makes for now!
+new in 5.0
+fixed the /update problem
+the shield is now back to old
+you can no longer send more than 1 without hitting the guided_missile man!
+prices are now back!
+You will be born in the store after you die!
+Now you will know according to the developers in the / staff list!
+I guess, I fixed to shelter some bugs
+fixed the auction bug
+now fixed the issue of self-discharge of the weapon after 1 2 minutes
+now you will see the robots in the letter p and m!
+now store item prices have been reduced much more!
+weapons are more like real life now!
+warp_box added!
+You can no longer use metal shelters! Removed!
+fixed the draw feature
+now an online robot has been added! you can do anything to them!
+changed to logo
+jloop sounds were changed
+grenade will take a lot of health now!
+hotel added!
+taser issue fixed!
+Added evening, night, morning, night in the game
+guided missile 10000 takes 18000 health!
+When he dies, you will be prompted to respawn!
+new in 4.1
+the bike is closed for now, working on the new bike
+I did something between guided_missile
+pipe_bomb will no longer be able to launch fast!
+cannon bugs fixed!
+rpg7 no longer hits strong!
+now rank based on level rank!
+fixed the client problem
+fixed j player!
+new in 4.0
+I tried to fix the client shutdown problem of the game after I died, I hope it was!
+The / clearstats command is back!
+you can donate! just click on the main menu paypal me option and go to the link!
+now you can see the builder admin moderator master in this rank ranking / staff command!
+If you want now, you can quickly access the store with the store card without having to search for a store! Sold in store misc store section!
+level system added! press l!
+wood bug fixed!
+sounds have been changed!
+music_box added!
+voice chat added!
+new_in 3.1.
+fixed master rank: so, master can to make admin builder moderator!
+police car super weapon error fixed
+Surprise for those who abuse the AFK command! haha, you will no longer be able to abuse it!
+You will die when you try to be AFK in vehicles, shelter, helicopter, bullet_bomb, barricade_bomb in vehicles, you will die when you try to use such things!
+raki bottle problem fixed
+fixed Reboot sistem.
+No more lag like before.
+Added Barricade Bomb
+Added Bullet Bomb, And Bullet Bomb Locator.
+Added Tasing Small Projectile, Small Projectile, Poisoned Small Projectile!
+Boxing Map Created! You can kill the robots, and you can add points to your team: now to get out of the boxing map as before, just go to 29 29 40: for you to get rid of the traps, you will no longer be determined in a fixed coordinate! You will be teleported to the main map randomly! good job!
+new in 3.0
+some bugs fixed
+Now, if there are no administrators in the game, you can see your / admintell messages when the admins enter the game!
+developer for added / devtell command: if you have a problem, you can send it to the / devtell command!
+/ report command added! If you want to report any person or error, you can use the / report command!
+added helicopter!
+changed to server.
+the bike sistem fixed!
+store now moving! type/storehint
+changed to logo
+removed paypal menu!
+removed storym.
+aded all ranks!
+some sounds changed
+item_grabbed aded!
+the game stop and start bug fixed!
+the AFK sistem fixed
+aded some weapons!
+aded taser, and dart_launcher: stun for
+aded raki_bottle!
+the mega_dragon has been aded!
+new in 2.4
+some cheats fixed
+added nuclear bomb, hand grenades, suicide_bombs!
+added dogan slx, Truck, Police Car Super!
+store prices changed
+new in 2.2:
+Added lots of food and beverages
+Added weapons as item
+Removed some cheats
+A lot of idiicities were described in the voices
+Map improve
+Note: weapons are now more
+Good fun
+new in 2.1:
+addet to test speakers.
+New weapons add";

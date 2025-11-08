@@ -1,0 +1,15 @@
+name glider
+health 50000
+defence 10000
+speed 200
+damage 700,50000
+shoot 3000
+distance 20
+aggro 1000
+spread 1
+angle 30
+steps 1
+loot dollar
+amount 5000
+kills 2
+voices 2

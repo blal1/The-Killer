@@ -1,0 +1,525 @@
+//Terlark binding for BGT
+//Author: Damien Pendleton
+//Date: 3rd September 2015
+
+//This is wrapped into a class to avoid possible global naming conflicts.
+
+class terlark
+{
+int dlg_alert(string title, string text, bool allow_cancel)
+{
+if(!dll.active) return 0;
+int ret=-1;
+dictionary@ result=dll.call("int dlg_alert(char*, char*, int);", title, text, allow_cancel);
+result.get("0", ret);
+return ret;
+}
+
+int dlg_information(string title, string text, bool allow_cancel)
+{
+if(!dll.active) return 0;
+int ret=-1;
+dictionary@ result=dll.call("int dlg_information(char*, char*, int);", title, text, allow_cancel);
+result.get("0", ret);
+return ret;
+}
+
+int dlg_question(string title, string text, bool allow_cancel)
+{
+if(!dll.active) return 0;
+int ret=-1;
+dictionary@ result=dll.call("int dlg_question(char*, char*, int);", title, text, allow_cancel);
+result.get("0", ret);
+return ret;
+}
+
+int dlg_error(string title, string text, bool allow_cancel)
+{
+if(!dll.active) return 0;
+int ret=-1;
+dictionary@ result=dll.call("int dlg_error(char*, char*, int);", title, text, allow_cancel);
+result.get("0", ret);
+return ret;
+}
+
+int dlg_critical(string title, string text, bool allow_cancel)
+{
+if(!dll.active) return 0;
+int ret=-1;
+dictionary@ result=dll.call("int dlg_critical(char*, char*, int);", title, text, allow_cancel);
+result.get("0", ret);
+return ret;
+}
+
+int dlg_failure(string title, string text, bool allow_ignore)
+{
+if(!dll.active) return 0;
+int ret=-1;
+dictionary@ result=dll.call("int dlg_failure(char*, char*, int);", title, text, allow_ignore);
+result.get("0", ret);
+return ret;
+}
+
+bool dlg_beep_alert()
+{
+if(!dll.active) return false;
+dll.call("void dlg_beep_alert();");
+return true;
+}
+
+bool dlg_beep_information()
+{
+if(!dll.active) return false;
+dll.call("void dlg_beep_information();");
+return true;
+}
+
+bool dlg_beep_question()
+{
+if(!dll.active) return false;
+dll.call("void dlg_beep_question();");
+return true;
+}
+
+bool dlg_beep_error()
+{
+if(!dll.active) return false;
+dll.call("void dlg_beep_error();");
+return true;
+}
+
+bool dlg_beep_critical()
+{
+if(!dll.active) return false;
+dll.call("void dlg_beep_critical();");
+return true;
+}
+
+string[] dlg_open(string title="Open file", string filter="All files (*.*)|*.*", bool allow_multiselect=true)
+{
+string[] empty;
+if(!dll.active) return empty;
+int multi=0;
+if(allow_multiselect) multi=1;
+dictionary@ result=dll.call("char* dlg_open(char*, char*, int);", title, filter, multi);
+int filename=-1;
+result.get("0", filename);
+string name=string_create_from_pointer(filename, 0);
+if(name=="") return empty;
+return string_split(name, "\r\n", false);
+}
+
+string dlg_save(string title="Save file", string filter="All files (*.*)|*.*")
+{
+if(!dll.active) return "";
+dictionary@ result=dll.call("char* dlg_save(char*, char*);", title, filter);
+int filename=-1;
+result.get("0", filename);
+string name=string_create_from_pointer(filename, 0);
+return name;
+}
+
+bool directory_create(string directory)
+{
+if(!dll.active) return false;
+int ret=-1;
+dictionary@ result=dll.call("int directory_create(char*);", directory);
+result.get("0", ret);
+if(ret==0) return false;
+return true;
+}
+
+bool directory_change(string directory)
+{
+if(!dll.active) return false;
+int ret=-1;
+dictionary@ result=dll.call("int directory_change(char*);", directory);
+result.get("0", ret);
+if(ret==0) return false;
+return true;
+}
+
+string directory_locate_current()
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* directory_locate_current();");
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+string directory_locate_system()
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* directory_locate_system();");
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+string directory_locate_windows()
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* directory_locate_windows();");
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+bool drive_set_label(string drive, string label)
+{
+if(!dll.active) return false;
+int ret=-1;
+dictionary@ result=dll.call("int drive_set_label(char*, char*);", drive, label);
+result.get("0", ret);
+if(ret==0) return false;
+return true;
+}
+
+string drive_get_label(string drive)
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* drive_get_label(char*);", drive);
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+string drive_get_type(string drive)
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* drive_get_type(char*);", drive);
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+string drive_get_file_system(string drive)
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* drive_get_file_system(char*);", drive);
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+int drive_get_bytes_per_sector(string drive)
+{
+if(!dll.active) return -1;
+int ret=-1;
+dictionary@ result=dll.call("int drive_get_bytes_per_sector(char*);", drive);
+result.get("0", ret);
+return ret;
+}
+
+int drive_get_sectors_per_cluster(string drive)
+{
+if(!dll.active) return -1;
+int ret=-1;
+dictionary@ result=dll.call("int drive_get_sectors_per_cluster(char*);", drive);
+result.get("0", ret);
+return ret;
+}
+
+double drive_get_free_space(string drive)
+{
+if(!dll.active) return -1;
+double ret=-1;
+dictionary@ result=dll.call("double drive_get_free_space(char*);", drive);
+result.get("0", ret);
+return ret;
+}
+
+double drive_get_total_capacity(string drive)
+{
+if(!dll.active) return -1;
+double ret=-1;
+dictionary@ result=dll.call("double drive_get_total_capacity(char*);", drive);
+result.get("0", ret);
+return ret;
+}
+
+int drive_get_volume_serial(string drive)
+{
+if(!dll.active) return -1;
+int ret=-1;
+dictionary@ result=dll.call("int drive_get_volume_serial(char*);", drive);
+result.get("0", ret);
+return ret;
+}
+
+string[] drive_get_drives()
+{
+string[] empty;
+if(!dll.active) return empty;
+int ret=-1;
+dictionary@ result=dll.call("char* drive_get_drives();");
+result.get("0", ret);
+string raw=string_create_from_pointer(ret);
+return string_split(raw, "\r\n", false);
+}
+
+bool file_create(string filename, bool create_directories=true)
+{
+if(!dll.active) return false;
+int ret=-1;
+dictionary@ result=dll.call("int file_create(char*, int);", filename, create_directories);
+result.get("0", ret);
+if(ret==0) return false;
+return true;
+}
+
+bool file_move(string source, string destination, bool overwrite=false)
+{
+if(!dll.active) return false;
+int ret=-1;
+dictionary@ result=dll.call("int file_move(char*, char*, int);", source, destination, overwrite);
+result.get("0", ret);
+if(ret==0) return false;
+return true;
+}
+
+string file_get_full_path(string filename)
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* file_get_full_path(char*);", filename);
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+string file_get_short_path(string filename)
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* file_get_short_path(char*);", filename);
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+string filestring_get_path(string filename)
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* filestring_get_path(char*);", filename);
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+string filestring_get_domain(string filename)
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* filestring_get_domain(char*);", filename);
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+string filestring_get_location(string filename)
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* filestring_get_location(char*);", filename);
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+string filestring_get_extension(string filename)
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* filestring_get_extension(char*);", filename);
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+string filestring_get_filename(string filename)
+{
+if(!dll.active) return "";
+int ret=-1;
+dictionary@ result=dll.call("char* filestring_get_filename(char*);", filename);
+result.get("0", ret);
+return string_create_from_pointer(ret, 0);
+}
+
+int power_battery_percent()
+{
+if(!dll.active) return -2;
+dictionary@ result=dll.call("int power_battery_percent();");
+int res=-1;
+result.get("0", res);
+return res;
+}
+
+int power_battery_estimated_remaining_time()
+{
+if(!dll.active) return -2;
+dictionary@ result=dll.call("int power_battery_estimated_remaining_time();");
+int res=-1;
+result.get("0", res);
+return res;
+}
+
+int power_battery_estimated_total_time()
+{
+if(!dll.active) return -2;
+dictionary@ result=dll.call("int power_battery_estimated_total_time();");
+int res=-1;
+result.get("0", res);
+return res;
+}
+
+bool power_battery_exists()
+{
+if(!dll.active) return false;
+dictionary@ result=dll.call("int power_battery_exists();");
+int res=0;
+result.get("0", res);
+if(res==0) return false;
+return true;
+}
+
+bool power_battery_charging()
+{
+if(!dll.active) return false;
+dictionary@ result=dll.call("int power_battery_charging();");
+int res=0;
+result.get("0", res);
+if(res==0) return false;
+return true;
+}
+
+bool power_connected()
+{
+if(!dll.active) return false;
+dictionary@ result=dll.call("int power_connected();");
+int res=0;
+result.get("0", res);
+if(res==0) return false;
+return true;
+}
+
+//Experimental functions
+
+int gui_create_window(string title, bool system_menu=true)
+{
+if(!dll.active) return 0;
+int ret=-1;
+dictionary@ result=dll.call("int gui_create_window(char*, int);", title, system_menu);
+result.get("0", ret);
+return ret;
+}
+
+bool gui_show()
+{
+if(!dll.active) return false;
+int ret=-1;
+dictionary@ result=dll.call("int gui_show();");
+result.get("0", ret);
+if(ret==0) return false;
+return true;
+}
+
+bool system_shutdown(bool force=false, bool powerdown=true)
+{
+if(!dll.active) return false;
+int ret=-1;
+dictionary@ result=dll.call("int system_shutdown(int, int);", force, powerdown);
+result.get("0", ret);
+if(ret==0) return false;
+return true;
+}
+
+bool system_reboot(bool force=false)
+{
+if(!dll.active) return false;
+int ret=-1;
+dictionary@ result=dll.call("int system_reboot(int);", force);
+result.get("0", ret);
+if(ret==0) return false;
+return true;
+}
+
+bool system_logoff(bool force=false)
+{
+if(!dll.active) return false;
+int ret=-1;
+dictionary@ result=dll.call("int system_logoff(int);", force);
+result.get("0", ret);
+if(ret==0) return false;
+return true;
+}
+
+bool ftp_connect(string host, string username, string password, int port=21, bool passive=true)
+{
+if(!dll.active) return false;
+int ret=-1;
+dictionary@ result=dll.call("int ftp_connect(char*, char*, char*, int, int);", host, username, password, port, passive);
+result.get("0", ret);
+if(ret==0) return false;
+return true;
+}
+
+bool ftp_upload(string local_file, string remote_file, bool overwrite=false)
+{
+if(!dll.active) return false;
+int ret=-1;
+dictionary@ result=dll.call("int ftp_upload(char*, char*, int);", local_file, remote_file, overwrite);
+result.get("0", ret);
+if(ret==0) return false;
+return true;
+}
+
+//Library based functions
+
+string get_version()
+{
+dictionary@ result=dll.call("char* terlark_get_version();");
+int pointer=0;
+result.get("0", pointer);
+string version=string_create_from_pointer(pointer, 0);
+return version;
+}
+
+//Method: active: Checks whether the library is loaded and ready for use.
+
+bool active()
+{
+return dll.active;
+}
+
+//Method: reload: Reloads the library, allowing you to choose a new filename.
+//Note that, due to BGT's DLL implementation, this function will terminate with a runtime error if a library other than Terlark is successfully loaded.
+
+bool reload(string libname)
+{
+if(!file_exists(libname)) return false;
+if(dll.active) dll.unload();
+if(!dll.load(libname)) return false;
+string version=get_version();
+if(version=="") return false;
+return true;
+}
+
+//Internal garbage
+
+//Constructor
+
+terlark()
+{
+if(!reload("terlark.dll"))
+{
+return;
+}
+}
+
+//Destructor
+
+~terlark()
+{
+if(!dll.active) return;
+dll.unload();
+}
+
+private library dll;
+}

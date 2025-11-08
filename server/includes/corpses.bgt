@@ -1,0 +1,87 @@
+corpse@[]corpses(0);
+string chars="1234567890";
+class corpse
+{
+string oldinv;
+string id;
+corpse(string inv,string newid)
+{
+oldinv=inv;
+id=newid;
+}
+string list_contents()
+{
+string[] final_list;
+string list;
+string[] invvalues=string_split(oldinv,"\r\n",false);
+for(uint i=0; i<invvalues.length(); i++)
+{
+string[] inv2=string_split(invvalues[i],"=",false);
+final_list.insert_last(inv2[1]+" "+inv2[0]);
+}
+list=convert_to_list(final_list);
+return list;
+}
+void give_to(string who)
+{
+int index=get_player_index_from(who);
+if(index>-1)
+{
+string[] invvalues=string_split(oldinv,"\r\n",false);
+for(uint i=0; i<invvalues.length(); i++)
+{
+string[] inv2=string_split(invvalues[i],"=",false);
+players[index].give(inv2[0],stn(inv2[1]));
+}
+int corpseid=get_corpses_from(id);
+if(corpseid>-1) {
+corpses.remove_at(corpseid);
+}
+}
+}
+}
+int get_corpses_from(string the_id)
+{
+for(uint i=0; i<corpses.length(); i++)
+{
+if(corpses[i].id==the_id)
+{
+return i;
+}
+}
+return -1;
+}
+void new_corpse(string inv,string id)
+{
+corpse c1(inv,id);
+corpses.insert_last(c1);
+}
+void save_corpses()
+{
+string final;
+for(uint i=0; i<corpses.length(); i++)
+{
+final+=corpses[i].id+"[]"+corpses[i].oldinv+"+++";
+}
+fl.open("prefs/corpses.svr","wb");
+fl.write(final);
+fl.close();
+}
+void load_corpses()
+{
+if(!file_exists("prefs/corpses.svr"))
+return;
+fl.open("prefs/corpses.svr","rb");
+string sdata=fl.read();
+fl.close();
+if(sdata=="") return;
+string[] c=string_split(sdata,"+++",false);
+for(uint i=0; i<c.length(); i++)
+{
+string[] c2=string_split(c[i],"[]",false);
+string newinv=c2[1];
+string id=c2[0];
+corpse crp(newinv,id);
+corpses.insert_last(crp);
+}
+}

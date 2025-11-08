@@ -1,0 +1,285 @@
+class virtualizer
+{
+int capmode=1;
+string input(string text, bool connected=true, bool secure_input=false)
+{
+int cursor;
+string message;
+speak(text);
+cursor=0;
+string[] ms;
+get_characters();
+while(true)
+{
+wait(1);
+if(speed_stop_is_hacking(200)==true)
+killbitch();
+if(connected==true)
+{
+if(!following&&!frozen&&!inve)
+{
+fallloop();
+fallcheck();
+fallingloop();
+}
+msoundcheckloop();
+healthloop();
+netloop();
+p.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+}
+string char=get_characters();
+if(key_pressed(KEY_TAB)) speak(text);
+if(shift_is_down() and key_pressed(KEY_BACK)) { 
+speak(message+": cleared");
+spool.play_stationary("keydelete.ogg", false);
+ms.resize(0);
+cursor=0;
+}
+if (key_down(KEY_LCONTROL) or key_down(KEY_RCONTROL))
+{
+if (key_pressed(KEY_V))
+{
+speak("text pasted");
+string cl=clipboard_read_text();
+for (uint i=0; i<cl.length(); i++)
+{
+ms.insert_at(cursor,cl[i]);
+cursor+=1;
+}
+}
+if (key_pressed(KEY_C) and secure_input==false)
+{
+string a;
+for (uint i=0; i<ms.length(); i++)
+{
+a+=ms[i];
+}
+speak("text copied");
+clipboard_copy_text(a);
+}
+}
+if (key_pressed(KEY_F3)) {
+if (capmode==0) {
+capmode=1;
+speak("Say cap");
+p.play_stationary("wpingon.ogg",false);
+}
+else {
+capmode=0;
+speak("No capitals.");
+p.play_stationary("wpingoff.ogg",false);
+}
+}
+if (key_pressed(KEY_F2))
+{
+if (charrepeat==1)
+{
+p.play_stationary("wpingoff.ogg",false);
+speak("character repeat off");
+charrepeat=0;
+}
+else
+{
+p.play_stationary("wpingon.ogg",false);
+speak("character repeat on");
+charrepeat=1;
+}
+}
+if(char!="")
+{
+if (charrepeat==1 and char!=" ")
+{
+string spoken_feedback;
+if (string_is_upper_case(char)) {
+if (capmode==1)
+spoken_feedback+="Cap "+char;
+else
+spoken_feedback+=char;
+}
+else
+spoken_feedback=char;
+if(secure_input==true)
+{
+p.play_stationary("secure_input.ogg",false);
+speak("*");
+}
+else
+speak(spoken_feedback);
+}
+if(char!="")
+ms.insert_at(cursor,char);
+cursor+=1;
+spool.play_stationary("key"+random(1, 3)+".ogg", false);
+}
+if(key_pressed(KEY_BACK) and ms.length() > 0 and cursor>=1)
+{
+string char=ms[cursor-1];
+if (char==" ")
+speak("space");
+else {
+if (string_is_upper_case(char)) {
+if (capmode==1)
+speak("Cap "+char);
+else
+speak(char);
+}
+else
+speak(char);
+}
+ms.remove_at(cursor-1);
+cursor-=1;
+spool.play_stationary("keydelete.ogg", false);
+}
+if(key_pressed(KEY_DELETE) and ms.length() > 0 and cursor>0 and cursor<ms.length())
+{
+string char=ms[cursor+1];
+if (char==" ")
+speak("space");
+else {
+if (string_is_upper_case(char)) {
+if (capmode==1)
+speak("Cap "+char);
+else
+speak(char);
+}
+else
+speak(char);
+}
+ms.remove_at(cursor+1);
+spool.play_stationary("keydelete.ogg", false);
+}
+if(key_pressed(KEY_DOWN) or key_pressed(KEY_UP))
+{
+string a;
+for (uint i=0; i<ms.length(); i++)
+{
+a+=ms[i];
+}
+speak(a);
+}
+if(key_pressed(KEY_LEFT) and cursor>0)
+{
+if(ms.length()>0)
+{
+cursor-=1;
+if (cursor>=ms.length())
+{
+speak("Blank");
+}
+else if (ms[cursor]==" ")
+speak("space");
+else
+{
+if (string_is_upper_case(ms[cursor])) {
+if (capmode==1)
+speak("Cap "+ms[cursor]);
+else
+speak(ms[cursor]);
+}
+else
+speak(ms[cursor]);
+}
+}
+else
+speak("blank");
+}
+if(key_pressed(KEY_RIGHT) and cursor<ms.length())
+{
+if(ms.length() > 0)
+{
+cursor+=1;
+if (cursor>=ms.length())
+speak("Blank");
+else if (ms[cursor]==" ")
+speak("space");
+else
+{
+if (string_is_upper_case(ms[cursor])) {
+if (capmode==1)
+speak("Cap "+ms[cursor]);
+else
+speak(ms[cursor]);
+}
+else
+speak(ms[cursor]);
+}
+}
+else
+speak("blank");
+}
+if(key_pressed(KEY_HOME))
+{
+if(ms.length() > 0)
+{
+cursor=0;
+if (cursor>=ms.length())
+speak("Blank");
+else if (ms[cursor]==" ")
+speak("space");
+else
+{
+if (string_is_upper_case(ms[cursor])) {
+if (capmode==1)
+speak("Cap "+ms[cursor]);
+else
+speak(ms[cursor]);
+}
+else
+speak(ms[cursor]);
+}
+}
+else
+speak("blank");
+}
+if(key_pressed(KEY_END))
+{
+if(ms.length() > 0)
+{
+cursor=ms.length()-1;
+if (cursor>=ms.length())
+speak("Blank");
+else if (ms[cursor]==" ")
+speak("space");
+else
+{
+if (string_is_upper_case(ms[cursor])) {
+if (capmode==1)
+speak("Cap "+ms[cursor]);
+else
+speak(ms[cursor]);
+}
+else
+speak(ms[cursor]);
+}
+}
+else
+speak("blank");
+}
+if(key_pressed(KEY_ESCAPE))
+{
+speak("Cancel.");
+return "";
+}
+else if(key_pressed(KEY_RETURN))
+{
+if (ms.length() > 0)
+{
+spool.play_stationary("keyreturn.ogg", false);
+for (uint i=0; i<ms.length(); i++)
+{
+message+=ms[i];
+}
+keys_pressed();
+return message;
+}
+else if (ms.length()==0)
+{
+speak("Cancel.");
+keys_pressed();
+return "";
+}
+}
+}
+return "";
+}
+}

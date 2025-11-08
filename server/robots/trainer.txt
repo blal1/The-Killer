@@ -1,0 +1,13 @@
+name trainer
+health 7000
+defence 0
+speed 300
+damage 300,30000
+shoot 700
+distance 5
+aggro 30
+spread 1
+angle 90
+steps 0
+loot dollar
+amount 2500

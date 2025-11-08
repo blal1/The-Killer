@@ -1,0 +1,1214 @@
+#include"mapdata.bgt"
+dynamic_menu_pro m;
+void mainmenu()
+{
+setupmenu(true,true);
+if(rules==1) {
+m.add_item_tts("login","login");
+m.add_item_tts("create account","create");
+m.add_item_tts("Setup account","setup","a");
+}
+m.add_item_tts("test speakers", "speaker_test");
+m.add_item_tts("options","optionsmenu");
+m.add_item_tts("Please donate to keep our server running!","paypal","",true);
+//m.add_item_tts("listen to the story", "story");
+//m.add_item_tts("this game is powered by the  masonasons game engine version "+gamever+"!","gameengine","",false);
+//m.add_item_tts("please donate to us paypal!","donate");
+m.add_item_tts((rules==0?"You have not yet accepted the tk rules: accept by pressing enter!":"You have agreed to the tk rules, thank you!"),"rules","",(rules==0?true:false));
+//m.add_item_tts("What's new...", "news");
+m.add_item_tts("quit","exit");int mres=m.run("Main Menu",true);
+if (m.get_item_name(mres)=="paypal")
+{
+speak(" thanx for your help. please wait...");
+run("C:\\Windows\\System32\\explorer.exe","https://paypal.me/helpahmadsabah?locale.x=en_US",false,false);
+mainmenu();
+}
+else if(m.get_item_name(mres)=="speaker_test")
+{
+m.fade_music(20);
+speakermenu();
+}
+/*
+else if(m.get_item_name(mres)=="news")
+{
+newsmenu();
+}
+*/
+if(m.get_item_name(mres)=="login")
+{
+m.fade_music(30);
+login();
+m.fade_music(30);
+}
+else if(m.get_item_name(mres)=="unlock")
+{
+ask_for_reg();
+mainmenu();
+}
+else if(m.get_item_name(mres)=="create")
+{
+creating=true;
+m.fade_music(0);
+create();
+m.fade_music(0);
+}
+else if(m.get_item_name(mres)=="setup")
+{
+string user=v.input("Enter a username", false, false);
+if(user=="") mainmenu();
+string pass=v.input("Enter a password", false, true);
+if(pass=="")
+mainmenu();
+name=user;
+password=pass;
+writeprefs();
+dlg("Success!");
+mainmenu();
+}
+if(m.get_item_name(mres)=="multimenu")
+{
+mainmenu();
+}
+else if(m.get_item_name(mres)=="purchase")
+{
+speak("launching website...");
+run("C:\\Windows\\System32\\explorer.exe","http://enes-productions.tr.ht/tk",false,false);
+mainmenu();
+}
+else if(m.get_item_name(mres)=="rules") {
+int r=question("alert","Do you agree to the tk rules? These rules can be found in !rules.txt in your copy of tk By clicking yes, you agree that you have read and understood these rules. Do you agree?");
+if(r==1) {
+rules=r;
+writeprefs();
+}
+else {
+alert("ouch","The program is closing because you did not accept the rules.");
+exit();
+}
+mainmenu();
+}
+else if(m.get_item_name(mres)=="optionsmenu")
+{
+optionsmenu();
+}
+else
+{
+writeprefs();
+wait(800);
+dlgplay("gamedoorcancel.ogg",true,500);
+exit();
+}
+}
+void setupmenu(bool main=false, bool audo=false)
+{
+m.reset(true);
+if (main==true)
+m.add_music("menumus"+random(1,20)+".ogg");
+m.open_sound="menuopen.ogg";
+m.enter_sound="menuenter.ogg";
+m.click_sound="menumove.ogg";
+m.wrap_sound="menuwrap.ogg";
+if(audo==true)
+m.letters_autoactivate=true;
+m.edge_sound="menuedge.ogg";
+if(sidescrolling==1)
+{
+m.enable_side_scrolling=true;
+}
+m.enable_first_letter_navigation=true;
+if(sidescrolling==1)
+m.enable_left_and_right=true;
+else
+{
+m.enable_up_and_down=true;
+m.enable_side_scrolling=false;
+}
+m.wrap=false;
+m.enable_home_and_end=true;
+if(!main)
+m.set_callback(netclb,"");
+}
+void optionsmenu()
+{
+setupmenu(false,true);
+m.speak_letter=false;
+m.set_callback(null, "");
+m.add_music("menumus"+random(1,20)+".ogg");
+//m.add_item_tts("Select language","trfiles");
+m.add_item_tts("Check for updates","cfu");
+if(importbufferlogs==0)
+m.add_item_tts("Enable buffer logging","bflogs","l");
+else
+m.add_item_tts("Disable buffer logging","bflogs","l");
+if(uploadedsounds==0)
+{
+m.add_item_tts("Enable playing of uploaded sounds","upsound","u");
+}
+else
+m.add_item_tts("disable playing of uploaded sounds","upsound","u");
+if(sidescrolling==0)
+{
+m.add_item_tts("enable menu side scrolling","ss","d");
+}
+else
+{
+m.add_item_tts("disable menu side scrolling","ss","d");
+}
+if(!SCRIPT_COMPILED)
+{
+if(translator==0)
+m.add_item_tts("Enable UI translator","tr");
+else
+{
+m.add_item_tts("Disable UI translator","tr");
+m.add_item_tts("Select language","trfiles");
+}
+}
+m.add_item_tts((readerinterrupt==0 ? "enable" : "disable")+" speech interrupt","readerinterrupt");
+if(rcontrol==0)
+m.add_item_tts("enable right control detection","rctrl","r");
+else
+m.add_item_tts("disable right control detection","rctrl","r");
+m.add_item_tts("Select joystick/gamepad","jpad","j");
+m.add_item_tts("Select output device","output","d");
+//m.add_item_tts("Select menu music","musicmenu");
+m.add_item_tts("Select speech mode","speechmode");
+if(speechmode==1)
+{
+m.add_item_tts("Select SAPI voice","sapivoice","v");
+m.add_item_tts("Select speech rate","sprate");
+}
+m.add_item_tts("Go back","back","b");
+int mres=m.run("options menu",true);
+if(m.get_item_name(mres)=="back" or mres==0) mainmenu();
+if (m.get_item_name(mres)=="cn")
+{
+string user=input_box("Username","Enter a username");
+if(user=="") optionsmenu();
+string pass=input_box("password","Enter your password");
+if(pass=="") optionsmenu();
+name=user;
+password=pass;
+writeprefs();
+dlg("Success!");
+mainmenu();
+}
+if(m.get_item_name(mres)=="readerinterrupt")
+{
+readerinterrupt=toggle(readerinterrupt);
+writeprefs();
+speak("Speech interrupt "+(readerinterrupt==1?"enabled":"disabled"));
+optionsmenu();
+}
+if(m.get_item_name(mres)=="jpad")
+{
+defjoymenu();
+}
+if(m.get_item_name(mres)=="musicmenu")
+musicmenu();
+if(m.get_item_name(mres)=="trfiles")
+{
+string temp=langmenu();
+if(temp=="")
+{
+speak("No action will be taken");
+optionsmenu();
+}
+else
+{
+currentlangfile=temp;
+optionsmenu();
+}
+}
+if(m.get_item_name(mres)=="rctrl")
+{
+rcontrol=(rcontrol==0 ? 1 : 0);
+speak("right control detection has been "+(rcontrol==0 ? "disabled" : "enabled"));
+optionsmenu();
+}
+if(m.get_item_name(mres)=="tr")
+{
+translator=(translator==0 ? 1 : 0);
+speak("The translator has been "+(translator==0 ? "disabled" : "enabled"));
+optionsmenu();
+}
+if(m.get_item_name(mres)=="trfiles")
+{
+string temp=langmenu();
+if(temp=="")
+{
+speak("No action will be taken");
+optionsmenu();
+}
+else
+{
+currentlangfile=temp;
+optionsmenu();
+}
+}
+if(m.get_item_name(mres)=="cfu")
+{
+cfu("tk","release.zip",false);
+optionsmenu();
+}
+if(m.get_item_name(mres)=="bflogs")
+{
+if(importbufferlogs==0)
+{
+importbufferlogs=1;
+speak("buffer logging enabled");
+writeprefs();
+}
+else
+{
+importbufferlogs=0;
+speak("Buffer logging disabled");
+writeprefs();
+}
+optionsmenu();
+}
+if(m.get_item_name(mres)=="upsound")
+{
+if(uploadedsounds==1)
+uploadedsounds=0;
+else
+uploadedsounds=1;
+writeprefs();
+optionsmenu();
+}
+if(m.get_item_name(mres)=="ss")
+{
+if(sidescrolling==0)
+sidescrolling=1;
+else
+sidescrolling=0;
+optionsmenu();
+}
+if(m.get_item_name(mres)=="output")
+soundcardmenu();
+if(m.get_item_name(mres)=="speechmode")
+{
+speechmodemenu();
+}
+else if(m.get_item_name(mres)=="sapivoice")
+{
+speak("Please select a voice using the up and down keys, and press enter to select");
+ttsvoice=df_s.select_voice();
+writeprefs();
+df_s.set_voice(ttsvoice);
+optionsmenu();
+}
+else if(m.get_item_name(mres)=="sprate")
+{
+speechratemenu();
+}
+if(m.get_item_name(mres)=="visual")
+{
+if(playmusic==0)
+{
+playmusic=1;
+speak("Yo
+u will now hear music while playing the game");
+writeprefs();
+optionsmenu();
+}
+else
+{
+speak("You will no longer hear the music while playing the game");
+playmusic=0;
+optionsmenu();
+writeprefs();
+}
+}
+if (m.get_item_name(mres)=="back" or m.get_item_name(mres)==0)
+{
+dlgplay("gamedoorcancel.ogg",true,500);
+exitgame(true);
+mainmenu();
+return;
+}
+}
+void speakermenu()
+{
+setupmenu(false,true);
+m.set_callback(null, "");
+m.add_music("jloop3.ogg");
+m.add_item_tts("by audio","audio");
+m.add_item_tts("by default","default");
+m.add_item_tts("by text","text");
+int mres=m.run("select your speaker testing",true);
+if (m.get_item_name(mres)=="audio")
+{
+speak("Use the left and right arrows to check the position of the speakers manually. Press up and down arrows to change it's volume, And press page up and page down to change it's pitch.");
+m.fade_music(100);
+wait(100);
+audiomusicmenu();
+}
+if (m.get_item_name(mres)=="default")
+{
+m.fade_music(20);
+        dlgmeu("testing speakers","test.ogg",true,25);
+mainmenu();
+}
+if (m.get_item_name(mres)=="text")
+{
+m.fade_music(20);
+textmenu();
+}
+}
+void textmenu()
+{
+m.reset(true);
+m.enable_numbers=true;
+m.enable_first_letter_navigation=true;
+m.click_sound="store_move.ogg";
+//m.edge_sound="speakeredge.ogg";
+m.enter_sound="store_menuenter.ogg";
+m.open_sound="menuselect.ogg";
+m.repeat_items_at_edges=false;
+m.wrap_sound="menuvolta3.ogg";
+m.enable_side_scrolling=true;
+m.enable_left_and_right=true;
+m.enable_enter=true;
+m.allow_escape=true;
+m.wrap=true;
+m.enable_home_and_end=true;
+m.add_item_tts("left","left");
+m.add_item_tts("center","center");
+m.add_item_tts("right","right");
+int mres=m.run("test your speakers by pressing left and right aros",true);
+if (m.get_item_name(mres)=="left")
+{
+mainmenu();
+}
+if (m.get_item_name(mres)=="center")
+{
+mainmenu();
+}
+if (m.get_item_name(mres)=="right")
+{
+mainmenu();
+}
+}
+/*
+void textmenu()
+{
+m.add_item_tts("left","left");
+m.add_item_tts("center","center");
+m.add_item_tts("right","right");
+m.add_item_tts("left","left");
+m.add_item_tts("center","center");
+m.add_item_tts("right","right");
+m.add_item_tts("left","left");
+m.add_item_tts("center","center");
+m.add_item_tts("right","right");
+m.add_item_tts("left","left");
+m.add_item_tts("center","center");
+m.add_item_tts("right","right");
+m.add_item_tts("left","left");
+m.add_item_tts("center","center");
+m.add_item_tts("right","right");
+m.add_item_tts("left","left");
+m.add_item_tts("center","center");
+m.add_item_tts("right","right");
+m.add_item_tts("left","left");
+m.add_item_tts("center","center");
+m.add_item_tts("right","right");
+m.add_item_tts("left","left");
+m.add_item_tts("center","center");
+m.add_item_tts("right","right");
+m.add_item_tts("left","left");
+m.add_item_tts("center","center");
+m.add_item_tts("right","right");
+}
+*/
+void audiomusicmenu()
+{
+sound audiomusic;
+audiomusic.stream("menumus1.ogg");
+audiomusic.play_looped();
+int volumetime=40;
+int minvolume=-100;
+int maxvolume=300;
+int pitchtime=40;
+int minpitch=-350;
+int maxpitch=350;
+int pantime=20;
+int minpan=-100;
+int maxpan=100;
+timer pantimer,pitchtimer,volumetimer;
+while(true)
+{
+if (key_down(KEY_LEFT) and pantimer.elapsed>=pantime)
+{
+pantimer.restart();
+if (audiomusic.pan>minpan)
+{
+audiomusic.pan=audiomusic.pan-1;
+}
+if (audiomusic.pan==minpan)
+{
+speak("left");
+}
+}
+if (key_down(KEY_RIGHT) and pantimer.elapsed>=pantime)
+{
+pantimer.restart();
+if (audiomusic.pan<maxpan)
+{
+audiomusic.pan=audiomusic.pan+1;
+}
+if (audiomusic.pan==maxpan)
+{
+speak("right");
+}
+}
+if (key_down(KEY_DOWN) and volumetimer.elapsed>=volumetime)
+{
+volumetimer.restart();
+if (audiomusic.volume>minvolume)
+{
+audiomusic.volume=audiomusic.volume-1;
+}
+}
+if (key_down(KEY_UP) and volumetimer.elapsed>=volumetime)
+{
+volumetimer.restart();
+if (audiomusic.volume<maxvolume)
+{
+audiomusic.volume=audiomusic.volume+1;
+}
+}
+if (key_down(KEY_NEXT) and pitchtimer.elapsed>=pitchtime)
+{
+pitchtimer.restart();
+if (audiomusic.pitch>minpitch)
+{
+audiomusic.pitch=audiomusic.pitch-1;
+}
+}
+if (key_down(KEY_PRIOR) and pitchtimer.elapsed>=pitchtime)
+{
+pitchtimer.restart();
+if (audiomusic.pitch<maxpitch)
+{
+audiomusic.pitch=audiomusic.pitch+1;
+}
+}
+if(key_pressed(KEY_ESCAPE) or key_pressed(KEY_RETURN))
+{
+audiomusic.stop();
+mainmenu();
+}
+}
+if(key_pressed(KEY_ESCAPE))
+{
+audiomusic.stop();
+}
+}
+void volume_menue()
+{
+setupmenu();
+m.add_item_tts("100%","0");
+m.add_item_tts("90%", "90");
+m.add_item_tts("80", "80");
+m.add_item_tts("70%", "70");
+m.add_item_tts("60%", "60");
+m.add_item_tts("50%", "50");
+m.add_item_tts("40%", "40");
+m.add_item_tts("30%", "30");
+m.add_item_tts("20%", "20");
+m.add_item_tts("10%", "10");
+m.add_item_tts("Go back","back");
+int mres=m.run("select your volume.", true);
+if(m.get_item_name(mres)=="0")
+{
+set_sound_master_volume(0);
+//////////////////////////gamevolume=0;
+writeprefs();
+mainmenu();
+}
+else if(m.get_item_name(mres)=="90")
+{
+set_sound_master_volume(-10);
+//////////////////////////gamevolume=-10;
+writeprefs();
+mainmenu();
+}
+else if(m.get_item_name(mres)=="80")
+{
+set_sound_master_volume(-20);
+//////////////////////////gamevolume=-20;
+writeprefs();
+mainmenu();
+}
+else if(m.get_item_name(mres)=="70")
+{
+set_sound_master_volume(-30);
+//////////////////////////gamevolume=-30;
+writeprefs();
+mainmenu();
+}
+else if(m.get_item_name(mres)=="60")
+{
+set_sound_master_volume(-40);
+//////////////////////////gamevolume=-40;
+writeprefs();
+mainmenu();
+}
+else if(m.get_item_name(mres)=="50")
+{
+set_sound_master_volume(-50);
+//////////////////////////gamevolume=-50;
+writeprefs();
+mainmenu();
+}
+else if(m.get_item_name(mres)=="40")
+{
+set_sound_master_volume(-60);
+//////////////////////////gamevolume=-60;
+writeprefs();
+mainmenu();
+}
+else if(m.get_item_name(mres)=="30")
+{
+set_sound_master_volume(-70);
+//////////////////////////gamevolume=-70;
+writeprefs();
+mainmenu();
+}
+else if(m.get_item_name(mres)=="20")
+{
+set_sound_master_volume(-80);
+//////////////////////////gamevolume=-80;
+writeprefs();
+mainmenu();
+}
+else if(m.get_item_name(mres)=="10")
+{
+set_sound_master_volume(-90);
+//////////////////////////gamevolume=-90;
+writeprefs();
+mainmenu();
+}
+else if (m.get_item_name(mres)=="back" or mres==0)
+{
+mainmenu();
+}
+}
+void speechratemenu()
+{
+setupmenu(false);
+for(int i=-10; i<10; i+=1)
+{
+m.add_item_tts(""+i,""+i);
+}
+m.add_item_tts("back","back");
+int mres=m.run("Select the speech rate you would like to use for sapi",true);
+if(m.get_item_name(mres)=="back" or mres==0)
+{
+optionsmenu();
+}
+else
+{
+int nr=stn(m.get_item_name(mres));
+df_s.rate=nr;
+df_s.set_speech_params(df_s.rate,df_s.pitch,df_s.volume);
+speak("set");
+writeprefs();
+optionsmenu();
+}
+}
+void speechmodemenu()
+{
+setupmenu();
+m.add_item_tts("audo","a");
+m.add_item_tts("SAPI","s");
+int mres=m.run("Speech mode menu",true);
+if(m.get_item_name(mres)=="a")
+{
+speechmode=0;
+writeprefs();
+df_s.mode=speechmode;
+optionsmenu();
+}
+else if(m.get_item_name(mres)=="s")
+{
+speechmode=1;
+writeprefs();
+df_s.mode=speechmode;
+optionsmenu();
+}
+else
+optionsmenu();
+}
+int yesno(string question)
+{
+setupmenu(false,true);
+m.add_item_tts("Yes","yes");
+m.add_item_tts("no","no");
+int mres=m.run(question,true);
+if (m.get_item_name(mres)=="yes")
+return 1;
+else
+return 2;
+}
+int netclb(dynamic_menu_pro@ m, string data)
+{
+if(n.connected_peers>0) tk_loop();
+return 0;
+}
+//online menus
+void serverside_menu(string sndtxt, string menu, string menuitems)
+{
+//setupmenu();
+m.reset(true);
+m.click_sound="menumove.ogg";
+m.enter_sound="menuenter.ogg";
+m.enable_first_letter_navigation=true;
+m.wrap=true;
+m.enable_up_and_down=true;
+m.set_callback(netclb,"");
+if(menuitems=="")
+return;
+string[] items=string_split(menuitems,"[]",false);
+for(uint i=0; i<items.length(); i++)
+{
+string[] parsed=string_split(items[i],":",false);
+m.add_item_tts(parsed[0],parsed[1]);
+}
+int mres=m.run(menu,true);
+if(m.get_item_name(mres)=="back" or mres==0)
+send_reliable(0,sndtxt+" back",0);
+else
+{
+send_reliable(0,sndtxt+" "+m.get_item_name(mres),0);
+}
+}
+void store_menu(string storeitems)
+{
+m.reset(true);
+m.enter_sound="store_menuenter.ogg";
+m.click_sound="store_move.ogg";
+m.edge_sound="menuedge.ogg";
+m.enable_first_letter_navigation=true;
+m.enable_up_and_down=true;
+m.wrap=false;
+m.enable_home_and_end=true;
+m.set_callback(netclb,"");
+string[] items=string_split(storeitems,"\r\n",true);
+for (uint i=0; i<items.length(); i++)
+{
+string[] item=string_split(items[i]," ",true);
+string it=string_replace(item[0],".","",true);
+m.add_item_tts(items[i],it);
+}
+int mres=m.run("store menu. There are "+items.length()+" items.",true);
+if (mres!=0)
+{
+string amount=v.input("Amount of "+m.get_item_name(mres)+"?");
+send_reliable(0,"purchase "+m.get_item_name(mres)+" "+amount,0);
+}
+}
+string plattypemenu()
+{
+string plattype;
+setupmenu();
+m.speak_position_information=true;
+m.enable_first_letter_navigation=false;
+addplattypes();
+m.set_callback(plm,"");
+netloop();
+int mres=m.run("select platform type.", true);
+if (mres==0)
+{
+return"";
+}
+else
+{
+plattype=m.get_item_name(mres);
+return plattype;
+}
+}
+string list_ambiences()
+{
+string[] ambs=string_split(srctypes,"\r\n",false);
+setupmenu();
+m.enable_first_letter_navigation=true;
+for(uint i=0; i<ambs.length(); i++)
+{
+if(pf.file_exists(ambs[i]+".ogg"))
+m.add_item(ambs[i]+".ogg",ambs[i],ambs[i],true);
+}
+m.enable_first_letter_navigation=false;
+m.set_callback(srcclb,"");
+int mres=m.run("Select an ambience",true);
+if(mres==0)
+return"";
+else
+return m.get_item_name(mres);
+}
+int srcclb(dynamic_menu_pro@ m, string data)
+{
+netloop();
+if(key_pressed(KEY_TAB))
+{
+speak(m.get_item_name(m.menu_position));
+}
+return 0;
+}
+void addplattypes()
+{
+string[] platforms=string_split(tiletypes,"\r\n",false);
+for(uint i=0; i<platforms.length(); i++)
+{
+m.add_item_tts(platforms[i],platforms[i]);
+}
+}
+int plm(dynamic_menu_pro@ test, string data)
+{
+if (key_down(KEY_SPACE) and walktimer.elapsed>=runtime)
+{
+walktimer.restart();
+if(string_left(m.get_item_name(m.menu_position),4)=="wall") p.play_stationary(m.get_item_name(m.menu_position)+".ogg", false);
+else p.play_stationary(m.get_item_name(m.menu_position)+"step"+random(1, 5)+".ogg", false);
+}
+netloop();
+if (key_pressed(KEY_J))
+{
+p.play_stationary(m.get_item_name(m.menu_position)+"land.ogg", false);
+}
+if (key_pressed(KEY_H))
+{
+p.play_stationary(m.get_item_name(m.menu_position)+"hardland.ogg", false);
+}
+return 0;
+}
+
+void devmenu()
+{
+setupmenu();
+m.add_item_tts("Notify server of your developer status","devnote","d");
+m.add_item_tts("Go back","back","b");
+int mres=m.run("Developer menu",true);
+if(m.get_item_name(mres)=="devnote")
+{
+send_reliable(0,"ultradev",0);
+speak("Done");
+}
+else
+{
+return;
+}
+}
+
+void defjoymenu()
+{
+setupmenu(false);
+jstick.refresh_joystick_list();
+const string[] js=jstick.list_joysticks();
+if (jstick.joysticks<1)
+m.add_item_tts("No joysticks/game pads currently connected. Press enter to rescan.","no");
+else {
+for (uint8 i=0; i<js.length(); i++) {
+jstick.set(i);
+if (defjoy==i)
+m.add_item_tts("Currently active, "+js[i]+". "+joyinfo(i),i);
+else
+m.add_item_tts(js[i]+". "+joyinfo(i),i);
+}
+}
+m.add_item_tts("Go back","back");
+jstick.set(defjoy);
+int mres=-1;
+if (jstick.joysticks>0)
+mres=m.run(""+jstick.joysticks+" joysticks/gamepads are currently connected. Select your preferred one.",true);
+else
+mres=m.run("No joysticks/gamepads are currently connected. Connect your joystick/gamepad and then click on the first menu item to rescan.",true);
+if (mres==0 or mres==-1 or m.get_item_name(mres)=="back")
+optionsmenu();
+else if (m.get_item_name(mres)=="no")
+defjoymenu();
+else if (mres-1==defjoy) {
+speak("Keeping "+js[defjoy]);
+optionsmenu();
+}
+else
+{
+defjoy=stn(m.get_item_name(mres));
+defjoyname=js[defjoy];
+writeprefs();
+speak("Ok. "+js[defjoy]+" is now your default joystick/game pad.");
+optionsmenu();
+}
+}
+
+string joyinfo(small joy) {
+bool[] h1={jstick.has_x, jstick.has_y, jstick.has_z, jstick.has_r_x, jstick.has_r_y, jstick.has_r_z};
+string[] d1={"X axis", "Y axis", "Z axis", "rotational X axis", "rotational Y axis", "rotational Z axis"};
+int[] h2={jstick.buttons, jstick.sliders, jstick.povs};
+string[] d2={"buttons", "sliders", "point of view controls"};
+string o="";
+
+for(uint i=0; i<h1.length(); i++) {
+if (h1[i])
+o+=", "+d1[i];
+}
+for (uint i=0; i<h2.length(); i++) {
+if (h2[i]>0)
+o+=", "+h2[i]+" "+d2[i];
+}
+o=string_trim_left(o, 2);
+return o;
+}
+void soundcardmenu()
+{
+setupmenu(false);
+string[] d=list_sound_devices();
+for (uint i=0; i<d.length(); i++) {
+if (soundcard==i)
+m.add_item_tts("Currently active, "+d[i],i);
+else
+m.add_item_tts(d[i],i);
+}
+m.add_item_tts("Go back","back");
+int mres=m.run("Select output device.",true);
+if (mres==0 or mres==-1 or m.get_item_name(mres)=="back")
+optionsmenu();
+else if (mres-1==soundcard) {
+speak("Keeping "+d[soundcard]);
+optionsmenu();
+}
+else
+{
+set_sound_master_volume(-100);
+soundcard=stn(m.get_item_name(mres));
+soundcardname=d[soundcard];
+writeprefs();
+wait(0);
+if (!SCRIPT_COMPILED)
+run("c:\\windows\\explorer.exe","\""+get_script_path()+"\"",false,false);
+else
+run(get_script_path(),crc32("soundrestart"),false,false);
+dlgplay("gamedoorcancel.ogg",true,500);
+exit();
+}
+}
+string soundsmenu()
+{
+if(!directory_exists("upsounds"))
+{
+directory_create("upsounds");
+speak("No upsounds folder was found. It has now been created, you may put your files in it.");
+return "";
+}
+string[] soundfiles=find_files("upsounds/*.ogg");
+if(soundfiles.length<=0)
+{
+speak("No files found in upsounds");
+return "";
+}
+setupmenu();
+m.speak_position_information=true;
+for(uint i=0; i<soundfiles.length; i++)
+{
+m.add_item_tts(string_replace(soundfiles[i],".ogg","",true),soundfiles[i]);
+}
+int mres=m.run("Choose a sound file to send, there are "+soundfiles.length()+" sounds",true);
+if(mres<=0)
+{
+return "";
+}
+else return m.get_item_name(mres);
+}
+
+void multimenu()
+{
+setupmenu(false,true);
+m.speak_letter=false;
+/*
+if(registered==0) {
+m.add_item_tts("Enter registration information","reg","r");
+m.add_item_tts("Order a copy of the game","ordernow","o");
+}
+*/
+//if(registered==1)
+//{
+//m.add_item_tts("You are currently connecting to "+netaddress+". Press enter to change this.","address");
+//m.add_item_tts("Port is set to "+netport+". Press enter to change.","port");
+if(name!="" and password!="")
+{
+m.add_item_tts("Connect","play");
+}
+m.add_item_tts("Setup account","setup","a");
+m.add_item_tts("create account","cn");
+m.add_item_tts("request a password reset key","requestpasskey","q");
+m.add_item_tts("enter a password reset key","enterpasskey","r");
+//m.add_item_tts("Unregister this computer","unreg","u");
+if(beta==true) m.add_item_tts("You are currently connecting to the "+(beta_server==true? "beta" : "live")+" server. Press enter to connect to the "+(beta_server==true ?"live":"beta")+" server","serverselection","l");
+//}
+if(!SCRIPT_COMPILED)
+{
+m.add_item_tts("generate a key", "keygen");
+m.add_item_tts("list keys", "keylist", "k");
+}
+//m.add_item_tts("upgrades","upgrades","p");
+m.add_item_tts("go back","back","b");
+int mres=m.run("Select an option",true);
+if(m.get_item_name(mres)=="s")
+listservers();
+if(m.get_item_name(mres)=="infos")
+{
+netaddress=input_box("Server","Enter the host or IP address");
+if(netaddress=="")
+multimenu();
+string p=input_box("Server","Enter server port");
+if(p=="")
+multimenu();
+netport=stn(p);
+}
+if(m.get_item_name(mres)=="address")
+{
+string ad=v.input("enter the address");
+netaddress=ad;
+writeprefs();
+speak("Success");
+multimenu();
+}
+if(m.get_item_name(mres)=="port")
+{
+string portcrap=v.input("Enter the port");
+netport=stn(portcrap);
+writeprefs();
+speak("Success");
+multimenu();
+}
+if (m.get_item_name(mres)=="play")
+{
+if(netaddress=="")
+{
+dlg("No server configured");
+multimenu();
+}
+login();
+}
+else if(m.get_item_name(mres)=="keygen")
+{
+string name=input_box("name", "please enter the buyer's  name");
+if(get_last_error()==-12 or name=="") multimenu();
+int q=question("question", "do you want to write the key to the license database? caution! if you rewrite the key all the computers will be reset.");
+r.action(name, "", "kg"+(q==1?"w":""));
+}
+else if(m.get_item_name(mres)=="keylist") r.keylist();
+else if(m.get_item_name(mres)=="requestpasskey") resetpass();
+else if(m.get_item_name(mres)=="enterpasskey") resetpasskey();
+else if(m.get_item_name(mres)=="serverselection")
+{
+if(beta_server==true) beta_server=false;
+else beta_server=true;
+writeprefs();
+dlg("Restarting client to reload settings. Press enter when you're ready");
+if(!SCRIPT_COMPILED)
+run("c:\\windows\\explorer.exe","\""+get_script_path()+"\"",false,false);
+else
+run(get_script_path(),"",false,false);
+dlgplay("gamedoorcancel.ogg",true,500);
+exit();
+}
+else if(m.get_item_name(mres)=="reg")
+{
+ask_for_reg();
+}
+else if(m.get_item_name(mres)=="unreg") r.action(regname, regkey, "unregister");
+else if(m.get_item_name(mres)=="ordernow")
+{
+speak("launching website...");
+run("C:\\Windows\\System32\\explorer.exe","http://enes-productions.tr.ht/tk/order.php",false,false);
+multimenu();
+}
+else if(m.get_item_name(mres)=="upgrades")
+{
+speak("launching website...");
+run("C:\\Windows\\System32\\explorer.exe","http://enes-productions.tr.ht/tk/store.php",false,false);
+multimenu();
+}
+else if(m.get_item_name(mres)=="setup")
+{
+string user=v.input("Enter a username", false, false);
+if(user=="") mainmenu();
+string pass=v.input("Enter a password", false, true);
+if(pass=="")
+mainmenu();
+name=user;
+password=pass;
+writeprefs();
+dlg("Success!");
+mainmenu();
+}
+else if(m.get_item_name(mres)=="cn")
+{
+create();
+}
+else
+{
+writeprefs();
+wait(0);
+mainmenu();
+}
+}
+void listservers()
+{
+setupmenu(false);
+if(serverlist=="")
+{
+dlg("No servers were found");
+mainmenu();
+}
+oldservers=serverlist;
+string[] c=string_split(serverlist,"\r\n",true);
+string[][] parsed;
+parsed.resize(c.length());
+for(uint j=0;j<c.length();j++)
+{
+parsed[j]=string_split(c[j],":",false);
+m.add_item_tts(parsed[j][0],parsed[j][0]);
+}
+m.add_item_tts("go back","back");
+int mserver=m.run("Please select a server",true);
+if(m.get_item_name(mserver)=="back" or mserver==0)
+multimenu();
+else
+{
+netaddress=parsed[mserver-1][1];
+netport=string_to_number(parsed[mserver-1][2]);
+speak("New ip address is "+netaddress+"...");
+writeprefs();
+}
+}
+
+void checkarroundmenu()
+{
+setupmenu();
+m.add_item_tts("Stop tracking","stoptrack");
+for(uint i=0; i<zones.length(); i++)
+{
+string[] parsed=string_split(zones[i],":",false);
+if(parsed.length()>7)
+{
+m.add_item_tts(parsed[6]+" at "+parsed[0]+", "+parsed[2]+", "+parsed[4],parsed[6]);
+}
+}
+int mres=m.run("Find what?",true);
+if(m.get_item_name(mres)=="" or m.get_item_name(mres)=="stoptrack" or mres==0)
+{
+speak("Stopped tracking");
+trackx=-1; tracky=-1; trackz=-1; tracking="";
+return;
+}
+else
+{
+int z=get_zone_index(m.get_item_name(mres));
+if(z>-1)
+{
+string[] ps=string_split(zones[z],":",true);
+trackx=stn(ps[0]);
+tracky=stn(ps[2]);
+trackz=stn(ps[4]);
+tracking=ps[6];
+tell_where(trackx,tracky,trackz,"loctrack");
+}
+else
+{
+if(SCRIPT_COMPILED==false) speak("That zone could not be found");
+}
+}
+}
+string langmenu()
+{
+if(!directory_exists("lang"))
+{
+dlg("Could not find languages");
+return "";
+}
+string[] lngfiles=find_files("lang/*.lng");
+if(lngfiles.length<=0)
+{
+dlg("No languages found");
+return "";
+}
+setupmenu();
+m.speak_position_information=true;
+for(uint i=0; i<lngfiles.length; i++)
+{
+m.add_item_tts(string_replace(lngfiles[i],".lng","",true),lngfiles[i]);
+}
+int mres=m.run("Select your language",true);
+if(mres<=0)
+{
+return "";
+}
+else return string_trim_right(m.get_item_name(mres),4);
+}
+void musicmenu()
+{
+setupmenu();
+for(uint i=0; i<menutracks.length(); i++)
+{
+m.add_item(menutracks[i],menutracks[i]);
+}
+m.add_item_tts("go back","back");
+int mres=m.run("Select a music track to be played in the main menu",true);
+if(m.get_item_name(mres)!="back" and mres!=0)
+{
+string newtrack=m.get_item_name(mres);
+speak("done");
+musictrack=newtrack;
+writeprefs();
+}
+optionsmenu();
+}
+string inventorymenu(string item_array)
+{
+string ret;
+string[]inventory_items=string_split(item_array,"\r\n",false);
+uint itemcount=0;
+m.reset(true);
+m.open_sound="invopen.ogg";
+m.click_sound="invmove.ogg";
+m.enter_sound="";
+m.wrap_sound="";
+m.enable_first_letter_navigation=true;
+m.enable_up_and_down=true;
+m.enable_side_scrolling=true;
+m.enable_left_and_right=false;
+m.enable_home_and_end=true;
+m.set_callback(invclb,"");
+for(uint i=0; i<inventory_items.length(); i++)
+{
+string[] i2=string_split(inventory_items[i],"=",false);
+itemcount+=1;
+m.add_item_tts(i2[0]+", you have "+i2[1],i2[0]);
+}
+int r=m.run("inventory menu with "+itemcount+" items",true);
+send_reliable(0, "invclose", 0);
+if(m.get_item_name(r)=="" or r==0) return "";
+return m.get_item_name(r);
+}
+int invclb(dynamic_menu_pro@ im, string data)
+{
+tk_loop();
+if(key_pressed(KEY_SPACE))
+{
+if(alt_is_down() and shift_is_down()==false)
+{
+send_reliable(0,"giveitem "+im.get_item_name(im.get_position()),0);
+return m.get_position();
+}
+if(shift_is_down() and alt_is_down()==false)
+{
+send_reliable(0,"auctionitem "+im.get_item_name(im.get_position()),0);
+return m.get_position();
+}
+}
+return 0;
+}

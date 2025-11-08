@@ -1,0 +1,9 @@
+void main()
+{
+string input=input_box("password rehash","enter the password you would like to be rehashed");
+if(input=="") exit();
+file f;
+f.open("password.usr","wb");
+f.write(string_hash(input,2,false));
+f.close();
+}

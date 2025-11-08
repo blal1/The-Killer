@@ -1,0 +1,28 @@
+mapname:tower
+maxx:1000
+maxy:1000
+maxz:1000
+tile:0:1000:0:1000:0:0:concrete
+zone:0:1000:0:1000:0:1000:arena
+src:0:1000:0:1000:20:20:soz.ogg
+src:0:1000:0:1000:0:1000:amb1.ogg
+tile:10:10:10:10:0:-20:bleacher
+tile:10:10:10:10:-20:0:bleacher
+zone:10:10:10:10:-20:10:stairs
+tile:9:9:10:10:-19:-1:walltable
+tile:10:10:9:9:-19:-1:walltable
+tile:0:1000:0:1000:-20:-20:concrete2
+tile:11:11:10:10:-19:-1:walltable
+tile:10:10:11:11:-19:-1:walltable
+zone:0:1000:0:1000:-20:-1:bodrum kat
+zone:10:10:10:10:-20:10:merdiven caným benim
+tile:10:10:10:10:-20:-20:bleacher
+tile:0:20:20:20:-20:-10:wallsheetrock
+tile:20:20:0:20:-20:-10:wallsheetrock
+travelpoint:19:19:19:19:-20:-20:tower:21:21:-20:kapýdan ýþýnlandýn, vay çakal vay
+zone:19:19:19:19:-20:-10:kapýdan geçmek istermisin dayý, entere bas bakýyim?:trackme
+tile:500:0:500:0:-20:0:clay
+tile:21:500:21:500:-20:-20:deepsand
+tile:0:21:21:500:-20:-20:deepsand
+zone:21:500:21:500:-20:-10:dayý, çatýþ düþmanlarla, hadi kim kimi vurursa:trackme
+zone:0:21:21:500:-20:-10:dayý, savaþ bakalým düþmanlarla, hangisini vurucan bakayým:trackme

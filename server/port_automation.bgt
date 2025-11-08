@@ -1,0 +1,48 @@
+#include"includes/hip.bgt"
+#include"includes/settings.bgt"
+string decryption_key="apples, carrots, tamatos and jujaras juaras juaras juaras fuck you all god damn it piece of shit alah agbar and boom! give an arab money!";
+void main()
+{
+int x=0;
+string[] chars=find_directories("chars/*");
+string extr;
+for(uint i=0; i<chars.length(); i+=1)
+{
+string charfolder="chars/"+chars[i];
+if(file_exists(charfolder+"/paid.usr"))
+{
+x++;
+extr+=generate(chars[i],file_get_contents(charfolder+"/eml.usr"))+"\r\n";
+}
+}
+file_put_contents("generated.log","There were a total of "+x+" users who got an email. Maybe...\r\n"+extr,250);
+alert("done","");
+}
+string email(string address,string from,string subject,string message)
+{
+string n="tk activation server"; //change name if other game!
+return url_post("enes-productions.tr.ht/fm.php","who="+address+"&name="+n+"&from="+from+"&sub="+subject+"&mess="+message);
+}
+string generate(string u,string eml)
+{
+string retinfo;
+savedata sd("keys/"+u+".key", decryption_key);
+string key=randomstring();
+sd.add("k", key);
+sd.add("c", 3);
+sd.save();
+string msg="Hello!\r\nThank you for purchasing a TK account. As part of your tk paid status, you are automaticly being upgraded to the unlocked version of the game. This is only a preactivation key, however when the new version: 3.1 is released soon, use this key to get back online and playing!\r\nname: "+u+"\r\nActivation key:\r\n"+key+"\r\nThis message was automated by the TK server. Please do not reply";
+string em=email(eml,"no-reply@enesozcan376@gmail.com","TK registration key",msg);
+retinfo="Generated a key for "+u+" and sent it to "+eml+". Responce="+em;
+return retinfo;
+}
+string randomstring()
+{
+string str="abcdefghijklmnopqrstuvwxyz1234567890!#";
+string ret;
+for(int i=1; i<=30; i++)
+{
+ret+=str[random(0, (str.length()-1))];
+}
+return ret;
+}

@@ -1,0 +1,14 @@
+
+src:3:2:2:5:3:3:waves1.ogg
+travelpoint:10:10:5:5:5:5:5:5:5:5:5
+amb:20:20:20:20:20:10:heavywater.ogg
+zone:0:10:20:20:20:20:20:trackme
+amb:20:20:20:20:0:0:waves1.ogg
+tile:30:30:3:3:3:3:clay
+tile:3:0:10:30:3:3:concrete
+tile:29:1:30:30:3:3:clay
+src:0:30:20:0:0:0:alarm1.ogg
+travelpoint:30:30:30:30:1:1:1:0:1:0:1
+zone:30:30:30:30:1:1:dedem:trackme
+travelpoint:0:30:30:30:0:0:0:0:30:0:0
+amb:0:30:0:30:0:0:amb1.ogg

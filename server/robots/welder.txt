@@ -1,0 +1,13 @@
+name welder
+health 10000
+defence 1000
+speed 400
+damage 500,5000
+shoot 600
+distance 6
+aggro 1000
+spread 2
+angle 90
+steps 2
+loot dollar
+amount 200

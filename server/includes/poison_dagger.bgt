@@ -1,0 +1,99 @@
+poison_dagger@[]poison_daggers(0);
+class poison_dagger {
+double x,y,z;
+int dir=0;
+bool explode=true;
+timer explodetimer;
+int range=0;
+int distance=1;
+int mindammage=10000;
+int maxdammage=20000;
+string map;
+string owner;
+int spread=1;
+poison_dagger(double gx, double gy, double gz, double gdir, string gmap, string gowner)
+{
+x=gx;
+y=gy;
+z=gz;
+dir=gdir;
+map=gmap;
+owner=gowner;
+play("poison_dagger_warn",x,y,z,map);
+}
+}
+void poison_daggerloop()
+{
+for(uint j=0; j<poison_daggers.length(); j++)
+{
+if(poison_daggers[j].explodetimer.elapsed>=1)
+{
+poison_daggers[j].explodetimer.restart();
+play("poison_daggerexplode",poison_daggers[j].x,poison_daggers[j].y,poison_daggers[j].z,poison_daggers[j].map);
+for(uint r=0; r<robots.length; r++)
+{
+if(get_3d_distance(poison_daggers[j].x,poison_daggers[j].y,poison_daggers[j].z,robots[r].x,robots[r].y,robots[r].z)<=poison_daggers[j].range&&robots[r].map==poison_daggers[j].map)
+robots[r].hit(random(poison_daggers[j].mindammage,poison_daggers[j].maxdammage),"poison_dagger",poison_daggers[j].owner+"'s poison_dagger");
+}
+for(uint s=0; s<shelters.length; s++)
+{
+if(get_3d_distance(poison_daggers[j].x,poison_daggers[j].y,poison_daggers[j].z,shelters[s].x,shelters[s].y,shelters[s].z)<=poison_daggers[j].range&&shelters[s].map==poison_daggers[j].map)
+shelters[s].hit(random(20000,50000),poison_daggers[j].owner+"'s poison_dagger","poison_dagger");
+}
+for(uint x=0; x<players.length(); x++)
+{
+if(in_vehicle(players[x].name)>-1 or players[x].newb==1 or players[x].is_dead or players[x].invinsible) continue;
+if(get_3d_distance(poison_daggers[j].x,poison_daggers[j].y,poison_daggers[j].z,players[x].x,players[x].y,players[x].z)<=poison_daggers[j].range and players[x].map==poison_daggers[j].map)
+{
+players[x].hit(poison_daggers[j].mindammage,poison_daggers[j].maxdammage);
+players[x].should_subtract=true;
+players[x].hitby=poison_daggers[j].owner+"'s poison_dagger";
+}
+}
+for (uint i2=0; i2<objs.length(); i2++)
+{
+if (get_3d_distance(poison_daggers[j].x,poison_daggers[j].y,poison_daggers[j].z,objs[i2].x,objs[i2].y,objs[i2].z)<=poison_daggers[j].range and objs[i2].map==poison_daggers[j].map)
+{
+play("obj_break"+random(1,3),objs[i2].x,objs[i2].y,objs[i2].z,objs[i2].map);
+objs.remove_at(i2);
+}
+}
+for(uint i2=0; i2<horbs.length; i2++)
+{
+if(get_3d_distance(poison_daggers[j].x,poison_daggers[j].y,poison_daggers[j].z,horbs[i2].x,horbs[i2].y,horbs[i2].z)<=poison_daggers[j].range&&horbs[i2].map==poison_daggers[j].map) horbs[i2].shoot();
+}
+for (uint i2=0; i2<remguns.length(); i2++)
+{
+if (get_3d_distance(poison_daggers[j].x,poison_daggers[j].y,poison_daggers[j].z,remguns[i2].x,remguns[i2].y,remguns[i2].z)<=poison_daggers[j].range and remguns[i2].map==poison_daggers[j].map)
+{
+remguns[i2].health-=random(10000,30000);
+remguns[i2].hitby=poison_daggers[j].owner+"'s poison_dagger";
+play("remgunhit"+random(1, 3),remguns[i2].x,remguns[i2].y,remguns[i2].z,remguns[i2].map);
+}
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_2d_distance(vs[v].x,vs[v].y,poison_daggers[j].x,poison_daggers[j].y)<=poison_daggers[j].range)
+{
+vs[v].hit(random(poison_daggers[j].mindammage,poison_daggers[j].maxdammage),poison_daggers[j].owner+"'s poison_dagger","poison_dagger");
+}
+}
+for(uint x=0; x<impact_bombs.length(); x++)
+{
+if(get_3d_distance(poison_daggers[j].x,poison_daggers[j].y,poison_daggers[j].z,impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z)<=20 and poison_daggers[j].map==impact_bombs[x].map)
+{
+play("ibombhit"+random(1,3),impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z,impact_bombs[x].map);
+impact_bombs[x].health-=random(poison_daggers[j].mindammage,poison_daggers[j].maxdammage);
+}
+}
+@poison_daggers[j]=null;
+poison_daggers.remove_at(j);
+continue;
+}
+}
+}
+void spawn_poison_dagger(double x, double y, double z, double dir, string map, string owner)
+{
+poison_dagger f1(x, y, z, dir, map, owner);
+poison_daggers.insert_last(f1);
+}

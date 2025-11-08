@@ -1,0 +1,83 @@
+sound_grenade@[] sound_grenades(0);
+class sound_grenade
+{
+string owner;
+timer explodetimer;
+int z;
+string map;
+int x, y;
+sound_grenade(int tx,int ty,int tz, string tmap, string towner)
+{
+owner=towner;
+x=tx;
+y=ty;
+z=tz;
+map=tmap;
+play("soundgrenadeuse",x,y,z,map);
+} // constructor.
+} // class.sound_grenade.
+
+void sound_grenadeloop()
+{
+for (uint i=0; i<sound_grenades.length(); i++)
+{
+if(sound_grenades[i].explodetimer.elapsed>=1000)
+{
+sound_grenades[i].explodetimer.restart();
+play("soundgrenade",sound_grenades[i].x,sound_grenades[i].y,sound_grenades[i].z,sound_grenades[i].map);
+send_reliable(0,"distsound soundgrenadedist "+sound_grenades[i].x+" "+sound_grenades[i].y+" "+sound_grenades[i].z+" "+sound_grenades[i].map,0);
+for(uint i2=0; i2<impact_bombs.length(); i2++)
+if(get_3d_distance(impact_bombs[i2].x,impact_bombs[i2].y,impact_bombs[i2].z,sound_grenades[i].x,sound_grenades[i].y,sound_grenades[i].z)<=50 and impact_bombs[i2].map==sound_grenades[i].map)
+impact_bombs[i2].health-=random(5000,5000000);
+for (uint i2=0; i2<players.length(); i2++)
+{
+if(players[i2].invinsible==true || players[i2].newb==1 || players[i2].is_dead==true||in_vehicle(players[i2].name)>-1) continue;
+if (get_3d_distance(sound_grenades[i].x,sound_grenades[i].y,sound_grenades[i].z,players[i2].x,players[i2].y,players[i2].z)<=50 and players[i2].map==sound_grenades[i].map)
+{
+players[i2].hit(1000,1000);
+players[i2].should_subtract=true;
+players[i2].hitby=sound_grenades[i].owner+"'s sound_grenade";
+players[i2].playsound("sound_grenadeexplode");
+}
+}
+for (uint i2=0; i2<objs.length(); i2++)
+{
+if (get_3d_distance(sound_grenades[i].x,sound_grenades[i].y,sound_grenades[i].z,objs[i2].x,objs[i2].y,objs[i2].z)<=50 and objs[i2].map==sound_grenades[i].map)
+{
+play("obj_break"+random(1,3),objs[i2].x,objs[i2].y,objs[i2].z,objs[i2].map);
+objs.remove_at(i2);
+}
+}
+for (uint i2=0; i2<remguns.length(); i2++)
+{
+if (get_3d_distance(sound_grenades[i].x,sound_grenades[i].y,sound_grenades[i].z,remguns[i2].x,remguns[i2].y,remguns[i2].z)<=50 and remguns[i2].map==sound_grenades[i].map)
+{
+remguns[i2].health-=random(500, 5000);
+remguns[i2].hitby=sound_grenades[i].owner+"'s sound_grenade";
+play("remgunhit"+random(1, 3),remguns[i2].x,remguns[i2].y,remguns[i2].z,remguns[i2].map);
+}
+}
+for(uint s=0; s<shelters.length; s++)
+{
+if(get_3d_distance(sound_grenades[i].x,sound_grenades[i].y,sound_grenades[i].z,shelters[s].x,shelters[s].y,shelters[s].z)<=50&&shelters[s].map==sound_grenades[i].map)
+shelters[s].hit(random(0,0),sound_grenades[i].owner+"'s sound_grenade");
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_3d_distance(sound_grenades[i].x,sound_grenades[i].y,sound_grenades[i].z,vs[v].x,vs[v].y,vs[v].z)<=50&&vs[v].map==sound_grenades[i].map)
+vs[v].hit(random(500,500),sound_grenades[i].owner+"'s sound_grenade");
+}
+@sound_grenades[i]=null;
+sound_grenades.remove_at(i);
+}
+}
+}
+void placesound_grenade(int x,int y, int z, string map,string owner)
+{
+sound_grenade bomb1(x,y,z,map,owner);
+sound_grenades.insert_last(bomb1);
+}
+void destroy_all_sound_grenades()
+{
+sound_grenades.resize(0);
+}

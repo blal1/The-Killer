@@ -1,0 +1,152 @@
+wirebomb@[] wirebombs(0);
+class wirebomb
+{
+string owner;
+int z;
+string map;
+string teamname;
+int x, y;
+bool d=false;
+int pindex=-1;
+int range=6;
+wirebomb(int wx,int wy,int wz, string wmap, string wowner)
+{
+owner=wowner;
+x=wx;
+y=wy;
+z=wz;
+map=wmap;
+play("wirebombplace",x,y,z,map);
+pindex=get_player_index_from(owner);
+if(pindex>-1)
+{
+if(players[pindex].teamname!="")
+teamname=players[pindex].teamname;
+}
+}
+}
+void wirebombloop()
+{
+for (uint i=0; i<wirebombs.length(); i++)
+{
+netloop();
+if(wirebombs[i].pindex<0)
+{
+int p=get_player_index_from(wirebombs[i].owner);
+if(p>-1)
+{
+wirebombs[i].pindex=p;
+if(wirebombs[i].teamname!="" and players[p].teamname!=wirebombs[i].teamname) wirebombs[i].teamname=players[p].teamname;
+}
+}
+if(wirebombs[i].d==false)
+{
+for(uint px=0; px<players.length(); px++)
+{
+if(in_vehicle(players[px].name)>-1 or players[px].newb==1 or players[px].is_dead or players[px].invinsible or is_part_of_team(players[px].name,wirebombs[i].teamname) or wirebombs[i].owner==players[px].name) continue;
+if(get_3d_distance(wirebombs[i].x,wirebombs[i].y,wirebombs[i].z,players[px].x,players[px].y,players[px].z)<=wirebombs[i].range and wirebombs[i].map==players[px].map)
+{
+wirebombs[i].d=true;
+}
+netloop();
+}
+}
+if(wirebombs[i].d==true)
+{
+play("wirebomb",wirebombs[i].x,wirebombs[i].y,wirebombs[i].z,wirebombs[i].map);
+send_reliable(0,"distsound wirebombdist "+wirebombs[i].x+" "+wirebombs[i].y+" "+wirebombs[i].z+" "+wirebombs[i].map,0);
+for (uint i2=0; i2<players.length(); i2++)
+{
+if(players[i2].invinsible==true || players[i2].newb==1 || players[i2].is_dead==true||in_vehicle(players[i2].name)>-1) continue;
+if (get_3d_distance(wirebombs[i].x,wirebombs[i].y,wirebombs[i].z,players[i2].x,players[i2].y,players[i2].z)<=10 and players[i2].map==wirebombs[i].map)
+{
+players[i2].stun(5000,true,true);
+players[i2].health-=random(500,1300);
+players[i2].should_subtract=false;
+players[i2].hitby=wirebombs[i].owner+"'s wirebomb";
+play("wirebombhit",players[i2].x,players[i2].y,players[i2].z,players[i2].map);
+}
+}
+for (uint i2=0; i2<objs.length(); i2++)
+{
+if (get_3d_distance(wirebombs[i].x,wirebombs[i].y,wirebombs[i].z,objs[i2].x,objs[i2].y,objs[i2].z)<=10 and objs[i2].map==wirebombs[i].map)
+{
+play("obj_break"+random(1,3),objs[i2].x,objs[i2].y,objs[i2].z,objs[i2].map);
+objs.remove_at(i2);
+}
+}
+for (uint i2=0; i2<impact_bombs.length(); i2++)
+{
+if (get_3d_distance(wirebombs[i].x,wirebombs[i].y,wirebombs[i].z,impact_bombs[i2].x,impact_bombs[i2].y,impact_bombs[i2].z)<=10 and impact_bombs[i2].map==wirebombs[i].map)
+{
+impact_bombs[i2].health-=random(500,1500);
+play("ibombhit"+random(1, 3),impact_bombs[i2].x,impact_bombs[i2].y,impact_bombs[i2].z,impact_bombs[i2].map);
+}
+}
+for (uint i2=0; i2<remguns.length(); i2++)
+{
+if (get_3d_distance(wirebombs[i].x,wirebombs[i].y,wirebombs[i].z,remguns[i2].x,remguns[i2].y,remguns[i2].z)<=10 and remguns[i2].map==wirebombs[i].map)
+{
+remguns[i2].health-=random(500, 1500);
+remguns[i2].hitby=wirebombs[i].owner+"'s wirebomb";
+play("remgunhit"+random(1, 3),remguns[i2].x,remguns[i2].y,remguns[i2].z,remguns[i2].map);
+}
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_3d_distance(wirebombs[i].x,wirebombs[i].y,wirebombs[i].z,vs[v].x,vs[v].y,vs[v].z)<=10&&vs[v].map==wirebombs[i].map)
+vs[v].hit(random(500,1500),wirebombs[i].owner+"'s wirebomb");
+}
+wirebombs.remove_at(i);
+continue;
+}
+}
+}
+void place_wirebomb(int x,int y, int z, string map,string owner)
+{
+wirebomb bomb1(x,y,z,map,owner);
+wirebombs.insert_last(bomb1);
+}
+void destroy_all_wirebombs()
+{
+wirebombs.resize(0);
+}
+void create_wirebomb_from_datastream(string data)
+{
+dictionary d=deserialize(data);
+int x=dget_int(d,"x"),y=dget_int(d,"y"),z=dget_int(d,"z");
+string map=dget_string(d,"map"),owner=dget_string(d,"owner"),teamname=dget_string(d,"teamname");
+wirebomb m1(x,y,z,map,owner);
+if(teamname!="") m1.teamname=teamname;
+wirebombs.insert_last(m1);
+}
+void create_wirebomb_array_from_datastream(string stream)
+{
+dictionary@ temp=deserialize(stream);
+string[] keys=temp.get_keys();
+for(uint i=0; i<keys.length; i++)
+{
+string val=dget_string(temp,keys[i]);
+create_wirebomb_from_datastream(val);
+}
+@temp=null;
+}
+string[] create_datastream_from_wirebomb(wirebomb@ m)
+{
+dictionary d;
+d.set("x",m.x);d.set("y",m.y);d.set("z",m.z);d.set("owner",m.owner);d.set("map",m.map);d.set("teamname",m.teamname);
+string[] ret(2);
+ret[0]=randomstring(5);
+ret[1]=serialize(d);
+return ret;
+}
+string create_datastream_from_wirebomb_array()
+{
+dictionary d;
+for(uint i=0; i<wirebombs.length; i++)
+{
+string[] r=create_datastream_from_wirebomb(wirebombs[i]);
+d.set(r[0],r[1]);
+}
+return serialize(d);
+}

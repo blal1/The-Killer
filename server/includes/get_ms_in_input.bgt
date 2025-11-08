@@ -1,0 +1,9 @@
+#include"readable_time.bgt"
+void main() {
+string sbid=input_box("Name","Enter number of milliseconds");
+if(sbid=="")
+exit();
+double ms=string_to_number(sbid);
+string result=ms_to_readable_time(ms);
+alert("",result);
+}

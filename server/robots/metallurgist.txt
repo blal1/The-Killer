@@ -1,0 +1,13 @@
+name metallurgist
+health 40000
+defence 4000
+speed 500
+damage 200,15000
+shoot 1000
+distance 13
+aggro 1000
+spread 2
+angle 40
+steps 0
+loot ammo,dollar
+amount 500

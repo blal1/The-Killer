@@ -1,0 +1,157 @@
+#include"server_updater/dll_terlark.bgt"
+terlark tl;
+tts_voice r;
+string projname="tk";
+bool beta=false;
+void main()
+{
+tl.reload("server_updater/terlark.dll");
+speak("initializing");
+wait(2500);
+show_game_window("Releaser");
+if(file_exists("tk.exe")==false)
+{
+r.speak_wait("sorry, compiled application not found. Please compile and try again later.");
+exit();
+}
+directory_delete("release");
+directory_create("release");
+file_copy("GameEngine.dll","release/GameEngine.dll",true);
+file_copy("tk.exe","release/tk.exe",true);
+file_copy("changelog.txt","release/changelog.txt",true);
+if(beta) file_copy("beta_commands.txt","release/beta_commands.txt",true);
+file_copy("!rules.txt","release/!rules.txt",true);
+file_copy("readme.txt","release/readme.txt",true);
+file_copy("nvdaControllerClient32.dll","release/nvdaControllerClient32.dll",true);
+file_copy("sounds.dat","release/sounds.dat",true);
+/*
+directory_delete("release/server");
+directory_create("release/server");
+file_copy("server/server.exe","release/server/server.exe",true);
+file_copy("server/readme.txt","release/server/readme.txt",true);
+file_copy("server/filter.dll","release/server/filter.dll",true);
+file_copy("server/death_messages.svr","release/server/death_messages.svr",true);
+file_copy("server/admin_util.exe","release/server/admin_util.exe",true);
+string[] mapfiles=find_files("server/maps/*");
+directory_create("release/server/maps");
+for(uint i=0;i<mapfiles.length();i++)
+{
+file_copy(mapfiles[i],"release/server/maps/"+mapfiles[i],true);
+}
+*/
+speak("Created directory");
+int q=question("dropbox release","Do you want to give testers a compiled version of TK?");
+if(q==1)
+{
+reldropbox();
+}
+if(beta==false)
+{
+int u=question("TK version updater","Would you like to update the copy of the game online?");
+if(u==1)
+update_online();
+else
+exit();
+}
+}
+void reldropbox()
+{
+string user=read_environment_variable("username");
+int ff=0;
+speak("Releasing to dropbox folder...");
+string[] release=find_files("release/*");
+if(beta)
+{
+directory_delete("c:/users/"+user+"/dropbox/BWBetas/tk/beta");
+directory_create("c:/users/"+user+"/dropbox/BWBetas/tk/beta");
+}
+for(uint j=0; j<release.length(); j++)
+{
+if(beta)
+file_copy("release/"+release[j],"c:/users/"+user+"/dropbox/BWBetas/tk/beta/"+release[j],true);
+else
+file_copy("release/"+release[j],"c:/users/"+user+"/dropbox/BWBetas/tk/"+release[j],true);
+ff++;
+}
+speak("copyed "+ff+" files");
+wait(1500);
+file_delete("tk.exe");
+if(beta==true)
+directory_delete("release");
+}
+void update_online()
+{
+int confirm=question("updating!","I am about to start uploading the release.zip file. Continue?");
+if(confirm==2)
+exit();
+bool cont=tl.ftp_connect("ims-productions.com","ivan","",2121);
+if(cont==false)
+{
+alert("error","can't connect");
+exit();
+}
+bool u=tl.ftp_upload("release.zip","ims-productions.com/httpdocs/tk/release.zip");
+if(u==false)
+{
+alert("error","Couldn't upload release");
+exit();
+}
+else
+{
+string[] f=find_files("release/*");
+for(int i=0; i<f.length(); i++)
+{
+if(f[i]!="sounds.dat")
+{
+bool success=tl.ftp_upload("release/"+f[i], "ims-productions.com/htdocs/tk/upfiles/"+f[i]);
+if(!success) alert("error", "there is an error uploading the files for the updater. try again later.");
+}
+}
+}
+string v=input_box("TK version updater","Enter the version of tk");
+if(v=="")
+{
+alert("Error","could not continue");
+exit();
+}
+string d=input_box("TK version updater","Enter the description of update");
+if(d=="")
+exit();
+int c=question("Confirmation","Version: "+v+"\r\nDescription: "+d+"\r\nCorrect?");
+if(c==1)
+alert("Release",url_post("http://blinkwizard.ddns.net/tk/updatev.php","game="+projname+"&version="+v+"&description="+d));
+else
+exit();
+}
+tts_voice tts;
+int found_reader=0;
+bool speak(string text, bool interrupt=true)
+{
+if(found_reader==0)
+found_reader=auto_select_screen_reader();
+if(found_reader==0)
+{
+
+// We cannot find a running screen reader, so we use a global tts_voice object.
+if(interrupt)
+tts.speak_interrupt(text);
+else
+tts.speak(text);
+}
+
+if(interrupt)
+screen_reader_speak_interrupt(found_reader, text);
+else
+screen_reader_speak(found_reader, text);
+return true;
+}
+
+//now we do this because yeah, we hate sapi.
+int auto_select_screen_reader()
+{
+for(int i=1;i<=4;i++)
+{
+if(screen_reader_is_running(i)) return i;
+}
+return 0;
+}

@@ -1,0 +1,93 @@
+rpg@[]rpgs(0);
+class rpg {
+double x,y,z;
+int dir=0;
+bool explode=false;
+int range=10;
+int distance=0;
+int mindammage=10000;
+int maxdammage=15000;
+string map;
+string owner;
+int spread=10;
+rpg(double gx, double gy, double gz, double gdir, string gmap, string gowner)
+{
+x=gx;
+y=gy;
+z=gz;
+dir=gdir;
+map=gmap;
+owner=gowner;
+} // constructor.
+} // class.rpg.
+
+void rpgloop()
+{
+for(uint j=0; j<rpgs.length(); j++)
+{
+{
+play("rpg7explode"+random(1,3),rpgs[j].x,rpgs[j].y,rpgs[j].z,rpgs[j].map);
+send_reliable(0,"distsound rpg7explodedist "+rpgs[j].x+" "+rpgs[j].y+" "+rpgs[j].z+" "+rpgs[j].map,0);
+for(uint r=0; r<robots.length; r++)
+{
+if(get_3d_distance(rpgs[j].x,rpgs[j].y,rpgs[j].z,robots[r].x,robots[r].y,robots[r].z)<=rpgs[j].range&&robots[r].map==rpgs[j].map)
+robots[r].hit(random(rpgs[j].mindammage,rpgs[j].maxdammage),"rpg",rpgs[j].owner+"'s rpg7");
+}
+for(uint s=0; s<shelters.length; s++)
+{
+if(get_3d_distance(rpgs[j].x,rpgs[j].y,rpgs[j].z,shelters[s].x,shelters[s].y,shelters[s].z)<=rpgs[j].range&&shelters[s].map==rpgs[j].map)
+shelters[s].hit(random(1000,100000),rpgs[j].owner+"'s rpg","rpg7");
+}
+for(uint x=0; x<players.length(); x++)
+{
+if(in_vehicle(players[x].name)>-1 or players[x].newb==1 or players[x].is_dead or players[x].invinsible) continue;
+if(get_3d_distance(rpgs[j].x,rpgs[j].y,rpgs[j].z,players[x].x,players[x].y,players[x].z)<=rpgs[j].range and players[x].map==rpgs[j].map)
+{
+players[x].hit(rpgs[j].mindammage,rpgs[j].maxdammage);
+players[x].should_subtract=true;
+players[x].hitby=rpgs[j].owner+"'s rpg7";
+}
+}
+for (uint i2=0; i2<objs.length(); i2++)
+{
+if (get_3d_distance(rpgs[j].x,rpgs[j].y,rpgs[j].z,objs[i2].x,objs[i2].y,objs[i2].z)<=rpgs[j].range and objs[i2].map==rpgs[j].map)
+{
+play("obj_break"+random(1,3),objs[i2].x,objs[i2].y,objs[i2].z,objs[i2].map);
+objs.remove_at(i2);
+}
+}
+for (uint i2=0; i2<remguns.length(); i2++)
+{
+if (get_3d_distance(rpgs[j].x,rpgs[j].y,rpgs[j].z,remguns[i2].x,remguns[i2].y,remguns[i2].z)<=rpgs[j].range and remguns[i2].map==rpgs[j].map)
+{
+remguns[i2].health-=random(1000,100000);
+remguns[i2].hitby=rpgs[j].owner+"'s rpg7";
+play("remgunhit"+random(1, 3),remguns[i2].x,remguns[i2].y,remguns[i2].z,remguns[i2].map);
+}
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_2d_distance(vs[v].x,vs[v].y,rpgs[j].x,rpgs[j].y)<=rpgs[j].range)
+{
+vs[v].hit(random(rpgs[j].mindammage,rpgs[j].maxdammage),rpgs[j].owner+"'s rpg","rpg7");
+}
+}
+for(uint x=0; x<impact_bombs.length(); x++)
+{
+if(get_3d_distance(rpgs[j].x,rpgs[j].y,rpgs[j].z,impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z)<=20 and rpgs[j].map==impact_bombs[x].map)
+{
+play("ibombhit"+random(1,3),impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z,impact_bombs[x].map);
+impact_bombs[x].health-=random(rpgs[j].mindammage,rpgs[j].maxdammage);
+}
+}
+@rpgs[j]=null;
+rpgs.remove_at(j);
+continue;
+}
+}
+}
+void spawn_rpg(double x, double y, double z, double dir, string map, string owner)
+{
+rpg f1(x, y, z, dir, map, owner);
+rpgs.insert_last(f1);
+}

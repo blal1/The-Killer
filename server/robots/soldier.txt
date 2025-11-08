@@ -1,0 +1,16 @@
+name soldier
+health 20000
+defence 500
+speed 300
+damage 2000,12000
+shoot 700
+distance 15
+aggro 1000
+spread 3
+angle 10
+steps 0
+loot dollar,ammo,grenade,beer_bottle
+amount 10
+voices 9
+pains 7
+kills 4

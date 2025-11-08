@@ -1,0 +1,7 @@
+These commands can be used any time as long as the beta server is running and you are connected to it.
+/give <playername> <item> <amount>: Gives playername amount of itemname.
+/newmap name x y z tile: creates a new map. The x, y and z parameters are the maximum values put at the top of the file, they can be changed later. The tile is a surface to put on the entire bottom of the map so when you go to it you don't fall into nothingness.
+/rtparty: places a bunch of remote timebombs with the code 1234 on the map's edges.
+/impact_invasion: same thing with /rtparty, but with impact bombs.
+/sethealth <playername> <health>: Sets playername's health to the health you entered.
+/ubparty: sets a party of ultra bombs, and then you can explode them by putting coin in just one.

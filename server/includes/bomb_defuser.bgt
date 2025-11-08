@@ -1,0 +1,64 @@
+bomb_defuser@[] bomb_defusers(0);
+class bomb_defuser
+{
+string owner;
+int z;
+string map;
+timer defusetimer;
+int x, y;
+bomb_defuser(int tx,int ty,int tz, string tmap, string towner)
+{
+owner=towner;
+x=tx;
+y=ty;
+z=tz;
+map=tmap;
+}
+}
+void bomb_defuserloop()
+{
+for (uint i=0; i<bomb_defusers.length(); i++)
+{
+if(bomb_defusers[i].defusetimer.elapsed>=10)
+{
+bomb_defusers[i].defusetimer.restart();
+play("defuse",bomb_defusers[i].x,bomb_defusers[i].y,bomb_defusers[i].z,bomb_defusers[i].map);
+//send_reliable(0,"distsound defusedist "+bomb_defusers[i].x+" "+bomb_defusers[i].y+" "+bomb_defusers[i].z+" "+bomb_defusers[i].map,0);
+for (uint i2=0; i2<barricade_bombs.length(); i2++)
+{
+if (get_3d_distance(bomb_defusers[i].x,bomb_defusers[i].y,bomb_defusers[i].z,barricade_bombs[i2].x,barricade_bombs[i2].y,barricade_bombs[i2].z)<=5 and barricade_bombs[i2].map==bomb_defusers[i].map)
+{
+play("defuse",barricade_bombs[i2].x,barricade_bombs[i2].y,barricade_bombs[i2].z,barricade_bombs[i2].map);
+barricade_bombs.remove_at(i2);
+}
+}
+for (uint i2=0; i2<security_bombs.length(); i2++)
+{
+if (get_3d_distance(bomb_defusers[i].x,bomb_defusers[i].y,bomb_defusers[i].z,security_bombs[i2].x,security_bombs[i2].y,security_bombs[i2].z)<=5 and security_bombs[i2].map==bomb_defusers[i].map)
+{
+play("defuse",security_bombs[i2].x,security_bombs[i2].y,security_bombs[i2].z,security_bombs[i2].map);
+security_bombs.remove_at(i2);
+}
+}
+for (uint i2=0; i2<rockets.length(); i2++)
+{
+if (get_3d_distance(bomb_defusers[i].x,bomb_defusers[i].y,bomb_defusers[i].z,rockets[i2].x,rockets[i2].y,rockets[i2].z)<=5 and rockets[i2].map==bomb_defusers[i].map)
+{
+play("defuse",rockets[i2].x,rockets[i2].y,rockets[i2].z,rockets[i2].map);
+rockets.remove_at(i2);
+}
+}
+@bomb_defusers[i]=null;
+bomb_defusers.remove_at(i);
+}
+}
+}
+void placebomb_defuser(int x,int y, int z, string map,string owner)
+{
+bomb_defuser bomb1(x,y,z,map,owner);
+bomb_defusers.insert_last(bomb1);
+}
+void destroy_all_bomb_defusers()
+{
+bomb_defusers.resize(0);
+}

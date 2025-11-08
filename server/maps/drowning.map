@@ -1,0 +1,8 @@
+mapname:drowning
+maxx:10
+maxy:10
+maxz:1010
+tile:0:10:0:10:0:0:swimming
+tile:0:10:0:10:0:10101:underwater
+tile:0:10:0:10:11:12:wallwater
+zone:0:10:0:10:0:11:drown! You, will drown!

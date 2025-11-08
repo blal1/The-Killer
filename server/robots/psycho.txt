@@ -1,0 +1,13 @@
+name psycho
+health 15000
+defence 1000
+speed 200
+damage 1000,10000
+shoot 500
+distance 3
+aggro 1000
+spread 2
+angle 90
+steps 0
+loot dollar
+amount 200

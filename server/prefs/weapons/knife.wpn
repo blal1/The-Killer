@@ -1,0 +1,12 @@
+name knife
+dammage 800 1500
+range 4
+spread 3
+bullet 0
+stunning 0
+stuntime 0
+hitsounds 3
+shieldchance 15
+speedtime 10
+shieldhits8
+reloadable 0

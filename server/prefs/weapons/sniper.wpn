@@ -1,0 +1,12 @@
+name sniper
+dammage 1350 2500
+range 150
+spread 6
+bullet 1
+stunning 0
+stuntime 0
+hitsounds 3
+shieldchance 15
+speedtime 10
+shieldhits3
+reloadable 1

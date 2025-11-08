@@ -1,0 +1,80 @@
+fire@[]fires(0);
+class fire
+{
+int x;
+int y;
+int z;
+int spread=5;
+string map;
+string smid;
+int id=random(0,99999);
+timer hurttimer, lifetimer;
+int hurttime=random(5000,10000);
+int lifetime=random(60000,300000);
+int dam;
+fire(int fx, int fy, int fz, string fmap, int fdam)
+{
+x=fx;
+y=fy;
+z=fz;
+map=fmap;
+dam=fdam;
+smid=spawn_moving_sound("fire.ogg",x,y,z,map);
+}
+}
+void fireloop()
+{
+for(uint i=0;i<fires.length();i++)
+{
+if(is_tile_water(fires[i].x,fires[i].y,fires[i].z,fires[i].map))
+fires[i].lifetimer.force(fires[i].lifetime);
+if(fires[i].hurttimer.elapsed>=fires[i].hurttime)
+{
+fires[i].hurttimer.restart();
+for(uint x=0; x<shelters.length(); x++)
+{
+if(get_3d_distance(shelters[x].x,shelters[x].y,shelters[x].z,fires[i].x,fires[i].y,fires[i].z)<=10 and fires[i].map==shelters[x].map)
+{
+shelters[x].hit(random(3000,8000),"a fire");
+}
+}
+for(uint p=0;p<players.length();p++)
+{
+if(players[p].invinsible==true or players[p].is_dead) continue;
+if(get_3d_distance(players[p].x,players[p].y,players[p].z, fires[i].x,fires[i].y,fires[i].z)<=fires[i].spread and players[p].map==fires[i].map)
+{
+if(players[p].shielded)
+{
+players[p].playsound("shieldhit"+random(1,2));
+players[p].shieldshots-=random(1,7);
+}
+else
+{
+players[p].health-=fires[i].dam;
+players[p].should_subtract=true;
+play("hit"+random(1,3),players[p].x,players[p].y,players[p].z,players[p].map);
+}
+send_reliable(players[p].peer_id,"You should probably get out of that fire...",0);
+players[p].hitby="a fire";
+}
+}
+}
+if(fires[i].lifetimer.elapsed>=fires[i].lifetime)
+{
+destroy_moving_sound(fires[i].smid);
+play("fireout",fires[i].x,fires[i].y,fires[i].z,fires[i].map);
+@fires[i]=null;
+fires.remove_at(i);
+}
+}
+}
+void spawn_fire(int x, int y, int z, string map, int dam)
+{
+if(string_contains(get_tile_at(x,y,z,map),"water",1)>-1) return;
+fire f1(x, y, z, map, dam);
+fires.insert_last(f1);
+}
+void destroy_all_fires()
+{
+fires.resize(0);
+}

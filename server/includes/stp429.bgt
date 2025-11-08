@@ -1,0 +1,96 @@
+stp429@[]stp429s(0);
+class stp429 {
+double x,y,z;
+int dir=0;
+bool explode=true;
+timer explodetimer;
+int range=15;
+int distance=1;
+int mindammage=10000;
+int maxdammage=20000;
+string map;
+string owner;
+int spread=1;
+stp429(double gx, double gy, double gz, double gdir, string gmap, string gowner)
+{
+x=gx;
+y=gy;
+z=gz;
+dir=gdir;
+map=gmap;
+owner=gowner;
+play("stp429_warn",x,y,z,map);
+}
+}
+void stp429loop()
+{
+for(uint j=0; j<stp429s.length(); j++)
+{
+if(stp429s[j].explodetimer.elapsed>=1000)
+{
+stp429s[j].explodetimer.restart();
+play("stp429explode",stp429s[j].x,stp429s[j].y,stp429s[j].z,stp429s[j].map);
+send_reliable(0,"distsound stp429explodedist "+stp429s[j].x+" "+stp429s[j].y+" "+stp429s[j].z+" "+stp429s[j].map,0);
+send_reliable(0,"distsound stp429dist "+stp429s[j].x+" "+stp429s[j].y+" "+stp429s[j].z+" "+stp429s[j].map,0);
+for(uint s=0; s<shelters.length; s++)
+{
+if(get_3d_distance(stp429s[j].x,stp429s[j].y,stp429s[j].z,shelters[s].x,shelters[s].y,shelters[s].z)<=stp429s[j].range&&shelters[s].map==stp429s[j].map)
+shelters[s].hit(random(10000,20000),stp429s[j].owner+"'s stp429","stp429");
+}
+for(uint x=0; x<players.length(); x++)
+{
+if(in_vehicle(players[x].name)>-1 or players[x].newb==1 or players[x].is_dead or players[x].invinsible) continue;
+if(get_3d_distance(stp429s[j].x,stp429s[j].y,stp429s[j].z,players[x].x,players[x].y,players[x].z)<=stp429s[j].range and players[x].map==stp429s[j].map)
+{
+players[x].hit(stp429s[j].mindammage,stp429s[j].maxdammage);
+players[x].should_subtract=true;
+players[x].hitby=stp429s[j].owner+"'s stp429";
+}
+}
+for (uint i2=0; i2<objs.length(); i2++)
+{
+if (get_3d_distance(stp429s[j].x,stp429s[j].y,stp429s[j].z,objs[i2].x,objs[i2].y,objs[i2].z)<=stp429s[j].range and objs[i2].map==stp429s[j].map)
+{
+play("obj_break"+random(1,3),objs[i2].x,objs[i2].y,objs[i2].z,objs[i2].map);
+objs.remove_at(i2);
+}
+}
+for(uint i2=0; i2<horbs.length; i2++)
+{
+if(get_3d_distance(stp429s[j].x,stp429s[j].y,stp429s[j].z,horbs[i2].x,horbs[i2].y,horbs[i2].z)<=stp429s[j].range&&horbs[i2].map==stp429s[j].map) horbs[i2].shoot();
+}
+for (uint i2=0; i2<remguns.length(); i2++)
+{
+if (get_3d_distance(stp429s[j].x,stp429s[j].y,stp429s[j].z,remguns[i2].x,remguns[i2].y,remguns[i2].z)<=stp429s[j].range and remguns[i2].map==stp429s[j].map)
+{
+remguns[i2].health-=random(10000,20000);
+remguns[i2].hitby=stp429s[j].owner+"'s stp429";
+play("remgunhit"+random(1, 3),remguns[i2].x,remguns[i2].y,remguns[i2].z,remguns[i2].map);
+}
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_2d_distance(vs[v].x,vs[v].y,stp429s[j].x,stp429s[j].y)<=stp429s[j].range)
+{
+vs[v].hit(random(stp429s[j].mindammage,stp429s[j].maxdammage),stp429s[j].owner+"'s stp429","stp429");
+}
+}
+for(uint x=0; x<impact_bombs.length(); x++)
+{
+if(get_3d_distance(stp429s[j].x,stp429s[j].y,stp429s[j].z,impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z)<=200 and stp429s[j].map==impact_bombs[x].map)
+{
+play("ibombhit"+random(1,3),impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z,impact_bombs[x].map);
+impact_bombs[x].health-=random(stp429s[j].mindammage,stp429s[j].maxdammage);
+}
+}
+@stp429s[j]=null;
+stp429s.remove_at(j);
+continue;
+}
+}
+}
+void spawn_stp429(double x, double y, double z, double dir, string map, string owner)
+{
+stp429 f1(x, y, z, dir, map, owner);
+stp429s.insert_last(f1);
+}

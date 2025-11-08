@@ -1,0 +1,368 @@
+class playerweapon
+{
+player@p;
+int max_ammo;
+playerweapon(player@pl)
+{
+@p=pl;
+}
+int get_reloadtime()
+{
+if(p.weapon=="crossbow") return 2873;
+if(p.weapon=="mlk_203_combat_pistol") return 2500;
+if(p.weapon=="ML420HuntingRifle") return 1718;
+if(p.weapon=="pistol") return 3000;
+if(p.weapon=="mossberg500") return 2819;
+if(p.weapon=="m29_sniper_rifle") return 5000;
+if(p.weapon=="glock") return 2000;
+if(p.weapon=="kalashnikov_rifle") return 5000;
+if(p.weapon=="sks") return 6000;
+if(p.weapon=="taser") return 1000;
+if(p.weapon=="grenade_launcher") return 3000;
+if(p.weapon=="dart_launcher") return 1000;
+if(p.weapon=="m4") return 2873;
+if(p.weapon=="m8a7") return 2873;
+if(p.weapon=="m16") return 2873;
+if(p.weapon=="m1891") return 2873;
+if(p.weapon=="m1921a1") return 2873;
+if(p.weapon=="shotgun") return 2873;
+if(p.weapon=="mp5_machine_pistol") return 2700;
+if(p.weapon=="strong_machinegun") return 4000;
+if(p.weapon=="revolver") return 1500;
+if(p.weapon=="m2browning") return 6500;
+if(p.weapon=="stp106_long_barreled_pistol") return 3500;
+if(p.weapon=="ak47_assault_rifle") return 5000;
+if(p.weapon=="beretta_m9_pistol") return 3000;
+if(p.weapon=="beretta_m1951_machine_pistol") return 3000;
+if(p.weapon=="beretta_nano_pocket_pistol") return 2000;
+if(p.weapon=="blz83_portable_machine_gun") return 4000;
+if(p.weapon=="browning_high_power_bda_handgun") return 3000;
+if(p.weapon=="browning_m2_heavy_50_cal_machinegun") return 13000;
+if(p.weapon=="colt_ar_15_assault_rifle") return 5000;
+if(p.weapon=="colt_python_revolver") return 2200;
+if(p.weapon=="cop_357_derringer_pistol") return 7300;
+if(p.weapon=="crt43_automatic_shotgun") return 6000;
+if(p.weapon=="glock_17_pistol") return 3000;
+if(p.weapon=="m4a1_assault_rifle") return 5000;
+if(p.weapon=="m16_assault_rifle") return 4900;
+if(p.weapon=="m24_sniper_rifle") return 1500;
+if(p.weapon=="m134_minigun") return 17000;
+if(p.weapon=="m1208_shotgun") return 6000;
+if(p.weapon=="mlk_207_combat_rifle") return 4000;
+if(p.weapon=="modern_sub_machine_gun_carbine") return 2500;
+if(p.weapon=="nak_nk1000_decimater") return 9500;
+if(p.weapon=="ruger_security_6_revolver") return 2000;
+if(p.weapon=="saiga_12_5_round_shotgun") return 2000;
+if(p.weapon=="sig_p226_combat_pistol") return 2000;
+if(p.weapon=="sky_28_laser") return 3000;
+if(p.weapon=="sky_127_laser_handgun") return 1000;
+if(p.weapon=="stp_s84q_automatic_suppressed_pistol") return 4000;
+if(p.weapon=="stp21_handgun") return 1000;
+if(p.weapon=="str_32_pump_action_shotgun") return 500;
+if(p.weapon=="str_301_long_barreled_machine_pistol") return 2000;
+if(p.weapon=="walther_p99_handgun") return 3500;
+if(p.weapon=="famas") return 3000;
+if(p.weapon=="rocketlauncher") return 3433;
+if(p.weapon=="s&w_model66_revolver") return 3000;
+if(p.weapon=="hkmp5") return 3000;
+if(p.weapon=="svd") return 4000;
+if(p.weapon=="ml7tinymg") return 2729;
+if(p.weapon=="bazooka") return 1000;
+if(p.weapon=="rpg7") return 2150;
+if(p.weapon=="FRNTAssaultRifle") return 3700;
+if(p.weapon=="sniper") return 2000;
+if(p.weapon=="ml_Automatic_machinegun") return 2000;
+if(p.weapon=="mp5") return 2000;
+if(p.weapon=="barrett_m82_sniper_rifle") return 3000;
+if(p.weapon=="dragunovp_sniper") return 7000;
+if(p.weapon=="cannon") return 18482;
+else return -1;
+}
+int get_max_ammo()
+{
+if(p.weapon=="barrett_m82_sniper_rifle")
+{
+max_ammo=1;
+}
+if(p.weapon=="m29_sniper_rifle")
+{
+max_ammo=1;
+}
+if(p.weapon=="glock")
+{
+max_ammo=20;
+}
+if(p.weapon=="taser")
+{
+max_ammo=2;
+}
+if(p.weapon=="dart_launcher")
+{
+max_ammo=1;
+}
+if(p.weapon=="grenade_launcher")
+{
+max_ammo=2;
+}
+if(p.weapon=="kalashnikov_rifle")
+{
+max_ammo=5;
+}
+if(p.weapon=="sks")
+{
+max_ammo=5;
+}
+if(p.weapon=="m4")
+{
+max_ammo=30;
+}
+if(p.weapon=="m8a7")
+{
+max_ammo=50;
+}
+if(p.weapon=="m16")
+{
+max_ammo=30;
+}
+if(p.weapon=="m1891")
+{
+max_ammo=50;
+}
+if(p.weapon=="m1921a1")
+{
+max_ammo=30;
+}
+if(p.weapon=="dragunovp_sniper")
+{
+max_ammo=3;
+}
+if(p.weapon=="cannon")
+{
+max_ammo=1;
+}
+if(p.weapon=="strong_machinegun")
+{
+max_ammo=50;
+}
+if(p.weapon=="ml_Automatic_machinegun")
+{
+max_ammo=30;
+}
+if(p.weapon=="mp5_machine_pistol")
+{
+max_ammo=50;
+}
+if(p.weapon=="ML420HuntingRifle")
+{
+max_ammo=2;
+}
+if(p.weapon=="m2browning")
+{
+max_ammo=15;
+}
+if(p.weapon=="ak47_assault_rifle")
+{
+max_ammo=30;
+}
+if(p.weapon=="beretta_m9_pistol")
+{
+max_ammo=15;
+}
+if(p.weapon=="beretta_m1951_machine_pistol")
+{
+max_ammo=20;
+}
+if(p.weapon=="beretta_nano_pocket_pistol")
+{
+max_ammo=10;
+}
+if(p.weapon=="blz83_portable_machine_gun")
+{
+max_ammo=50;
+}
+if(p.weapon=="browning_high_power_bda_handgun")
+{
+max_ammo=25;
+}
+if(p.weapon=="browning_m2_heavy_50_cal_machinegun")
+{
+max_ammo=100;
+}
+if(p.weapon=="colt_ar_15_assault_rifle")
+{
+max_ammo=30;
+}
+if(p.weapon=="colt_python_revolver")
+{
+max_ammo=15;
+}
+if(p.weapon=="cop_357_derringer_pistol")
+{
+max_ammo=5;
+}
+if(p.weapon=="crt43_automatic_shotgun")
+{
+max_ammo=30;
+}
+if(p.weapon=="glock_17_pistol")
+{
+max_ammo=15;
+}
+if(p.weapon=="m4a1_assault_rifle")
+{
+max_ammo=30;
+}
+if(p.weapon=="m16_assault_rifle")
+{
+max_ammo=20;
+}
+if(p.weapon=="m24_sniper_rifle")
+{
+max_ammo=1;
+}
+if(p.weapon=="m134_minigun")
+{
+max_ammo=100;
+}
+if(p.weapon=="m1208_shotgun")
+{
+max_ammo=10;
+}
+if(p.weapon=="mlk_207_combat_rifle")
+{
+max_ammo=20;
+}
+if(p.weapon=="modern_sub_machine_gun_carbine")
+{
+max_ammo=40;
+}
+if(p.weapon=="nak_nk1000_decimater")
+{
+max_ammo=15;
+}
+if(p.weapon=="ruger_security_6_revolver")
+{
+max_ammo=20;
+}
+if(p.weapon=="saiga_12_5_round_shotgun")
+{
+max_ammo=5;
+}
+if(p.weapon=="sig_p226_combat_pistol")
+{
+max_ammo=25;
+}
+if(p.weapon=="sky_28_laser")
+{
+max_ammo=10;
+}
+if(p.weapon=="sky_127_laser_handgun")
+{
+max_ammo=10;
+}
+if(p.weapon=="stp_s84q_automatic_suppressed_pistol")
+{
+max_ammo=20;
+}
+if(p.weapon=="stp21_handgun")
+{
+max_ammo=20;
+}
+if(p.weapon=="str_32_pump_action_shotgun")
+{
+max_ammo=1;
+}
+if(p.weapon=="str_301_long_barreled_machine_pistol")
+{
+max_ammo=20;
+}
+if(p.weapon=="walther_p99_handgun")
+{
+max_ammo=15;
+}
+if(p.weapon=="famas")
+{
+max_ammo=30;
+}
+if(p.weapon=="hkmp5")
+{
+max_ammo=30;
+}
+if(p.weapon=="svd")
+{
+max_ammo=10;
+}
+if(p.weapon=="bazooka")
+{
+max_ammo=1;
+}
+if(p.weapon=="ml7tinymg")
+{
+max_ammo=25;
+}
+if(p.weapon=="mossberg500")
+{
+max_ammo=7;
+}
+if(p.weapon=="rocketlauncher")
+{
+max_ammo=1;
+}
+if(p.weapon=="rpg7")
+{
+max_ammo=2;
+}
+if(p.weapon=="sniper")
+{
+max_ammo=3;
+}
+if(p.weapon=="mp5")
+{
+max_ammo=30;
+}
+if(p.weapon=="mlk_203_combat_pistol")
+{
+max_ammo= 20;
+}
+if(p.weapon=="FRNTAssaultRifle")
+{
+max_ammo=50;
+}
+if(p.weapon=="crossbow")
+{
+max_ammo=50;
+}
+if(p.weapon=="pistol")
+{
+max_ammo=20;
+}
+if(p.weapon=="shotgun")
+{
+max_ammo=1;
+}
+if(p.weapon=="revolver")
+{
+max_ammo=1;
+}
+if(p.weapon=="stp106_long_barreled_pistol")
+{
+max_ammo=30;
+}
+if(p.weapon=="s&w_model66_revolver")
+{
+max_ammo=30;
+}
+return max_ammo;
+}
+void reload()
+{
+int amount;
+if(p.get_item_count("ammo_"+p.weapon)<get_max_ammo()) amount=p.get_item_count("ammo_"+p.weapon);
+else amount=get_max_ammo();
+if(p.get_ammo_count(p.weapon)<amount)
+{
+p.give("ammo_"+p.weapon,-amount);
+p.ammo_give(p.weapon,amount);
+}
+}
+}

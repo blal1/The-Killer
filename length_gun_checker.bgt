@@ -1,0 +1,21 @@
+//let me check the length of each file to get the reloading time per gun, and we do it that way.
+string[] guns={"crossbow","benelli","ML7TinyMG","ML420HuntingRifle","mp5","uzi","FRNTAssaultRifle","sniper","grenade_launcher","ak48","cannon"};
+void main()
+{
+string scripttext;
+for(uint i=0; i<guns.length(); i++)
+{
+int ms=get_sound_length("sounds/"+guns[i]+"Reload.ogg");
+scripttext+="if(w==\""+guns[i]+"\") return "+ms+";\r\n";
+}
+alert("done","");
+clipboard_copy_text(scripttext);
+}
+int get_sound_length(string snd)
+{
+sound s;
+s.load(snd);
+int ret=s.length;
+s.close();
+return ret;
+}

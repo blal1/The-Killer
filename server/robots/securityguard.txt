@@ -1,0 +1,14 @@
+name securityguard
+health 20000
+defence 1000
+speed 350
+damage 100,1000
+shoot 200
+distance 10
+aggro 1000
+spread 1
+angle 30
+steps 2
+loot dollar
+amount 1100
+hits 2

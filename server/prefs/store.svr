@@ -1,0 +1,199 @@
+poison_dart=150=throw him at a player and let him poison for a while=weapon_store
+poisoned_small_projectile=300=If you throw it with this little poison project, it will hurt you for 1 minute!=weapon_store
+tasing_small_projectile=200=like a little projectile, but it can only stun it when it touches the player=weapon_store
+small_projectile=50=a small small projectile, maybe you can hurt players if you throw it=weapon_store
+kalashnikov_rifle=50000=a weapon=weapon_store
+mlk_203_combat_pistol=15000= weapon=weapon_store
+dragunovp_sniper=50000= weapon=weapon_store
+strong_machinegun=30000= weapon=weapon_store
+revolver=20000= weapon=weapon_store
+m1921a1=35000= weapon=weapon_store
+m1891=35000= weapon=weapon_store
+m29_sniper_rifle=50000= weapon=weapon_store
+mp5=15000= weapon=weapon_store
+famas=45000= weapon=weapon_store
+sniper=40000= weapon=weapon_store
+bazooka=250000= weapon=weapon_store
+knife=600= weapon=weapon_store
+rocketlauncher=220000= weapon=weapon_store
+rpg7=153000=weapon=weapon_store
+mp5_machine_pistol=40000= weapon=weapon_store
+sks=55000= weapon=weapon_store
+cannon=350000= weapon=weapon_store
+barrett_m82_sniper_rifle=70000= weapon=weapon_store
+s&w_model66_revolver=20000= weapon=weapon_store
+crossbow=15000=weapon =weapon_store
+m16=30000=weapon =weapon_store
+m8a7=40000=weapon =weapon_store
+ml_Automatic_machinegun=40000=weapon =weapon_store
+pistol=10000= weapon=weapon_store
+glock=10000=weapon =weapon_store
+ak47_assault_rifle=50000=weapon =weapon_store
+beretta_m1951_machine_pistol=12000=weapon =weapon_store
+brass_knuckles=500=weapon =weapon_store
+broken_rifle=100=weapon =weapon_store
+crow_bar=1200=weapon =weapon_store
+crt17_combat_knife=200=weapon =weapon_store
+golden_war_axe=300=weapon =weapon_store
+hammer=350=weapon =weapon_store
+iron_shovel=40000=weapon =weapon_store
+large_iron_club=200=weapon =weapon_store
+machete=250=weapon =weapon_store
+nunchaku=500=weapon =weapon_store
+rusty_axe=300=weapon =weapon_store
+sky_286_laser_pistol=25000=weapon =weapon_store
+sky_372_laser_machinegun=40000=weapon =weapon_store
+sky_386_laser_assault_rifle=42000=weapon =weapon_store
+sky_429_laser_shotgun=46000=weapon =weapon_store
+blz83_portable_machine_gun=60000=weapon =weapon_store
+browning_high_power_bda_handgun=20000=weapon =weapon_store
+browning_m2_heavy_50_cal_machinegun=50000=weapon =weapon_store
+colt_ar_15_assault_rifle=20000=weapon =weapon_store
+colt_python_revolver=5000=weapon =weapon_store
+cop_357_derringer_pistol=25000=weapon =weapon_store
+crt43_automatic_shotgun=26000=weapon =weapon_store
+m4a1_assault_rifle=42000=weapon =weapon_store
+m16_assault_rifle=22000=weapon =weapon_store
+m24_sniper_rifle=60000=weapon =weapon_store
+m134_minigun=50000=weapon =weapon_store
+m1208_shotgun=18000=weapon =weapon_store
+mlk_207_combat_rifle=23000=weapon =weapon_store
+modern_sub_machine_gun_carbine=50000=weapon =weapon_store
+nak_nk1000_decimater=55000=weapon =weapon_store
+ruger_security_6_revolver=30000=weapon =weapon_store
+saiga_12_5_round_shotgun=30000=weapon =weapon_store
+sig_p226_combat_pistol=40000=weapon =weapon_store
+sky_28_laser=6700=weapon =weapon_store
+sky_127_laser_handgun=15000=weapon =weapon_store
+stp_s84q_automatic_suppressed_pistol=43000=weapon =weapon_store
+stp21_handgun=31000=weapon =weapon_store
+str_32_pump_action_shotgun=16000=weapon =weapon_store
+walther_p99_handgun=20000=weapon =weapon_store
+ammo_kalashnikov_rifle=5= ammo for kalashnikov_rifle=ammo_store
+pack_of_10_ammo_revolver=30=ammo for revolver=ammo_store
+pack_of_10_ammo_sniper=20=ammo for sniper=ammo_store
+pack_of_10_ammo_bazooka=50=ammo for bazooka=ammo_store
+pack_of_10_ammo_rocketlauncher=40=ammo for rocket_launcher=ammo_store
+pack_of_10_ammo_rpg7=30=ammo for rpg7=ammo_store
+pack_of_10_ammo_m16=50=ammo for m16=ammo_store
+pack_of_10_ammo_m8a7=50=ammo for m8a7=ammo_store
+pack_of_10_ammo_pistol=20=ammo for pistol=ammo_store
+pack_of_10_ammo_glock=20=ammo for glock=ammo_store
+pack_of_10_ammo_ak47_assault_rifle=40=ammofor the ak47_assault_rifle=ammo_store
+pack_of_10_ammo_beretta_m9_pistol=10=ammofor the beretta_m9_pistol=ammo_store
+pack_of_10_ammo_beretta_m1951_machine_pistol=50=ammo for the beretta_m1951_machine_pistol=ammo_store
+pack_of_10_ammo_beretta_nano_pocket_pistol=10=ammo for the beretta_nano_pocket_pistol=ammo_store
+pack_of_10_ammo_blz83_portable_machine_gun=30=ammo for the blz83_portable_machine_gun=ammo_store
+pack_of_10_ammo_browning_high_power_bda_handgun=20=ammo for the browning_high_power_bda_handgun=ammo_store
+pack_of_10_ammo_browning_m2_heavy_50_cal_machinegun=40=ammo for the browning_m2_heavy_50_cal_machinegun=ammo_store
+pack_of_10_ammo_colt_ar_15_assault_rifle=20=ammo for the colt_ar_15_assault_rifle=ammo_store
+pack_of_10_ammo_colt_python_revolver=10=ammo for the colt_python_revolver=ammo_store
+pack_of_10_ammo_cop_357_derringer_pistol=30=ammo for the cop_357_derringer_pistol=ammo_store
+pack_of_10_ammo_crt43_automatic_shotgun=30=ammo for the crt43_automatic_shotgun=ammo_store
+pack_of_10_ammo_glock_17_pistol=30=ammo for the glock_17_pistol=ammo_store
+pack_of_10_ammo_m4a1_assault_rifle=30=ammo for the m4a1_assault_rifle=ammo_store
+pack_of_10_ammo_m16_assault_rifle=30=ammo for the m16_assault_rifle=ammo_store
+pack_of_10_ammo_m24_sniper_rifle=30=ammo for the m24_sniper_rifle=ammo_store
+pack_of_10_ammo_m134_minigun=30=ammo for the m134_minigun=ammo_store
+pack_of_10_ammo_m1208_shotgun=30=ammo for the m1208_shotgun=ammo_store
+pack_of_10_ammo_mlk_207_combat_rifle=30=ammo for the mlk_207_combat_rifle=ammo_store
+pack_of_10_ammo_modern_sub_machine_gun_carbine=30=ammo for the modern_sub_machine_gun_carbine=ammo_store
+pack_of_10_ammo_nak_nk1000_decimater=30=ammo for the nak_nk100_decimater=ammo_store
+pack_of_10_ammo_ruger_security_6_revolver=30=ammo for the ruger_security_6_revolver=ammo_store
+pack_of_10_ammo_saiga_12_5_round_shotgun=30=ammo for the saiga_12_5_round_shotgun=ammo_store
+pack_of_10_ammo_sig_p226_combat_pistol=30=ammo for the sig_p226_combat_pistol=ammo_store
+pack_of_10_ammo_sky_28_laser=30=ammo for the sky_28_laser=ammo_store
+pack_of_10_ammo_sky_127_laser_handgun=30=ammo for the sky_127_laser_handgun=ammo_store
+pack_of_10_ammo_stp_s84q_automatic_suppressed_pistol=30=ammo for the stp_s84q_automatic_suppressed_pistol=ammo_store
+pack_of_10_ammo_stp21_handgun=30=ammo for the stp21_handgun=ammo_store
+pack_of_10_ammo_str_32_pump_action_shotgun=30=ammo for the str_32_pump_action_shotgun=ammo_store
+pack_of_10_ammo_walther_p99_handgun=30=ammo for the walther_p99_handgun=ammo_store
+pack_of_10_ammo_ml_Automatic_machinegun=30=ammo for the ml_Automatic_machinegun=ammo_store
+pack_of_10_ammo_strong_machinegun=20=ammo for the strong_machinegun=ammo_store
+pack_of_10_ammo_m29_sniper_rifle=50=ammo for the m29_sniper_rifle=ammo_store
+pack_of_10_ammo_s&w_model66_revolver=10=ammo for the s&w_model66_revolver=ammo_store
+pack_of_10_ammo_mlk_203_combat_pistol=20=ammo for the mlk_203_combat_pistol=ammo_store
+pack_of_10_ammo_dragunovp_sniper=30=ammo for the dragunovp_sniper=ammo_store
+pack_of_10_ammo_m2browning=20=ammo for the m2browning=ammo_store
+pack_of_10_ammo_crossbow=10=ammo for the crossbow=ammo_store
+pack_of_10_ammo_mp5_machine_pistol=20=ammo for the mp5_machine_pistol=ammo_store
+pack_of_10_ammo_famas=20=ammo for the famas=ammo_store
+pack_of_10_ammo_barrett_m82_sniper_rifle=40=ammo for the barrett_m82_sniper_rifle=ammo_store
+pack_of_10_ammo_stp106_long_barreled_pistol=10=ammo for the stp106_long_barreled_pistol=ammo_store
+pack_of_10_ammo_cannon=20=ammo for cannon=ammo_store
+bullet_bomb_locator=1500=checks if you have a bullet bomb at the bottom=misc_store
+helicopter=1500=a helicopter terrow for player=misc_store
+dog=3500=a dog terrow for player=misc_store
+robocop=1500=a robocop terrow for player=misc_store
+carrier_missile=600=A missile that can send items and deploy them if possible=misc_store
+shield=150=a good layer of protection. Not fool proof though!=misc_store
+wood_pack=1000=A pack of wood for shelters=misc_store
+pack_of_10_stone=100=alert, this is not normal stone for fun, this is for kill. Now, kill all!=misc_store
+ultrabomb_silencer=70=a device used to remove the noticeable buzzing from an active ultrabomb=misc_store
+team_member_booster=5000=These devices will open 1 slot for a member in your team=misc_store
+warp_box=90=a warp box=misc_store
+poison_drink=1000=completely eliminates this poison when you are poisoned=medical_store
+mini_antibiotic_pack=20=A pack of 5 antibiotics=medical_store
+antibiotic_pack=120=A normal pack of 20 antibiotics=medical_store
+ultra_antibiotic_pack=800=A pack of antibiotics containing 50 antibiotics=medical_store
+stored_health=6000=To increase health=medical_store
+health_booster=30000=To increase health=medical_store
+pack_of_100_apple=10000=To increase health=medical_store
+pack_of_100_banana_bread=6000=To increase health=medical_store
+pack_of_100_berry=7000=To increase health=medical_store
+pack_of_100_biscuit=15000=To increase health=medical_store
+pack_of_100_candy=12000=To increase health=medical_store
+pack_of_100_chips=12500=To increase health=medical_store
+pack_of_100_chocolate_bar=10000=To increase health=medical_store
+pack_of_10_cola=20000=To increase health=medical_store
+pack_of_100_cracker=14000=To increase health=medical_store
+pack_of_100_food=16000=To increase health=medical_store
+pack_of_100_health_drink=20000=To increase health=medical_store
+pack_of_10_health_potion=30000=To increase health=medical_store
+pack_of_5_juce_box=50000=To increase health=medical_store
+pack_of_20_meat=16000=To increase health=medical_store
+pack_of_100_melon=30000=To increase health=medical_store
+pack_of_100_mint=25000=To increase health=medical_store
+pack_of_20_nut=15000=To increase health=medical_store
+pack_of_100_popcorn=12000=To increase health=medical_store
+pack_of_50_pretzel=15000=To increase health=medical_store
+pack_of_20_protein_bar=12000=To increase health=medical_store
+pack_of_100_syringe=40000=To increase health=medical_store
+pack_of_5_water_bottle=5000=To increase health=medical_store
+barricade_bomb=8050=A bomb that detects players and vehicles and can inflict some serious damage. Good for shelter protection!=explosive_store
+stp429=5000= a stp429 now range 20=explosive_store
+pack_of_20_sticky_bomb=5000= first start, and die=explosive_store
+sound_grenade=3000= now grenade enter and bomb=explosive_store
+sat_bomb_remote=1000= sat_bomb for, or remote_timebomb=explosive_store
+sat_bomb=500= good sat_bomb=explosive_store
+mass_bomb=20000= real massbomb=explosive_store
+concussive_grenade=1000=   teleportt to you random=explosive_store
+stun_grenade=2000= a stun player 25 range=explosive_store
+pipe_bomb=1000= a health random 100=explosive_store
+nuclear_bomb=90000= a bomb current map kill all players=explosive_store
+hand_grenade_pack=10000= a pack of 10 hand_grenades=explosive_store
+suicide_bomb=10000=suicide bomb is get 1000 health and if you don't go to the away, kill you!=explosive_store
+remote_gun=30=a gun that can be placed and remote controlled from a distance, good for protection of a certain area.=explosive_store
+guided_missile=2000=A powerful missile that you can send after a player or to a set of coordinates=explosive_store
+missile_interceptor=60=A device you can use to intercept incoming missiles=explosive_store
+wirebomb=300=A bomb with wires sticking out of them. Good for trapping!=explosive_store
+timebomb=15=a bomb with a beeping timer on it.=explosive_store
+mine=75=A bomb that activates if a player steps on it=explosive_store
+remote_timebomb=30=a remote controlled timebomb that can be detinated from anywhere with a keystroke. Packs a decent range and damage, as well as a very short time pre explosion.=explosive_store
+security_bomb=450=A bomb that detects players and vehicles and can inflict some serious damage. Good for shelter protection!=explosive_store
+motion_bomb=100=A powerful bomb that detects motion=explosive_store
+grenade_pack=200=a pack of 10 grenades=explosive_store
+bullet_bomb=705=a bomb that will explode if hit enough, great in chains!=explosive_store
+impact_bomb=75=a bomb that will explode if hit enough, great in chains!=explosive_store
+ultrabomb=1000=A very powerfull bomb that can be detenated with dollars. Packs lots of range=explosive_store
+aircraft=500=An airborn vehicle with a high powered lazer and capable of very high speeds=vehicle_store
+dogan_slx=10000=doan slx is a only trip vehicle, you can play horn!=vehicle_store
+police_car_super=10000=police_car_super car is realy police_car_super vehicle and you kill all very very power laser! Enjoy!=vehicle_store
+sail_boats=10000=sail a boat to swim=vehicle_store
+police_car=5000=police car is realy police vehicle and you kill all very very power laser! Enjoy!=vehicle_store
+Truck=6000=Truck is a very very power, you can kill all this vehicle!=vehicle_store
+tank=400=A massive ground vehicle equipped with a very powerful cannon=vehicle_store
+armored_tank=106000=armored_tank is a very very power, you can kill all this vehicle!=vehicle_store
+fuel_tank=120=A fuel tank for both the aircraft and tank=vehicle_store
+toolbox=1000=A very useful item needed for repairing vehicles=vehicle_store
+metal_pack=150=a pack full of metal for vehicle repairs=vehicle_store

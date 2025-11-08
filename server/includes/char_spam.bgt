@@ -1,0 +1,40 @@
+string chartrash()
+{
+int del=0;
+string names;
+string ret;
+string[] chars=find_directories("chars/*");
+for (uint i=0; i<chars.length(); i++)
+{
+if(filterchar(chars[i],true) and !file_exists("chars/"+chars[i]+"/paid.usr")==false)
+{
+directory_delete("chars/"+chars[i]);
+names+="\r\n"+chars[i]+", reason: invalid";
+del+=1;
+}
+if (string_is_digits(chars[i]) and !file_exists("chars/"+chars[i]+"/paid.usr"))
+{
+directory_delete("chars/"+chars[i]);
+names+="\r\n"+chars[i]+", reason: numeric";
+del+=1;
+}
+if (chars[i].length()<=2&&chars[i]!="x0" and chars[i]!="x1" and !file_exists("chars/"+chars[i]+"/paid.usr"))
+{
+directory_delete("chars/"+chars[i]);
+names+="\r\n"+chars[i]+", reason: less than 3 chars.";
+del+=1;
+}
+if(file_exists("chars/"+chars[i]+"/info.usr")==false and !file_exists("chars/"+chars[i]+"/paid.usr"))
+{
+directory_delete("chars/"+chars[i]);
+names+="\r\n"+chars[i]+", reason: outdated";
+del+=1;
+}
+}
+ret="Out of "+chars.length()+", there were a total of "+del+"("+round(percent(del,chars.length()),0)+"percent)  characters that were considered spam.";
+file c;
+c.open("char_spam.svr","wb");
+c.write(names);
+c.close();
+return ret;
+}

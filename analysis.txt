@@ -1,0 +1,1974 @@
+Analysis for file: tk.bgt
+Lines in this script: 2813
+Total lines of all scripts in this project: 8119
+
+Other statistics
+Commented lines: 79
+ Constants for auxiliary commands:, File: includes/keyconfig.bgt On line: 1
+ The following function takes a filename as its only argument and loads the sound as a preload., File: includes/preloader.bgt On line: 6
+ It returns true on success and false on failure., File: includes/preloader.bgt On line: 7
+ It will fail if the sound has already been loaded as a preload, or if something goes wrong while actually loading it., File: includes/preloader.bgt On line: 8
+ Verify that the sound hasn't already been loaded as a preload by comparing the filenames., File: includes/preloader.bgt On line: 11
+ The following function resets all of the preloads., File: includes/preloader.bgt On line: 30
+ Call the garbage_collect function to ensure that all data is cleaned up immediately., File: includes/preloader.bgt On line: 34
+preloading.play_looped();, File: includes/sndloader.bgt On line: 15
+lets cut the ogg extention to make array searching work., File: includes/sndloader.bgt On line: 22
+ The following function takes a filename as its only argument and loads the sound as a preload., File: includes/preloader.bgt On line: 6
+ It returns true on success and false on failure., File: includes/preloader.bgt On line: 7
+ It will fail if the sound has already been loaded as a preload, or if something goes wrong while actually loading it., File: includes/preloader.bgt On line: 8
+ Verify that the sound hasn't already been loaded as a preload by comparing the filenames., File: includes/preloader.bgt On line: 11
+ The following function resets all of the preloads., File: includes/preloader.bgt On line: 30
+ Call the garbage_collect function to ensure that all data is cleaned up immediately., File: includes/preloader.bgt On line: 34
+Readable time, created by Lucas Brown., File: includes/readable_time.bgt On line: 0
+handle.stop();, File: includes/sound_progress.bgt On line: 2
+handle.play();, File: includes/sound_progress.bgt On line: 3
+No longer used, originally the survive the wild progress bar., File: includes/progress_bar.bgt On line: 0
+DFSpeech, File: includes/speech.bgt On line: 0
+By DarkFlier Productions, File: includes/speech.bgt On line: 1
+Created on 06-19-2016 through 06-20-2016, File: includes/speech.bgt On line: 2
+Speak function, File: includes/speech.bgt On line: 22
+function to check for running screen readers., File: includes/speech.bgt On line: 64
+jaws, File: includes/speech.bgt On line: 66
+Skip over Window-Eyes, as it has errors., File: includes/speech.bgt On line: 68
+SA, File: includes/speech.bgt On line: 70
+NVDA, File: includes/speech.bgt On line: 73
+A loop you can implement for using the buffer., File: includes/speech.bgt On line: 79
+Function for setting the SAPI voice., File: includes/speech.bgt On line: 115
+Spawns a menu where the user can select a SAPI voice., File: includes/speech.bgt On line: 121
+Save our properties., File: includes/speech.bgt On line: 145
+Load our properties., File: includes/speech.bgt On line: 154
+Set the parameters for the tts voice. R is rate, P is pitch, V is volume., File: includes/speech.bgt On line: 183
+Set the speech mode. 0 is auto, 1 is SAPI., File: includes/speech.bgt On line: 193
+I think that's it. If you need anything else implemented, let me know., File: includes/speech.bgt On line: 196
+p.play_3d("beacon.ogg", me.x, me.y, me.z, players[i].x, players[i].y, players[i].z, calculate_theta(facing), false);, File: includes/player.bgt On line: 25
+these are the constants for the file_put_contents function., File: includes/hip.bgt On line: 28
+testing, File: includes/runs.bgt On line: 8
+speak("loading map...");, File: includes/map.bgt On line: 74
+speak("map loaded");, File: includes/map.bgt On line: 161
+ Default constructor, where we give the user 100 sounds., File: includes/sp.bgt On line: 227
+ In this constructor the user can specify how many sounds they want., File: includes/sp.bgt On line: 242
+ We are out of earshot, so we cancel., File: includes/sp.bgt On line: 345
+ We are out of earshot, so we cancel., File: includes/sp.bgt On line: 424
+ We are out of earshot, so we cancel., File: includes/sp.bgt On line: 512
+ Internal properties., File: includes/sp.bgt On line: 764
+ Internal methods., File: includes/sp.bgt On line: 772
+ This is a security function to perform basic sanity checks., File: includes/sp.bgt On line: 835
+ This finds the first available sound slot and prepares it for use., File: includes/sp.bgt On line: 860
+savedata class., File: includes/sd.bgt On line: 0
+by Ultrocity Audio, File: includes/sd.bgt On line: 1
+internal variables for the class., File: includes/sd.bgt On line: 4
+the constructor, File: includes/sd.bgt On line: 8
+the function to load the saved data into the dictionary., File: includes/sd.bgt On line: 14
+fn is our previously declared filename string, so use that., File: includes/sd.bgt On line: 18
+check for a decryption key., File: includes/sd.bgt On line: 20
+no key, so just deserialize., File: includes/sd.bgt On line: 23
+deserialize but first decrypt., File: includes/sd.bgt On line: 28
+close the file, File: includes/sd.bgt On line: 31
+function to save the data into the file., File: includes/sd.bgt On line: 34
+again, use the FN string, File: includes/sd.bgt On line: 38
+check for a key., File: includes/sd.bgt On line: 40
+function to add a value., File: includes/sd.bgt On line: 46
+function to read a number., File: includes/sd.bgt On line: 51
+overloaded function of add to add a string., File: includes/sd.bgt On line: 58
+function to read a string, File: includes/sd.bgt On line: 63
+if(!SCRIPT_COMPILED), File: includes/menu.bgt On line: 13
+m.add_item_tts("dev options","devop");, File: includes/menu.bgt On line: 14
+m.fade_music(20);, File: includes/menu.bgt On line: 24
+online menus, File: includes/menu.bgt On line: 290
+setupmenu();, File: includes/menu.bgt On line: 293
+sound music;, File: tk.bgt On line: 19
+cfg.save("keyconfig.cfg");, File: tk.bgt On line: 155
+for the time that we don't have these versions synced *update*, File: tk.bgt On line: 168
+sound_init();, File: tk.bgt On line: 255
+music.stop();, File: tk.bgt On line: 1694
+msoundcheckloop();, File: tk.bgt On line: 1846
+alert("error","You can not speedhack in the game");, File: tk.bgt On line: 1917
+
+Total includes: 45
+i.bgt
+includes/keyconfig.bgt
+includes/preloader.bgt
+includes/sndloader.bgt
+includes/preloader.bgt
+includes/readable_time.bgt
+includes/fadepool.bgt
+includes/silent.bgt
+includes/UI_translator.bgt
+includes/oriol_utils.bgt
+includes/sizer.bgt
+includes/door.bgt
+includes/sound_progress.bgt
+includes/ultrarec.bgt
+includes/reg.bgt
+includes/progress_bar.bgt
+includes/speed_stop_sound.bgt
+includes/moving_sound.bgt
+includes/keyhook.bgt
+includes/speech.bgt
+includes/player.bgt
+includes/dlgplay.bgt
+includes/internet.bgt
+includes/hip.bgt
+includes/dlfile.bgt
+downloader.bgt
+includes/updater.bgt
+dlfile.bgt
+hip.bgt
+includes/runs.bgt
+includes/dateandtime.bgt
+includes/virtualizer.bgt
+includes/buffer.bgt
+includes/dlg.bgt
+includes/constants.bgt
+includes/map.bgt
+includes/net.bgt
+includes/rotation.bgt
+includes/sp.bgt
+sound_positioning.bgt
+includes/srcamb.bgt
+includes/sd.bgt
+includes/menu.bgt
+mapdata.bgt
+
+Total classes: 18
+keyconfig {, File: includes/keyconfig.bgt On line: 3
+preload, File: includes/preloader.bgt On line: 0
+preload, File: includes/preloader.bgt On line: 0
+door, File: includes/door.bgt On line: 2
+voicechatting, File: includes/ultrarec.bgt On line: 2
+progress_bar, File: includes/progress_bar.bgt On line: 1
+msound, File: includes/moving_sound.bgt On line: 0
+kh, File: includes/keyhook.bgt On line: 0
+DFSpeech, File: includes/speech.bgt On line: 3
+player, File: includes/player.bgt On line: 1
+virtualizer, File: includes/virtualizer.bgt On line: 0
+buffer, File: includes/buffer.bgt On line: 2
+binput, File: includes/map.bgt On line: 422
+sound_pool_item, File: includes/sp.bgt On line: 5
+sound_pool, File: includes/sp.bgt On line: 221
+source, File: includes/srcamb.bgt On line: 1
+amb, File: includes/srcamb.bgt On line: 35
+savedata, File: includes/sd.bgt On line: 2
+
+
+Variable Analysis
+Total variables: 351
+Total ints: 149
+oldvol=handle.volume, File: includes/oriol_utils.bgt On line: 16
+oldvol=handle.volume, File: includes/oriol_utils.bgt On line: 23
+doorsound, File: includes/door.bgt On line: 0
+ doorsound2, File: includes/door.bgt On line: 1
+dx, File: includes/door.bgt On line: 6
+dy, File: includes/door.bgt On line: 7
+dz, File: includes/door.bgt On line: 8
+finishx, File: includes/door.bgt On line: 9
+finishy, File: includes/door.bgt On line: 10
+finishz, File: includes/door.bgt On line: 11
+movetime=150, File: includes/door.bgt On line: 12
+ret=0, File: includes/ultrarec.bgt On line: 43
+SPEEDSTOP_TRIES_MAIN=0, File: includes/speed_stop_sound.bgt On line: 4
+orig_ss_tries=SPEEDSTOP_TRIES_MAIN, File: includes/speed_stop_sound.bgt On line: 20
+x, File: includes/moving_sound.bgt On line: 0
+y, File: includes/moving_sound.bgt On line: 1
+z, File: includes/moving_sound.bgt On line: 2
+loopint, File: includes/moving_sound.bgt On line: 3
+bpos //The buffer position, File: includes/speech.bgt On line: 6
+output //Internal variable specifying the output mode., File: includes/speech.bgt On line: 9
+mode=0 //Variable for either SAPI or Auto SR output, File: includes/speech.bgt On line: 11
+voice, File: includes/speech.bgt On line: 12
+rate, File: includes/speech.bgt On line: 13
+pitch, File: includes/speech.bgt On line: 14
+volume, File: includes/speech.bgt On line: 15
+vp=-1, File: includes/speech.bgt On line: 123
+x, File: includes/player.bgt On line: 3
+y, File: includes/player.bgt On line: 4
+z, File: includes/player.bgt On line: 5
+perc2=0, File: includes/dlfile.bgt On line: 2
+hour2, File: includes/dateandtime.bgt On line: 6
+capmode=1, File: includes/virtualizer.bgt On line: 2
+cursor, File: includes/virtualizer.bgt On line: 5
+bufferpos, File: includes/buffer.bgt On line: 0
+interrupt, File: includes/buffer.bgt On line: 4
+active=1, File: includes/buffer.bgt On line: 5
+pos, File: includes/buffer.bgt On line: 6
+id=-1, File: includes/map.bgt On line: 151
+x=me.x, File: includes/map.bgt On line: 0
+ y=me.y, File: includes/map.bgt On line: 1
+ z=me.z, File: includes/map.bgt On line: 2
+r=-1, File: includes/map.bgt On line: 408
+netport=45532, File: includes/net.bgt On line: 1
+x, File: includes/sp.bgt On line: 11
+y, File: includes/sp.bgt On line: 12
+z, File: includes/sp.bgt On line: 13
+upper_range, File: includes/sp.bgt On line: 21
+lower_range, File: includes/sp.bgt On line: 22
+left_range, File: includes/sp.bgt On line: 23
+right_range, File: includes/sp.bgt On line: 24
+backward_range, File: includes/sp.bgt On line: 25
+forward_range, File: includes/sp.bgt On line: 26
+delta_left=x-left_range, File: includes/sp.bgt On line: 169
+delta_right=x+right_range, File: includes/sp.bgt On line: 170
+delta_backward=y-backward_range, File: includes/sp.bgt On line: 171
+delta_forward=y+forward_range, File: includes/sp.bgt On line: 172
+delta_lower=z-lower_range, File: includes/sp.bgt On line: 173
+delta_upper=z+upper_range, File: includes/sp.bgt On line: 174
+true_x=listener_x, File: includes/sp.bgt On line: 175
+true_y=listener_y, File: includes/sp.bgt On line: 176
+true_z=listener_z, File: includes/sp.bgt On line: 177
+distance=0, File: includes/sp.bgt On line: 178
+max_distance, File: includes/sp.bgt On line: 223
+currently_playing=0, File: includes/sp.bgt On line: 638
+currently_playing=0, File: includes/sp.bgt On line: 649
+last_listener_x, File: includes/sp.bgt On line: 765
+last_listener_y, File: includes/sp.bgt On line: 766
+last_listener_z, File: includes/sp.bgt On line: 767
+clean_frequency, File: includes/sp.bgt On line: 771
+slot=-1, File: includes/sp.bgt On line: 867
+source_sound, File: includes/srcamb.bgt On line: 3
+lx, File: includes/srcamb.bgt On line: 4
+rx, File: includes/srcamb.bgt On line: 5
+miny, File: includes/srcamb.bgt On line: 6
+maxy, File: includes/srcamb.bgt On line: 7
+minz, File: includes/srcamb.bgt On line: 8
+maxz, File: includes/srcamb.bgt On line: 9
+id=-1, File: includes/srcamb.bgt On line: 12
+minx, File: includes/srcamb.bgt On line: 0
+maxx, File: includes/srcamb.bgt On line: 1
+miny, File: includes/srcamb.bgt On line: 2
+maxy, File: includes/srcamb.bgt On line: 3
+minz, File: includes/srcamb.bgt On line: 4
+maxz, File: includes/srcamb.bgt On line: 5
+cruns=runsn-lastruns, File: includes/menu.bgt On line: 17
+mx, File: tk.bgt On line: 0
+my, File: tk.bgt On line: 1
+playx=0, File: tk.bgt On line: 2
+canjump=1, File: tk.bgt On line: 3
+lastruns=0, File: tk.bgt On line: 4
+translator=0, File: tk.bgt On line: 5
+hbanned=0, File: tk.bgt On line: 6
+playmusic=0, File: tk.bgt On line: 7
+sent_packets=0, File: tk.bgt On line: 0
+received_packets=0, File: tk.bgt On line: 1
+importbufferlogs=0, File: tk.bgt On line: 21
+registered=0, File: tk.bgt On line: 23
+sitting=0, File: tk.bgt On line: 27
+sidescrolling=0, File: tk.bgt On line: 29
+uploadedsounds=1, File: tk.bgt On line: 30
+channels=1, File: tk.bgt On line: 31
+soundcard, File: tk.bgt On line: 33
+currenthealth, File: tk.bgt On line: 43
+rectime=30000, File: tk.bgt On line: 50
+playingtime, File: tk.bgt On line: 51
+spamtime=5000, File: tk.bgt On line: 52
+trackx=-1, File: tk.bgt On line: 0
+ tracky=-1, File: tk.bgt On line: 1
+ trackz=-1, File: tk.bgt On line: 2
+sonaring=0, File: tk.bgt On line: 67
+beaconing=0, File: tk.bgt On line: 68
+readmessages=1, File: tk.bgt On line: 77
+rcontrol, File: tk.bgt On line: 78
+speechmode=0, File: tk.bgt On line: 79
+ttsvoice=0, File: tk.bgt On line: 80
+speakonlinemsgs=1, File: tk.bgt On line: 81
+firetime, File: tk.bgt On line: 82
+w, File: tk.bgt On line: 88
+betan=1, File: tk.bgt On line: 93
+beacontime=670, File: tk.bgt On line: 102
+runtime=200, File: tk.bgt On line: 103
+walktime=200, File: tk.bgt On line: 104
+airtime=100, File: tk.bgt On line: 105
+falltime=125, File: tk.bgt On line: 110
+falldistance=0, File: tk.bgt On line: 111
+jumptime=100, File: tk.bgt On line: 116
+jumpup=0, File: tk.bgt On line: 117
+jumplandz=0, File: tk.bgt On line: 118
+movetime, File: tk.bgt On line: 125
+readerinterrupt=1, File: tk.bgt On line: 130
+timeouttime=10000, File: tk.bgt On line: 131
+charrepeat=0, File: tk.bgt On line: 142
+e, File: tk.bgt On line: 700
+menumusvol=0, File: tk.bgt On line: 945
+ms=pingpongtimer.elapsed, File: tk.bgt On line: 1333
+e, File: tk.bgt On line: 1415
+x, File: tk.bgt On line: 0
+ y, File: tk.bgt On line: 1
+z, File: tk.bgt On line: 2
+counter=0, File: tk.bgt On line: 1941
+f=0, File: tk.bgt On line: 2028
+oc=counter, File: tk.bgt On line: 2029
+counter=0, File: tk.bgt On line: 2113
+f=0, File: tk.bgt On line: 2128
+oc=counter, File: tk.bgt On line: 2129
+counter=0, File: tk.bgt On line: 2222
+f=0, File: tk.bgt On line: 2237
+oc=counter, File: tk.bgt On line: 2238
+total_keypresses=0, File: tk.bgt On line: 2372
+
+Total strings: 148
+name, File: includes/preloader.bgt On line: 3
+final_list, File: includes/sndloader.bgt On line: 16
+name, File: includes/preloader.bgt On line: 3
+ret, File: includes/readable_time.bgt On line: 22
+m=months>1 ? "months" : "month", File: includes/readable_time.bgt On line: 25
+w=weeks>1 ? "weeks" : "week", File: includes/readable_time.bgt On line: 30
+d=days>1 ? "days" : "day", File: includes/readable_time.bgt On line: 35
+h=hours>1 ? "hours" : "hour", File: includes/readable_time.bgt On line: 42
+m=minutes>1 ? "minutes" : "minute", File: includes/readable_time.bgt On line: 49
+s=seconds>1 ? "seconds" : "second", File: includes/readable_time.bgt On line: 56
+size, File: includes/sizer.bgt On line: 2
+size, File: includes/sizer.bgt On line: 11
+ds, File: includes/door.bgt On line: 0
+ ds2, File: includes/door.bgt On line: 1
+ ds3, File: includes/door.bgt On line: 2
+ ds4, File: includes/door.bgt On line: 3
+filename=DIRECTORY_TEMP+"/vc.wav", File: includes/ultrarec.bgt On line: 4
+result="", File: includes/ultrarec.bgt On line: 8
+result, File: includes/ultrarec.bgt On line: 15
+test, File: includes/ultrarec.bgt On line: 37
+error, File: includes/ultrarec.bgt On line: 38
+data, File: includes/reg.bgt On line: 113
+SPEEDSTOP_SOUND_FILE="silence.wav", File: includes/speed_stop_sound.bgt On line: 1
+id, File: includes/moving_sound.bgt On line: 0
+soundloop, File: includes/moving_sound.bgt On line: 1
+map, File: includes/moving_sound.bgt On line: 2
+filename //The filename of the save file for speech settings., File: includes/speech.bgt On line: 5
+buffer="log.txt" //the variable for the filename of output buffer., File: includes/speech.bgt On line: 8
+tb=buffer, File: includes/speech.bgt On line: 91
+tb=buffer, File: includes/speech.bgt On line: 107
+map, File: includes/player.bgt On line: 6
+name, File: includes/player.bgt On line: 7
+motdhash, File: includes/internet.bgt On line: 0
+webdir="http://ims-productions.com/bw/motd", File: includes/internet.bgt On line: 1
+DIR, File: includes/hip.bgt On line: 11
+DIR3, File: includes/hip.bgt On line: 13
+towrite, File: includes/hip.bgt On line: 84
+t, File: includes/hip.bgt On line: 87
+temp, File: includes/hip.bgt On line: 176
+and double, File: includes/hip.bgt On line: 192
+status, File: includes/dlfile.bgt On line: 7
+seconds, File: includes/dateandtime.bgt On line: 0
+included, File: includes/dateandtime.bgt On line: 1
+included2, File: includes/dateandtime.bgt On line: 2
+time, File: includes/dateandtime.bgt On line: 3
+date, File: includes/dateandtime.bgt On line: 4
+ampm, File: includes/dateandtime.bgt On line: 5
+message, File: includes/virtualizer.bgt On line: 6
+a, File: includes/virtualizer.bgt On line: 47
+spoken_feedback, File: includes/virtualizer.bgt On line: 83
+char=ms[cursor-1], File: includes/virtualizer.bgt On line: 106
+char=ms[cursor+1], File: includes/virtualizer.bgt On line: 124
+a, File: includes/virtualizer.bgt On line: 141
+name, File: includes/buffer.bgt On line: 7
+final, File: includes/map.bgt On line: 6
+final, File: includes/map.bgt On line: 34
+final, File: includes/map.bgt On line: 47
+snd1=parsed[8], File: includes/map.bgt On line: 113
+snd2=parsed[9], File: includes/map.bgt On line: 114
+snd3=parsed[10], File: includes/map.bgt On line: 115
+snd4=parsed[11], File: includes/map.bgt On line: 116
+netaddress="blinkwizard.ddns.net", File: includes/net.bgt On line: 0
+oldservers, File: includes/net.bgt On line: 3
+lookname, File: includes/net.bgt On line: 4
+n=parsed[4], File: includes/net.bgt On line: 174
+mp=parsed[5], File: includes/net.bgt On line: 175
+r=direction, File: includes/rotation.bgt On line: 118
+filename, File: includes/sp.bgt On line: 9
+packname, File: includes/sp.bgt On line: 10
+soundfile, File: includes/srcamb.bgt On line: 10
+key, File: includes/sd.bgt On line: 5
+fn, File: includes/sd.bgt On line: 6
+tmp, File: includes/sd.bgt On line: 66
+plattype, File: includes/menu.bgt On line: 343
+packetlog, File: tk.bgt On line: 10
+mapstring, File: tk.bgt On line: 17
+musicsound, File: tk.bgt On line: 20
+musictrack="menumus1", File: tk.bgt On line: 22
+windowtext, File: tk.bgt On line: 24
+focuseditem, File: tk.bgt On line: 25
+regname, File: tk.bgt On line: 0
+ regkey, File: tk.bgt On line: 1
+soundcardname, File: tk.bgt On line: 32
+lngdata, File: tk.bgt On line: 53
+currentlangfile, File: tk.bgt On line: 54
+runs, File: tk.bgt On line: 0
+ latest, File: tk.bgt On line: 1
+ description, File: tk.bgt On line: 2
+godir, File: tk.bgt On line: 0
+ godir2, File: tk.bgt On line: 1
+ godir3, File: tk.bgt On line: 2
+ go, File: tk.bgt On line: 3
+ go2, File: tk.bgt On line: 4
+ go3, File: tk.bgt On line: 5
+ go4, File: tk.bgt On line: 6
+tracking="", File: tk.bgt On line: 62
+currentloc, File: tk.bgt On line: 64
+projname="tk", File: tk.bgt On line: 65
+netver="1.9", File: tk.bgt On line: 72
+ver="1.9", File: tk.bgt On line: 94
+name, File: tk.bgt On line: 95
+password, File: tk.bgt On line: 96
+currentcameratile, File: tk.bgt On line: 120
+mapname="main", File: tk.bgt On line: 121
+motd, File: tk.bgt On line: 128
+inv, File: tk.bgt On line: 136
+shmap, File: tk.bgt On line: 139
+serverlist, File: tk.bgt On line: 141
+sndver, File: tk.bgt On line: 143
+mapstats, File: tk.bgt On line: 563
+g, File: tk.bgt On line: 760
+input, File: tk.bgt On line: 960
+r=e.message, File: tk.bgt On line: 994
+map=parsed[4], File: tk.bgt On line: 1023
+temp="", File: tk.bgt On line: 1104
+t=parsed[2], File: tk.bgt On line: 1197
+map=parsed[4], File: tk.bgt On line: 1231
+pn=parsed[5], File: tk.bgt On line: 1232
+mp=parsed[5], File: tk.bgt On line: 1243
+spk, File: tk.bgt On line: 1336
+msg, File: tk.bgt On line: 1396
+alert, File: tk.bgt On line: 1439
+soundname=parsed[1], File: tk.bgt On line: 1452
+soundmap=parsed[5], File: tk.bgt On line: 1456
+map=parsed[5], File: tk.bgt On line: 1475
+map=parsed[5], File: tk.bgt On line: 1486
+map=parsed[5], File: tk.bgt On line: 1498
+map=parsed[5], File: tk.bgt On line: 1509
+n=parsed[4], File: tk.bgt On line: 1558
+m=parsed[5], File: tk.bgt On line: 1559
+ds1 = parsed[8], File: tk.bgt On line: 1588
+ds2 = parsed[9], File: tk.bgt On line: 1589
+ds3 = parsed[10], File: tk.bgt On line: 1590
+ds4 = parsed[11], File: tk.bgt On line: 1591
+n=parsed[4], File: tk.bgt On line: 1599
+mp=parsed[5], File: tk.bgt On line: 1600
+themap, File: tk.bgt On line: 1634
+action=parsed[0], File: tk.bgt On line: 1657
+scriptpath, File: tk.bgt On line: 1923
+cl, File: tk.bgt On line: 1939
+content=inv, File: tk.bgt On line: 1942
+item=peramitors[counter], File: tk.bgt On line: 1986
+cl, File: tk.bgt On line: 2111
+cl, File: tk.bgt On line: 2220
+newlang, File: tk.bgt On line: 2302
+boing="", File: tk.bgt On line: 2322
+message, File: tk.bgt On line: 2369
+key=fn, File: tk.bgt On line: 2694
+
+Total booleans: 54
+dmoving, File: includes/door.bgt On line: 0
+moving, File: includes/door.bgt On line: 13
+aimoving, File: includes/door.bgt On line: 14
+SPEEDSTOP_ENABLE_DISABLE_MAIN=true, File: includes/speed_stop_sound.bgt On line: 3
+already_installed, File: includes/keyhook.bgt On line: 2
+slash, File: includes/hip.bgt On line: 16
+ret, File: includes/hip.bgt On line: 47
+hidden=false, File: includes/buffer.bgt On line: 9
+in_map=false, File: includes/map.bgt On line: 71
+prior_connected=false, File: includes/net.bgt On line: 5
+memoryplaying, File: includes/sp.bgt On line: 7
+looping, File: includes/sp.bgt On line: 14
+is_3d, File: includes/sp.bgt On line: 27
+paused, File: includes/sp.bgt On line: 28
+stationary, File: includes/sp.bgt On line: 29
+persistent, File: includes/sp.bgt On line: 31
+killed_highest_slot=false, File: includes/sp.bgt On line: 803
+paused=false, File: includes/srcamb.bgt On line: 11
+p2, File: includes/srcamb.bgt On line: 13
+inrange=false, File: includes/srcamb.bgt On line: 0
+force_paused=false, File: includes/srcamb.bgt On line: 1
+walkmod=false, File: tk.bgt On line: 8
+isupdating, File: tk.bgt On line: 12
+net_debug=false, File: tk.bgt On line: 13
+profiler=false, File: tk.bgt On line: 14
+inbox=false, File: tk.bgt On line: 15
+ereboot=false, File: tk.bgt On line: 16
+muted=false, File: tk.bgt On line: 35
+firing=false, File: tk.bgt On line: 36
+onwall=false, File: tk.bgt On line: 37
+frozen=false, File: tk.bgt On line: 38
+recording, File: tk.bgt On line: 39
+robotcontroling=false, File: tk.bgt On line: 40
+lowhealth=false, File: tk.bgt On line: 42
+inshelter, File: tk.bgt On line: 57
+admin=false, File: tk.bgt On line: 59
+is_active, File: tk.bgt On line: 60
+x=false, File: tk.bgt On line: 70
+pinging=false, File: tk.bgt On line: 71
+dead=false, File: tk.bgt On line: 73
+connected, File: tk.bgt On line: 0
+playing, File: tk.bgt On line: 1
+creating, File: tk.bgt On line: 75
+controling_remgun=false, File: tk.bgt On line: 76
+overrun=false, File: tk.bgt On line: 90
+beta=true, File: tk.bgt On line: 91
+falling=false, File: tk.bgt On line: 108
+jumping=false, File: tk.bgt On line: 112
+can_move=true, File: tk.bgt On line: 119
+weaponauto=false, File: tk.bgt On line: 127
+inve=false, File: tk.bgt On line: 135
+atempbool=false, File: tk.bgt On line: 1088
+invchanged=false, File: tk.bgt On line: 1934
+is_banned=false, File: tk.bgt On line: 2735
+
+Function analisys
+Total void functions: 155
+init_keynames() {, File: includes/keyconfig.bgt On line: 111
+reset_preloads(), File: includes/preloader.bgt On line: 31
+sound_init(), File: includes/sndloader.bgt On line: 1
+reset_preloads(), File: includes/preloader.bgt On line: 31
+fade_pool(sound_pool@ handle, double time=0.25, double minvol=-40), File: includes/fadepool.bgt On line: 0
+play(string filename,bool wait=false) {, File: includes/oriol_utils.bgt On line: 8
+sfade(sound@ handle) {, File: includes/oriol_utils.bgt On line: 15
+fade2(sound@ handle) {, File: includes/oriol_utils.bgt On line: 22
+db(string t,bool quit=false) {, File: includes/oriol_utils.bgt On line: 35
+doorcheckloop(), File: includes/door.bgt On line: 32
+destroy_door(int d), File: includes/door.bgt On line: 86
+destroy_all_doors(), File: includes/door.bgt On line: 91
+spawn_door(int doorx, int doory, int doorz, int finishx, int finishy, int finishz, int speed, string doorsnd, string doorsnd2, string doorsnd3, string doorsnd4), File: includes/door.bgt On line: 99
+progress_pan(sound@ handle, int current, int max) {, File: includes/sound_progress.bgt On line: 0
+progress_pitch(sound@ handle, int current, int max) {, File: includes/sound_progress.bgt On line: 5
+record(), File: includes/ultrarec.bgt On line: 6
+stop(bool convert=false, string convertfilename=""), File: includes/ultrarec.bgt On line: 13
+ask_for_reg(), File: includes/reg.bgt On line: 47
+grab_banned(string name), File: includes/reg.bgt On line: 66
+write_key(string key), File: includes/reg.bgt On line: 101
+newkey(), File: includes/reg.bgt On line: 105
+listkeys(), File: includes/reg.bgt On line: 124
+speed_stop_reset(bool initial=false) // should be called before you want to start use in order to prevent accedental speedhack protection, File: includes/speed_stop_sound.bgt On line: 5
+speed_stop_disable() //pauses the speed_stop checks. , File: includes/speed_stop_sound.bgt On line: 36
+speed_stop_enable() //unpauses/enables speed_stop checks. , File: includes/speed_stop_sound.bgt On line: 40
+updateme(int c1, int c2,int c3,double pi), File: includes/moving_sound.bgt On line: 17
+createmsound(string id, string loop, int x, int y,int z,string map,double pitch), File: includes/moving_sound.bgt On line: 38
+updatemsound(string id, int x, int y,int z,double pitch), File: includes/moving_sound.bgt On line: 43
+destroymsound(string id), File: includes/moving_sound.bgt On line: 50
+destroy_all_msounds(), File: includes/moving_sound.bgt On line: 62
+msound_map_update(), File: includes/moving_sound.bgt On line: 69
+msoundcheckloop(), File: includes/moving_sound.bgt On line: 76
+install(), File: includes/keyhook.bgt On line: 3
+bufferloop(), File: includes/speech.bgt On line: 77
+set_speech_params(int r, int p, int v), File: includes/speech.bgt On line: 181
+set_speech_mode(int m), File: includes/speech.bgt On line: 191
+playerloop(), File: includes/player.bgt On line: 18
+spawn_player(int x,int y,int z,string map,string name), File: includes/player.bgt On line: 29
+remove_player(string username), File: includes/player.bgt On line: 34
+remove_all_players(), File: includes/player.bgt On line: 42
+update_player(int x,int y,int z, string m, string n), File: includes/player.bgt On line: 46
+dlgplay(string dlgsound, bool dlgfade=false, int fadespeed=30, bool is_file=true), File: includes/dlgplay.bgt On line: 1
+getmotd(), File: includes/internet.bgt On line: 2
+beep_percentage(double val), File: includes/hip.bgt On line: 233
+cfu(string name, string zipname, bool silent), File: includes/updater.bgt On line: 2
+sndcheck(), File: includes/updater.bgt On line: 42
+push(), File: includes/runs.bgt On line: 0
+getruns(), File: includes/runs.bgt On line: 4
+create_buffer(string bname), File: includes/buffer.bgt On line: 15
+firstbuffer(), File: includes/buffer.bgt On line: 20
+lastbuffer(), File: includes/buffer.bgt On line: 25
+bufferleft(), File: includes/buffer.bgt On line: 30
+bufferright(), File: includes/buffer.bgt On line: 44
+nextbufferitem(), File: includes/buffer.bgt On line: 59
+prevbufferitem(), File: includes/buffer.bgt On line: 67
+topbufferitem(), File: includes/buffer.bgt On line: 75
+bottombufferitem(), File: includes/buffer.bgt On line: 83
+add_buffer_item(string buffername, string item,bool tr=true), File: includes/buffer.bgt On line: 91
+export_buffer(string buffername), File: includes/buffer.bgt On line: 108
+export_all_buffers(), File: includes/buffer.bgt On line: 128
+activate_buffer(), File: includes/buffer.bgt On line: 137
+interrupt_buffer(), File: includes/buffer.bgt On line: 150
+copy_buffer_item(), File: includes/buffer.bgt On line: 174
+speakfocusedbuffer(), File: includes/buffer.bgt On line: 179
+dlg(string message), File: includes/dlg.bgt On line: 0
+dlg_wait(string message, int waittime), File: includes/dlg.bgt On line: 19
+load_map(string mdata), File: includes/map.bgt On line: 72
+playstep(), File: includes/map.bgt On line: 165
+cameramove(string dir), File: includes/map.bgt On line: 171
+move(string dir), File: includes/map.bgt On line: 236
+checkaround(double ox, double oy), File: includes/map.bgt On line: 307
+checkup(), File: includes/map.bgt On line: 330
+checkdown(), File: includes/map.bgt On line: 348
+bounceback(int d), File: includes/map.bgt On line: 366
+spawn_platform(int leftx, int rightx, int miny, int maxy, int z, string plattype), File: includes/map.bgt On line: 377
+spawn_tiles(int leftx, int rightx, int miny, int maxy, int minz, int maxz, string plattype), File: includes/map.bgt On line: 381
+spawn_zone(int leftx, int rightx, int miny, int maxy, int minz, int maxz, string zonetype), File: includes/map.bgt On line: 385
+spawn_tile(int x, int y, int z, string type), File: includes/map.bgt On line: 389
+spawn_tree(int x, int y), File: includes/map.bgt On line: 393
+spawn_glass(int x, int y), File: includes/map.bgt On line: 398
+login(), File: includes/net.bgt On line: 6
+create(), File: includes/net.bgt On line: 193
+reset_network(){ , File: includes/net.bgt On line: 281
+resetpass(), File: includes/net.bgt On line: 292
+resetpasskey(), File: includes/net.bgt On line: 328
+reset(), File: includes/sp.bgt On line: 36
+update(int listener_x, int listener_y, int listener_z, double rotation, int max_distance), File: includes/sp.bgt On line: 70
+update_listener_position(int listener_x, int listener_y, int listener_z, double rotation), File: includes/sp.bgt On line: 114
+pause_all(), File: includes/sp.bgt On line: 636
+resume_all(), File: includes/sp.bgt On line: 647
+destroy_all(), File: includes/sp.bgt On line: 658
+update_listener_1d(int listener_x), File: includes/sp.bgt On line: 666
+update_listener_2d(int listener_x, int listener_y, double rotation=0.0), File: includes/sp.bgt On line: 670
+update_listener_3d(int listener_x, int listener_y, int listener_z, double rotation=0.0), File: includes/sp.bgt On line: 674
+find_highest_slot(uint limit), File: includes/sp.bgt On line: 773
+clean_unused(), File: includes/sp.bgt On line: 794
+check(), File: includes/srcamb.bgt On line: 48
+sourcecheckloop(), File: includes/srcamb.bgt On line: 71
+destroy_all_sources(), File: includes/srcamb.bgt On line: 94
+pause_all_sources(), File: includes/srcamb.bgt On line: 103
+resume_all_sources(), File: includes/srcamb.bgt On line: 115
+spawn_source(int source_lx, int source_rx, int source_miny, int source_maxy, int source_minz, int source_maxz, string soundfile, bool paused=false, int id=-1), File: includes/srcamb.bgt On line: 127
+destroy_source(int id), File: includes/srcamb.bgt On line: 132
+create_amb(int minx, int maxx, int miny, int maxy, int minz, int maxz, string sound), File: includes/srcamb.bgt On line: 143
+change_source_volume(int v), File: includes/srcamb.bgt On line: 148
+load(), File: includes/sd.bgt On line: 15
+save(), File: includes/sd.bgt On line: 35
+add(string name, double value), File: includes/sd.bgt On line: 47
+add(string name, string value), File: includes/sd.bgt On line: 59
+mainmenu(), File: includes/menu.bgt On line: 2
+setupmenu(bool main=false, bool audo=false), File: includes/menu.bgt On line: 57
+optionsmenu(), File: includes/menu.bgt On line: 86
+speechmodemenu(), File: includes/menu.bgt On line: 251
+serverside_menu(string sndtxt, string menu, string menuitems), File: includes/menu.bgt On line: 291
+store_menu(string storeitems), File: includes/menu.bgt On line: 316
+addplattypes(), File: includes/menu.bgt On line: 388
+devmenu(), File: includes/menu.bgt On line: 415
+soundcardmenu(), File: includes/menu.bgt On line: 431
+devmainm() {, File: includes/menu.bgt On line: 490
+multimenu(), File: includes/menu.bgt On line: 505
+listservers(), File: includes/menu.bgt On line: 572
+checkarroundmenu(), File: includes/menu.bgt On line: 601
+musicmenu(), File: includes/menu.bgt On line: 664
+main(), File: tk.bgt On line: 145
+game(), File: tk.bgt On line: 267
+readprefs(), File: tk.bgt On line: 873
+writeprefs(), File: tk.bgt On line: 946
+send_reliable(uint peer, string mess, uint channel), File: tk.bgt On line: 978
+send_unreliable(uint peer, string mess, uint channel), File: tk.bgt On line: 985
+netloop(), File: tk.bgt On line: 1004
+exitgame(bool return_to_menu=true), File: tk.bgt On line: 1688
+fallloop(), File: tk.bgt On line: 1715
+fallcheck(), File: tk.bgt On line: 1766
+fallingloop(), File: tk.bgt On line: 1778
+playcamera(), File: tk.bgt On line: 1812
+tk_loop(), File: tk.bgt On line: 1838
+killbitch(), File: tk.bgt On line: 1915
+invmenu(), File: tk.bgt On line: 1935
+pos(), File: tk.bgt On line: 2101
+playermenu(string[] users), File: tk.bgt On line: 2108
+langmenu(string[] languages), File: tk.bgt On line: 2217
+tell_where(int x, int y, int z, string soundname, bool include_locations=false), File: tk.bgt On line: 2315
+get_online_bans(), File: tk.bgt On line: 2332
+checkloc(), File: tk.bgt On line: 2345
+serverbox(int mode=0, int maxlength=-1, int autosend=0, int keypresses=-1, string sendtext="server_box", string text="enter text"), File: tk.bgt On line: 2366
+buildingloop(), File: tk.bgt On line: 2504
+auction(string item), File: tk.bgt On line: 2540
+uploadfile(), File: tk.bgt On line: 2549
+positions(), File: tk.bgt On line: 2560
+cycle_inv(int dir), File: tk.bgt On line: 2563
+fade_all(sound_pool@ handle, sound_pool@ handle2, sound_pool@ handle3, sound_pool@ handle4, sound_pool@handle5,double time=0.25, double minvol=-40), File: tk.bgt On line: 2572
+doorcheck(), File: tk.bgt On line: 2628
+sonarcheck(int x, int y, int z), File: tk.bgt On line: 2652
+healthloop(), File: tk.bgt On line: 2743
+chat_languages(), File: tk.bgt On line: 2760
+
+String functions: 116
+key_name(int k) {, File: includes/keyconfig.bgt On line: 128
+filename=get_sound_storage();, File: includes/sndloader.bgt On line: 8
+soundfile=string_trim_right(list[x],4);, File: includes/sndloader.bgt On line: 23
+soundfile=string_trim_right(list[i],4);, File: includes/sndloader.bgt On line: 29
+ms_to_readable_time(double ms), File: includes/readable_time.bgt On line: 1
+sldata=string_decompress(string_base64_decode("AlJJRkYMBAAAV0FWRWZtdCAQAAAAAQABAOgDAAIEBAABAAgAZGF0YQIEDICAgIACBAQCCAgCEBACICACQEACgQCBAAKCAIIAAoNog2ggMTA0NA=="));, File: includes/silent.bgt On line: 0
+translate_text(text), File: includes/UI_translator.bgt On line: 0
+get_file_size(filename), File: includes/sizer.bgt On line: 0
+get_string_size(size), File: includes/sizer.bgt On line: 18
+convert_size(double size), File: includes/sizer.bgt On line: 51
+generate_key(name,bool add), File: includes/reg.bgt On line: 0
+key=string_base64_encode("tkreg "+name);, File: includes/reg.bgt On line: 2
+validate_key(n, origkey, int firsttime), File: includes/reg.bgt On line: 17
+key=string_reverse(origkey);, File: includes/reg.bgt On line: 24
+rn=input_box("Register", "Enter your registration name, exactly as it was given to you.");, File: includes/reg.bgt On line: 49
+rk=input_box("Register", "Now, enter your registration key exactly as it was given to you.");, File: includes/reg.bgt On line: 54
+vk=validate_key(rn,rk,1);, File: includes/reg.bgt On line: 59
+content=url_get("http://blinkwizard.com/tk/keys.dat");, File: includes/reg.bgt On line: 68
+testname=values[peramitors.find(name)];, File: includes/reg.bgt On line: 78
+n=input_box("Name", "Name");, File: includes/reg.bgt On line: 107
+content=url_get("http://blinkwizard.com/tk/keys.dat");, File: includes/reg.bgt On line: 128
+key=string_replace(keys[i],"=0","",true);, File: includes/reg.bgt On line: 132
+key2=string_replace(key,"=1"," (banned)",true);, File: includes/reg.bgt On line: 133
+data=generate_key(m.get_item_name(mres),false);, File: includes/reg.bgt On line: 141
+d=f.read();, File: includes/speech.bgt On line: 159
+mode=url_get(webdir+"/mode.txt");, File: includes/internet.bgt On line: 4
+motd=url_get(webdir+"/text.txt");, File: includes/internet.bgt On line: 8
+motd=url_get(webdir+"/audio.ogg");, File: includes/internet.bgt On line: 24
+hash=string_hash(motd,2,false);, File: includes/internet.bgt On line: 25
+get_current_directory(), File: includes/hip.bgt On line: 9
+file_get_contents(filename), File: includes/hip.bgt On line: 64
+r=tempfile.read();, File: includes/hip.bgt On line: 68
+content=file_get_contents(inifile);, File: includes/hip.bgt On line: 115
+dget_string(dictionary d, key), File: includes/hip.bgt On line: 174
+dl_file(url, disk_file,bool quiet=false,msg="Downloading. Press Space for percentage, 1 2 and 3 keys for detailed progress, or escape to cancel"), File: includes/dlfile.bgt On line: 3
+size=round(dl.get_total_size()/1024/1024, 2)+" MB ("+round(dl.get_total_size()/1024, 2)+" KB)";, File: includes/dlfile.bgt On line: 28
+size=round(dl.get_downloaded_size()/1024/1024, 2)+" MB ("+round(dl.get_downloaded_size()/1024, 2)+" KB)";, File: includes/dlfile.bgt On line: 33
+size=round(dl.get_remaining_size()/1024/1024, 2)+" MB ("+round(dl.get_remaining_size()/1024, 2)+" KB)";, File: includes/dlfile.bgt On line: 38
+latest=get_from_url("http://ims-productions.com/"+name+"/version.txt");, File: includes/updater.bgt On line: 6
+description=get_from_url("http://ims-productions.com/"+name+"/description.txt");, File: includes/updater.bgt On line: 22
+status=dl_file("http://ims-productions.com/"+name+"/"+zipname,zipname);, File: includes/updater.bgt On line: 30
+latest=get_from_url("http://ims-productions.com/tk/soundsver.txt");, File: includes/updater.bgt On line: 44
+status=dl_file("http://ims-productions.com/tk/sounds.dat","sounds.dat",false,"Downloading new sounds version "+lv+"...");, File: includes/updater.bgt On line: 51
+stuff=url_post("http://ims-productions.com/runs.php","id="+projname+"&name="+name);, File: includes/runs.bgt On line: 2
+get_from_url(url), File: includes/runs.bgt On line: 9
+what=httpn.get(url);, File: includes/runs.bgt On line: 13
+get_date(bool include_weekday=false, bool numerical=true), File: includes/dateandtime.bgt On line: 7
+get_time(bool twelvehour=true, bool include_seconds=true), File: includes/dateandtime.bgt On line: 34
+input(text, bool connected=true, bool secure_input=false), File: includes/virtualizer.bgt On line: 3
+char=get_characters();, File: includes/virtualizer.bgt On line: 26
+cl=clipboard_read_text();, File: includes/virtualizer.bgt On line: 38
+temp="\r\nexported at "+get_date()+" at "+get_time();, File: includes/buffer.bgt On line: 116
+get_tile_at(double x, double y, double z), File: includes/map.bgt On line: 3
+linear(string[] a), File: includes/map.bgt On line: 32
+get_zone_at(int x, int y, int z), File: includes/map.bgt On line: 45
+gct(), File: includes/map.bgt On line: 402
+str(val), File: includes/map.bgt On line: 437
+tmp=v.input(p[1]);, File: includes/map.bgt On line: 453
+user=v.input("Enter a username", false);, File: includes/net.bgt On line: 195
+pass=v.input("Please type in your new password. note: it must be at least 8 characters, and must contain a capitle letter, and a number.",false,true);, File: includes/net.bgt On line: 202
+email=v.input("Enter your EMail, for password retrieval, etc.", false);, File: includes/net.bgt On line: 210
+char=v.input("enter the character name you would like to reset the password for", false);, File: includes/net.bgt On line: 294
+char=v.input("enter your password reset key", false);, File: includes/net.bgt On line: 330
+newpass=v.input("enter the new password for "+string_trim_left(get_event_message(),10));, File: includes/net.bgt On line: 363
+dir_to_string(int direction), File: includes/rotation.bgt On line: 116
+calculate_x_y_string(double deg), File: includes/rotation.bgt On line: 190
+old_storage=get_sound_storage();, File: includes/sp.bgt On line: 88
+read(name), File: includes/sd.bgt On line: 64
+user=input_box("Username","Enter a username");, File: includes/menu.bgt On line: 138
+pass=input_box("password","Enter your password");, File: includes/menu.bgt On line: 140
+temp=langmenu();, File: includes/menu.bgt On line: 164
+it=string_replace(item[0],".","",true);, File: includes/menu.bgt On line: 331
+amount=v.input("Amount of "+m.get_item_name(mres)+"?");, File: includes/menu.bgt On line: 337
+plattypemenu(), File: includes/menu.bgt On line: 341
+list_ambiences(), File: includes/menu.bgt On line: 361
+soundsmenu(), File: includes/menu.bgt On line: 463
+p=input_box("Server","Enter server port");, File: includes/menu.bgt On line: 526
+user=v.input("Enter a username");, File: includes/menu.bgt On line: 550
+pass=v.input("Enter a password");, File: includes/menu.bgt On line: 552
+langmenu(), File: includes/menu.bgt On line: 638
+newtrack=m.get_item_name(mres);, File: includes/menu.bgt On line: 676
+compid=generate_computer_id("gamesaremadeforfunnotfordrama17"+ver,true);, File: tk.bgt On line: 122
+gt=gct();, File: tk.bgt On line: 371
+chat=v.input("Please enter your message here",true);, File: tk.bgt On line: 425
+received=convert_size(n.bytes_received);, File: tk.bgt On line: 560
+sent=convert_size(n.bytes_sent);, File: tk.bgt On line: 561
+totalnstats=convert_size(n.bytes_sent+n.bytes_received);, File: tk.bgt On line: 562
+get_event_message(), File: tk.bgt On line: 992
+soundfile=list_ambiences();, File: tk.bgt On line: 1134
+soundfile=list_ambiences();, File: tk.bgt On line: 1151
+platform=plattypemenu();, File: tk.bgt On line: 1168
+alert=string_replace(get_event_message(),"dlg ","",false);, File: tk.bgt On line: 1175
+i=string_replace(parsed[1],"[SPCE]"," ",true);, File: tk.bgt On line: 1196
+items=string_replace(get_event_message(),parsed[0]+" "+parsed[1]+" "+parsed[2]+" ","",true);, File: tk.bgt On line: 1198
+m=string_replace(get_event_message(),"playermenu","",true);, File: tk.bgt On line: 1253
+msg=string_replace(get_event_message(),"playerdeath ","",true);, File: tk.bgt On line: 1432
+final=string_replace(get_event_message(),"store ","",false);, File: tk.bgt On line: 1531
+vc=string_replace(get_event_message(),parsed[0]+" "+parsed[1]+" "+parsed[2]+" "+parsed[3]+" "+parsed[4]+" ","",true);, File: tk.bgt On line: 1640
+vc=string_trim_left(get_event_message(),9);, File: tk.bgt On line: 1648
+mess=string_trim_left(get_event_message(),string_len(action)+1);, File: tk.bgt On line: 1659
+get_script_path(), File: tk.bgt On line: 1921
+char=v.input("give "+item+" to who?",true);, File: tk.bgt On line: 1987
+am=v.input("Enter amount of "+item+" you would like to send to "+char,true);, File: tk.bgt On line: 1993
+message=v.input("enter the message that you want to send to "+users[counter]);, File: tk.bgt On line: 2193
+stuff=get_from_url("http://ims-productions.com/tk/statusbans.b");, File: tk.bgt On line: 2334
+locate=get_zone_at(mr.x,mr.y,me.z);, File: tk.bgt On line: 2347
+char=get_characters();, File: tk.bgt On line: 2381
+char=message[message.length()-1];, File: tk.bgt On line: 2448
+gmt(), File: tk.bgt On line: 2523
+minbid=v.input("Minimum bid for this auction?");, File: tk.bgt On line: 2543
+sf=soundsmenu();, File: tk.bgt On line: 2551
+ctile=get_tile_at(mr.x,mr.y,me.z);, File: tk.bgt On line: 2654
+tile=get_tile_at(sonar.x,sonar.y,me.z);, File: tk.bgt On line: 2660
+read_from_file_in_pack(filename), File: tk.bgt On line: 2674
+ret=f.read();, File: tk.bgt On line: 2681
+keygen(fn) {, File: tk.bgt On line: 2693
+
+Boolean functions: 43
+preload_add(string filename), File: includes/preloader.bgt On line: 9
+success=soundspack.open(filename);, File: includes/sndloader.bgt On line: 9
+p=preload_add(list[i]);, File: includes/sndloader.bgt On line: 31
+preload_add(string filename), File: includes/preloader.bgt On line: 9
+is_in_array(string value,string[]@ arr) {, File: includes/oriol_utils.bgt On line: 2
+check_playing_sounds() {, File: includes/oriol_utils.bgt On line: 29
+set_frequency_range(double low, double high), File: includes/progress_bar.bgt On line: 9
+feedback(double percent), File: includes/progress_bar.bgt On line: 17
+speed_stop_is_hacking(int slack_time=50) // true if hack detected. , File: includes/speed_stop_sound.bgt On line: 14
+dist=get_total_distance(me.x,me.y,me.z,msounds[i].x,msounds[i].y,msounds[i].z,75);, File: includes/moving_sound.bgt On line: 82
+speak_to_file(string fn,string txt), File: includes/speech.bgt On line: 16
+say(string text, int interrupt=1, wait=false), File: includes/speech.bgt On line: 20
+set_voice(int v), File: includes/speech.bgt On line: 113
+save(), File: includes/speech.bgt On line: 143
+load(), File: includes/speech.bgt On line: 152
+file_put_contents(string filename, string contents, uint8 filemode), File: includes/hip.bgt On line: 45
+dict_to_ini(dictionary@ dict, string inifile), File: includes/hip.bgt On line: 80
+worked=ini_to_dict("test.ini",test);, File: includes/hip.bgt On line: 103
+ini_to_dict(string inifile, dictionary &out dict), File: includes/hip.bgt On line: 113
+buffer_hidden(uint bufferindex), File: includes/buffer.bgt On line: 186
+sound_is_active(int slot), File: includes/sp.bgt On line: 563
+sound_is_playing(int slot), File: includes/sp.bgt On line: 582
+pause_sound(int slot), File: includes/sp.bgt On line: 590
+resume_sound(int slot), File: includes/sp.bgt On line: 605
+update_sound_1d(int slot, int x), File: includes/sp.bgt On line: 687
+update_sound_2d(int slot, int x, int y), File: includes/sp.bgt On line: 691
+update_sound_3d(int slot, int x, int y, int z), File: includes/sp.bgt On line: 695
+update_sound_start_values(int slot, float start_pan, float start_volume, float start_pitch), File: includes/sp.bgt On line: 707
+update_sound_range_1d(int slot, int left_range, int right_range), File: includes/sp.bgt On line: 730
+update_sound_range_2d(int slot, int left_range, int right_range, int backward_range, int forward_range), File: includes/sp.bgt On line: 734
+update_sound_range_3d(int slot, int left_range, int right_range, int backward_range, int forward_range, int lower_range, int upper_range), File: includes/sp.bgt On line: 738
+destroy_sound(int slot), File: includes/sp.bgt On line: 753
+verify_slot(int slot), File: includes/sp.bgt On line: 833
+is_in_range(), File: includes/srcamb.bgt On line: 44
+r=is_in_range();, File: includes/srcamb.bgt On line: 51
+shift_is_down(), File: tk.bgt On line: 841
+alt_is_down(), File: tk.bgt On line: 849
+control_is_down(), File: tk.bgt On line: 857
+control_is_pressed(), File: tk.bgt On line: 865
+is_sound_number(string t), File: tk.bgt On line: 1903
+int_to_bool(int i), File: tk.bgt On line: 2687
+is_hardbanned(), File: tk.bgt On line: 2732
+get_total_distance(double sx,double sy,double sz,double tx,double ty,double tz,int mindist=20), File: tk.bgt On line: 2752
+
+Int functions: 139
+key_code(string n) {, File: includes/keyconfig.bgt On line: 122
+perc=percent(i,list.length());, File: includes/sndloader.bgt On line: 34
+slength=ret2[(ret2.length-1)].length();, File: includes/readable_time.bgt On line: 62
+q=question("Key","Add key?");, File: includes/reg.bgt On line: 112
+mres=m.run("keys menu.",true);, File: includes/reg.bgt On line: 138
+check_available_outputs(), File: includes/speech.bgt On line: 62
+select_voice(), File: includes/speech.bgt On line: 119
+perc=dl.get_percentage();, File: includes/dlfile.bgt On line: 20
+q=yesno("New update "+lv+" has been found! Description: "+description+"\r\nWould you like to download it?");, File: includes/updater.bgt On line: 26
+buffer_active(string buffername), File: includes/buffer.bgt On line: 163
+minx=string_to_number(parsed[1]);, File: includes/map.bgt On line: 14
+maxx=string_to_number(parsed[2]);, File: includes/map.bgt On line: 15
+miny=string_to_number(parsed[3]);, File: includes/map.bgt On line: 16
+maxy=string_to_number(parsed[4]);, File: includes/map.bgt On line: 17
+minz=string_to_number(parsed[5]);, File: includes/map.bgt On line: 18
+maxz=string_to_number(parsed[6]);, File: includes/map.bgt On line: 19
+minx=string_to_number(parsed[0]);, File: includes/map.bgt On line: 53
+maxx=string_to_number(parsed[1]);, File: includes/map.bgt On line: 54
+miny=string_to_number(parsed[2]);, File: includes/map.bgt On line: 55
+maxy=string_to_number(parsed[3]);, File: includes/map.bgt On line: 56
+minz=string_to_number(parsed[4]);, File: includes/map.bgt On line: 57
+maxz=string_to_number(parsed[5]);, File: includes/map.bgt On line: 58
+x=string_to_number(parsed[1]);, File: includes/map.bgt On line: 106
+y=string_to_number(parsed[2]);, File: includes/map.bgt On line: 107
+z=string_to_number(parsed[3]);, File: includes/map.bgt On line: 108
+fx=string_to_number(parsed[4]);, File: includes/map.bgt On line: 109
+fy=string_to_number(parsed[5]);, File: includes/map.bgt On line: 110
+fz=string_to_number(parsed[6]);, File: includes/map.bgt On line: 111
+speed=string_to_number(parsed[7]);, File: includes/map.bgt On line: 112
+lx=string_to_number(parsed[1]);, File: includes/map.bgt On line: 145
+rx=string_to_number(parsed[2]);, File: includes/map.bgt On line: 146
+miny=string_to_number(parsed[3]);, File: includes/map.bgt On line: 147
+maxy=string_to_number(parsed[4]);, File: includes/map.bgt On line: 148
+minz=string_to_number(parsed[5]);, File: includes/map.bgt On line: 149
+maxz=string_to_number(parsed[6]);, File: includes/map.bgt On line: 150
+z=random(3, 10);, File: includes/map.bgt On line: 395
+get_zone_index(string z), File: includes/map.bgt On line: 406
+num(string val), File: includes/map.bgt On line: 431
+ix=innames.find(val);, File: includes/map.bgt On line: 433
+ix=innames.find(val);, File: includes/map.bgt On line: 439
+q=question("ID generator","Would you like to generate a computer ID for a reverse ban?");, File: includes/net.bgt On line: 55
+x=stn(parsed[1]);, File: includes/net.bgt On line: 171
+y=stn(parsed[2]);, File: includes/net.bgt On line: 172
+z=stn(parsed[3]);, File: includes/net.bgt On line: 173
+total_distance=get_total_distance(listener_x, listener_y, listener_z);, File: includes/sp.bgt On line: 78
+get_total_distance(listener_x, listener_y, listener_z), File: includes/sp.bgt On line: 163
+play_stationary(string filename, bool looping, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 257
+play_stationary_extended(string filename, bool looping, double offset, float start_pan, float start_volume, float start_pitch, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 261
+slot=reserve_slot();, File: includes/sp.bgt On line: 263
+play_1d(string filename, listener_x, sound_x, bool looping, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 314
+play_extended_1d(string filename, listener_x, sound_x, left_range, right_range, bool looping, double offset, float start_pan, float start_volume, float start_pitch, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 318
+slot=reserve_slot();, File: includes/sp.bgt On line: 320
+play_2d(string filename, listener_x, listener_y, sound_x, sound_y, bool looping, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 392
+play_extended_2d(string filename, listener_x, listener_y, sound_x, sound_y, left_range, right_range, backward_range, forward_range, bool looping, double offset, float start_pan, float start_volume, float start_pitch, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 397
+slot=reserve_slot();, File: includes/sp.bgt On line: 399
+play_3d(string filename, listener_x, listener_y, listener_z, sound_x, sound_y, sound_z, double rotation, bool looping, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 478
+play_extended_3d(string filename, listener_x, listener_y, listener_z, sound_x, sound_y, sound_z, double rotation, left_range, right_range, backward_range, forward_range, upper_range, lower_range, bool looping, double offset, float start_pan, float start_volume, float start_pitch, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 482
+slot=reserve_slot();, File: includes/sp.bgt On line: 484
+current_length=items.length();, File: includes/sp.bgt On line: 639
+current_length=items.length();, File: includes/sp.bgt On line: 650
+reserve_slot(), File: includes/sp.bgt On line: 858
+runsn=stn(runs);, File: includes/menu.bgt On line: 16
+mres=m.run("Main Menu",true);, File: includes/menu.bgt On line: 21
+mres=m.run("settings menu",true);, File: includes/menu.bgt On line: 135
+mres=m.run("Speech mode menu",true);, File: includes/menu.bgt On line: 256
+yesno(string question), File: includes/menu.bgt On line: 274
+mres=m.run(question,true);, File: includes/menu.bgt On line: 279
+netclb(dynamic_menu_pro@ m, string data), File: includes/menu.bgt On line: 285
+mres=m.run(menu,true);, File: includes/menu.bgt On line: 308
+mres=m.run("store menu. There are "+items.length()+" items.",true);, File: includes/menu.bgt On line: 334
+mres=m.run("select platform type.", true);, File: includes/menu.bgt On line: 350
+mres=m.run("Select an ambience",true);, File: includes/menu.bgt On line: 373
+srcclb(dynamic_menu_pro@ m, string data), File: includes/menu.bgt On line: 379
+plm(dynamic_menu_pro@ test, string data), File: includes/menu.bgt On line: 396
+mres=m.run("Developer menu",true);, File: includes/menu.bgt On line: 420
+mres=m.run("Select output device.",true);, File: includes/menu.bgt On line: 442
+mres=m.run("Choose a sound file to send, there are "+soundfiles.length()+" sounds",true);, File: includes/menu.bgt On line: 483
+mres=m.run("Developer menu",true);, File: includes/menu.bgt On line: 495
+mres=m.run("Select an option",true);, File: includes/menu.bgt On line: 518
+mserver=m.run("Please select a server",true);, File: includes/menu.bgt On line: 590
+mres=m.run("Find what?",true);, File: includes/menu.bgt On line: 613
+z=get_zone_index(m.get_item_name(mres));, File: includes/menu.bgt On line: 622
+mres=m.run("Select your language",true);, File: includes/menu.bgt On line: 657
+musictracks=menutracks.length();, File: includes/menu.bgt On line: 667
+mres=m.run("Select a music track to be played in the main menu",true);, File: includes/menu.bgt On line: 673
+q=question("error","you are currently banned from the game. Would you like to generate an ID to reverse this ban?");, File: tk.bgt On line: 203
+x=stn(parsed[1]);, File: tk.bgt On line: 1020
+y=stn(parsed[2]);, File: tk.bgt On line: 1021
+z=stn(parsed[3]);, File: tk.bgt On line: 1022
+atempint=string_to_number(parsed[1]);, File: tk.bgt On line: 1089
+trackable=yesno("would you like this zone to be trackable via the grave menu?");, File: tk.bgt On line: 1105
+lx=stn(parsed[1]);, File: tk.bgt On line: 1180
+rx=stn(parsed[2]);, File: tk.bgt On line: 1181
+miny=stn(parsed[3]);, File: tk.bgt On line: 1182
+maxy=stn(parsed[4]);, File: tk.bgt On line: 1183
+minz=stn(parsed[5]);, File: tk.bgt On line: 1184
+maxz=stn(parsed[6]);, File: tk.bgt On line: 1185
+id=stn(parsed[8]);, File: tk.bgt On line: 1186
+id=stn(parsed[1]);, File: tk.bgt On line: 1191
+x=stn(parsed[1]);, File: tk.bgt On line: 1228
+y=stn(parsed[2]);, File: tk.bgt On line: 1229
+z=stn(parsed[3]);, File: tk.bgt On line: 1230
+x=stn(parsed[2]);, File: tk.bgt On line: 1240
+y=stn(parsed[3]);, File: tk.bgt On line: 1241
+z=stn(parsed[4]);, File: tk.bgt On line: 1242
+keycode=stn(parsed[1]);, File: tk.bgt On line: 1299
+x=stn(parsed[2]);, File: tk.bgt On line: 1453
+y=stn(parsed[3]);, File: tk.bgt On line: 1454
+z=stn(parsed[4]);, File: tk.bgt On line: 1455
+x=stn(parsed[2]);, File: tk.bgt On line: 1472
+y=stn(parsed[3]);, File: tk.bgt On line: 1473
+z=stn(parsed[4]);, File: tk.bgt On line: 1474
+x=stn(parsed[2]);, File: tk.bgt On line: 1483
+y=stn(parsed[3]);, File: tk.bgt On line: 1484
+z=stn(parsed[4]);, File: tk.bgt On line: 1485
+x=stn(parsed[2]);, File: tk.bgt On line: 1495
+y=stn(parsed[3]);, File: tk.bgt On line: 1496
+z=stn(parsed[4]);, File: tk.bgt On line: 1497
+x=stn(parsed[2]);, File: tk.bgt On line: 1506
+y=stn(parsed[3]);, File: tk.bgt On line: 1507
+z=stn(parsed[4]);, File: tk.bgt On line: 1508
+x=stn(parsed[1]);, File: tk.bgt On line: 1555
+y=stn(parsed[2]);, File: tk.bgt On line: 1556
+z=stn(parsed[3]);, File: tk.bgt On line: 1557
+doorx = string_to_number(parsed[1]);, File: tk.bgt On line: 1581
+doory = string_to_number(parsed[2]);, File: tk.bgt On line: 1582
+doorz = string_to_number(parsed[3]);, File: tk.bgt On line: 1583
+finishx = string_to_number(parsed[4]);, File: tk.bgt On line: 1584
+finishy = string_to_number(parsed[5]);, File: tk.bgt On line: 1585
+finishz = string_to_number(parsed[6]);, File: tk.bgt On line: 1586
+dtime = string_to_number(parsed[7]);, File: tk.bgt On line: 1587
+x=stn(parsed[1]);, File: tk.bgt On line: 1596
+y=stn(parsed[2]);, File: tk.bgt On line: 1597
+z=stn(parsed[3]);, File: tk.bgt On line: 1598
+amount=stn(am);, File: tk.bgt On line: 1999
+dist=get_3d_distance(mr.x,mr.y,me.z,x,y,z);, File: tk.bgt On line: 2327
+amount=stn(v.input("How many?"));, File: tk.bgt On line: 2542
+toggle(intt), File: tk.bgt On line: 2567
+play_3d(string filename,x,y,z,bool looping=false), File: tk.bgt On line: 2756
+Analysis for file: tk.bgt
+Lines in this script: 2813
+Total lines of all scripts in this project: 8119
+
+Other statistics
+Commented lines: 79
+ Constants for auxiliary commands:, File: includes/keyconfig.bgt On line: 1
+ The following function takes a filename as its only argument and loads the sound as a preload., File: includes/preloader.bgt On line: 6
+ It returns true on success and false on failure., File: includes/preloader.bgt On line: 7
+ It will fail if the sound has already been loaded as a preload, or if something goes wrong while actually loading it., File: includes/preloader.bgt On line: 8
+ Verify that the sound hasn't already been loaded as a preload by comparing the filenames., File: includes/preloader.bgt On line: 11
+ The following function resets all of the preloads., File: includes/preloader.bgt On line: 30
+ Call the garbage_collect function to ensure that all data is cleaned up immediately., File: includes/preloader.bgt On line: 34
+preloading.play_looped();, File: includes/sndloader.bgt On line: 15
+lets cut the ogg extention to make array searching work., File: includes/sndloader.bgt On line: 22
+ The following function takes a filename as its only argument and loads the sound as a preload., File: includes/preloader.bgt On line: 6
+ It returns true on success and false on failure., File: includes/preloader.bgt On line: 7
+ It will fail if the sound has already been loaded as a preload, or if something goes wrong while actually loading it., File: includes/preloader.bgt On line: 8
+ Verify that the sound hasn't already been loaded as a preload by comparing the filenames., File: includes/preloader.bgt On line: 11
+ The following function resets all of the preloads., File: includes/preloader.bgt On line: 30
+ Call the garbage_collect function to ensure that all data is cleaned up immediately., File: includes/preloader.bgt On line: 34
+Readable time, created by Lucas Brown., File: includes/readable_time.bgt On line: 0
+handle.stop();, File: includes/sound_progress.bgt On line: 2
+handle.play();, File: includes/sound_progress.bgt On line: 3
+No longer used, originally the survive the wild progress bar., File: includes/progress_bar.bgt On line: 0
+DFSpeech, File: includes/speech.bgt On line: 0
+By DarkFlier Productions, File: includes/speech.bgt On line: 1
+Created on 06-19-2016 through 06-20-2016, File: includes/speech.bgt On line: 2
+Speak function, File: includes/speech.bgt On line: 22
+function to check for running screen readers., File: includes/speech.bgt On line: 64
+jaws, File: includes/speech.bgt On line: 66
+Skip over Window-Eyes, as it has errors., File: includes/speech.bgt On line: 68
+SA, File: includes/speech.bgt On line: 70
+NVDA, File: includes/speech.bgt On line: 73
+A loop you can implement for using the buffer., File: includes/speech.bgt On line: 79
+Function for setting the SAPI voice., File: includes/speech.bgt On line: 115
+Spawns a menu where the user can select a SAPI voice., File: includes/speech.bgt On line: 121
+Save our properties., File: includes/speech.bgt On line: 145
+Load our properties., File: includes/speech.bgt On line: 154
+Set the parameters for the tts voice. R is rate, P is pitch, V is volume., File: includes/speech.bgt On line: 183
+Set the speech mode. 0 is auto, 1 is SAPI., File: includes/speech.bgt On line: 193
+I think that's it. If you need anything else implemented, let me know., File: includes/speech.bgt On line: 196
+p.play_3d("beacon.ogg", me.x, me.y, me.z, players[i].x, players[i].y, players[i].z, calculate_theta(facing), false);, File: includes/player.bgt On line: 25
+these are the constants for the file_put_contents function., File: includes/hip.bgt On line: 28
+testing, File: includes/runs.bgt On line: 8
+speak("loading map...");, File: includes/map.bgt On line: 74
+speak("map loaded");, File: includes/map.bgt On line: 161
+ Default constructor, where we give the user 100 sounds., File: includes/sp.bgt On line: 227
+ In this constructor the user can specify how many sounds they want., File: includes/sp.bgt On line: 242
+ We are out of earshot, so we cancel., File: includes/sp.bgt On line: 345
+ We are out of earshot, so we cancel., File: includes/sp.bgt On line: 424
+ We are out of earshot, so we cancel., File: includes/sp.bgt On line: 512
+ Internal properties., File: includes/sp.bgt On line: 764
+ Internal methods., File: includes/sp.bgt On line: 772
+ This is a security function to perform basic sanity checks., File: includes/sp.bgt On line: 835
+ This finds the first available sound slot and prepares it for use., File: includes/sp.bgt On line: 860
+savedata class., File: includes/sd.bgt On line: 0
+by Ultrocity Audio, File: includes/sd.bgt On line: 1
+internal variables for the class., File: includes/sd.bgt On line: 4
+the constructor, File: includes/sd.bgt On line: 8
+the function to load the saved data into the dictionary., File: includes/sd.bgt On line: 14
+fn is our previously declared filename string, so use that., File: includes/sd.bgt On line: 18
+check for a decryption key., File: includes/sd.bgt On line: 20
+no key, so just deserialize., File: includes/sd.bgt On line: 23
+deserialize but first decrypt., File: includes/sd.bgt On line: 28
+close the file, File: includes/sd.bgt On line: 31
+function to save the data into the file., File: includes/sd.bgt On line: 34
+again, use the FN string, File: includes/sd.bgt On line: 38
+check for a key., File: includes/sd.bgt On line: 40
+function to add a value., File: includes/sd.bgt On line: 46
+function to read a number., File: includes/sd.bgt On line: 51
+overloaded function of add to add a string., File: includes/sd.bgt On line: 58
+function to read a string, File: includes/sd.bgt On line: 63
+if(!SCRIPT_COMPILED), File: includes/menu.bgt On line: 13
+m.add_item_tts("dev options","devop");, File: includes/menu.bgt On line: 14
+m.fade_music(20);, File: includes/menu.bgt On line: 24
+online menus, File: includes/menu.bgt On line: 290
+setupmenu();, File: includes/menu.bgt On line: 293
+sound music;, File: tk.bgt On line: 19
+cfg.save("keyconfig.cfg");, File: tk.bgt On line: 155
+for the time that we don't have these versions synced *update*, File: tk.bgt On line: 168
+sound_init();, File: tk.bgt On line: 255
+music.stop();, File: tk.bgt On line: 1694
+msoundcheckloop();, File: tk.bgt On line: 1846
+alert("error","You can not speedhack in the game");, File: tk.bgt On line: 1917
+
+Total includes: 45
+i.bgt
+includes/keyconfig.bgt
+includes/preloader.bgt
+includes/sndloader.bgt
+includes/preloader.bgt
+includes/readable_time.bgt
+includes/fadepool.bgt
+includes/silent.bgt
+includes/UI_translator.bgt
+includes/oriol_utils.bgt
+includes/sizer.bgt
+includes/door.bgt
+includes/sound_progress.bgt
+includes/ultrarec.bgt
+includes/reg.bgt
+includes/progress_bar.bgt
+includes/speed_stop_sound.bgt
+includes/moving_sound.bgt
+includes/keyhook.bgt
+includes/speech.bgt
+includes/player.bgt
+includes/dlgplay.bgt
+includes/internet.bgt
+includes/hip.bgt
+includes/dlfile.bgt
+downloader.bgt
+includes/updater.bgt
+dlfile.bgt
+hip.bgt
+includes/runs.bgt
+includes/dateandtime.bgt
+includes/virtualizer.bgt
+includes/buffer.bgt
+includes/dlg.bgt
+includes/constants.bgt
+includes/map.bgt
+includes/net.bgt
+includes/rotation.bgt
+includes/sp.bgt
+sound_positioning.bgt
+includes/srcamb.bgt
+includes/sd.bgt
+includes/menu.bgt
+mapdata.bgt
+
+Total classes: 18
+keyconfig {, File: includes/keyconfig.bgt On line: 3
+preload, File: includes/preloader.bgt On line: 0
+preload, File: includes/preloader.bgt On line: 0
+door, File: includes/door.bgt On line: 2
+voicechatting, File: includes/ultrarec.bgt On line: 2
+progress_bar, File: includes/progress_bar.bgt On line: 1
+msound, File: includes/moving_sound.bgt On line: 0
+kh, File: includes/keyhook.bgt On line: 0
+DFSpeech, File: includes/speech.bgt On line: 3
+player, File: includes/player.bgt On line: 1
+virtualizer, File: includes/virtualizer.bgt On line: 0
+buffer, File: includes/buffer.bgt On line: 2
+binput, File: includes/map.bgt On line: 422
+sound_pool_item, File: includes/sp.bgt On line: 5
+sound_pool, File: includes/sp.bgt On line: 221
+source, File: includes/srcamb.bgt On line: 1
+amb, File: includes/srcamb.bgt On line: 35
+savedata, File: includes/sd.bgt On line: 2
+
+
+Variable Analysis
+Total variables: 351
+Total ints: 149
+oldvol=handle.volume, File: includes/oriol_utils.bgt On line: 16
+oldvol=handle.volume, File: includes/oriol_utils.bgt On line: 23
+doorsound, File: includes/door.bgt On line: 0
+ doorsound2, File: includes/door.bgt On line: 1
+dx, File: includes/door.bgt On line: 6
+dy, File: includes/door.bgt On line: 7
+dz, File: includes/door.bgt On line: 8
+finishx, File: includes/door.bgt On line: 9
+finishy, File: includes/door.bgt On line: 10
+finishz, File: includes/door.bgt On line: 11
+movetime=150, File: includes/door.bgt On line: 12
+ret=0, File: includes/ultrarec.bgt On line: 43
+SPEEDSTOP_TRIES_MAIN=0, File: includes/speed_stop_sound.bgt On line: 4
+orig_ss_tries=SPEEDSTOP_TRIES_MAIN, File: includes/speed_stop_sound.bgt On line: 20
+x, File: includes/moving_sound.bgt On line: 0
+y, File: includes/moving_sound.bgt On line: 1
+z, File: includes/moving_sound.bgt On line: 2
+loopint, File: includes/moving_sound.bgt On line: 3
+bpos //The buffer position, File: includes/speech.bgt On line: 6
+output //Internal variable specifying the output mode., File: includes/speech.bgt On line: 9
+mode=0 //Variable for either SAPI or Auto SR output, File: includes/speech.bgt On line: 11
+voice, File: includes/speech.bgt On line: 12
+rate, File: includes/speech.bgt On line: 13
+pitch, File: includes/speech.bgt On line: 14
+volume, File: includes/speech.bgt On line: 15
+vp=-1, File: includes/speech.bgt On line: 123
+x, File: includes/player.bgt On line: 3
+y, File: includes/player.bgt On line: 4
+z, File: includes/player.bgt On line: 5
+perc2=0, File: includes/dlfile.bgt On line: 2
+hour2, File: includes/dateandtime.bgt On line: 6
+capmode=1, File: includes/virtualizer.bgt On line: 2
+cursor, File: includes/virtualizer.bgt On line: 5
+bufferpos, File: includes/buffer.bgt On line: 0
+interrupt, File: includes/buffer.bgt On line: 4
+active=1, File: includes/buffer.bgt On line: 5
+pos, File: includes/buffer.bgt On line: 6
+id=-1, File: includes/map.bgt On line: 151
+x=me.x, File: includes/map.bgt On line: 0
+ y=me.y, File: includes/map.bgt On line: 1
+ z=me.z, File: includes/map.bgt On line: 2
+r=-1, File: includes/map.bgt On line: 408
+netport=45532, File: includes/net.bgt On line: 1
+x, File: includes/sp.bgt On line: 11
+y, File: includes/sp.bgt On line: 12
+z, File: includes/sp.bgt On line: 13
+upper_range, File: includes/sp.bgt On line: 21
+lower_range, File: includes/sp.bgt On line: 22
+left_range, File: includes/sp.bgt On line: 23
+right_range, File: includes/sp.bgt On line: 24
+backward_range, File: includes/sp.bgt On line: 25
+forward_range, File: includes/sp.bgt On line: 26
+delta_left=x-left_range, File: includes/sp.bgt On line: 169
+delta_right=x+right_range, File: includes/sp.bgt On line: 170
+delta_backward=y-backward_range, File: includes/sp.bgt On line: 171
+delta_forward=y+forward_range, File: includes/sp.bgt On line: 172
+delta_lower=z-lower_range, File: includes/sp.bgt On line: 173
+delta_upper=z+upper_range, File: includes/sp.bgt On line: 174
+true_x=listener_x, File: includes/sp.bgt On line: 175
+true_y=listener_y, File: includes/sp.bgt On line: 176
+true_z=listener_z, File: includes/sp.bgt On line: 177
+distance=0, File: includes/sp.bgt On line: 178
+max_distance, File: includes/sp.bgt On line: 223
+currently_playing=0, File: includes/sp.bgt On line: 638
+currently_playing=0, File: includes/sp.bgt On line: 649
+last_listener_x, File: includes/sp.bgt On line: 765
+last_listener_y, File: includes/sp.bgt On line: 766
+last_listener_z, File: includes/sp.bgt On line: 767
+clean_frequency, File: includes/sp.bgt On line: 771
+slot=-1, File: includes/sp.bgt On line: 867
+source_sound, File: includes/srcamb.bgt On line: 3
+lx, File: includes/srcamb.bgt On line: 4
+rx, File: includes/srcamb.bgt On line: 5
+miny, File: includes/srcamb.bgt On line: 6
+maxy, File: includes/srcamb.bgt On line: 7
+minz, File: includes/srcamb.bgt On line: 8
+maxz, File: includes/srcamb.bgt On line: 9
+id=-1, File: includes/srcamb.bgt On line: 12
+minx, File: includes/srcamb.bgt On line: 0
+maxx, File: includes/srcamb.bgt On line: 1
+miny, File: includes/srcamb.bgt On line: 2
+maxy, File: includes/srcamb.bgt On line: 3
+minz, File: includes/srcamb.bgt On line: 4
+maxz, File: includes/srcamb.bgt On line: 5
+cruns=runsn-lastruns, File: includes/menu.bgt On line: 17
+mx, File: tk.bgt On line: 0
+my, File: tk.bgt On line: 1
+playx=0, File: tk.bgt On line: 2
+canjump=1, File: tk.bgt On line: 3
+lastruns=0, File: tk.bgt On line: 4
+translator=0, File: tk.bgt On line: 5
+hbanned=0, File: tk.bgt On line: 6
+playmusic=0, File: tk.bgt On line: 7
+sent_packets=0, File: tk.bgt On line: 0
+received_packets=0, File: tk.bgt On line: 1
+importbufferlogs=0, File: tk.bgt On line: 21
+registered=0, File: tk.bgt On line: 23
+sitting=0, File: tk.bgt On line: 27
+sidescrolling=0, File: tk.bgt On line: 29
+uploadedsounds=1, File: tk.bgt On line: 30
+channels=1, File: tk.bgt On line: 31
+soundcard, File: tk.bgt On line: 33
+currenthealth, File: tk.bgt On line: 43
+rectime=30000, File: tk.bgt On line: 50
+playingtime, File: tk.bgt On line: 51
+spamtime=5000, File: tk.bgt On line: 52
+trackx=-1, File: tk.bgt On line: 0
+ tracky=-1, File: tk.bgt On line: 1
+ trackz=-1, File: tk.bgt On line: 2
+sonaring=0, File: tk.bgt On line: 67
+beaconing=0, File: tk.bgt On line: 68
+readmessages=1, File: tk.bgt On line: 77
+rcontrol, File: tk.bgt On line: 78
+speechmode=0, File: tk.bgt On line: 79
+ttsvoice=0, File: tk.bgt On line: 80
+speakonlinemsgs=1, File: tk.bgt On line: 81
+firetime, File: tk.bgt On line: 82
+w, File: tk.bgt On line: 88
+betan=1, File: tk.bgt On line: 93
+beacontime=670, File: tk.bgt On line: 102
+runtime=200, File: tk.bgt On line: 103
+walktime=200, File: tk.bgt On line: 104
+airtime=100, File: tk.bgt On line: 105
+falltime=125, File: tk.bgt On line: 110
+falldistance=0, File: tk.bgt On line: 111
+jumptime=100, File: tk.bgt On line: 116
+jumpup=0, File: tk.bgt On line: 117
+jumplandz=0, File: tk.bgt On line: 118
+movetime, File: tk.bgt On line: 125
+readerinterrupt=1, File: tk.bgt On line: 130
+timeouttime=10000, File: tk.bgt On line: 131
+charrepeat=0, File: tk.bgt On line: 142
+e, File: tk.bgt On line: 700
+menumusvol=0, File: tk.bgt On line: 945
+ms=pingpongtimer.elapsed, File: tk.bgt On line: 1333
+e, File: tk.bgt On line: 1415
+x, File: tk.bgt On line: 0
+ y, File: tk.bgt On line: 1
+z, File: tk.bgt On line: 2
+counter=0, File: tk.bgt On line: 1941
+f=0, File: tk.bgt On line: 2028
+oc=counter, File: tk.bgt On line: 2029
+counter=0, File: tk.bgt On line: 2113
+f=0, File: tk.bgt On line: 2128
+oc=counter, File: tk.bgt On line: 2129
+counter=0, File: tk.bgt On line: 2222
+f=0, File: tk.bgt On line: 2237
+oc=counter, File: tk.bgt On line: 2238
+total_keypresses=0, File: tk.bgt On line: 2372
+
+Total strings: 148
+name, File: includes/preloader.bgt On line: 3
+final_list, File: includes/sndloader.bgt On line: 16
+name, File: includes/preloader.bgt On line: 3
+ret, File: includes/readable_time.bgt On line: 22
+m=months>1 ? "months" : "month", File: includes/readable_time.bgt On line: 25
+w=weeks>1 ? "weeks" : "week", File: includes/readable_time.bgt On line: 30
+d=days>1 ? "days" : "day", File: includes/readable_time.bgt On line: 35
+h=hours>1 ? "hours" : "hour", File: includes/readable_time.bgt On line: 42
+m=minutes>1 ? "minutes" : "minute", File: includes/readable_time.bgt On line: 49
+s=seconds>1 ? "seconds" : "second", File: includes/readable_time.bgt On line: 56
+size, File: includes/sizer.bgt On line: 2
+size, File: includes/sizer.bgt On line: 11
+ds, File: includes/door.bgt On line: 0
+ ds2, File: includes/door.bgt On line: 1
+ ds3, File: includes/door.bgt On line: 2
+ ds4, File: includes/door.bgt On line: 3
+filename=DIRECTORY_TEMP+"/vc.wav", File: includes/ultrarec.bgt On line: 4
+result="", File: includes/ultrarec.bgt On line: 8
+result, File: includes/ultrarec.bgt On line: 15
+test, File: includes/ultrarec.bgt On line: 37
+error, File: includes/ultrarec.bgt On line: 38
+data, File: includes/reg.bgt On line: 113
+SPEEDSTOP_SOUND_FILE="silence.wav", File: includes/speed_stop_sound.bgt On line: 1
+id, File: includes/moving_sound.bgt On line: 0
+soundloop, File: includes/moving_sound.bgt On line: 1
+map, File: includes/moving_sound.bgt On line: 2
+filename //The filename of the save file for speech settings., File: includes/speech.bgt On line: 5
+buffer="log.txt" //the variable for the filename of output buffer., File: includes/speech.bgt On line: 8
+tb=buffer, File: includes/speech.bgt On line: 91
+tb=buffer, File: includes/speech.bgt On line: 107
+map, File: includes/player.bgt On line: 6
+name, File: includes/player.bgt On line: 7
+motdhash, File: includes/internet.bgt On line: 0
+webdir="http://ims-productions.com/bw/motd", File: includes/internet.bgt On line: 1
+DIR, File: includes/hip.bgt On line: 11
+DIR3, File: includes/hip.bgt On line: 13
+towrite, File: includes/hip.bgt On line: 84
+t, File: includes/hip.bgt On line: 87
+temp, File: includes/hip.bgt On line: 176
+and double, File: includes/hip.bgt On line: 192
+status, File: includes/dlfile.bgt On line: 7
+seconds, File: includes/dateandtime.bgt On line: 0
+included, File: includes/dateandtime.bgt On line: 1
+included2, File: includes/dateandtime.bgt On line: 2
+time, File: includes/dateandtime.bgt On line: 3
+date, File: includes/dateandtime.bgt On line: 4
+ampm, File: includes/dateandtime.bgt On line: 5
+message, File: includes/virtualizer.bgt On line: 6
+a, File: includes/virtualizer.bgt On line: 47
+spoken_feedback, File: includes/virtualizer.bgt On line: 83
+char=ms[cursor-1], File: includes/virtualizer.bgt On line: 106
+char=ms[cursor+1], File: includes/virtualizer.bgt On line: 124
+a, File: includes/virtualizer.bgt On line: 141
+name, File: includes/buffer.bgt On line: 7
+final, File: includes/map.bgt On line: 6
+final, File: includes/map.bgt On line: 34
+final, File: includes/map.bgt On line: 47
+snd1=parsed[8], File: includes/map.bgt On line: 113
+snd2=parsed[9], File: includes/map.bgt On line: 114
+snd3=parsed[10], File: includes/map.bgt On line: 115
+snd4=parsed[11], File: includes/map.bgt On line: 116
+netaddress="blinkwizard.ddns.net", File: includes/net.bgt On line: 0
+oldservers, File: includes/net.bgt On line: 3
+lookname, File: includes/net.bgt On line: 4
+n=parsed[4], File: includes/net.bgt On line: 174
+mp=parsed[5], File: includes/net.bgt On line: 175
+r=direction, File: includes/rotation.bgt On line: 118
+filename, File: includes/sp.bgt On line: 9
+packname, File: includes/sp.bgt On line: 10
+soundfile, File: includes/srcamb.bgt On line: 10
+key, File: includes/sd.bgt On line: 5
+fn, File: includes/sd.bgt On line: 6
+tmp, File: includes/sd.bgt On line: 66
+plattype, File: includes/menu.bgt On line: 343
+packetlog, File: tk.bgt On line: 10
+mapstring, File: tk.bgt On line: 17
+musicsound, File: tk.bgt On line: 20
+musictrack="menumus1", File: tk.bgt On line: 22
+windowtext, File: tk.bgt On line: 24
+focuseditem, File: tk.bgt On line: 25
+regname, File: tk.bgt On line: 0
+ regkey, File: tk.bgt On line: 1
+soundcardname, File: tk.bgt On line: 32
+lngdata, File: tk.bgt On line: 53
+currentlangfile, File: tk.bgt On line: 54
+runs, File: tk.bgt On line: 0
+ latest, File: tk.bgt On line: 1
+ description, File: tk.bgt On line: 2
+godir, File: tk.bgt On line: 0
+ godir2, File: tk.bgt On line: 1
+ godir3, File: tk.bgt On line: 2
+ go, File: tk.bgt On line: 3
+ go2, File: tk.bgt On line: 4
+ go3, File: tk.bgt On line: 5
+ go4, File: tk.bgt On line: 6
+tracking="", File: tk.bgt On line: 62
+currentloc, File: tk.bgt On line: 64
+projname="tk", File: tk.bgt On line: 65
+netver="1.9", File: tk.bgt On line: 72
+ver="1.9", File: tk.bgt On line: 94
+name, File: tk.bgt On line: 95
+password, File: tk.bgt On line: 96
+currentcameratile, File: tk.bgt On line: 120
+mapname="main", File: tk.bgt On line: 121
+motd, File: tk.bgt On line: 128
+inv, File: tk.bgt On line: 136
+shmap, File: tk.bgt On line: 139
+serverlist, File: tk.bgt On line: 141
+sndver, File: tk.bgt On line: 143
+mapstats, File: tk.bgt On line: 563
+g, File: tk.bgt On line: 760
+input, File: tk.bgt On line: 960
+r=e.message, File: tk.bgt On line: 994
+map=parsed[4], File: tk.bgt On line: 1023
+temp="", File: tk.bgt On line: 1104
+t=parsed[2], File: tk.bgt On line: 1197
+map=parsed[4], File: tk.bgt On line: 1231
+pn=parsed[5], File: tk.bgt On line: 1232
+mp=parsed[5], File: tk.bgt On line: 1243
+spk, File: tk.bgt On line: 1336
+msg, File: tk.bgt On line: 1396
+alert, File: tk.bgt On line: 1439
+soundname=parsed[1], File: tk.bgt On line: 1452
+soundmap=parsed[5], File: tk.bgt On line: 1456
+map=parsed[5], File: tk.bgt On line: 1475
+map=parsed[5], File: tk.bgt On line: 1486
+map=parsed[5], File: tk.bgt On line: 1498
+map=parsed[5], File: tk.bgt On line: 1509
+n=parsed[4], File: tk.bgt On line: 1558
+m=parsed[5], File: tk.bgt On line: 1559
+ds1 = parsed[8], File: tk.bgt On line: 1588
+ds2 = parsed[9], File: tk.bgt On line: 1589
+ds3 = parsed[10], File: tk.bgt On line: 1590
+ds4 = parsed[11], File: tk.bgt On line: 1591
+n=parsed[4], File: tk.bgt On line: 1599
+mp=parsed[5], File: tk.bgt On line: 1600
+themap, File: tk.bgt On line: 1634
+action=parsed[0], File: tk.bgt On line: 1657
+scriptpath, File: tk.bgt On line: 1923
+cl, File: tk.bgt On line: 1939
+content=inv, File: tk.bgt On line: 1942
+item=peramitors[counter], File: tk.bgt On line: 1986
+cl, File: tk.bgt On line: 2111
+cl, File: tk.bgt On line: 2220
+newlang, File: tk.bgt On line: 2302
+boing="", File: tk.bgt On line: 2322
+message, File: tk.bgt On line: 2369
+key=fn, File: tk.bgt On line: 2694
+
+Total booleans: 54
+dmoving, File: includes/door.bgt On line: 0
+moving, File: includes/door.bgt On line: 13
+aimoving, File: includes/door.bgt On line: 14
+SPEEDSTOP_ENABLE_DISABLE_MAIN=true, File: includes/speed_stop_sound.bgt On line: 3
+already_installed, File: includes/keyhook.bgt On line: 2
+slash, File: includes/hip.bgt On line: 16
+ret, File: includes/hip.bgt On line: 47
+hidden=false, File: includes/buffer.bgt On line: 9
+in_map=false, File: includes/map.bgt On line: 71
+prior_connected=false, File: includes/net.bgt On line: 5
+memoryplaying, File: includes/sp.bgt On line: 7
+looping, File: includes/sp.bgt On line: 14
+is_3d, File: includes/sp.bgt On line: 27
+paused, File: includes/sp.bgt On line: 28
+stationary, File: includes/sp.bgt On line: 29
+persistent, File: includes/sp.bgt On line: 31
+killed_highest_slot=false, File: includes/sp.bgt On line: 803
+paused=false, File: includes/srcamb.bgt On line: 11
+p2, File: includes/srcamb.bgt On line: 13
+inrange=false, File: includes/srcamb.bgt On line: 0
+force_paused=false, File: includes/srcamb.bgt On line: 1
+walkmod=false, File: tk.bgt On line: 8
+isupdating, File: tk.bgt On line: 12
+net_debug=false, File: tk.bgt On line: 13
+profiler=false, File: tk.bgt On line: 14
+inbox=false, File: tk.bgt On line: 15
+ereboot=false, File: tk.bgt On line: 16
+muted=false, File: tk.bgt On line: 35
+firing=false, File: tk.bgt On line: 36
+onwall=false, File: tk.bgt On line: 37
+frozen=false, File: tk.bgt On line: 38
+recording, File: tk.bgt On line: 39
+robotcontroling=false, File: tk.bgt On line: 40
+lowhealth=false, File: tk.bgt On line: 42
+inshelter, File: tk.bgt On line: 57
+admin=false, File: tk.bgt On line: 59
+is_active, File: tk.bgt On line: 60
+x=false, File: tk.bgt On line: 70
+pinging=false, File: tk.bgt On line: 71
+dead=false, File: tk.bgt On line: 73
+connected, File: tk.bgt On line: 0
+playing, File: tk.bgt On line: 1
+creating, File: tk.bgt On line: 75
+controling_remgun=false, File: tk.bgt On line: 76
+overrun=false, File: tk.bgt On line: 90
+beta=true, File: tk.bgt On line: 91
+falling=false, File: tk.bgt On line: 108
+jumping=false, File: tk.bgt On line: 112
+can_move=true, File: tk.bgt On line: 119
+weaponauto=false, File: tk.bgt On line: 127
+inve=false, File: tk.bgt On line: 135
+atempbool=false, File: tk.bgt On line: 1088
+invchanged=false, File: tk.bgt On line: 1934
+is_banned=false, File: tk.bgt On line: 2735
+
+Function analisys
+Total void functions: 155
+init_keynames() {, File: includes/keyconfig.bgt On line: 111
+reset_preloads(), File: includes/preloader.bgt On line: 31
+sound_init(), File: includes/sndloader.bgt On line: 1
+reset_preloads(), File: includes/preloader.bgt On line: 31
+fade_pool(sound_pool@ handle, double time=0.25, double minvol=-40), File: includes/fadepool.bgt On line: 0
+play(string filename,bool wait=false) {, File: includes/oriol_utils.bgt On line: 8
+sfade(sound@ handle) {, File: includes/oriol_utils.bgt On line: 15
+fade2(sound@ handle) {, File: includes/oriol_utils.bgt On line: 22
+db(string t,bool quit=false) {, File: includes/oriol_utils.bgt On line: 35
+doorcheckloop(), File: includes/door.bgt On line: 32
+destroy_door(int d), File: includes/door.bgt On line: 86
+destroy_all_doors(), File: includes/door.bgt On line: 91
+spawn_door(int doorx, int doory, int doorz, int finishx, int finishy, int finishz, int speed, string doorsnd, string doorsnd2, string doorsnd3, string doorsnd4), File: includes/door.bgt On line: 99
+progress_pan(sound@ handle, int current, int max) {, File: includes/sound_progress.bgt On line: 0
+progress_pitch(sound@ handle, int current, int max) {, File: includes/sound_progress.bgt On line: 5
+record(), File: includes/ultrarec.bgt On line: 6
+stop(bool convert=false, string convertfilename=""), File: includes/ultrarec.bgt On line: 13
+ask_for_reg(), File: includes/reg.bgt On line: 47
+grab_banned(string name), File: includes/reg.bgt On line: 66
+write_key(string key), File: includes/reg.bgt On line: 101
+newkey(), File: includes/reg.bgt On line: 105
+listkeys(), File: includes/reg.bgt On line: 124
+speed_stop_reset(bool initial=false) // should be called before you want to start use in order to prevent accedental speedhack protection, File: includes/speed_stop_sound.bgt On line: 5
+speed_stop_disable() //pauses the speed_stop checks. , File: includes/speed_stop_sound.bgt On line: 36
+speed_stop_enable() //unpauses/enables speed_stop checks. , File: includes/speed_stop_sound.bgt On line: 40
+updateme(int c1, int c2,int c3,double pi), File: includes/moving_sound.bgt On line: 17
+createmsound(string id, string loop, int x, int y,int z,string map,double pitch), File: includes/moving_sound.bgt On line: 38
+updatemsound(string id, int x, int y,int z,double pitch), File: includes/moving_sound.bgt On line: 43
+destroymsound(string id), File: includes/moving_sound.bgt On line: 50
+destroy_all_msounds(), File: includes/moving_sound.bgt On line: 62
+msound_map_update(), File: includes/moving_sound.bgt On line: 69
+msoundcheckloop(), File: includes/moving_sound.bgt On line: 76
+install(), File: includes/keyhook.bgt On line: 3
+bufferloop(), File: includes/speech.bgt On line: 77
+set_speech_params(int r, int p, int v), File: includes/speech.bgt On line: 181
+set_speech_mode(int m), File: includes/speech.bgt On line: 191
+playerloop(), File: includes/player.bgt On line: 18
+spawn_player(int x,int y,int z,string map,string name), File: includes/player.bgt On line: 29
+remove_player(string username), File: includes/player.bgt On line: 34
+remove_all_players(), File: includes/player.bgt On line: 42
+update_player(int x,int y,int z, string m, string n), File: includes/player.bgt On line: 46
+dlgplay(string dlgsound, bool dlgfade=false, int fadespeed=30, bool is_file=true), File: includes/dlgplay.bgt On line: 1
+getmotd(), File: includes/internet.bgt On line: 2
+beep_percentage(double val), File: includes/hip.bgt On line: 233
+cfu(string name, string zipname, bool silent), File: includes/updater.bgt On line: 2
+sndcheck(), File: includes/updater.bgt On line: 42
+push(), File: includes/runs.bgt On line: 0
+getruns(), File: includes/runs.bgt On line: 4
+create_buffer(string bname), File: includes/buffer.bgt On line: 15
+firstbuffer(), File: includes/buffer.bgt On line: 20
+lastbuffer(), File: includes/buffer.bgt On line: 25
+bufferleft(), File: includes/buffer.bgt On line: 30
+bufferright(), File: includes/buffer.bgt On line: 44
+nextbufferitem(), File: includes/buffer.bgt On line: 59
+prevbufferitem(), File: includes/buffer.bgt On line: 67
+topbufferitem(), File: includes/buffer.bgt On line: 75
+bottombufferitem(), File: includes/buffer.bgt On line: 83
+add_buffer_item(string buffername, string item,bool tr=true), File: includes/buffer.bgt On line: 91
+export_buffer(string buffername), File: includes/buffer.bgt On line: 108
+export_all_buffers(), File: includes/buffer.bgt On line: 128
+activate_buffer(), File: includes/buffer.bgt On line: 137
+interrupt_buffer(), File: includes/buffer.bgt On line: 150
+copy_buffer_item(), File: includes/buffer.bgt On line: 174
+speakfocusedbuffer(), File: includes/buffer.bgt On line: 179
+dlg(string message), File: includes/dlg.bgt On line: 0
+dlg_wait(string message, int waittime), File: includes/dlg.bgt On line: 19
+load_map(string mdata), File: includes/map.bgt On line: 72
+playstep(), File: includes/map.bgt On line: 165
+cameramove(string dir), File: includes/map.bgt On line: 171
+move(string dir), File: includes/map.bgt On line: 236
+checkaround(double ox, double oy), File: includes/map.bgt On line: 307
+checkup(), File: includes/map.bgt On line: 330
+checkdown(), File: includes/map.bgt On line: 348
+bounceback(int d), File: includes/map.bgt On line: 366
+spawn_platform(int leftx, int rightx, int miny, int maxy, int z, string plattype), File: includes/map.bgt On line: 377
+spawn_tiles(int leftx, int rightx, int miny, int maxy, int minz, int maxz, string plattype), File: includes/map.bgt On line: 381
+spawn_zone(int leftx, int rightx, int miny, int maxy, int minz, int maxz, string zonetype), File: includes/map.bgt On line: 385
+spawn_tile(int x, int y, int z, string type), File: includes/map.bgt On line: 389
+spawn_tree(int x, int y), File: includes/map.bgt On line: 393
+spawn_glass(int x, int y), File: includes/map.bgt On line: 398
+login(), File: includes/net.bgt On line: 6
+create(), File: includes/net.bgt On line: 193
+reset_network(){ , File: includes/net.bgt On line: 281
+resetpass(), File: includes/net.bgt On line: 292
+resetpasskey(), File: includes/net.bgt On line: 328
+reset(), File: includes/sp.bgt On line: 36
+update(int listener_x, int listener_y, int listener_z, double rotation, int max_distance), File: includes/sp.bgt On line: 70
+update_listener_position(int listener_x, int listener_y, int listener_z, double rotation), File: includes/sp.bgt On line: 114
+pause_all(), File: includes/sp.bgt On line: 636
+resume_all(), File: includes/sp.bgt On line: 647
+destroy_all(), File: includes/sp.bgt On line: 658
+update_listener_1d(int listener_x), File: includes/sp.bgt On line: 666
+update_listener_2d(int listener_x, int listener_y, double rotation=0.0), File: includes/sp.bgt On line: 670
+update_listener_3d(int listener_x, int listener_y, int listener_z, double rotation=0.0), File: includes/sp.bgt On line: 674
+find_highest_slot(uint limit), File: includes/sp.bgt On line: 773
+clean_unused(), File: includes/sp.bgt On line: 794
+check(), File: includes/srcamb.bgt On line: 48
+sourcecheckloop(), File: includes/srcamb.bgt On line: 71
+destroy_all_sources(), File: includes/srcamb.bgt On line: 94
+pause_all_sources(), File: includes/srcamb.bgt On line: 103
+resume_all_sources(), File: includes/srcamb.bgt On line: 115
+spawn_source(int source_lx, int source_rx, int source_miny, int source_maxy, int source_minz, int source_maxz, string soundfile, bool paused=false, int id=-1), File: includes/srcamb.bgt On line: 127
+destroy_source(int id), File: includes/srcamb.bgt On line: 132
+create_amb(int minx, int maxx, int miny, int maxy, int minz, int maxz, string sound), File: includes/srcamb.bgt On line: 143
+change_source_volume(int v), File: includes/srcamb.bgt On line: 148
+load(), File: includes/sd.bgt On line: 15
+save(), File: includes/sd.bgt On line: 35
+add(string name, double value), File: includes/sd.bgt On line: 47
+add(string name, string value), File: includes/sd.bgt On line: 59
+mainmenu(), File: includes/menu.bgt On line: 2
+setupmenu(bool main=false, bool audo=false), File: includes/menu.bgt On line: 57
+optionsmenu(), File: includes/menu.bgt On line: 86
+speechmodemenu(), File: includes/menu.bgt On line: 251
+serverside_menu(string sndtxt, string menu, string menuitems), File: includes/menu.bgt On line: 291
+store_menu(string storeitems), File: includes/menu.bgt On line: 316
+addplattypes(), File: includes/menu.bgt On line: 388
+devmenu(), File: includes/menu.bgt On line: 415
+soundcardmenu(), File: includes/menu.bgt On line: 431
+devmainm() {, File: includes/menu.bgt On line: 490
+multimenu(), File: includes/menu.bgt On line: 505
+listservers(), File: includes/menu.bgt On line: 572
+checkarroundmenu(), File: includes/menu.bgt On line: 601
+musicmenu(), File: includes/menu.bgt On line: 664
+main(), File: tk.bgt On line: 145
+game(), File: tk.bgt On line: 267
+readprefs(), File: tk.bgt On line: 873
+writeprefs(), File: tk.bgt On line: 946
+send_reliable(uint peer, string mess, uint channel), File: tk.bgt On line: 978
+send_unreliable(uint peer, string mess, uint channel), File: tk.bgt On line: 985
+netloop(), File: tk.bgt On line: 1004
+exitgame(bool return_to_menu=true), File: tk.bgt On line: 1688
+fallloop(), File: tk.bgt On line: 1715
+fallcheck(), File: tk.bgt On line: 1766
+fallingloop(), File: tk.bgt On line: 1778
+playcamera(), File: tk.bgt On line: 1812
+tk_loop(), File: tk.bgt On line: 1838
+killbitch(), File: tk.bgt On line: 1915
+invmenu(), File: tk.bgt On line: 1935
+pos(), File: tk.bgt On line: 2101
+playermenu(string[] users), File: tk.bgt On line: 2108
+langmenu(string[] languages), File: tk.bgt On line: 2217
+tell_where(int x, int y, int z, string soundname, bool include_locations=false), File: tk.bgt On line: 2315
+get_online_bans(), File: tk.bgt On line: 2332
+checkloc(), File: tk.bgt On line: 2345
+serverbox(int mode=0, int maxlength=-1, int autosend=0, int keypresses=-1, string sendtext="server_box", string text="enter text"), File: tk.bgt On line: 2366
+buildingloop(), File: tk.bgt On line: 2504
+auction(string item), File: tk.bgt On line: 2540
+uploadfile(), File: tk.bgt On line: 2549
+positions(), File: tk.bgt On line: 2560
+cycle_inv(int dir), File: tk.bgt On line: 2563
+fade_all(sound_pool@ handle, sound_pool@ handle2, sound_pool@ handle3, sound_pool@ handle4, sound_pool@handle5,double time=0.25, double minvol=-40), File: tk.bgt On line: 2572
+doorcheck(), File: tk.bgt On line: 2628
+sonarcheck(int x, int y, int z), File: tk.bgt On line: 2652
+healthloop(), File: tk.bgt On line: 2743
+chat_languages(), File: tk.bgt On line: 2760
+
+String functions: 116
+key_name(int k) {, File: includes/keyconfig.bgt On line: 128
+filename=get_sound_storage();, File: includes/sndloader.bgt On line: 8
+soundfile=string_trim_right(list[x],4);, File: includes/sndloader.bgt On line: 23
+soundfile=string_trim_right(list[i],4);, File: includes/sndloader.bgt On line: 29
+ms_to_readable_time(double ms), File: includes/readable_time.bgt On line: 1
+sldata=string_decompress(string_base64_decode("AlJJRkYMBAAAV0FWRWZtdCAQAAAAAQABAOgDAAIEBAABAAgAZGF0YQIEDICAgIACBAQCCAgCEBACICACQEACgQCBAAKCAIIAAoNog2ggMTA0NA=="));, File: includes/silent.bgt On line: 0
+translate_text(text), File: includes/UI_translator.bgt On line: 0
+get_file_size(filename), File: includes/sizer.bgt On line: 0
+get_string_size(size), File: includes/sizer.bgt On line: 18
+convert_size(double size), File: includes/sizer.bgt On line: 51
+generate_key(name,bool add), File: includes/reg.bgt On line: 0
+key=string_base64_encode("tkreg "+name);, File: includes/reg.bgt On line: 2
+validate_key(n, origkey, int firsttime), File: includes/reg.bgt On line: 17
+key=string_reverse(origkey);, File: includes/reg.bgt On line: 24
+rn=input_box("Register", "Enter your registration name, exactly as it was given to you.");, File: includes/reg.bgt On line: 49
+rk=input_box("Register", "Now, enter your registration key exactly as it was given to you.");, File: includes/reg.bgt On line: 54
+vk=validate_key(rn,rk,1);, File: includes/reg.bgt On line: 59
+content=url_get("http://blinkwizard.com/tk/keys.dat");, File: includes/reg.bgt On line: 68
+testname=values[peramitors.find(name)];, File: includes/reg.bgt On line: 78
+n=input_box("Name", "Name");, File: includes/reg.bgt On line: 107
+content=url_get("http://blinkwizard.com/tk/keys.dat");, File: includes/reg.bgt On line: 128
+key=string_replace(keys[i],"=0","",true);, File: includes/reg.bgt On line: 132
+key2=string_replace(key,"=1"," (banned)",true);, File: includes/reg.bgt On line: 133
+data=generate_key(m.get_item_name(mres),false);, File: includes/reg.bgt On line: 141
+d=f.read();, File: includes/speech.bgt On line: 159
+mode=url_get(webdir+"/mode.txt");, File: includes/internet.bgt On line: 4
+motd=url_get(webdir+"/text.txt");, File: includes/internet.bgt On line: 8
+motd=url_get(webdir+"/audio.ogg");, File: includes/internet.bgt On line: 24
+hash=string_hash(motd,2,false);, File: includes/internet.bgt On line: 25
+get_current_directory(), File: includes/hip.bgt On line: 9
+file_get_contents(filename), File: includes/hip.bgt On line: 64
+r=tempfile.read();, File: includes/hip.bgt On line: 68
+content=file_get_contents(inifile);, File: includes/hip.bgt On line: 115
+dget_string(dictionary d, key), File: includes/hip.bgt On line: 174
+dl_file(url, disk_file,bool quiet=false,msg="Downloading. Press Space for percentage, 1 2 and 3 keys for detailed progress, or escape to cancel"), File: includes/dlfile.bgt On line: 3
+size=round(dl.get_total_size()/1024/1024, 2)+" MB ("+round(dl.get_total_size()/1024, 2)+" KB)";, File: includes/dlfile.bgt On line: 28
+size=round(dl.get_downloaded_size()/1024/1024, 2)+" MB ("+round(dl.get_downloaded_size()/1024, 2)+" KB)";, File: includes/dlfile.bgt On line: 33
+size=round(dl.get_remaining_size()/1024/1024, 2)+" MB ("+round(dl.get_remaining_size()/1024, 2)+" KB)";, File: includes/dlfile.bgt On line: 38
+latest=get_from_url("http://ims-productions.com/"+name+"/version.txt");, File: includes/updater.bgt On line: 6
+description=get_from_url("http://ims-productions.com/"+name+"/description.txt");, File: includes/updater.bgt On line: 22
+status=dl_file("http://ims-productions.com/"+name+"/"+zipname,zipname);, File: includes/updater.bgt On line: 30
+latest=get_from_url("http://ims-productions.com/tk/soundsver.txt");, File: includes/updater.bgt On line: 44
+status=dl_file("http://ims-productions.com/tk/sounds.dat","sounds.dat",false,"Downloading new sounds version "+lv+"...");, File: includes/updater.bgt On line: 51
+stuff=url_post("http://ims-productions.com/runs.php","id="+projname+"&name="+name);, File: includes/runs.bgt On line: 2
+get_from_url(url), File: includes/runs.bgt On line: 9
+what=httpn.get(url);, File: includes/runs.bgt On line: 13
+get_date(bool include_weekday=false, bool numerical=true), File: includes/dateandtime.bgt On line: 7
+get_time(bool twelvehour=true, bool include_seconds=true), File: includes/dateandtime.bgt On line: 34
+input(text, bool connected=true, bool secure_input=false), File: includes/virtualizer.bgt On line: 3
+char=get_characters();, File: includes/virtualizer.bgt On line: 26
+cl=clipboard_read_text();, File: includes/virtualizer.bgt On line: 38
+temp="\r\nexported at "+get_date()+" at "+get_time();, File: includes/buffer.bgt On line: 116
+get_tile_at(double x, double y, double z), File: includes/map.bgt On line: 3
+linear(string[] a), File: includes/map.bgt On line: 32
+get_zone_at(int x, int y, int z), File: includes/map.bgt On line: 45
+gct(), File: includes/map.bgt On line: 402
+str(val), File: includes/map.bgt On line: 437
+tmp=v.input(p[1]);, File: includes/map.bgt On line: 453
+user=v.input("Enter a username", false);, File: includes/net.bgt On line: 195
+pass=v.input("Please type in your new password. note: it must be at least 8 characters, and must contain a capitle letter, and a number.",false,true);, File: includes/net.bgt On line: 202
+email=v.input("Enter your EMail, for password retrieval, etc.", false);, File: includes/net.bgt On line: 210
+char=v.input("enter the character name you would like to reset the password for", false);, File: includes/net.bgt On line: 294
+char=v.input("enter your password reset key", false);, File: includes/net.bgt On line: 330
+newpass=v.input("enter the new password for "+string_trim_left(get_event_message(),10));, File: includes/net.bgt On line: 363
+dir_to_string(int direction), File: includes/rotation.bgt On line: 116
+calculate_x_y_string(double deg), File: includes/rotation.bgt On line: 190
+old_storage=get_sound_storage();, File: includes/sp.bgt On line: 88
+read(name), File: includes/sd.bgt On line: 64
+user=input_box("Username","Enter a username");, File: includes/menu.bgt On line: 138
+pass=input_box("password","Enter your password");, File: includes/menu.bgt On line: 140
+temp=langmenu();, File: includes/menu.bgt On line: 164
+it=string_replace(item[0],".","",true);, File: includes/menu.bgt On line: 331
+amount=v.input("Amount of "+m.get_item_name(mres)+"?");, File: includes/menu.bgt On line: 337
+plattypemenu(), File: includes/menu.bgt On line: 341
+list_ambiences(), File: includes/menu.bgt On line: 361
+soundsmenu(), File: includes/menu.bgt On line: 463
+p=input_box("Server","Enter server port");, File: includes/menu.bgt On line: 526
+user=v.input("Enter a username");, File: includes/menu.bgt On line: 550
+pass=v.input("Enter a password");, File: includes/menu.bgt On line: 552
+langmenu(), File: includes/menu.bgt On line: 638
+newtrack=m.get_item_name(mres);, File: includes/menu.bgt On line: 676
+compid=generate_computer_id("gamesaremadeforfunnotfordrama17"+ver,true);, File: tk.bgt On line: 122
+gt=gct();, File: tk.bgt On line: 371
+chat=v.input("Please enter your message here",true);, File: tk.bgt On line: 425
+received=convert_size(n.bytes_received);, File: tk.bgt On line: 560
+sent=convert_size(n.bytes_sent);, File: tk.bgt On line: 561
+totalnstats=convert_size(n.bytes_sent+n.bytes_received);, File: tk.bgt On line: 562
+get_event_message(), File: tk.bgt On line: 992
+soundfile=list_ambiences();, File: tk.bgt On line: 1134
+soundfile=list_ambiences();, File: tk.bgt On line: 1151
+platform=plattypemenu();, File: tk.bgt On line: 1168
+alert=string_replace(get_event_message(),"dlg ","",false);, File: tk.bgt On line: 1175
+i=string_replace(parsed[1],"[SPCE]"," ",true);, File: tk.bgt On line: 1196
+items=string_replace(get_event_message(),parsed[0]+" "+parsed[1]+" "+parsed[2]+" ","",true);, File: tk.bgt On line: 1198
+m=string_replace(get_event_message(),"playermenu","",true);, File: tk.bgt On line: 1253
+msg=string_replace(get_event_message(),"playerdeath ","",true);, File: tk.bgt On line: 1432
+final=string_replace(get_event_message(),"store ","",false);, File: tk.bgt On line: 1531
+vc=string_replace(get_event_message(),parsed[0]+" "+parsed[1]+" "+parsed[2]+" "+parsed[3]+" "+parsed[4]+" ","",true);, File: tk.bgt On line: 1640
+vc=string_trim_left(get_event_message(),9);, File: tk.bgt On line: 1648
+mess=string_trim_left(get_event_message(),string_len(action)+1);, File: tk.bgt On line: 1659
+get_script_path(), File: tk.bgt On line: 1921
+char=v.input("give "+item+" to who?",true);, File: tk.bgt On line: 1987
+am=v.input("Enter amount of "+item+" you would like to send to "+char,true);, File: tk.bgt On line: 1993
+message=v.input("enter the message that you want to send to "+users[counter]);, File: tk.bgt On line: 2193
+stuff=get_from_url("http://ims-productions.com/tk/statusbans.b");, File: tk.bgt On line: 2334
+locate=get_zone_at(mr.x,mr.y,me.z);, File: tk.bgt On line: 2347
+char=get_characters();, File: tk.bgt On line: 2381
+char=message[message.length()-1];, File: tk.bgt On line: 2448
+gmt(), File: tk.bgt On line: 2523
+minbid=v.input("Minimum bid for this auction?");, File: tk.bgt On line: 2543
+sf=soundsmenu();, File: tk.bgt On line: 2551
+ctile=get_tile_at(mr.x,mr.y,me.z);, File: tk.bgt On line: 2654
+tile=get_tile_at(sonar.x,sonar.y,me.z);, File: tk.bgt On line: 2660
+read_from_file_in_pack(filename), File: tk.bgt On line: 2674
+ret=f.read();, File: tk.bgt On line: 2681
+keygen(fn) {, File: tk.bgt On line: 2693
+
+Boolean functions: 43
+preload_add(string filename), File: includes/preloader.bgt On line: 9
+success=soundspack.open(filename);, File: includes/sndloader.bgt On line: 9
+p=preload_add(list[i]);, File: includes/sndloader.bgt On line: 31
+preload_add(string filename), File: includes/preloader.bgt On line: 9
+is_in_array(string value,string[]@ arr) {, File: includes/oriol_utils.bgt On line: 2
+check_playing_sounds() {, File: includes/oriol_utils.bgt On line: 29
+set_frequency_range(double low, double high), File: includes/progress_bar.bgt On line: 9
+feedback(double percent), File: includes/progress_bar.bgt On line: 17
+speed_stop_is_hacking(int slack_time=50) // true if hack detected. , File: includes/speed_stop_sound.bgt On line: 14
+dist=get_total_distance(me.x,me.y,me.z,msounds[i].x,msounds[i].y,msounds[i].z,75);, File: includes/moving_sound.bgt On line: 82
+speak_to_file(string fn,string txt), File: includes/speech.bgt On line: 16
+say(string text, int interrupt=1, wait=false), File: includes/speech.bgt On line: 20
+set_voice(int v), File: includes/speech.bgt On line: 113
+save(), File: includes/speech.bgt On line: 143
+load(), File: includes/speech.bgt On line: 152
+file_put_contents(string filename, string contents, uint8 filemode), File: includes/hip.bgt On line: 45
+dict_to_ini(dictionary@ dict, string inifile), File: includes/hip.bgt On line: 80
+worked=ini_to_dict("test.ini",test);, File: includes/hip.bgt On line: 103
+ini_to_dict(string inifile, dictionary &out dict), File: includes/hip.bgt On line: 113
+buffer_hidden(uint bufferindex), File: includes/buffer.bgt On line: 186
+sound_is_active(int slot), File: includes/sp.bgt On line: 563
+sound_is_playing(int slot), File: includes/sp.bgt On line: 582
+pause_sound(int slot), File: includes/sp.bgt On line: 590
+resume_sound(int slot), File: includes/sp.bgt On line: 605
+update_sound_1d(int slot, int x), File: includes/sp.bgt On line: 687
+update_sound_2d(int slot, int x, int y), File: includes/sp.bgt On line: 691
+update_sound_3d(int slot, int x, int y, int z), File: includes/sp.bgt On line: 695
+update_sound_start_values(int slot, float start_pan, float start_volume, float start_pitch), File: includes/sp.bgt On line: 707
+update_sound_range_1d(int slot, int left_range, int right_range), File: includes/sp.bgt On line: 730
+update_sound_range_2d(int slot, int left_range, int right_range, int backward_range, int forward_range), File: includes/sp.bgt On line: 734
+update_sound_range_3d(int slot, int left_range, int right_range, int backward_range, int forward_range, int lower_range, int upper_range), File: includes/sp.bgt On line: 738
+destroy_sound(int slot), File: includes/sp.bgt On line: 753
+verify_slot(int slot), File: includes/sp.bgt On line: 833
+is_in_range(), File: includes/srcamb.bgt On line: 44
+r=is_in_range();, File: includes/srcamb.bgt On line: 51
+shift_is_down(), File: tk.bgt On line: 841
+alt_is_down(), File: tk.bgt On line: 849
+control_is_down(), File: tk.bgt On line: 857
+control_is_pressed(), File: tk.bgt On line: 865
+is_sound_number(string t), File: tk.bgt On line: 1903
+int_to_bool(int i), File: tk.bgt On line: 2687
+is_hardbanned(), File: tk.bgt On line: 2732
+get_total_distance(double sx,double sy,double sz,double tx,double ty,double tz,int mindist=20), File: tk.bgt On line: 2752
+
+Int functions: 139
+key_code(string n) {, File: includes/keyconfig.bgt On line: 122
+perc=percent(i,list.length());, File: includes/sndloader.bgt On line: 34
+slength=ret2[(ret2.length-1)].length();, File: includes/readable_time.bgt On line: 62
+q=question("Key","Add key?");, File: includes/reg.bgt On line: 112
+mres=m.run("keys menu.",true);, File: includes/reg.bgt On line: 138
+check_available_outputs(), File: includes/speech.bgt On line: 62
+select_voice(), File: includes/speech.bgt On line: 119
+perc=dl.get_percentage();, File: includes/dlfile.bgt On line: 20
+q=yesno("New update "+lv+" has been found! Description: "+description+"\r\nWould you like to download it?");, File: includes/updater.bgt On line: 26
+buffer_active(string buffername), File: includes/buffer.bgt On line: 163
+minx=string_to_number(parsed[1]);, File: includes/map.bgt On line: 14
+maxx=string_to_number(parsed[2]);, File: includes/map.bgt On line: 15
+miny=string_to_number(parsed[3]);, File: includes/map.bgt On line: 16
+maxy=string_to_number(parsed[4]);, File: includes/map.bgt On line: 17
+minz=string_to_number(parsed[5]);, File: includes/map.bgt On line: 18
+maxz=string_to_number(parsed[6]);, File: includes/map.bgt On line: 19
+minx=string_to_number(parsed[0]);, File: includes/map.bgt On line: 53
+maxx=string_to_number(parsed[1]);, File: includes/map.bgt On line: 54
+miny=string_to_number(parsed[2]);, File: includes/map.bgt On line: 55
+maxy=string_to_number(parsed[3]);, File: includes/map.bgt On line: 56
+minz=string_to_number(parsed[4]);, File: includes/map.bgt On line: 57
+maxz=string_to_number(parsed[5]);, File: includes/map.bgt On line: 58
+x=string_to_number(parsed[1]);, File: includes/map.bgt On line: 106
+y=string_to_number(parsed[2]);, File: includes/map.bgt On line: 107
+z=string_to_number(parsed[3]);, File: includes/map.bgt On line: 108
+fx=string_to_number(parsed[4]);, File: includes/map.bgt On line: 109
+fy=string_to_number(parsed[5]);, File: includes/map.bgt On line: 110
+fz=string_to_number(parsed[6]);, File: includes/map.bgt On line: 111
+speed=string_to_number(parsed[7]);, File: includes/map.bgt On line: 112
+lx=string_to_number(parsed[1]);, File: includes/map.bgt On line: 145
+rx=string_to_number(parsed[2]);, File: includes/map.bgt On line: 146
+miny=string_to_number(parsed[3]);, File: includes/map.bgt On line: 147
+maxy=string_to_number(parsed[4]);, File: includes/map.bgt On line: 148
+minz=string_to_number(parsed[5]);, File: includes/map.bgt On line: 149
+maxz=string_to_number(parsed[6]);, File: includes/map.bgt On line: 150
+z=random(3, 10);, File: includes/map.bgt On line: 395
+get_zone_index(string z), File: includes/map.bgt On line: 406
+num(string val), File: includes/map.bgt On line: 431
+ix=innames.find(val);, File: includes/map.bgt On line: 433
+ix=innames.find(val);, File: includes/map.bgt On line: 439
+q=question("ID generator","Would you like to generate a computer ID for a reverse ban?");, File: includes/net.bgt On line: 55
+x=stn(parsed[1]);, File: includes/net.bgt On line: 171
+y=stn(parsed[2]);, File: includes/net.bgt On line: 172
+z=stn(parsed[3]);, File: includes/net.bgt On line: 173
+total_distance=get_total_distance(listener_x, listener_y, listener_z);, File: includes/sp.bgt On line: 78
+get_total_distance(listener_x, listener_y, listener_z), File: includes/sp.bgt On line: 163
+play_stationary(string filename, bool looping, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 257
+play_stationary_extended(string filename, bool looping, double offset, float start_pan, float start_volume, float start_pitch, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 261
+slot=reserve_slot();, File: includes/sp.bgt On line: 263
+play_1d(string filename, listener_x, sound_x, bool looping, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 314
+play_extended_1d(string filename, listener_x, sound_x, left_range, right_range, bool looping, double offset, float start_pan, float start_volume, float start_pitch, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 318
+slot=reserve_slot();, File: includes/sp.bgt On line: 320
+play_2d(string filename, listener_x, listener_y, sound_x, sound_y, bool looping, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 392
+play_extended_2d(string filename, listener_x, listener_y, sound_x, sound_y, left_range, right_range, backward_range, forward_range, bool looping, double offset, float start_pan, float start_volume, float start_pitch, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 397
+slot=reserve_slot();, File: includes/sp.bgt On line: 399
+play_3d(string filename, listener_x, listener_y, listener_z, sound_x, sound_y, sound_z, double rotation, bool looping, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 478
+play_extended_3d(string filename, listener_x, listener_y, listener_z, sound_x, sound_y, sound_z, double rotation, left_range, right_range, backward_range, forward_range, upper_range, lower_range, bool looping, double offset, float start_pan, float start_volume, float start_pitch, bool memory=false, bool persistent=false), File: includes/sp.bgt On line: 482
+slot=reserve_slot();, File: includes/sp.bgt On line: 484
+current_length=items.length();, File: includes/sp.bgt On line: 639
+current_length=items.length();, File: includes/sp.bgt On line: 650
+reserve_slot(), File: includes/sp.bgt On line: 858
+runsn=stn(runs);, File: includes/menu.bgt On line: 16
+mres=m.run("Main Menu",true);, File: includes/menu.bgt On line: 21
+mres=m.run("settings menu",true);, File: includes/menu.bgt On line: 135
+mres=m.run("Speech mode menu",true);, File: includes/menu.bgt On line: 256
+yesno(string question), File: includes/menu.bgt On line: 274
+mres=m.run(question,true);, File: includes/menu.bgt On line: 279
+netclb(dynamic_menu_pro@ m, string data), File: includes/menu.bgt On line: 285
+mres=m.run(menu,true);, File: includes/menu.bgt On line: 308
+mres=m.run("store menu. There are "+items.length()+" items.",true);, File: includes/menu.bgt On line: 334
+mres=m.run("select platform type.", true);, File: includes/menu.bgt On line: 350
+mres=m.run("Select an ambience",true);, File: includes/menu.bgt On line: 373
+srcclb(dynamic_menu_pro@ m, string data), File: includes/menu.bgt On line: 379
+plm(dynamic_menu_pro@ test, string data), File: includes/menu.bgt On line: 396
+mres=m.run("Developer menu",true);, File: includes/menu.bgt On line: 420
+mres=m.run("Select output device.",true);, File: includes/menu.bgt On line: 442
+mres=m.run("Choose a sound file to send, there are "+soundfiles.length()+" sounds",true);, File: includes/menu.bgt On line: 483
+mres=m.run("Developer menu",true);, File: includes/menu.bgt On line: 495
+mres=m.run("Select an option",true);, File: includes/menu.bgt On line: 518
+mserver=m.run("Please select a server",true);, File: includes/menu.bgt On line: 590
+mres=m.run("Find what?",true);, File: includes/menu.bgt On line: 613
+z=get_zone_index(m.get_item_name(mres));, File: includes/menu.bgt On line: 622
+mres=m.run("Select your language",true);, File: includes/menu.bgt On line: 657
+musictracks=menutracks.length();, File: includes/menu.bgt On line: 667
+mres=m.run("Select a music track to be played in the main menu",true);, File: includes/menu.bgt On line: 673
+q=question("error","you are currently banned from the game. Would you like to generate an ID to reverse this ban?");, File: tk.bgt On line: 203
+x=stn(parsed[1]);, File: tk.bgt On line: 1020
+y=stn(parsed[2]);, File: tk.bgt On line: 1021
+z=stn(parsed[3]);, File: tk.bgt On line: 1022
+atempint=string_to_number(parsed[1]);, File: tk.bgt On line: 1089
+trackable=yesno("would you like this zone to be trackable via the grave menu?");, File: tk.bgt On line: 1105
+lx=stn(parsed[1]);, File: tk.bgt On line: 1180
+rx=stn(parsed[2]);, File: tk.bgt On line: 1181
+miny=stn(parsed[3]);, File: tk.bgt On line: 1182
+maxy=stn(parsed[4]);, File: tk.bgt On line: 1183
+minz=stn(parsed[5]);, File: tk.bgt On line: 1184
+maxz=stn(parsed[6]);, File: tk.bgt On line: 1185
+id=stn(parsed[8]);, File: tk.bgt On line: 1186
+id=stn(parsed[1]);, File: tk.bgt On line: 1191
+x=stn(parsed[1]);, File: tk.bgt On line: 1228
+y=stn(parsed[2]);, File: tk.bgt On line: 1229
+z=stn(parsed[3]);, File: tk.bgt On line: 1230
+x=stn(parsed[2]);, File: tk.bgt On line: 1240
+y=stn(parsed[3]);, File: tk.bgt On line: 1241
+z=stn(parsed[4]);, File: tk.bgt On line: 1242
+keycode=stn(parsed[1]);, File: tk.bgt On line: 1299
+x=stn(parsed[2]);, File: tk.bgt On line: 1453
+y=stn(parsed[3]);, File: tk.bgt On line: 1454
+z=stn(parsed[4]);, File: tk.bgt On line: 1455
+x=stn(parsed[2]);, File: tk.bgt On line: 1472
+y=stn(parsed[3]);, File: tk.bgt On line: 1473
+z=stn(parsed[4]);, File: tk.bgt On line: 1474
+x=stn(parsed[2]);, File: tk.bgt On line: 1483
+y=stn(parsed[3]);, File: tk.bgt On line: 1484
+z=stn(parsed[4]);, File: tk.bgt On line: 1485
+x=stn(parsed[2]);, File: tk.bgt On line: 1495
+y=stn(parsed[3]);, File: tk.bgt On line: 1496
+z=stn(parsed[4]);, File: tk.bgt On line: 1497
+x=stn(parsed[2]);, File: tk.bgt On line: 1506
+y=stn(parsed[3]);, File: tk.bgt On line: 1507
+z=stn(parsed[4]);, File: tk.bgt On line: 1508
+x=stn(parsed[1]);, File: tk.bgt On line: 1555
+y=stn(parsed[2]);, File: tk.bgt On line: 1556
+z=stn(parsed[3]);, File: tk.bgt On line: 1557
+doorx = string_to_number(parsed[1]);, File: tk.bgt On line: 1581
+doory = string_to_number(parsed[2]);, File: tk.bgt On line: 1582
+doorz = string_to_number(parsed[3]);, File: tk.bgt On line: 1583
+finishx = string_to_number(parsed[4]);, File: tk.bgt On line: 1584
+finishy = string_to_number(parsed[5]);, File: tk.bgt On line: 1585
+finishz = string_to_number(parsed[6]);, File: tk.bgt On line: 1586
+dtime = string_to_number(parsed[7]);, File: tk.bgt On line: 1587
+x=stn(parsed[1]);, File: tk.bgt On line: 1596
+y=stn(parsed[2]);, File: tk.bgt On line: 1597
+z=stn(parsed[3]);, File: tk.bgt On line: 1598
+amount=stn(am);, File: tk.bgt On line: 1999
+dist=get_3d_distance(mr.x,mr.y,me.z,x,y,z);, File: tk.bgt On line: 2327
+amount=stn(v.input("How many?"));, File: tk.bgt On line: 2542
+toggle(intt), File: tk.bgt On line: 2567
+play_3d(string filename,x,y,z,bool looping=false), File: tk.bgt On line: 2756
+Analysis for file: 
+Lines in this script: 1
+Total lines of all scripts in this project: 1
+
+Other statistics
+Commented lines: 0
+
+Total includes: 0
+
+Total classes: 0
+
+
+Variable Analysis
+Total variables: 0
+Total ints: 0
+
+Total strings: 0
+
+Total booleans: 0
+
+Function analisys
+Total void functions: 0
+
+String functions: 0
+
+Boolean functions: 0
+
+Int functions: 0

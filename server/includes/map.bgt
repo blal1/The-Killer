@@ -1,0 +1,661 @@
+enum TILETYPE
+{ TILE_NONE, TILE_TILE, TILE_WALL}
+
+enum ZONE {ZONE_LEFT, ZONE_RIGHT, ZONE_BACK, ZONE_FRONT, ZONE_LOW, ZONE_HIGH, ZONE_MAX}
+mapdata@[] maps(0);
+class mapdata
+{
+string name;
+int plays;
+timer playerstimer;
+string[] temprobots;
+int[] zonerobot(ZONE_MAX);
+int currobots,maxrobots,spawnrobot;
+timer robottimer;
+maptile@[] maptiles;
+int fighting=1;
+mapispawn@[] mapispawns;
+string rawdata;
+vector max;
+
+mapdata(string loadname)
+{
+internal_load(loadname);
+this.plays=0;
+} // mapdata.constructor.
+
+bool tile_exists(double x, double y, double z)
+{
+for(uint i=0; i<maptiles.length(); i++)
+{
+if(maptiles[i].is_on_tile(x, y, z))
+return true;
+} // for.maptiles.
+return false;
+} // tile_exists.method.
+
+string return_tile(double x, double y, double z)
+{
+string outval;
+int t=is_on_tree(x,y,z,name);
+if(t>-1)
+return "tree";
+for(uint i=0; i<maptiles.length(); i++)
+{
+if(maptiles[i].is_on_tile(x, y, z))
+{
+outval=maptiles[i].type;
+} // if.maptiles.
+} // for.maptiles.
+return outval;
+} // return_tile.method.
+
+bool is_staircase(double x, double y, double z)
+{
+if(!tile_exists(x,y,z)) return false;
+for(uint i=0; i<maptiles.length(); i++)
+{
+if(maptiles[i].is_on_tile(x, y, z)&&maptiles[i].maxz!=maptiles[i].minz)
+return true;
+} // if.maptiles.
+return false;
+} // is_staircase.method.
+
+void internal_load(string loadname,bool is_file=true)
+{
+if(is_file==true)
+{
+file f;
+f.open("maps/"+loadname+".map", "rb");
+rawdata=f.read();
+f.close();
+clear_vending_machines_on_map(loadname);
+} // if.is_file.
+else
+rawdata=loadname;
+string[] map=delinear(rawdata);
+for(uint i=0; i<map.length(); i++)
+{
+string[] parsed=string_split(map[i], ":", false);
+if(parsed[0]=="mapname")
+{
+name=parsed[1];
+} // if.mapname.
+else if(parsed[0]=="maxx") max.x=stn(parsed[1]);
+else if(parsed[0]=="maxy") max.y=stn(parsed[1]);
+else if(parsed[0]=="maxz") max.z=stn(parsed[1]);
+else if(parsed[0]=="fightingstate" and parsed.length()>1)
+{
+int n=stn(parsed[1]);
+fighting=n;
+} // if.fightingstate.
+else if(parsed[0]=="tile" and parsed.length()>7)
+{
+int minx=string_to_number(parsed[1]);
+int maxx=string_to_number(parsed[2]);
+int miny=string_to_number(parsed[3]);
+int maxy=string_to_number(parsed[4]);
+int minz=string_to_number(parsed[5]);
+int maxz=string_to_number(parsed[6]);
+string type=parsed[7];
+maptile temp;
+temp.minx=minx;
+temp.maxx=maxx;
+temp.miny=miny;
+temp.maxy=maxy;
+temp.minz=minz;
+temp.maxz=maxz;
+temp.type=type;
+maptiles.insert_last(temp);
+} // if.tile.
+else if(parsed[0]=="vending_machine" and parsed.length()>3)
+{
+int vx=stn(parsed[1]);
+int vy=stn(parsed[2]);
+int vz=stn(parsed[3]);
+spawn_vending_machine(vx,vy,vz,name);
+} // if.vending_machine.
+else if(parsed[0]=="ispawn" and parsed.length()>=9)
+{
+int minx=string_to_number(parsed[1]);
+int maxx=string_to_number(parsed[2]);
+int miny=string_to_number(parsed[3]);
+int maxy=string_to_number(parsed[4]);
+int minz=string_to_number(parsed[5]);
+int maxz=string_to_number(parsed[6]);
+int mapispawntime=string_to_number(parsed[7]);
+int maxobjs=string_to_number(parsed[8]);
+mapispawn temp;
+temp.minx=minx;
+temp.maxx=maxx;
+temp.miny=miny;
+temp.maxy=maxy;
+temp.minz=minz;
+temp.maxz=maxz;
+temp.mapispawntime=mapispawntime;
+temp.maxobjs=maxobjs;
+if(parsed.length>9)
+{
+for(uint x=9; x<parsed.length(); x++)
+{
+temp.mapobjs.insert_last(parsed[x]);
+} // for.parsed.
+} // if.parsed[9].
+else
+{
+temp.mapobjs=string_split(itemlist,":",false);
+} // if.
+temp.imap=name;
+mapispawns.insert_last(temp);
+} // if.mapispawn.
+else if(parsed[0]=="robots" and parsed.length()==10)
+{
+this.zonerobot[ZONE_LEFT]=string_to_number(parsed[1]);
+this.zonerobot[ZONE_RIGHT]=string_to_number(parsed[2]);
+this.zonerobot[ZONE_BACK]=string_to_number(parsed[3]);
+this.zonerobot[ZONE_FRONT]=string_to_number(parsed[4]);
+this.zonerobot[ZONE_LOW]=string_to_number(parsed[5]);
+this.zonerobot[ZONE_HIGH]=string_to_number(parsed[6]);
+this.maxrobots=string_to_number(parsed[7]);
+this.spawnrobot=string_to_number(parsed[8]);
+this.temprobots=string_split(parsed[9],",",true);
+} // if.robots.
+} // .if.parsed.
+} // method.
+
+void loop()
+{
+for(uint i=0; i<mapispawns.length(); i++)
+{
+mapispawns[i].loop();
+} // for.mapispawns.
+
+if (this.robottimer.elapsed>=this.spawnrobot) {
+this.robottimer.restart();
+if (this.currobots<this.maxrobots and this.plays>0) {
+int rid=0;
+if (this.temprobots.length()>1) {rid=random(0,this.temprobots.length()-1);}
+robot_spawn(this.temprobots[rid],random(this.zonerobot[ZONE_LEFT],zonerobot[ZONE_RIGHT]),random(zonerobot[ZONE_BACK],zonerobot[ZONE_FRONT]),random(zonerobot[ZONE_LOW],zonerobot[ZONE_HIGH]),get_map_index(this.name));
+} // if.respawn.
+} // if.robots.
+
+if (this.playerstimer.elapsed>=5000)
+{
+this.playerstimer.restart();
+this.plays=0;
+for (int i=0; i<players.length(); i++)
+{
+if (players[i].map==this.name) {this.plays+=1;}
+} // for.players.
+} // if.players.
+} // method.loop.
+} // class.mapdata.
+
+class maptile
+{
+int minx;
+int maxx;
+int miny;
+int maxy;
+int minz;
+int maxz;
+string type;
+
+bool is_on_tile(double x, double y, double z)
+{
+if(minx>x)
+{
+return false;
+} // if.minx.
+if(minx<=x and maxx>=x and miny<=y and maxy>=y and minz<=z and maxz>=z)
+{
+return true;
+} // if.pos.
+return false;
+} // method.is_on_tile.
+} // class.maptile.
+
+class mapispawn
+{
+int minx;
+int maxx;
+int miny;
+int maxy;
+int minz;
+int maxz;
+string[] mapobjs;
+timer mapispawntimer;
+int mapispawntime;
+int maxobjs;
+string imap;
+
+bool is_in_area(double x, double y, double z, string map)
+{
+if(minx<=x and maxx>=x and miny<=y and maxy>=y and minz<=z and maxz>=z)
+{
+if(map==imap)
+{
+return true;
+} // if.map.
+} // if.pos.
+return false;
+} // method.is_in_area.
+
+obj@[] get_objs_in_area()
+{
+obj@[] tempobjs;
+for(uint i=0; i<objs.length(); i++)
+{
+if(is_in_area(objs[i].x, objs[i].y, objs[i].z, objs[i].map))
+{
+tempobjs.insert_last(objs[i]);
+} // if.is_in_area.
+} // for.objs.
+return tempobjs;
+} // method.get_objs_in_area.
+
+int get_objs_in_area_length()
+{
+obj@[] o=get_objs_in_area();
+return o.length();
+/*
+int tempobjs=0;
+for(uint i=0; i<objs.length(); i++)
+{
+if(is_in_area(objs[i].x, objs[i].y, objs[i].z, objs[i].map))
+{
+tempobjs++;
+}
+}
+return tempobjs;
+*/
+} // method.get_objs_in_area_length.
+
+void loop()
+{
+if(mapispawntimer.elapsed>mapispawntime)
+{
+mapispawntimer.restart();
+int tempobjs=get_objs_in_area_length();
+if(tempobjs>=maxobjs)
+{
+return;
+}
+else
+{
+spawn_rand_obj(minx, maxx,miny, maxy,minz, maxz, imap, mapobjs);
+}  // if.tempobjs.
+} // if.mapispontime.
+} // loop.method.
+} // class.ispawn.
+
+string get_tile_at(int x, int y, int z, string mapname, bool includeglobal=true)
+{
+string outval;
+if(includeglobal==true)
+{
+int index=get_map_index(mapname);
+if(index<0)
+{
+int s=get_shelter_index(mapname);
+if(s>-1)
+{
+string map=shelters[s].generate_map();
+string[] p1=string_split(map, "\r\n", false);
+for(int i=0; i<p1.length(); i++)
+{
+string[] p2=string_split(p1[i], ":", false);
+if(p2[0]=="tile" and p2.length()>7)
+{
+int minx=stn(p2[1]);
+int maxx=stn(p2[2]);
+int miny=stn(p2[3]);
+int maxy=stn(p2[4]);
+int minz=stn(p2[5]);
+int maxz=stn(p2[6]);
+if(x>=minx and x<=maxx and y>=miny and y<=maxy and z>=minz and z<=maxz) return p2[7];
+}
+}
+}
+return "";
+}
+else
+{
+outval=maps[index].return_tile(x, y, z);
+}
+}
+return outval;
+}
+
+string array_to_string(string[] r,string delimiter="\r\n")
+{
+string final;
+for(uint i=0; i<r.length(); i++)
+{
+final+=r[i]+delimiter;
+}
+return final;
+}
+
+string array_to_string_n(int[] r,string delimiter="\r\n")
+{
+string final;
+for(uint i=0; i<r.length(); i++)
+{
+final+=""+r[i]+delimiter;
+}
+return final;
+}
+
+string linear(string[] a)
+{
+string final;
+for(uint i=0; i<a.length(); i++)
+{
+final+=(a[i]+"\r\n");
+}
+return final;
+}
+
+string[] delinear(string a)
+{
+return string_split(a, "\r\n", false);
+}
+
+string[] delinear2(string a)
+{
+return string_split(a, ":", false);
+}
+
+string select_random_map()
+{
+string[] maps=find_files("maps/*.map");
+string[] finalmaps;
+for(uint i=0; i<maps.length(); i++)
+{
+file f;
+f.open("maps/"+maps[i], "rb");
+if(string_contains(f.read(), "inselection", 1)>-1)
+{
+finalmaps.insert_last(maps[i]);
+}
+}
+return string_replace(finalmaps[random(0, finalmaps.length()-1)], ".map", "", true);
+}
+
+string get_map_data(string map, string data)
+{
+if(!file_exists("maps/"+map+".map"))
+{
+return "";
+}
+file f;
+f.open("maps/"+map+".map", "rb");
+string[] mdata=string_split(f.read(), "\r\n", true);
+for(uint i=0; i<mdata.length(); i++)
+{
+string[] p=string_split(mdata[i], ":", true);
+if(p[0]==data)
+{
+return string_replace(mdata[i], data+":", "", false);
+}
+}
+return "";
+}
+
+bool tile_exists(double x, double y, double z, string mapname)
+{
+int index=get_map_index(mapname);
+if(index<0)
+{
+return false;
+}
+else
+{
+return maps[index].tile_exists(x, y, z);
+}
+}
+
+bool is_staircase(double x, double y, double z, string mapname)
+{
+int index=get_map_index(mapname);
+if(index<0)
+{
+return false;
+}
+else
+{
+return maps[index].is_staircase(x, y, z);
+}
+}
+
+void init_mapsystem()
+{
+maps.resize(0);
+string[] mapfiles=find_files("maps/*.map");
+for(uint i=0; i<mapfiles.length(); i++)
+{
+string workingname=string_replace(mapfiles[i], ".map", "", true);
+mapdata temp(workingname);
+maps.insert_last(temp);
+}
+}
+
+int get_map_index(string name)
+{
+for(uint i=0; i<maps.length(); i++)
+{
+if(maps[i].name==name)
+{
+return i;
+}
+}
+return -1;
+}
+
+vector get_max_values(string mapname)
+{
+int ind=get_map_index(mapname);
+int s=get_shelter_index(mapname);
+vector temp;
+if(ind<0 and s<0) return temp;
+if(ind<0 and s>-1)
+{
+string m=shelters[s].generate_map();
+string[] p=string_split(m, "\r\n", false);
+for(int i=0; i<p.length(); i++)
+{
+string[] p2=string_split(p[i], ":", false);
+if(p2[0]=="maxx") temp.x=stn(p2[1]);
+else if(p2[0]=="maxy") temp.y=stn(p2[1]);
+else if(p2[0]=="maxz") temp.z=stn(p2[1]);
+}
+return temp;
+}
+temp.x=maps[ind].max.x;
+temp.y=maps[ind].max.y;
+temp.z=maps[ind].max.z;
+return temp;
+}
+
+void maploop()
+{
+for(uint i=0; i<maps.length(); i++)
+{
+maps[i].loop();
+}
+}
+
+bool map_exists(string mapname)
+{
+string[] m=find_files("maps/*");
+for(uint x=0; x<m.length; x++)
+{
+if(string_to_lower_case(m[x])==string_to_lower_case(mapname+".map")) return true;
+}
+return false;
+}
+
+bool is_tile_water(int x, int y, int z, string map)
+{
+bool found=false;
+string[] watertiles={"shallow","water","water2","underwater"};
+for(uint i=0; i<watertiles.length(); i++)
+{
+if(string_contains(get_tile_at(x,y,z,map),watertiles[i],1)>-1)
+{
+found=true;
+}
+}
+return found;
+}
+
+int get_tile_type (int x, int y, int z, string map)
+{
+	int mid=get_map_index(map);
+	if (mid<0) {return(TILE_NONE);}
+	string tid=get_tile_at(x,y,z,map);
+	if (tid=="") {return(TILE_NONE);}
+	if (string_left(tid,4)=="wall") {return(TILE_WALL);}
+	return(TILE_TILE);
+}
+
+string get_map_text(string map)
+{
+int ind=get_map_index(map);
+if(ind<0) return "";
+else return maps[ind].rawdata;
+}
+
+bool is_travelpoint(int x, int y, int z, string map)
+{
+bool ret=false;
+int ind=get_map_index(map);
+if(ind<0)
+{
+return false;
+}
+
+string d=maps[ind].rawdata;
+string[] text=string_split(d,"\r\n",false);
+for(uint i=0; i<text.length(); i++)
+{
+string[] parsed=string_split(text[i],":",false);
+if(parsed[0]=="door" and parsed.length==12)
+{
+string doorx = parsed[1];
+string doory = parsed[2];
+string doorz = parsed[3];
+string finishx = parsed[4];
+string finishy = parsed[5];
+string finishz = parsed[6];
+string dtime = parsed[7];
+string ds1 = parsed[8];
+string ds2 = parsed[9];
+string ds3 = parsed[10];
+string ds4 = parsed[11];
+send_reliable(0, "door_at "+doorx+" "+doory+" "+doorz+" "+finishx+" "+finishy+" "+finishz+" "+dtime+" "+ds1+" "+ds2+" "+ds3+" "+ds4, 0);
+}
+if(parsed[0]=="travelpoint" and parsed.length()>11)
+{
+int minx=string_to_number(parsed[1]);
+int maxx=string_to_number(parsed[2]);
+int miny=string_to_number(parsed[3]);
+int maxy=string_to_number(parsed[4]);
+int minz=stn(parsed[5]);
+int maxz=stn(parsed[6]);
+string newmap=parsed[7];
+int newx=string_to_number(parsed[8]);
+int newy=string_to_number(parsed[9]);
+int newz=stn(parsed[10]);
+string text=parsed[11];
+if(minx<=x and maxx>=x and miny<=y and maxy>=y and minz<=z and maxz>=z)
+{
+ret=true;
+}
+}
+}
+return ret;
+}
+
+bool can_spawn_item_at(int x, int y, int z, string mapname,string item)
+{
+if(shelter_exists(mapname)) return true;
+string[] tempi;
+bool ret=true;
+int ind=get_map_index(mapname);
+if(ind<0)
+{
+return false;
+}
+string d=maps[ind].rawdata;
+string[] text=string_split(d,"\r\n",false);
+for(uint i=0; i<text.length(); i++)
+{
+string[] parsed=string_split(text[i],":",false);
+if(parsed[0]=="noitems" and parsed.length()>7)
+{
+int minx=string_to_number(parsed[1]);
+int maxx=string_to_number(parsed[2]);
+int miny=string_to_number(parsed[3]);
+int maxy=string_to_number(parsed[4]);
+int minz=stn(parsed[5]);
+int maxz=stn(parsed[6]);
+for(uint x=7; x<parsed.length(); x++)
+{
+tempi.insert_last(parsed[x]);
+}
+if(minx<=x and maxx>=x and miny<=y and maxy>=y and minz<=z and maxz>=z and tempi.find(item)>-1)
+{
+ret=false;
+}
+}
+}
+return ret;
+}
+bool can_spawn_locker_at(int x, int y, int z, string mapname)
+{
+if(mapname!="store") return false;
+string[] tempi;
+bool ret=true;
+int ind=get_map_index(mapname);
+if(ind<0)
+{
+return false;
+}
+string d=maps[ind].rawdata;
+string[] text=string_split(d,"\r\n",false);
+for(uint i=0; i<text.length(); i++)
+{
+string[] parsed=string_split(text[i],":",false);
+if(parsed[0]=="nolockers" and parsed.length()>6)
+{
+int minx=string_to_number(parsed[1]);
+int maxx=string_to_number(parsed[2]);
+int miny=string_to_number(parsed[3]);
+int maxy=string_to_number(parsed[4]);
+int minz=stn(parsed[5]);
+int maxz=stn(parsed[6]);
+if(minx<=x and maxx>=x and miny<=y and maxy>=y and minz<=z and maxz>=z)
+{
+ret=false;
+}
+}
+}
+return ret;
+}
+
+bool remove_map(string mapname, bool delete=true)
+{
+int id=get_map_index(mapname);
+if(id<0) return false;
+for(uint i=0; i<players.length; i++)
+{
+if(players[i].map==mapname) move_player(players[i],"main",random(0,maps[id].max.x),random(0,maps[id].max.y),0);
+}
+@maps[id]=null;
+maps.remove_at(id);
+if(delete==true)
+file_delete("maps/"+mapname+".map");
+return true;
+}

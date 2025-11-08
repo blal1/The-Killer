@@ -1,0 +1,92 @@
+tempban@[]tempbans(0);
+class tempban
+{
+int mins=5;
+int ms;
+timer tempbantimer;
+string username;
+tempban(string un,int min)
+{
+username=un;
+mins=min;
+ms=mins*60000;
+}
+}
+void tempbanloop()
+{
+for(uint i=0; i<tempbans.length(); i++)
+{
+if(tempbans[i].tempbantimer.elapsed>tempbans[i].ms)
+{
+send_reliable(0,"notify "+tempbans[i].username+"'s temp ban has expired!",0);
+@tempbans[i]=null;
+tempbans.remove_at(i);
+continue;
+}
+}
+}
+void create_temp_ban(string user,int minutes=5, double elapsed=0)
+{
+tempban tb1(user,minutes);
+tb1.tempbantimer.force(elapsed);
+tempbans.insert_last(tb1);
+}
+bool tempbancheck(string u)
+{
+for(uint i=0; i<tempbans.length(); i++)
+{
+if(tempbans[i].username==u)
+return true;
+}
+return false;
+}
+bool untempban(string u,string me) {
+int i=get_tempban_index(u);
+if(i<0) return false;
+send_reliable(0,"play_s notify_trumpet.ogg",0);
+send_reliable(0," "+tempbans[i].username+"'s "+ms_to_readable_time(tempbans[i].ms)+" temp ban has been revoked by "+me+"!",0);
+tempbans.remove_at(i);
+writedata();
+return true;
+}
+int get_tempban_index(string user)
+{
+for(uint i=0; i<tempbans.length(); i++)
+{
+if(tempbans[i].username==user) {
+return i;
+}
+}
+return -1;
+}
+
+void save_tempbans()
+{
+string final;
+for(uint i=0; i<tempbans.length(); i++)
+{
+final+=tempbans[i].username+"="+tempbans[i].mins+"="+tempbans[i].tempbantimer.elapsed+"\r\n";
+}
+file_put_contents("prefs/tempbans.svr",final,250);
+}
+
+void load_all_tempbans()
+{
+file tb;
+if(!tb.open("prefs/tempbans.svr", "rb"))
+{
+return;
+}
+string tbdata=tb.read();
+tb.close();
+if(tbdata=="")
+{
+return;
+}
+string[] tbans=string_split(tbdata, "\r\n", false);
+for(uint i=0; i<tbans.length(); i++)
+{
+string[] parsed=string_split(tbans[i], "=", false);
+create_temp_ban(parsed[0], stn(parsed[1]),stn(parsed[2]));
+}
+}

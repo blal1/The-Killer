@@ -1,0 +1,7 @@
+mapname:cave
+maxx:5000
+maxy:5000
+maxz:5000
+tile:0:5000:0:5000:0:0:stone
+src:0:5000:0:5000:0:5000:cave.ogg:-1
+zone:0:5000:0:5000:0:5000:the dark and glumy cave

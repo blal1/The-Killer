@@ -1,0 +1,60 @@
+#include"includes/dateandtime.bgt"
+#include"includes/logger.bgt"
+network net;
+network_event event;
+string version="6.0";
+string key="upload";
+bool beta=false;
+bool enable_logging=false;
+int netport=31318;
+void main()
+{
+if(beta==true)
+netport=19933;
+if(net.setup_server(netport, 20, 500)==false)
+{
+if(enable_logging)
+log("server","Error: Server failed to start");
+alert("Bgt error","The network object failed to start server");
+exit();
+}
+if(enable_logging)
+log("server","Server version "+version+" started. ");
+while(true)
+{
+wait(5);
+event=net.request();
+if(event.type==event_receive)
+{
+if(event.channel==0)
+{
+net.send_reliable(0,event.message,0);
+}
+else if(event.channel==1)
+{
+string[] parsed=string_split(get_messages()," ",false);
+file f;
+f.open(parsed[0],"wb");
+f.write(string_replace(get_messages(),parsed[0]+" ","",false));
+f.close();
+send_reliable(0,"uploaded",0);
+}
+}
+}
+}
+
+string get_messages()
+{
+string msg;
+msg=string_decrypt(event.message,key);
+return msg;
+}
+void speak(string t)
+{
+tts_voice tr;
+tr.speak_wait(t);
+}
+void send_reliable(int id,string message, int chan)
+{
+net.send_reliable(id,string_encrypt(message,key),chan);
+}

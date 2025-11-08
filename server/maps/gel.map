@@ -1,0 +1,7 @@
+mapname:gel
+maxx:100
+maxy:100
+maxz:100
+tile:0:100:0:100:0:0:carpet
+robots:0:100:0:100:0:0:4:5000:gangster,boxer,robocop,manager,dog,,gangster,wolf,zombie
+tile:0:1000:0:1000:0:0:concrete2

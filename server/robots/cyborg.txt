@@ -1,0 +1,14 @@
+name cyborg
+health 5000
+defence 0
+speed 400
+damage 100,1500
+shoot 330
+distance 10
+aggro 1000
+spread 2
+angle 90
+steps 0
+loot dollar
+amount 50
+voices 2

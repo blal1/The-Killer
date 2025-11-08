@@ -1,0 +1,225 @@
+#include"dateandtime.bgt"
+#include"logger.bgt"
+#include "sd.bgt"
+network n;
+network_event e;
+file f;
+int port=45530;
+string decryption_key="apples, carrots, tamatos and jujaras juaras juaras juaras fuck you all god damn it piece of shit alah agbar and boom! give an arab money!";
+string ver="0.62";
+void main()
+{
+if(!directory_exists("keys")) directory_create("keys");
+n.setup_server(45530, 20, 500);
+show_game_window("tk license server v"+ver);
+while(true)
+{
+wait(5);
+licloop();
+if(key_pressed(KEY_ESCAPE)) exit();
+}
+}
+void licloop()
+{
+e=n.request();
+if(e.type==event_receive)
+{
+if(e.channel==0)
+{
+string[] parsed=string_split(get_message(), " ", false);
+if(parsed[0]=="reg_me")
+{
+if(!file_exists("keys/"+parsed[1]+".key"))
+{
+send(e.peer_id, "c notfound");
+return;
+}
+savedata sd("keys/"+parsed[1]+".key", decryption_key);
+sd.load();
+if(sd.d.exists("banned"))
+{
+send(e.peer_id, "c banned");
+return;
+}
+string computername;
+if(parsed[2]!=sd.read("k"))
+{
+send(e.peer_id, "c invkey");
+return;
+}
+int computers=sd.readn("c");
+if(computers<=0)
+{
+send(e.peer_id, "c allused");
+return;
+}
+computers--;
+sd.add("c", computers);
+sd.save();
+send(e.peer_id, "activated "+parsed[1]+" "+parsed[2]+" "+computers);
+if(parsed.length>3) computername=parsed[3];
+else computername="anonimous";
+log(parsed[1]+"_activations","Peer number "+e.peer_id+" activated this key. IP address="+n.get_peer_address(e.peer_id)+". computername="+computername);
+}
+else if(parsed[0]=="generate_k")
+{
+savedata sd("keys/"+parsed[1]+".key", decryption_key);
+if(file_exists("keys/"+parsed[1]+".key"))
+{
+sd.load();
+if(sd.d.exists("banned"))
+{
+send(e.peer_id, "bannedkey "+parsed[1]);
+return;
+}
+}
+string key;
+if(parsed.length()>2)
+{
+key=randomstring();
+sd.add("k", key);
+sd.add("c", 3);
+sd.save();
+}
+else if(!file_exists("keys/"+parsed[1]+".key"))
+{
+send(e.peer_id, "nolic "+parsed[1]);
+return;
+}
+else
+{
+sd.load();
+key=sd.read("k");
+}
+send(e.peer_id, "key "+parsed[1]+" "+key);
+}
+else if(parsed[0]=="unreg_me")
+{
+if(!file_exists("keys/"+parsed[1]+".key"))
+{
+send(e.peer_id, "unreg notfound");
+return;
+}
+string computername;
+savedata sd("keys/"+parsed[1]+".key", decryption_key);
+sd.load();
+if(sd.d.exists("banned"))
+{
+send(e.peer_id, "unreg bannedkey");
+return;
+}
+int c=sd.readn("c");
+c++;
+sd.add("c", c);
+sd.save();
+send(e.peer_id, "unreg unregged "+c);
+if(parsed.length>3) computername=parsed[3];
+else computername="anonimous computer";
+log(parsed[1]+"_unregistrations","peer number "+e.peer_id+" unregistered this key. IP address="+n.get_peer_address(e.peer_id)+". computername="+computername);
+}
+else if(parsed[0]=="validate")
+{
+if(!file_exists("keys/"+parsed[1]+".key"))
+{
+send(e.peer_id, "nolic");
+return;
+}
+savedata sd("keys/"+parsed[1]+".key", decryption_key);
+string computername;
+sd.load();
+if(parsed[2]!=sd.read("k"))
+{
+send(e.peer_id, "invkey");
+return;
+}
+if(sd.d.exists("banned"))
+{
+send(e.peer_id, "banned");
+return;
+}
+send(e.peer_id, "ok");
+if(parsed.length>3) computername=parsed[3];
+else computername="unknown computer";
+log(parsed[1]+"_validations","Peer number "+e.peer_id+" checked key validation status. IP address="+n.get_peer_address(e.peer_id)+" from "+computername);
+}
+else if(parsed[0]=="klist")
+{
+string[] names=find_files("keys/*.key");
+if(names.length()==0)
+{
+send(e.peer_id, "nokey");
+return;
+}
+string final;
+for(int i=0; i<names.length(); i++)
+{
+savedata sd("keys/"+names[i], decryption_key);
+sd.load();
+final+=names[i];
+if(sd.d.exists("banned")) final+="(banned)";
+final+="\r\n";
+}
+send(e.peer_id, "klist "+final);
+}
+else if(parsed[0]=="bankey")
+{
+savedata sd("keys/"+parsed[1]+".key", decryption_key);
+sd.load();
+if(sd.d.exists("banned"))
+{
+sd.d.delete("banned");
+send(e.peer_id, "unbannedkey "+parsed[1]);
+}
+else
+{
+sd.add("banned", "");
+sd.add("c", 3);
+send(e.peer_id, "bannedkey "+parsed[1]);
+}
+sd.save();
+}
+else if(parsed[0]=="setslots")
+{
+savedata sd("keys/"+parsed[1]+".key", decryption_key);
+sd.load();
+if(parsed.length()==2)
+{
+send(e.peer_id, "slots setto "+parsed[1]+" "+sd.readn("c"));
+}
+else
+{
+sd.add("c", string_to_number(parsed[2]));
+sd.save();
+send(e.peer_id, "slots done "+parsed[1]+" "+parsed[2]);
+}
+}
+else if(parsed[0]=="deletekey")
+{
+file_delete("keys/"+parsed[1]+".key");
+send(e.peer_id, "deletedkey "+parsed[1]);
+}
+}
+}
+if(e.type==event_disconnect)
+{
+n.disconnect_peer(e.peer_id);
+}
+}
+string get_message()
+{
+return string_decrypt(e.message, "regpacket32");
+}
+bool send(int peer, string packet)
+{
+return n.send_reliable(peer, string_encrypt(packet, "bombedoclahoma1995"), 0);
+}
+string randomstring()
+{
+string str="abcdefghijklmnopqrstuvwxyz1234567890!#";
+string ret;
+for(int i=1; i<=30; i++)
+{
+ret+=str[random(0, (str.length()-1))];
+}
+return ret;
+}

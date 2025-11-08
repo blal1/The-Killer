@@ -1,0 +1,70 @@
+player@[] players(0);
+class player
+{
+int x;
+int y;
+int z;
+string map;
+string name;
+timer btimer;
+player(int px,int py,int pz,string pmap, string pname)
+{
+x=px;
+y=py;
+z=pz; map=pmap;
+map=pmap;
+name=pname;
+}
+}
+void playerloop()
+{
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].btimer.elapsed>=690 and beaconing==1 and players[i].map==mapname and players[i].name!=name)
+{
+players[i].btimer.restart();
+//p.play_3d("beacon.ogg", me.x, me.y, me.z, players[i].x, players[i].y, players[i].z, calculate_theta(facing), false);
+}
+}
+}
+void spawn_player(int x,int y,int z,string map,string name)
+{
+player pl(x,y,z,map,name);
+players.insert_last(pl);
+}
+void remove_player(string username)
+{
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].name==username)
+players.remove_at(i);
+}
+}
+void remove_all_players()
+{
+players.resize(0);
+}
+void update_player(int x,int y,int z, string m, string n)
+{
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].name==n)
+{
+players[i].x=x;
+players[i].y=y;
+players[i].z=z;
+if(lookname==players[i].name)
+{
+me.x=x;
+me.y=y;
+me.z=z;
+mpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+p.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+mpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+distpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+}
+if(players[i].map!=m)
+players[i].map=m;
+}
+}
+}

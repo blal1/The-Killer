@@ -1,0 +1,12 @@
+name glock
+dammage 800 1500
+range 15
+spread 5
+bullet 1
+stunning 0
+stuntime 0
+hitsounds 3
+shieldchance 50
+speedtime 5
+shieldhits6
+reloadable 1

@@ -1,0 +1,1806 @@
+
+zyad (zyad) sent /storehint 5-20-2020, 10:17:31 PM
+zyad (zyad) sent /rawmap 5-20-2020, 10:17:39 PM
+zyad (zyad) sent /rawdata mapname:main
+maxx:1000
+maxy:1000
+maxz:1000
+zone:0:1000:0:1000:0:50:main
+src:0:1990:13:1990:0:300:birds8.ogg
+tile:0:1000:0:1000:0:0:grass
+tile:0:1000:11:13:0:0:dirt3
+tile:0:1000:0:10:0:0:deepsand
+travelpoint:0:1000:1000:1000:0:500:desert:500:0:0:moved
+zone:0:1000:1000:1000:0:500:to continue the desert. Press enter:trackme
+src:0:1000:1000:1000:0:500:desert.ogg
+tile:0:1000:990:1000:0:0:deepsand
+zone:0:990:990:1000:0:300:desert entrance:trackme
+tile:0:990:986:989:0:0:dirt
+zone:0:990:986:989:0:3000:near the desert:trackme
+src:1000:1000:13:987:0:3000:wind1.ogg
+tile:990:1000:13:987:0:0:dirt2
+zone:990:1000:13:987:0:300:mountain-base:trackme
+zone:0:1000:0:10:0:300:coastline:trackme
+tile:0:1000:0:2:0:0:shallow
+tile:0:10:14:986:0:0:mud
+zone:0:10:13:986:0:300:near-the-swamp:trackme
+src:0:0:15:984:0:300:flies.ogg
+src:0:0:14:985:0:300:birds41.ogg
+tile:11:300:13:300:0:0:clay
+zone:10:300:13:300:0:300:clay zone:trackme
+tile:301:303:13:303:0:0:mud
+zone:301:303:13:300:0:300:near-the-stream
+tile:304:324:13:303:0:0:shallow
+src:304:324:13:325:0:0:lake.ogg
+tile:325:329:13:330:0:0:mud
+tile:11:326:326:330:0:0:mud
+tile:11:324:303:325:0:0:shallow
+src:13:313:303:325:0:0:lake.ogg
+tile:10:300:301:302:0:0:mud
+zone:11:329:326:330:0:300:near-the-stream
+zone:11:300:301:303:0:300:near-the-stream
+zone:325:330:13:330:0:300:near the-stream
+zone:11:323:303:325:0:300:stream:trackme
+zone:304:324:13:330:0:300:stream:trackme
+tile:400:420:400:500:0:0:sand
+zone:400:420:400:480:0:0:sand-field-by-the-lake
+tile:421:481:400:420:0:0:sand
+zone:421:481:400:420:0:0:sand-field-by-the-lake
+tile:482:500:400:500:0:0:sand
+zone:482:500:400:500:0:0:sand-field-by-the-lake
+tile:421:481:481:500:0:0:sand
+zone:421:481:481:500:0:0:sand-field-by the-lake
+tile:421:481:477:479:0:0:mud
+zone:421:481:477:479:0:0:muddy-lake-edge
+tile:478:481:421:479:0:0:mud
+zone:478:481:421:479:0:0:muddy-lake-edge
+tile:421:479:421:423:0:0:mud
+zone:421:479:421:423:0:0:muddy-lake-edge
+tile:421:423:421:479:0:0:mud
+zone:421:423:421:479:0:0:muddy-lake-edge
+src:424:480:424:480:-30:-20:underwater.ogg
+tile:424:480:424:480:-30:-1:underwater
+tile:481:481:421:481:-30:-1:wallunderwater
+tile:420:481:421:424:-30:-1:wallunderwater
+tile:421:423:421:480:-30:-1:wallunderwater
+tile:421:481:481:481:-30:-1:wallunderwater
+tile:478:478:424:481:-30:-1:wallunderwater
+tile:424:479:424:480:0:0:water
+src:424:479:424:479:0:3:waves3.ogg
+zone:424:480:424:480:0:300:the-deep-pond
+tile:421:481:481:483:0:0:mud
+zone:421:481:481:483:0:0:muddy-lake-edge
+travelpoint:0:1000:0:0:0:5000:deep:250:1000:100:you open to the deep ocean full of dangers
+src:0:500:0:3:0:500:ocean1.ogg
+zone:0:1000:0:0:0:500:to continue ocean, press enter.
+noitems:0:1000:0:1000:0:100:sail_boats:
+travelpoint:0:0:13:990:0:500:swamp:500:250:0:going too the swamp
+zone:0:0:13:990:0:300:too continue swamp, press enter.
+ 5-20-2020, 10:17:41 PM
+zyad (zyad) sent /move zyad 0 0 0 store 5-20-2020, 10:17:48 PM
+zyad (zyad) sent /giveall coin 10000 5-20-2020, 10:18:52 PM
+zyad (zyad) sent /giveall dollar 10000 5-20-2020, 10:19:07 PM
+zyad (zyad) sent /giveall dollar 10000000 5-20-2020, 10:19:13 PM
+zyad (zyad) sent /newbie 5-20-2020, 10:19:51 PM
+zyad (zyad) sent /gamestop 5-20-2020, 10:20:50 PM
+zyad (zyad) sent /gamestart 5-20-2020, 10:20:54 PM
+zyad (zyad) sent /rawmap 5-20-2020, 10:25:02 PM
+zyad (zyad) sent /admingun 5-20-2020, 10:28:57 PM
+zyad (zyad) sent /give zyad admingun 1 5-20-2020, 10:29:05 PM
+zyad (zyad) sent /admins 5-20-2020, 10:30:08 PM
+zyad (zyad) sent /masters 5-20-2020, 10:30:11 PM
+zyad (zyad) sent /shelters 5-20-2020, 10:31:14 PM
+zyad (zyad) sent /shelterkillall 5-20-2020, 10:31:17 PM
+zyad (zyad) sent /afk 5-20-2020, 10:31:23 PM
+zyad (zyad) sent /afk 5-20-2020, 10:32:03 PM
+zyad (zyad) sent /giveall sail_boats 10 5-20-2020, 10:32:17 PM
+zyad (zyad) sent /newmap test 50 50 50 tile1 5-20-2020, 10:32:37 PM
+zyad (zyad) sent /move zyad 0 0 0 test 5-20-2020, 10:32:46 PM
+zyad (zyad) sent /newmap test 30 30 30 tile 5-20-2020, 10:33:01 PM
+zyad (zyad) sent /delmap test 5-20-2020, 10:33:05 PM
+zyad (zyad) sent /delmap test 5-20-2020, 10:33:25 PM
+zyad (zyad) sent /quit 5-20-2020, 10:33:31 PM
+zyad (zyad) sent /newmap test 50 50 50 tile 5-20-2020, 10:34:07 PM
+zyad (zyad) sent /giveall old_car 10 5-20-2020, 10:35:41 PM
+zyad (zyad) sent /giveall cannonball 1 5-20-2020, 10:36:04 PM
+zyad (zyad) sent /changes 5-20-2020, 10:36:27 PM
+zyad (zyad) sent /mt 5-20-2020, 10:38:14 PM
+zyad (zyad) sent /mt hi 5-20-2020, 10:38:21 PM
+zyad (zyad) sent /at f 5-20-2020, 10:38:24 PM
+zyad (zyad) sent /dev f 5-20-2020, 10:38:30 PM
+zyad (zyad) sent /de f 5-20-2020, 10:38:33 PM
+zyad (zyad) sent /dv f 5-20-2020, 10:38:35 PM
+zyad (zyad) sent /at f 5-20-2020, 10:38:37 PM
+zyad (zyad) sent / 5-20-2020, 10:39:01 PM
+zyad (zyad) sent /fire 5-20-2020, 10:39:38 PM
+zyad (zyad) sent /adminflag 5-20-2020, 10:39:49 PM
+zyad (zyad) sent /rankflag 5-20-2020, 10:39:52 PM
+zyad (zyad) sent /rankflag 5-20-2020, 10:39:56 PM
+zyad (zyad) sent /changes 5-20-2020, 10:42:18 PM
+zyad (zyad) sent /admins 5-20-2020, 10:42:41 PM
+zyad (zyad) sent /newadmin f 5-20-2020, 10:42:48 PM
+zyad (zyad) sent /newmaster f 5-20-2020, 10:42:51 PM
+zyad (zyad) sent /newbuilder f 5-20-2020, 10:42:56 PM
+zyad (zyad) sent /shelters 5-20-2020, 10:43:00 PM
+zyad (zyad) sent /teams 5-20-2020, 10:44:39 PM
+zyad (zyad) sent /rules 5-20-2020, 10:45:40 PM
+zyad (zyad) sent /newadmin zyad 5-20-2020, 10:45:48 PM
+zyad (zyad) sent /adminkill zyad 5-20-2020, 10:45:55 PM
+zyad (zyad) sent /move zyad 0 0 0 store 5-20-2020, 10:47:07 PM
+zyad (zyad) sent /giveall bike 1 5-20-2020, 10:48:04 PM
+zyad (zyad) sent /giveall bike 1 5-20-2020, 10:48:55 PM
+zyad (zyad) sent /rawmap 5-20-2020, 10:50:19 PM
+zyad (zyad) sent /rawdata mapname:main
+maxx:1500
+maxy:1500
+maxz:2000
+zone:0:1500:0:1500:0:2000:main
+tile:0:500:0:250:0:0:dirt
+zone:0:500:0:250:0:20:bare area of the battlefield
+src:0:500:0:250:10:40:birds.ogg:-1
+zone:55:85:55:85:0:0:Muddy area of the lake
+tile:55:85:55:85:0:0:mud
+tile:60:80:60:80:0:0:water
+src:60:80:60:80:0:3:lake.ogg:-1
+tile:68:72:54:54:0:15:metal
+tile:68:72:86:86:0:15:metal
+tile:68:72:55:85:15:15:metal
+tile:0:500:251:500:0:0:grass
+zone:0:500:251:500:0:500:Forestly area of the battlefield
+tile:0:1500:500:1500:0:0:grass
+tile:0:1500:501:501:0:10:walldirt
+tile:0:1500:500:500:0:9:concrete
+zone:0:1500:500:550:0:49:mountain
+tile:0:1500:500:510:10:10:concrete
+tile:0:1500:511:511:10:19:walldirt
+tile:0:1500:510:510:10:20:concrete
+src:0:1500:0:1500:0:60:amb1.ogg:-
+tile:0:1500:510:520:20:20:concrete
+tile:0:1500:521:521:20:29:walldirt
+tile:0:1500:520:520:20:30:concrete
+tile:0:1500:520:530:30:30:concrete
+tile:0:1500:531:531:30:39:walldirt
+tile:0:1500:530:530:30:40:concrete
+tile:0:1500:530:540:40:40:concrete
+tile:0:1500:540:540:40:50:concrete
+tile:0:1500::540:550:50:50:concrete
+zone:0:1500:540:550:50:60:mountain
+tile:0:1500::551:748:50:50:grass
+zone:0:1500::551:748:50:60:top of the mountain
+tile:0:1500:541:541:40:49:walldirt
+tile:0:1500:749:750:0:50:dirt
+zone:0:1500:749:750:0:50:mountain
+tile:750:750:748:748:50:65:metal
+zone:750:750:748:748:50:65:ladder of the bridge
+tile:750:750:749:1300:65:81:bridge
+tile:751:751:749:1300:65:80:wallchain
+zone:750:750:749:1500:65:66:bridge
+tile:749:749:749:1300:65:80:wallchain
+tile:60:60:60:60:0:50:concrete
+tile:60:60:260:260:0:50:concrete
+tile:60:60:460:460:0:50:concrete
+zone:60:60:60:60:0:49:stairs
+tile:45:60:45:60:50:50:concrete2
+tile:750:750:750:750:50:100:concrete5
+tile:45:60:60:75:50:50:concrete2
+tile:1250:1250:1250:1250:100:150:fence
+tile:60:75:45:75:50:50:concrete2
+tile:750:750:751:1249:100:100:metal
+zone:45:75:45:75:50:70:tower
+src:750:750:751:1249:100:110:birds30.ogg
+tile:751:500:751:500:100:110:wallsheetrock
+tile:750:1000:750:1000:100:110:walltable
+tile:750:1000:750:750:100:110:walltable
+tile:751:1000:751:1000:102:110:wallmetal
+zone:60:60:260:260:0:49:stairs
+zone:45:75:245:275:50:70:tower
+tile:45:75:245:275:50:50:concrete2
+zone:60:60:460:460:0:49:stairs
+tile:45:75:445:475:50:50:concrete2
+zone:45:75:445:475:50:70:tower
+tile:260:260:60:60:0:50:concrete
+zone:260:260:60:60:0:49:stairs
+tile:245:275:45:75:50:50:concrete2
+zone:245:275:45:75:50:70:tower
+tile:751:753:751:753:100:110:wallscreen2
+tile:260:260:260:260:0:50:concrete
+zone:260:260:260:260:0:49:stairs
+tile:245:275:245:275:50:50:concrete2
+zone:245:275:245:275:50:70:tower
+tile:260:260:460:460:0:50:concrete
+zone:260:260:460:460:0:49:stairs
+tile:245:275:445:475:50:50:concrete2
+zone:245:275:445:475:50:70:tower
+tile:460:460:60:60:0:50:concrete
+zone:460:460:60:60:0:49:stairs
+tile:750:1000:1000:750:100:110:walldoor2
+tile:445:475:45:75:50:50:concrete2
+zone:445:475:45:75:50:70:tower
+tile:750:1000:750:1000:100:110:walltable
+tile:460:460:260:260:0:50:concrete2
+zone:460:460:260:260:0:49:stairs
+tile:445:475:245:275:50:50:concrete2
+zone:445:475:245:275:50:70:tower
+tile:460:460:460:460:0:50:concrete
+zone:460:460:460:460:0:49:stairs
+tile:445:475:445:475:50:50:concrete2
+zone:445:475:445:475:50:70:tower
+src:0:1000:0:1000:15:15:soaz.ogg
+tile:255:256:110:110:15:50:ladder2
+tile:257:300:110:110:50:50:concrete3
+tile:301:301:109:111:50:100:wallbigmetal2
+tile:254:300:109:109:50:100:wallbigmetal2
+tile:254:300:111:111:50:100:wallbigmetal2
+tile:254:254:110:110:50:100:wallbigmetal2
+zone:255:300:110:110:50:100:shelter hideout
+tile:250:260:99:99:0:15:metal3
+tile:250:260:99:122:15:15:concrete
+tile:255:256:110:110:15:50:ladder2
+zone:255:256:110:110:15:50:stairs:trackme
+tile:250:300:100:150:100:100:metal
+tile:299:300:110:110:50:100:metal5
+tile:249:301:100:100:100:150:wallbigmetal2
+tile:301:301:101:251:100:150:wallbigmetal2
+tile:249:249:101:251:100:150:wallbigmetal2
+tile:250:300:151:151:100:150:wallbigmetal2
+zone:250:300:101:150:100:150:open-air sky shelter hideout
+zone:299:300:110:110:50:100:stairs
+src:250:300:100:150:100:120:wind2.ogg
+tile:0:1:100:100:5:30:ladder2
+zone:0:1:100:100:5:30:stairs:trackme
+tile:5:10:95:105:30:30:bleacher
+tile:0:5:95:105:30:30:bleacher
+tile:0:1:101:101:7:29:wallrail
+tile:0:1:100:100:30:30:ladder2
+zone:0:10:95:105:30:40:the store guard tower:trackme
+tile:2:2:99:101:7:29:wallrail
+tile:0:1:99:99:7:29:wallrail
+zone:0:1:100:100:30:40:stairs
+tile:0:11:94:94:30:35:wallrail
+tile:11:11:95:105:30:35:wallrail
+tile:0:10:106:106:30:35:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:50:stairs
+tile:1:2:488:488:0:50:stairs
+tile:1:12:49:499:50:50:metal2
+tile:0:0:489:500:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:0:0:0:488:50:60:wallmetal
+tile:12:12:0:488:50:60:wallmetal
+zone:1:2:488:488:0:50:Stairs to tower
+zone:0:12:0:487:50:60:Sky tunnel:trackme
+src:1:11:0:487:50:70:tunnel.ogg
+zone:0:12:489:499:50:60:Northwest Tower.:trackme
+src:0:12:489:499:50:60:rumble2.ogg
+tile:1:2:488:488:50:50:stairs
+tile:3:12:488:488:50:60:wallchain
+tile:3:12:488:488:50:60:wallmetal
+tile:1:12:1:49:50:50:metal2
+tile:0:11:0:0:50:60:wallmetal
+tile:12:12:44:49:50:53:wallfence
+tile:12:12:44:49:54:60:fence
+zone:11:12:44:49:50:60:Escape rout, jump?:trackme
+tile:12:12:1:43:50:60:wallmetal
+tile:12:12:489:499:50:60:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:30:ladder to sky tunnel:trackme
+zone:3:4:100:100:31:49:climbing a ladder
+tile:0:3:488:489:0:49:wallrail
+tile:0:3:487:487:1:49:wallrail
+tile:2:5:200:200:50:50:metal6
+zone:2:5:200:200:50:60:bottom of a staircase:trackme
+zone:0:1:200:200:50:100:a narrow staircase
+tile:0:2:199:201:51:99:wallrail
+tile:0:1:200:200:50:100:metal5
+src:0:500:0:500:100:600:wind2.ogg
+zone:0:100:0:500:100:300:sky
+zone:0:100:199:301:100:199:A network of skybeams!:trackme
+tile:2:100:200:200:100:100:metal
+tile:0:100:199:199:100:104:wallrail
+tile:0:100:201:201:100:104:wallrail
+tile:101:101:199:201:100:154:wallrail
+tile:100:100:200:250:150:150:metal
+tile:100:100:200:201:100:150:metal5
+tile:99:99:200:250:150:154:wallrail
+tile:99:99:200:201:101:149:wallrail
+tile:100:100:199:199:100:154:wallrail
+tile:100:100:202:202:100:149:wallrail
+tile:101:101:200:250:150:154:wallrail
+tile:0:200:200:300:200:200:metal2
+tile:99:101:249:252:150:199:wallrail
+tile:100:100:249:249:150:150:metal
+tile:100:100:250:251:150:200:metal5
+tile:0:200:199:199:200:204:wallchain
+tile:201:201:200:300:200:204:wallchain
+tile:0:200:301:301:200:204:wallchain
+zone:0:201:199:301:200:210:a giant platform in the sky:trackme
+tile:493:494:3:3:0:20:ladder2
+tile:495:500:0:5:20:20:metal2
+zone:495:500:0:5:0:30:Southeast tower:trackme
+zone:494:494:3:3:0:20:Tower latter
+tile:495:500:5:5:0:3:wallrail
+tile:495:495:5:5:20:23:wallrail
+tile:495:495:4:4:20:23:wallrail
+tile:495:500:5:5:20:23:wallrail
+tile:495:495:0:2:20:23:wallrail
+tile:500:500:0:4:20:23:wallrail
+tile:496:499:0:0:20:23:wallrail
+tile:480:490:0:39:0:0:concrete2
+tile:480:490:0:39:0:0:concrete3
+zone:480:490:0:39:0:10:Michigan avenue:trackme
+tile:491:493:3:3:0:0:stone
+zone:250:260:99:99:0:14:stairs:trackme
+tile:99:101:100:100:0:20:fence
+tile:106:106:100:100:20:20:branch
+tile:106:106:100:105:20:20:branch
+tile:106:106:105:105:25:25:bleacher
+tile:102:102:105:105:25:25:bridge
+tile:97:97:105:105:25:25:ladder
+tile:97:97:100:100:25:25:metal2
+tile:100:100:100:100:30:30:plank
+src:100:100:100:100:30:30:generator.ogg
+tile:0:1500:499:750:0:0:concrete
+tile:0:1500:501:501:0:10:walldirt
+zone:0:1500:499:499:0:10:mountain
+tile:501:1500:0:498:0:0:dirt2
+tile:501:1500:0:498:0:0:dirt2
+tile:1000:1000:1500:1500:0:30:tree
+zone:1000:1000:1500:1500:0:30:the old tree:trackme
+travelpoint:480:480:0:0:0:0:Cemetery of old trains:0:0:0:movving to Cemetery of old trains
+travelpoint:700:700:700:700:0:0:dragons-fight-map:0:0:0:dragons-fight-map
+zone:700:700:700:700:0:0:press enter to go to dragons-fight-map:trackme
+tile:200:204:200:204:0:0:stairs
+travelpoint:222:222:400:400:0:0:old_city:0:0:0:you entered to the old city
+zone:222:222:400:400:0:0:to enter to the old city press enter.:trackme
+travelpoint:40:40:20:20:0:0:desert:2:2:0:you entered to the huge desert
+zone:40:40:20:20:0:0:to enter to desert press enter:trackme
+travelpoint:0:0:0:0:0:0:main_sity:500:500:0:you enter the second city
+zone:0:0:0:0:0:10:press enter to go to the city:trackme
+travelpoint:201:201:201:201:0:0:small_house:23:1:0:!Wow! it's small house
+zone:201:201:201:201:0:0:to enter to the small house press enter:trackmetile:100:103:100:100:0:30:ladder
+noitems:0:1500:0:1500:0:2000:hand_grenade:concussive_grenade:nuclear_bomb
+travelpoint:100:100:100:100:20:20:disco:0:0:0:done
+zone:100:100:100:100:20:20:to go to disco press enter:trackme
+src:100:100:100:100:20:20:farfclub1.ogg
+travelpoint:100:100:100:100:19:19:store:0:10:0:done
+zone:100:100:100:100:19:19:store doors:trackme 5-20-2020, 10:50:54 PM
+zyad (zyad) sent /rawdata mapname:test
+maxx:1500
+maxy:1500
+maxz:2000
+zone:0:1500:0:1500:0:2000:main
+tile:0:500:0:250:0:0:dirt
+zone:0:500:0:250:0:20:bare area of the battlefield
+src:0:500:0:250:10:40:birds.ogg:-1
+zone:55:85:55:85:0:0:Muddy area of the lake
+tile:55:85:55:85:0:0:mud
+tile:60:80:60:80:0:0:water
+src:60:80:60:80:0:3:lake.ogg:-1
+tile:68:72:54:54:0:15:metal
+tile:68:72:86:86:0:15:metal
+tile:68:72:55:85:15:15:metal
+tile:0:500:251:500:0:0:grass
+zone:0:500:251:500:0:500:Forestly area of the battlefield
+tile:0:1500:500:1500:0:0:grass
+tile:0:1500:501:501:0:10:walldirt
+tile:0:1500:500:500:0:9:concrete
+zone:0:1500:500:550:0:49:mountain
+tile:0:1500:500:510:10:10:concrete
+tile:0:1500:511:511:10:19:walldirt
+tile:0:1500:510:510:10:20:concrete
+src:0:1500:0:1500:0:60:amb1.ogg:-
+tile:0:1500:510:520:20:20:concrete
+tile:0:1500:521:521:20:29:walldirt
+tile:0:1500:520:520:20:30:concrete
+tile:0:1500:520:530:30:30:concrete
+tile:0:1500:531:531:30:39:walldirt
+tile:0:1500:530:530:30:40:concrete
+tile:0:1500:530:540:40:40:concrete
+tile:0:1500:540:540:40:50:concrete
+tile:0:1500::540:550:50:50:concrete
+zone:0:1500:540:550:50:60:mountain
+tile:0:1500::551:748:50:50:grass
+zone:0:1500::551:748:50:60:top of the mountain
+tile:0:1500:541:541:40:49:walldirt
+tile:0:1500:749:750:0:50:dirt
+zone:0:1500:749:750:0:50:mountain
+tile:750:750:748:748:50:65:metal
+zone:750:750:748:748:50:65:ladder of the bridge
+tile:750:750:749:1300:65:81:bridge
+tile:751:751:749:1300:65:80:wallchain
+zone:750:750:749:1500:65:66:bridge
+tile:749:749:749:1300:65:80:wallchain
+tile:60:60:60:60:0:50:concrete
+tile:60:60:260:260:0:50:concrete
+tile:60:60:460:460:0:50:concrete
+zone:60:60:60:60:0:49:stairs
+tile:45:60:45:60:50:50:concrete2
+tile:750:750:750:750:50:100:concrete5
+tile:45:60:60:75:50:50:concrete2
+tile:1250:1250:1250:1250:100:150:fence
+tile:60:75:45:75:50:50:concrete2
+tile:750:750:751:1249:100:100:metal
+zone:45:75:45:75:50:70:tower
+src:750:750:751:1249:100:110:birds30.ogg
+tile:751:500:751:500:100:110:wallsheetrock
+tile:750:1000:750:1000:100:110:walltable
+tile:750:1000:750:750:100:110:walltable
+tile:751:1000:751:1000:102:110:wallmetal
+zone:60:60:260:260:0:49:stairs
+zone:45:75:245:275:50:70:tower
+tile:45:75:245:275:50:50:concrete2
+zone:60:60:460:460:0:49:stairs
+tile:45:75:445:475:50:50:concrete2
+zone:45:75:445:475:50:70:tower
+tile:260:260:60:60:0:50:concrete
+zone:260:260:60:60:0:49:stairs
+tile:245:275:45:75:50:50:concrete2
+zone:245:275:45:75:50:70:tower
+tile:751:753:751:753:100:110:wallscreen2
+tile:260:260:260:260:0:50:concrete
+zone:260:260:260:260:0:49:stairs
+tile:245:275:245:275:50:50:concrete2
+zone:245:275:245:275:50:70:tower
+tile:260:260:460:460:0:50:concrete
+zone:260:260:460:460:0:49:stairs
+tile:245:275:445:475:50:50:concrete2
+zone:245:275:445:475:50:70:tower
+tile:460:460:60:60:0:50:concrete
+zone:460:460:60:60:0:49:stairs
+tile:750:1000:1000:750:100:110:walldoor2
+tile:445:475:45:75:50:50:concrete2
+zone:445:475:45:75:50:70:tower
+tile:750:1000:750:1000:100:110:walltable
+tile:460:460:260:260:0:50:concrete2
+zone:460:460:260:260:0:49:stairs
+tile:445:475:245:275:50:50:concrete2
+zone:445:475:245:275:50:70:tower
+tile:460:460:460:460:0:50:concrete
+zone:460:460:460:460:0:49:stairs
+tile:445:475:445:475:50:50:concrete2
+zone:445:475:445:475:50:70:tower
+src:0:1000:0:1000:15:15:soaz.ogg
+tile:255:256:110:110:15:50:ladder2
+tile:257:300:110:110:50:50:concrete3
+tile:301:301:109:111:50:100:wallbigmetal2
+tile:254:300:109:109:50:100:wallbigmetal2
+tile:254:300:111:111:50:100:wallbigmetal2
+tile:254:254:110:110:50:100:wallbigmetal2
+zone:255:300:110:110:50:100:shelter hideout
+tile:250:260:99:99:0:15:metal3
+tile:250:260:99:122:15:15:concrete
+tile:255:256:110:110:15:50:ladder2
+zone:255:256:110:110:15:50:stairs:trackme
+tile:250:300:100:150:100:100:metal
+tile:299:300:110:110:50:100:metal5
+tile:249:301:100:100:100:150:wallbigmetal2
+tile:301:301:101:251:100:150:wallbigmetal2
+tile:249:249:101:251:100:150:wallbigmetal2
+tile:250:300:151:151:100:150:wallbigmetal2
+zone:250:300:101:150:100:150:open-air sky shelter hideout
+zone:299:300:110:110:50:100:stairs
+src:250:300:100:150:100:120:wind2.ogg
+tile:0:1:100:100:5:30:ladder2
+zone:0:1:100:100:5:30:stairs:trackme
+tile:5:10:95:105:30:30:bleacher
+tile:0:5:95:105:30:30:bleacher
+tile:0:1:101:101:7:29:wallrail
+tile:0:1:100:100:30:30:ladder2
+zone:0:10:95:105:30:40:the store guard tower:trackme
+tile:2:2:99:101:7:29:wallrail
+tile:0:1:99:99:7:29:wallrail
+zone:0:1:100:100:30:40:stairs
+tile:0:11:94:94:30:35:wallrail
+tile:11:11:95:105:30:35:wallrail
+tile:0:10:106:106:30:35:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:50:stairs
+tile:1:2:488:488:0:50:stairs
+tile:1:12:49:499:50:50:metal2
+tile:0:0:489:500:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:0:0:0:488:50:60:wallmetal
+tile:12:12:0:488:50:60:wallmetal
+zone:1:2:488:488:0:50:Stairs to tower
+zone:0:12:0:487:50:60:Sky tunnel:trackme
+src:1:11:0:487:50:70:tunnel.ogg
+zone:0:12:489:499:50:60:Northwest Tower.:trackme
+src:0:12:489:499:50:60:rumble2.ogg
+tile:1:2:488:488:50:50:stairs
+tile:3:12:488:488:50:60:wallchain
+tile:3:12:488:488:50:60:wallmetal
+tile:1:12:1:49:50:50:metal2
+tile:0:11:0:0:50:60:wallmetal
+tile:12:12:44:49:50:53:wallfence
+tile:12:12:44:49:54:60:fence
+zone:11:12:44:49:50:60:Escape rout, jump?:trackme
+tile:12:12:1:43:50:60:wallmetal
+tile:12:12:489:499:50:60:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:30:ladder to sky tunnel:trackme
+zone:3:4:100:100:31:49:climbing a ladder
+tile:0:3:488:489:0:49:wallrail
+tile:0:3:487:487:1:49:wallrail
+tile:2:5:200:200:50:50:metal6
+zone:2:5:200:200:50:60:bottom of a staircase:trackme
+zone:0:1:200:200:50:100:a narrow staircase
+tile:0:2:199:201:51:99:wallrail
+tile:0:1:200:200:50:100:metal5
+src:0:500:0:500:100:600:wind2.ogg
+zone:0:100:0:500:100:300:sky
+zone:0:100:199:301:100:199:A network of skybeams!:trackme
+tile:2:100:200:200:100:100:metal
+tile:0:100:199:199:100:104:wallrail
+tile:0:100:201:201:100:104:wallrail
+tile:101:101:199:201:100:154:wallrail
+tile:100:100:200:250:150:150:metal
+tile:100:100:200:201:100:150:metal5
+tile:99:99:200:250:150:154:wallrail
+tile:99:99:200:201:101:149:wallrail
+tile:100:100:199:199:100:154:wallrail
+tile:100:100:202:202:100:149:wallrail
+tile:101:101:200:250:150:154:wallrail
+tile:0:200:200:300:200:200:metal2
+tile:99:101:249:252:150:199:wallrail
+tile:100:100:249:249:150:150:metal
+tile:100:100:250:251:150:200:metal5
+tile:0:200:199:199:200:204:wallchain
+tile:201:201:200:300:200:204:wallchain
+tile:0:200:301:301:200:204:wallchain
+zone:0:201:199:301:200:210:a giant platform in the sky:trackme
+tile:493:494:3:3:0:20:ladder2
+tile:495:500:0:5:20:20:metal2
+zone:495:500:0:5:0:30:Southeast tower:trackme
+zone:494:494:3:3:0:20:Tower latter
+tile:495:500:5:5:0:3:wallrail
+tile:495:495:5:5:20:23:wallrail
+tile:495:495:4:4:20:23:wallrail
+tile:495:500:5:5:20:23:wallrail
+tile:495:495:0:2:20:23:wallrail
+tile:500:500:0:4:20:23:wallrail
+tile:496:499:0:0:20:23:wallrail
+tile:480:490:0:39:0:0:concrete2
+tile:480:490:0:39:0:0:concrete3
+zone:480:490:0:39:0:10:Michigan avenue:trackme
+tile:491:493:3:3:0:0:stone
+zone:250:260:99:99:0:14:stairs:trackme
+tile:99:101:100:100:0:20:fence
+tile:106:106:100:100:20:20:branch
+tile:106:106:100:105:20:20:branch
+tile:106:106:105:105:25:25:bleacher
+tile:102:102:105:105:25:25:bridge
+tile:97:97:105:105:25:25:ladder
+tile:97:97:100:100:25:25:metal2
+tile:100:100:100:100:30:30:plank
+src:100:100:100:100:30:30:generator.ogg
+tile:0:1500:499:750:0:0:concrete
+tile:0:1500:501:501:0:10:walldirt
+zone:0:1500:499:499:0:10:mountain
+tile:501:1500:0:498:0:0:dirt2
+tile:501:1500:0:498:0:0:dirt2
+tile:1000:1000:1500:1500:0:30:tree
+zone:1000:1000:1500:1500:0:30:the old tree:trackme
+travelpoint:480:480:0:0:0:0:Cemetery of old trains:0:0:0:movving to Cemetery of old trains
+travelpoint:700:700:700:700:0:0:dragons-fight-map:0:0:0:dragons-fight-map
+zone:700:700:700:700:0:0:press enter to go to dragons-fight-map:trackme
+tile:200:204:200:204:0:0:stairs
+travelpoint:222:222:400:400:0:0:old_city:0:0:0:you entered to the old city
+zone:222:222:400:400:0:0:to enter to the old city press enter.:trackme
+travelpoint:40:40:20:20:0:0:desert:2:2:0:you entered to the huge desert
+zone:40:40:20:20:0:0:to enter to desert press enter:trackme
+travelpoint:0:0:0:0:0:0:main_sity:500:500:0:you enter the second city
+zone:0:0:0:0:0:10:press enter to go to the city:trackme
+travelpoint:201:201:201:201:0:0:small_house:23:1:0:!Wow! it's small house
+zone:201:201:201:201:0:0:to enter to the small house press enter:trackmetile:100:103:100:100:0:30:ladder
+noitems:0:1500:0:1500:0:2000:hand_grenade:concussive_grenade:nuclear_bomb
+travelpoint:100:100:100:100:20:20:disco:0:0:0:done
+zone:100:100:100:100:20:20:to go to disco press enter:trackme
+src:100:100:100:100:20:20:farfclub1.ogg
+travelpoint:100:100:100:100:19:19:store:0:10:0:done
+zone:100:100:100:100:19:19:store doors:trackme 5-20-2020, 10:51:09 PM
+zyad (zyad) sent /move zyad 0 0 0 test 5-20-2020, 10:51:30 PM
+zyad (zyad) sent /rawdata mapname:test
+maxx:1500
+maxy:1500
+maxz:2000
+zone:0:1500:0:1500:0:2000:main
+tile:0:500:0:250:0:0:dirt
+zone:0:500:0:250:0:20:bare area of the battlefield
+src:0:500:0:250:10:40:birds.ogg:-1
+zone:55:85:55:85:0:0:Muddy area of the lake
+tile:55:85:55:85:0:0:mud
+tile:60:80:60:80:0:0:water
+src:60:80:60:80:0:3:lake.ogg:-1
+tile:68:72:54:54:0:15:metal
+tile:68:72:86:86:0:15:metal
+tile:68:72:55:85:15:15:metal
+tile:0:500:251:500:0:0:grass
+zone:0:500:251:500:0:500:Forestly area of the battlefield
+tile:0:1500:500:1500:0:0:grass
+tile:0:1500:501:501:0:10:walldirt
+tile:0:1500:500:500:0:9:concrete
+zone:0:1500:500:550:0:49:mountain
+tile:0:1500:500:510:10:10:concrete
+tile:0:1500:511:511:10:19:walldirt
+tile:0:1500:510:510:10:20:concrete
+src:0:1500:0:1500:0:60:amb1.ogg:-
+tile:0:1500:510:520:20:20:concrete
+tile:0:1500:521:521:20:29:walldirt
+tile:0:1500:520:520:20:30:concrete
+tile:0:1500:520:530:30:30:concrete
+tile:0:1500:531:531:30:39:walldirt
+tile:0:1500:530:530:30:40:concrete
+tile:0:1500:530:540:40:40:concrete
+tile:0:1500:540:540:40:50:concrete
+tile:0:1500::540:550:50:50:concrete
+zone:0:1500:540:550:50:60:mountain
+tile:0:1500::551:748:50:50:grass
+zone:0:1500::551:748:50:60:top of the mountain
+tile:0:1500:541:541:40:49:walldirt
+tile:0:1500:749:750:0:50:dirt
+zone:0:1500:749:750:0:50:mountain
+tile:750:750:748:748:50:65:metal
+zone:750:750:748:748:50:65:ladder of the bridge
+tile:750:750:749:1300:65:81:bridge
+tile:751:751:749:1300:65:80:wallchain
+zone:750:750:749:1500:65:66:bridge
+tile:749:749:749:1300:65:80:wallchain
+tile:60:60:60:60:0:50:concrete
+tile:60:60:260:260:0:50:concrete
+tile:60:60:460:460:0:50:concrete
+zone:60:60:60:60:0:49:stairs
+tile:45:60:45:60:50:50:concrete2
+tile:750:750:750:750:50:100:concrete5
+tile:45:60:60:75:50:50:concrete2
+tile:1250:1250:1250:1250:100:150:fence
+tile:60:75:45:75:50:50:concrete2
+tile:750:750:751:1249:100:100:metal
+zone:45:75:45:75:50:70:tower
+src:750:750:751:1249:100:110:birds30.ogg
+tile:751:500:751:500:100:110:wallsheetrock
+tile:750:1000:750:1000:100:110:walltable
+tile:750:1000:750:750:100:110:walltable
+tile:751:1000:751:1000:102:110:wallmetal
+zone:60:60:260:260:0:49:stairs
+zone:45:75:245:275:50:70:tower
+tile:45:75:245:275:50:50:concrete2
+zone:60:60:460:460:0:49:stairs
+tile:45:75:445:475:50:50:concrete2
+zone:45:75:445:475:50:70:tower
+tile:260:260:60:60:0:50:concrete
+zone:260:260:60:60:0:49:stairs
+tile:245:275:45:75:50:50:concrete2
+zone:245:275:45:75:50:70:tower
+tile:751:753:751:753:100:110:wallscreen2
+tile:260:260:260:260:0:50:concrete
+zone:260:260:260:260:0:49:stairs
+tile:245:275:245:275:50:50:concrete2
+zone:245:275:245:275:50:70:tower
+tile:260:260:460:460:0:50:concrete
+zone:260:260:460:460:0:49:stairs
+tile:245:275:445:475:50:50:concrete2
+zone:245:275:445:475:50:70:tower
+tile:460:460:60:60:0:50:concrete
+zone:460:460:60:60:0:49:stairs
+tile:750:1000:1000:750:100:110:walldoor2
+tile:445:475:45:75:50:50:concrete2
+zone:445:475:45:75:50:70:tower
+tile:750:1000:750:1000:100:110:walltable
+tile:460:460:260:260:0:50:concrete2
+zone:460:460:260:260:0:49:stairs
+tile:445:475:245:275:50:50:concrete2
+zone:445:475:245:275:50:70:tower
+tile:460:460:460:460:0:50:concrete
+zone:460:460:460:460:0:49:stairs
+tile:445:475:445:475:50:50:concrete2
+zone:445:475:445:475:50:70:tower
+src:0:1000:0:1000:15:15:soaz.ogg
+tile:255:256:110:110:15:50:ladder2
+tile:257:300:110:110:50:50:concrete3
+tile:301:301:109:111:50:100:wallbigmetal2
+tile:254:300:109:109:50:100:wallbigmetal2
+tile:254:300:111:111:50:100:wallbigmetal2
+tile:254:254:110:110:50:100:wallbigmetal2
+zone:255:300:110:110:50:100:shelter hideout
+tile:250:260:99:99:0:15:metal3
+tile:250:260:99:122:15:15:concrete
+tile:255:256:110:110:15:50:ladder2
+zone:255:256:110:110:15:50:stairs:trackme
+tile:250:300:100:150:100:100:metal
+tile:299:300:110:110:50:100:metal5
+tile:249:301:100:100:100:150:wallbigmetal2
+tile:301:301:101:251:100:150:wallbigmetal2
+tile:249:249:101:251:100:150:wallbigmetal2
+tile:250:300:151:151:100:150:wallbigmetal2
+zone:250:300:101:150:100:150:open-air sky shelter hideout
+zone:299:300:110:110:50:100:stairs
+src:250:300:100:150:100:120:wind2.ogg
+tile:0:1:100:100:5:30:ladder2
+zone:0:1:100:100:5:30:stairs:trackme
+tile:5:10:95:105:30:30:bleacher
+tile:0:5:95:105:30:30:bleacher
+tile:0:1:101:101:7:29:wallrail
+tile:0:1:100:100:30:30:ladder2
+zone:0:10:95:105:30:40:the store guard tower:trackme
+tile:2:2:99:101:7:29:wallrail
+tile:0:1:99:99:7:29:wallrail
+zone:0:1:100:100:30:40:stairs
+tile:0:11:94:94:30:35:wallrail
+tile:11:11:95:105:30:35:wallrail
+tile:0:10:106:106:30:35:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:50:stairs
+tile:1:2:488:488:0:50:stairs
+tile:1:12:49:499:50:50:metal2
+tile:0:0:489:500:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:0:0:0:488:50:60:wallmetal
+tile:12:12:0:488:50:60:wallmetal
+zone:1:2:488:488:0:50:Stairs to tower
+zone:0:12:0:487:50:60:Sky tunnel:trackme
+src:1:11:0:487:50:70:tunnel.ogg
+zone:0:12:489:499:50:60:Northwest Tower.:trackme
+src:0:12:489:499:50:60:rumble2.ogg
+tile:1:2:488:488:50:50:stairs
+tile:3:12:488:488:50:60:wallchain
+tile:3:12:488:488:50:60:wallmetal
+tile:1:12:1:49:50:50:metal2
+tile:0:11:0:0:50:60:wallmetal
+tile:12:12:44:49:50:53:wallfence
+tile:12:12:44:49:54:60:fence
+zone:11:12:44:49:50:60:Escape rout, jump?:trackme
+tile:12:12:1:43:50:60:wallmetal
+tile:12:12:489:499:50:60:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:30:ladder to sky tunnel:trackme
+zone:3:4:100:100:31:49:climbing a ladder
+tile:0:3:488:489:0:49:wallrail
+tile:0:3:487:487:1:49:wallrail
+tile:2:5:200:200:50:50:metal6
+zone:2:5:200:200:50:60:bottom of a staircase:trackme
+zone:0:1:200:200:50:100:a narrow staircase
+tile:0:2:199:201:51:99:wallrail
+tile:0:1:200:200:50:100:metal5
+src:0:500:0:500:100:600:wind2.ogg
+zone:0:100:0:500:100:300:sky
+zone:0:100:199:301:100:199:A network of skybeams!:trackme
+tile:2:100:200:200:100:100:metal
+tile:0:100:199:199:100:104:wallrail
+tile:0:100:201:201:100:104:wallrail
+tile:101:101:199:201:100:154:wallrail
+tile:100:100:200:250:150:150:metal
+tile:100:100:200:201:100:150:metal5
+tile:99:99:200:250:150:154:wallrail
+tile:99:99:200:201:101:149:wallrail
+tile:100:100:199:199:100:154:wallrail
+tile:100:100:202:202:100:149:wallrail
+tile:101:101:200:250:150:154:wallrail
+tile:0:200:200:300:200:200:metal2
+tile:99:101:249:252:150:199:wallrail
+tile:100:100:249:249:150:150:metal
+tile:100:100:250:251:150:200:metal5
+tile:0:200:199:199:200:204:wallchain
+tile:201:201:200:300:200:204:wallchain
+tile:0:200:301:301:200:204:wallchain
+zone:0:201:199:301:200:210:a giant platform in the sky:trackme
+tile:493:494:3:3:0:20:ladder2
+tile:495:500:0:5:20:20:metal2
+zone:495:500:0:5:0:30:Southeast tower:trackme
+zone:494:494:3:3:0:20:Tower latter
+tile:495:500:5:5:0:3:wallrail
+tile:495:495:5:5:20:23:wallrail
+tile:495:495:4:4:20:23:wallrail
+tile:495:500:5:5:20:23:wallrail
+tile:495:495:0:2:20:23:wallrail
+tile:500:500:0:4:20:23:wallrail
+tile:496:499:0:0:20:23:wallrail
+tile:480:490:0:39:0:0:concrete2
+tile:480:490:0:39:0:0:concrete3
+zone:480:490:0:39:0:10:Michigan avenue:trackme
+tile:491:493:3:3:0:0:stone
+zone:250:260:99:99:0:14:stairs:trackme
+tile:99:101:100:100:0:20:fence
+tile:106:106:100:100:20:20:branch
+tile:106:106:100:105:20:20:branch
+tile:106:106:105:105:25:25:bleacher
+tile:102:102:105:105:25:25:bridge
+tile:97:97:105:105:25:25:ladder
+tile:97:97:100:100:25:25:metal2
+tile:100:100:100:100:30:30:plank
+src:100:100:100:100:30:30:generator.ogg
+tile:0:1500:499:750:0:0:concrete
+tile:0:1500:501:501:0:10:walldirt
+zone:0:1500:499:499:0:10:mountain
+tile:501:1500:0:498:0:0:dirt2
+tile:501:1500:0:498:0:0:dirt2
+tile:1000:1000:1500:1500:0:30:tree
+zone:1000:1000:1500:1500:0:30:the old tree:trackme
+travelpoint:480:480:0:0:0:0:Cemetery of old trains:0:0:0:movving to Cemetery of old trains
+travelpoint:700:700:700:700:0:0:dragons-fight-map:0:0:0:dragons-fight-map
+zone:700:700:700:700:0:0:press enter to go to dragons-fight-map:trackme
+tile:200:204:200:204:0:0:stairs
+travelpoint:222:222:400:400:0:0:old_city:0:0:0:you entered to the old city
+zone:222:222:400:400:0:0:to enter to the old city press enter.:trackme
+travelpoint:40:40:20:20:0:0:desert:2:2:0:you entered to the huge desert
+zone:40:40:20:20:0:0:to enter to desert press enter:trackme
+travelpoint:0:0:0:0:0:0:main_sity:500:500:0:you enter the second city
+zone:0:0:0:0:0:10:press enter to go to the city:trackme
+travelpoint:201:201:201:201:0:0:small_house:23:1:0:!Wow! it's small house
+zone:201:201:201:201:0:0:to enter to the small house press enter:trackmetile:100:103:100:100:0:30:ladder
+noitems:0:1500:0:1500:0:2000:hand_grenade:concussive_grenade:nuclear_bomb
+travelpoint:100:100:100:100:20:20:disco:0:0:0:done
+zone:100:100:100:100:20:20:to go to disco press enter:trackme
+src:100:100:100:100:20:20:farfclub1.ogg
+travelpoint:100:100:100:100:19:19:store:0:10:0:done
+zone:100:100:100:100:19:19:store doors:trackme 5-20-2020, 10:51:42 PM
+zyad (zyad) sent /rawdata mapname:main
+maxx:1500
+maxy:1500
+maxz:2000
+zone:0:1500:0:1500:0:2000:main
+tile:0:500:0:250:0:0:dirt
+zone:0:500:0:250:0:20:bare area of the battlefield
+src:0:500:0:250:10:40:birds.ogg:-1
+zone:55:85:55:85:0:0:Muddy area of the lake
+tile:55:85:55:85:0:0:mud
+tile:60:80:60:80:0:0:water
+src:60:80:60:80:0:3:lake.ogg:-1
+tile:68:72:54:54:0:15:metal
+tile:68:72:86:86:0:15:metal
+tile:68:72:55:85:15:15:metal
+tile:0:500:251:500:0:0:grass
+zone:0:500:251:500:0:500:Forestly area of the battlefield
+tile:0:1500:500:1500:0:0:grass
+tile:0:1500:501:501:0:10:walldirt
+tile:0:1500:500:500:0:9:concrete
+zone:0:1500:500:550:0:49:mountain
+tile:0:1500:500:510:10:10:concrete
+tile:0:1500:511:511:10:19:walldirt
+tile:0:1500:510:510:10:20:concrete
+src:0:1500:0:1500:0:60:amb1.ogg:-
+tile:0:1500:510:520:20:20:concrete
+tile:0:1500:521:521:20:29:walldirt
+tile:0:1500:520:520:20:30:concrete
+tile:0:1500:520:530:30:30:concrete
+tile:0:1500:531:531:30:39:walldirt
+tile:0:1500:530:530:30:40:concrete
+tile:0:1500:530:540:40:40:concrete
+tile:0:1500:540:540:40:50:concrete
+tile:0:1500::540:550:50:50:concrete
+zone:0:1500:540:550:50:60:mountain
+tile:0:1500::551:748:50:50:grass
+zone:0:1500::551:748:50:60:top of the mountain
+tile:0:1500:541:541:40:49:walldirt
+tile:0:1500:749:750:0:50:dirt
+zone:0:1500:749:750:0:50:mountain
+tile:750:750:748:748:50:65:metal
+zone:750:750:748:748:50:65:ladder of the bridge
+tile:750:750:749:1300:65:81:bridge
+tile:751:751:749:1300:65:80:wallchain
+zone:750:750:749:1500:65:66:bridge
+tile:749:749:749:1300:65:80:wallchain
+tile:60:60:60:60:0:50:concrete
+tile:60:60:260:260:0:50:concrete
+tile:60:60:460:460:0:50:concrete
+zone:60:60:60:60:0:49:stairs
+tile:45:60:45:60:50:50:concrete2
+tile:750:750:750:750:50:100:concrete5
+tile:45:60:60:75:50:50:concrete2
+tile:1250:1250:1250:1250:100:150:fence
+tile:60:75:45:75:50:50:concrete2
+tile:750:750:751:1249:100:100:metal
+zone:45:75:45:75:50:70:tower
+src:750:750:751:1249:100:110:birds30.ogg
+tile:751:500:751:500:100:110:wallsheetrock
+tile:750:1000:750:1000:100:110:walltable
+tile:750:1000:750:750:100:110:walltable
+tile:751:1000:751:1000:102:110:wallmetal
+zone:60:60:260:260:0:49:stairs
+zone:45:75:245:275:50:70:tower
+tile:45:75:245:275:50:50:concrete2
+zone:60:60:460:460:0:49:stairs
+tile:45:75:445:475:50:50:concrete2
+zone:45:75:445:475:50:70:tower
+tile:260:260:60:60:0:50:concrete
+zone:260:260:60:60:0:49:stairs
+tile:245:275:45:75:50:50:concrete2
+zone:245:275:45:75:50:70:tower
+tile:751:753:751:753:100:110:wallscreen2
+tile:260:260:260:260:0:50:concrete
+zone:260:260:260:260:0:49:stairs
+tile:245:275:245:275:50:50:concrete2
+zone:245:275:245:275:50:70:tower
+tile:260:260:460:460:0:50:concrete
+zone:260:260:460:460:0:49:stairs
+tile:245:275:445:475:50:50:concrete2
+zone:245:275:445:475:50:70:tower
+tile:460:460:60:60:0:50:concrete
+zone:460:460:60:60:0:49:stairs
+tile:750:1000:1000:750:100:110:walldoor2
+tile:445:475:45:75:50:50:concrete2
+zone:445:475:45:75:50:70:tower
+tile:750:1000:750:1000:100:110:walltable
+tile:460:460:260:260:0:50:concrete2
+zone:460:460:260:260:0:49:stairs
+tile:445:475:245:275:50:50:concrete2
+zone:445:475:245:275:50:70:tower
+tile:460:460:460:460:0:50:concrete
+zone:460:460:460:460:0:49:stairs
+tile:445:475:445:475:50:50:concrete2
+zone:445:475:445:475:50:70:tower
+src:0:1000:0:1000:15:15:soaz.ogg
+tile:255:256:110:110:15:50:ladder2
+tile:257:300:110:110:50:50:concrete3
+tile:301:301:109:111:50:100:wallbigmetal2
+tile:254:300:109:109:50:100:wallbigmetal2
+tile:254:300:111:111:50:100:wallbigmetal2
+tile:254:254:110:110:50:100:wallbigmetal2
+zone:255:300:110:110:50:100:shelter hideout
+tile:250:260:99:99:0:15:metal3
+tile:250:260:99:122:15:15:concrete
+tile:255:256:110:110:15:50:ladder2
+zone:255:256:110:110:15:50:stairs:trackme
+tile:250:300:100:150:100:100:metal
+tile:299:300:110:110:50:100:metal5
+tile:249:301:100:100:100:150:wallbigmetal2
+tile:301:301:101:251:100:150:wallbigmetal2
+tile:249:249:101:251:100:150:wallbigmetal2
+tile:250:300:151:151:100:150:wallbigmetal2
+zone:250:300:101:150:100:150:open-air sky shelter hideout
+zone:299:300:110:110:50:100:stairs
+src:250:300:100:150:100:120:wind2.ogg
+tile:0:1:100:100:5:30:ladder2
+zone:0:1:100:100:5:30:stairs:trackme
+tile:5:10:95:105:30:30:bleacher
+tile:0:5:95:105:30:30:bleacher
+tile:0:1:101:101:7:29:wallrail
+tile:0:1:100:100:30:30:ladder2
+zone:0:10:95:105:30:40:the store guard tower:trackme
+tile:2:2:99:101:7:29:wallrail
+tile:0:1:99:99:7:29:wallrail
+zone:0:1:100:100:30:40:stairs
+tile:0:11:94:94:30:35:wallrail
+tile:11:11:95:105:30:35:wallrail
+tile:0:10:106:106:30:35:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:50:stairs
+tile:1:2:488:488:0:50:stairs
+tile:1:12:49:499:50:50:metal2
+tile:0:0:489:500:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:0:0:0:488:50:60:wallmetal
+tile:12:12:0:488:50:60:wallmetal
+zone:1:2:488:488:0:50:Stairs to tower
+zone:0:12:0:487:50:60:Sky tunnel:trackme
+src:1:11:0:487:50:70:tunnel.ogg
+zone:0:12:489:499:50:60:Northwest Tower.:trackme
+src:0:12:489:499:50:60:rumble2.ogg
+tile:1:2:488:488:50:50:stairs
+tile:3:12:488:488:50:60:wallchain
+tile:3:12:488:488:50:60:wallmetal
+tile:1:12:1:49:50:50:metal2
+tile:0:11:0:0:50:60:wallmetal
+tile:12:12:44:49:50:53:wallfence
+tile:12:12:44:49:54:60:fence
+zone:11:12:44:49:50:60:Escape rout, jump?:trackme
+tile:12:12:1:43:50:60:wallmetal
+tile:12:12:489:499:50:60:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:30:ladder to sky tunnel:trackme
+zone:3:4:100:100:31:49:climbing a ladder
+tile:0:3:488:489:0:49:wallrail
+tile:0:3:487:487:1:49:wallrail
+tile:2:5:200:200:50:50:metal6
+zone:2:5:200:200:50:60:bottom of a staircase:trackme
+zone:0:1:200:200:50:100:a narrow staircase
+tile:0:2:199:201:51:99:wallrail
+tile:0:1:200:200:50:100:metal5
+src:0:500:0:500:100:600:wind2.ogg
+zone:0:100:0:500:100:300:sky
+zone:0:100:199:301:100:199:A network of skybeams!:trackme
+tile:2:100:200:200:100:100:metal
+tile:0:100:199:199:100:104:wallrail
+tile:0:100:201:201:100:104:wallrail
+tile:101:101:199:201:100:154:wallrail
+tile:100:100:200:250:150:150:metal
+tile:100:100:200:201:100:150:metal5
+tile:99:99:200:250:150:154:wallrail
+tile:99:99:200:201:101:149:wallrail
+tile:100:100:199:199:100:154:wallrail
+tile:100:100:202:202:100:149:wallrail
+tile:101:101:200:250:150:154:wallrail
+tile:0:200:200:300:200:200:metal2
+tile:99:101:249:252:150:199:wallrail
+tile:100:100:249:249:150:150:metal
+tile:100:100:250:251:150:200:metal5
+tile:0:200:199:199:200:204:wallchain
+tile:201:201:200:300:200:204:wallchain
+tile:0:200:301:301:200:204:wallchain
+zone:0:201:199:301:200:210:a giant platform in the sky:trackme
+tile:493:494:3:3:0:20:ladder2
+tile:495:500:0:5:20:20:metal2
+zone:495:500:0:5:0:30:Southeast tower:trackme
+zone:494:494:3:3:0:20:Tower latter
+tile:495:500:5:5:0:3:wallrail
+tile:495:495:5:5:20:23:wallrail
+tile:495:495:4:4:20:23:wallrail
+tile:495:500:5:5:20:23:wallrail
+tile:495:495:0:2:20:23:wallrail
+tile:500:500:0:4:20:23:wallrail
+tile:496:499:0:0:20:23:wallrail
+tile:480:490:0:39:0:0:concrete2
+tile:480:490:0:39:0:0:concrete3
+zone:480:490:0:39:0:10:Michigan avenue:trackme
+tile:491:493:3:3:0:0:stone
+zone:250:260:99:99:0:14:stairs:trackme
+tile:99:101:100:100:0:20:fence
+tile:106:106:100:100:20:20:branch
+tile:106:106:100:105:20:20:branch
+tile:106:106:105:105:25:25:bleacher
+tile:102:102:105:105:25:25:bridge
+tile:97:97:105:105:25:25:ladder
+tile:97:97:100:100:25:25:metal2
+tile:100:100:100:100:30:30:plank
+src:100:100:100:100:30:30:generator.ogg
+tile:0:1500:499:750:0:0:concrete
+tile:0:1500:501:501:0:10:walldirt
+zone:0:1500:499:499:0:10:mountain
+tile:501:1500:0:498:0:0:dirt2
+tile:501:1500:0:498:0:0:dirt2
+tile:1000:1000:1500:1500:0:30:tree
+zone:1000:1000:1500:1500:0:30:the old tree:trackme
+travelpoint:480:480:0:0:0:0:Cemetery of old trains:0:0:0:movving to Cemetery of old trains
+travelpoint:700:700:700:700:0:0:dragons-fight-map:0:0:0:dragons-fight-map
+zone:700:700:700:700:0:0:press enter to go to dragons-fight-map:trackme
+tile:200:204:200:204:0:0:stairs
+travelpoint:222:222:400:400:0:0:old_city:0:0:0:you entered to the old city
+zone:222:222:400:400:0:0:to enter to the old city press enter.:trackme
+travelpoint:40:40:20:20:0:0:desert:2:2:0:you entered to the huge desert
+zone:40:40:20:20:0:0:to enter to desert press enter:trackme
+travelpoint:0:0:0:0:0:0:main_sity:500:500:0:you enter the second city
+zone:0:0:0:0:0:10:press enter to go to the city:trackme
+travelpoint:201:201:201:201:0:0:small_house:23:1:0:!Wow! it's small house
+zone:201:201:201:201:0:0:to enter to the small house press enter:trackmetile:100:103:100:100:0:30:ladder
+noitems:0:1500:0:1500:0:2000:hand_grenade:concussive_grenade:nuclear_bomb
+travelpoint:100:100:100:100:20:20:disco:0:0:0:done
+zone:100:100:100:100:20:20:to go to disco press enter:trackme
+src:100:100:100:100:20:20:farfclub1.ogg
+travelpoint:100:100:100:100:19:19:store:0:10:0:done
+zone:100:100:100:100:19:19:store doors:trackme 5-20-2020, 10:51:50 PM
+zyad (zyad) sent /quit 5-20-2020, 10:53:39 PM
+zyad (zyad) sent /rawmap 5-20-2020, 10:56:35 PM
+zyad (zyad) sent /rawdata mapname:test
+maxx:1500
+maxy:1500
+maxz:2000
+zone:0:1500:0:1500:0:2000:main
+tile:0:500:0:250:0:0:dirt
+zone:0:500:0:250:0:20:bare area of the battlefield
+src:0:500:0:250:10:40:birds.ogg:-1
+zone:55:85:55:85:0:0:Muddy area of the lake
+tile:55:85:55:85:0:0:mud
+tile:60:80:60:80:0:0:water
+src:60:80:60:80:0:3:lake.ogg:-1
+tile:68:72:54:54:0:15:metal
+tile:68:72:86:86:0:15:metal
+tile:68:72:55:85:15:15:metal
+tile:0:500:251:500:0:0:grass
+zone:0:500:251:500:0:500:Forestly area of the battlefield
+tile:0:1500:500:1500:0:0:grass
+tile:0:1500:501:501:0:10:walldirt
+tile:0:1500:500:500:0:9:concrete
+zone:0:1500:500:550:0:49:mountain
+tile:0:1500:500:510:10:10:concrete
+tile:0:1500:511:511:10:19:walldirt
+tile:0:1500:510:510:10:20:concrete
+src:0:1500:0:1500:0:60:amb1.ogg:-
+tile:0:1500:510:520:20:20:concrete
+tile:0:1500:521:521:20:29:walldirt
+tile:0:1500:520:520:20:30:concrete
+tile:0:1500:520:530:30:30:concrete
+tile:0:1500:531:531:30:39:walldirt
+tile:0:1500:530:530:30:40:concrete
+tile:0:1500:530:540:40:40:concrete
+tile:0:1500:540:540:40:50:concrete
+tile:0:1500::540:550:50:50:concrete
+zone:0:1500:540:550:50:60:mountain
+tile:0:1500::551:748:50:50:grass
+zone:0:1500::551:748:50:60:top of the mountain
+tile:0:1500:541:541:40:49:walldirt
+tile:0:1500:749:750:0:50:dirt
+zone:0:1500:749:750:0:50:mountain
+tile:750:750:748:748:50:65:metal
+zone:750:750:748:748:50:65:ladder of the bridge
+tile:750:750:749:1300:65:81:bridge
+tile:751:751:749:1300:65:80:wallchain
+zone:750:750:749:1500:65:66:bridge
+tile:749:749:749:1300:65:80:wallchain
+tile:60:60:60:60:0:50:concrete
+tile:60:60:260:260:0:50:concrete
+tile:60:60:460:460:0:50:concrete
+zone:60:60:60:60:0:49:stairs
+tile:45:60:45:60:50:50:concrete2
+tile:750:750:750:750:50:100:concrete5
+tile:45:60:60:75:50:50:concrete2
+tile:1250:1250:1250:1250:100:150:fence
+tile:60:75:45:75:50:50:concrete2
+tile:750:750:751:1249:100:100:metal
+zone:45:75:45:75:50:70:tower
+src:750:750:751:1249:100:110:birds30.ogg
+tile:751:500:751:500:100:110:wallsheetrock
+tile:750:1000:750:1000:100:110:walltable
+tile:750:1000:750:750:100:110:walltable
+tile:751:1000:751:1000:102:110:wallmetal
+zone:60:60:260:260:0:49:stairs
+zone:45:75:245:275:50:70:tower
+tile:45:75:245:275:50:50:concrete2
+zone:60:60:460:460:0:49:stairs
+tile:45:75:445:475:50:50:concrete2
+zone:45:75:445:475:50:70:tower
+tile:260:260:60:60:0:50:concrete
+zone:260:260:60:60:0:49:stairs
+tile:245:275:45:75:50:50:concrete2
+zone:245:275:45:75:50:70:tower
+tile:751:753:751:753:100:110:wallscreen2
+tile:260:260:260:260:0:50:concrete
+zone:260:260:260:260:0:49:stairs
+tile:245:275:245:275:50:50:concrete2
+zone:245:275:245:275:50:70:tower
+tile:260:260:460:460:0:50:concrete
+zone:260:260:460:460:0:49:stairs
+tile:245:275:445:475:50:50:concrete2
+zone:245:275:445:475:50:70:tower
+tile:460:460:60:60:0:50:concrete
+zone:460:460:60:60:0:49:stairs
+tile:750:1000:1000:750:100:110:walldoor2
+tile:445:475:45:75:50:50:concrete2
+zone:445:475:45:75:50:70:tower
+tile:750:1000:750:1000:100:110:walltable
+tile:460:460:260:260:0:50:concrete2
+zone:460:460:260:260:0:49:stairs
+tile:445:475:245:275:50:50:concrete2
+zone:445:475:245:275:50:70:tower
+tile:460:460:460:460:0:50:concrete
+zone:460:460:460:460:0:49:stairs
+tile:445:475:445:475:50:50:concrete2
+zone:445:475:445:475:50:70:tower
+src:0:1000:0:1000:15:15:soaz.ogg
+tile:255:256:110:110:15:50:ladder2
+tile:257:300:110:110:50:50:concrete3
+tile:301:301:109:111:50:100:wallbigmetal2
+tile:254:300:109:109:50:100:wallbigmetal2
+tile:254:300:111:111:50:100:wallbigmetal2
+tile:254:254:110:110:50:100:wallbigmetal2
+zone:255:300:110:110:50:100:shelter hideout
+tile:250:260:99:99:0:15:metal3
+tile:250:260:99:122:15:15:concrete
+tile:255:256:110:110:15:50:ladder2
+zone:255:256:110:110:15:50:stairs:trackme
+tile:250:300:100:150:100:100:metal
+tile:299:300:110:110:50:100:metal5
+tile:249:301:100:100:100:150:wallbigmetal2
+tile:301:301:101:251:100:150:wallbigmetal2
+tile:249:249:101:251:100:150:wallbigmetal2
+tile:250:300:151:151:100:150:wallbigmetal2
+zone:250:300:101:150:100:150:open-air sky shelter hideout
+zone:299:300:110:110:50:100:stairs
+src:250:300:100:150:100:120:wind2.ogg
+tile:0:1:100:100:5:30:ladder2
+zone:0:1:100:100:5:30:stairs:trackme
+tile:5:10:95:105:30:30:bleacher
+tile:0:5:95:105:30:30:bleacher
+tile:0:1:101:101:7:29:wallrail
+tile:0:1:100:100:30:30:ladder2
+zone:0:10:95:105:30:40:the store guard tower:trackme
+tile:2:2:99:101:7:29:wallrail
+tile:0:1:99:99:7:29:wallrail
+zone:0:1:100:100:30:40:stairs
+tile:0:11:94:94:30:35:wallrail
+tile:11:11:95:105:30:35:wallrail
+tile:0:10:106:106:30:35:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:50:stairs
+tile:1:2:488:488:0:50:stairs
+tile:1:12:49:499:50:50:metal2
+tile:0:0:489:500:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:0:0:0:488:50:60:wallmetal
+tile:12:12:0:488:50:60:wallmetal
+zone:1:2:488:488:0:50:Stairs to tower
+zone:0:12:0:487:50:60:Sky tunnel:trackme
+src:1:11:0:487:50:70:tunnel.ogg
+zone:0:12:489:499:50:60:Northwest Tower.:trackme
+src:0:12:489:499:50:60:rumble2.ogg
+tile:1:2:488:488:50:50:stairs
+tile:3:12:488:488:50:60:wallchain
+tile:3:12:488:488:50:60:wallmetal
+tile:1:12:1:49:50:50:metal2
+tile:0:11:0:0:50:60:wallmetal
+tile:12:12:44:49:50:53:wallfence
+tile:12:12:44:49:54:60:fence
+zone:11:12:44:49:50:60:Escape rout, jump?:trackme
+tile:12:12:1:43:50:60:wallmetal
+tile:12:12:489:499:50:60:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:30:ladder to sky tunnel:trackme
+zone:3:4:100:100:31:49:climbing a ladder
+tile:0:3:488:489:0:49:wallrail
+tile:0:3:487:487:1:49:wallrail
+tile:2:5:200:200:50:50:metal6
+zone:2:5:200:200:50:60:bottom of a staircase:trackme
+zone:0:1:200:200:50:100:a narrow staircase
+tile:0:2:199:201:51:99:wallrail
+tile:0:1:200:200:50:100:metal5
+src:0:500:0:500:100:600:wind2.ogg
+zone:0:100:0:500:100:300:sky
+zone:0:100:199:301:100:199:A network of skybeams!:trackme
+tile:2:100:200:200:100:100:metal
+tile:0:100:199:199:100:104:wallrail
+tile:0:100:201:201:100:104:wallrail
+tile:101:101:199:201:100:154:wallrail
+tile:100:100:200:250:150:150:metal
+tile:100:100:200:201:100:150:metal5
+tile:99:99:200:250:150:154:wallrail
+tile:99:99:200:201:101:149:wallrail
+tile:100:100:199:199:100:154:wallrail
+tile:100:100:202:202:100:149:wallrail
+tile:101:101:200:250:150:154:wallrail
+tile:0:200:200:300:200:200:metal2
+tile:99:101:249:252:150:199:wallrail
+tile:100:100:249:249:150:150:metal
+tile:100:100:250:251:150:200:metal5
+tile:0:200:199:199:200:204:wallchain
+tile:201:201:200:300:200:204:wallchain
+tile:0:200:301:301:200:204:wallchain
+zone:0:201:199:301:200:210:a giant platform in the sky:trackme
+tile:493:494:3:3:0:20:ladder2
+tile:495:500:0:5:20:20:metal2
+zone:495:500:0:5:0:30:Southeast tower:trackme
+zone:494:494:3:3:0:20:Tower latter
+tile:495:500:5:5:0:3:wallrail
+tile:495:495:5:5:20:23:wallrail
+tile:495:495:4:4:20:23:wallrail
+tile:495:500:5:5:20:23:wallrail
+tile:495:495:0:2:20:23:wallrail
+tile:500:500:0:4:20:23:wallrail
+tile:496:499:0:0:20:23:wallrail
+tile:480:490:0:39:0:0:concrete2
+tile:480:490:0:39:0:0:concrete3
+zone:480:490:0:39:0:10:Michigan avenue:trackme
+tile:491:493:3:3:0:0:stone
+zone:250:260:99:99:0:14:stairs:trackme
+tile:99:101:100:100:0:20:fence
+tile:106:106:100:100:20:20:branch
+tile:106:106:100:105:20:20:branch
+tile:106:106:105:105:25:25:bleacher
+tile:102:102:105:105:25:25:bridge
+tile:97:97:105:105:25:25:ladder
+tile:97:97:100:100:25:25:metal2
+tile:100:100:100:100:30:30:plank
+src:100:100:100:100:30:30:generator.ogg
+tile:0:1500:499:750:0:0:concrete
+tile:0:1500:501:501:0:10:walldirt
+zone:0:1500:499:499:0:10:mountain
+tile:501:1500:0:498:0:0:dirt2
+tile:501:1500:0:498:0:0:dirt2
+tile:1000:1000:1500:1500:0:30:tree
+zone:1000:1000:1500:1500:0:30:the old tree:trackme
+travelpoint:480:480:0:0:0:0:Cemetery of old trains:0:0:0:movving to Cemetery of old trains
+travelpoint:700:700:700:700:0:0:dragons-fight-map:0:0:0:dragons-fight-map
+zone:700:700:700:700:0:0:press enter to go to dragons-fight-map:trackme
+tile:200:204:200:204:0:0:stairs
+travelpoint:222:222:400:400:0:0:old_city:0:0:0:you entered to the old city
+zone:222:222:400:400:0:0:to enter to the old city press enter.:trackme
+travelpoint:40:40:20:20:0:0:desert:2:2:0:you entered to the huge desert
+zone:40:40:20:20:0:0:to enter to desert press enter:trackme
+travelpoint:0:0:0:0:0:0:main_sity:500:500:0:you enter the second city
+zone:0:0:0:0:0:10:press enter to go to the city:trackme
+travelpoint:201:201:201:201:0:0:small_house:23:1:0:!Wow! it's small house
+zone:201:201:201:201:0:0:to enter to the small house press enter:trackmetile:100:103:100:100:0:30:ladder
+noitems:0:1500:0:1500:0:2000:hand_grenade:concussive_grenade:nuclear_bomb
+travelpoint:100:100:100:100:20:20:disco:0:0:0:done
+zone:100:100:100:100:20:20:to go to disco press enter:trackme
+src:100:100:100:100:20:20:farfclub1.ogg
+travelpoint:100:100:100:100:19:19:store:0:10:0:done
+zone:100:100:100:100:19:19:store doors:trackme 5-20-2020, 10:56:40 PM
+zyad (zyad) sent /rawdata mapname:test
+maxx:1500
+maxy:1500
+maxz:2000
+zone:0:1500:0:1500:0:2000:main
+tile:0:500:0:250:0:0:dirt
+zone:0:500:0:250:0:20:bare area of the battlefield
+src:0:500:0:250:10:40:birds.ogg:-1
+zone:55:85:55:85:0:0:Muddy area of the lake
+tile:55:85:55:85:0:0:mud
+tile:60:80:60:80:0:0:water
+src:60:80:60:80:0:3:lake.ogg:-1
+tile:68:72:54:54:0:15:metal
+tile:68:72:86:86:0:15:metal
+tile:68:72:55:85:15:15:metal
+tile:0:500:251:500:0:0:grass
+zone:0:500:251:500:0:500:Forestly area of the battlefield
+tile:0:1500:500:1500:0:0:grass
+tile:0:1500:501:501:0:10:walldirt
+tile:0:1500:500:500:0:9:concrete
+zone:0:1500:500:550:0:49:mountain
+tile:0:1500:500:510:10:10:concrete
+tile:0:1500:511:511:10:19:walldirt
+tile:0:1500:510:510:10:20:concrete
+src:0:1500:0:1500:0:60:amb1.ogg:-
+tile:0:1500:510:520:20:20:concrete
+tile:0:1500:521:521:20:29:walldirt
+tile:0:1500:520:520:20:30:concrete
+tile:0:1500:520:530:30:30:concrete
+tile:0:1500:531:531:30:39:walldirt
+tile:0:1500:530:530:30:40:concrete
+tile:0:1500:530:540:40:40:concrete
+tile:0:1500:540:540:40:50:concrete
+tile:0:1500::540:550:50:50:concrete
+zone:0:1500:540:550:50:60:mountain
+tile:0:1500::551:748:50:50:grass
+zone:0:1500::551:748:50:60:top of the mountain
+tile:0:1500:541:541:40:49:walldirt
+tile:0:1500:749:750:0:50:dirt
+zone:0:1500:749:750:0:50:mountain
+tile:750:750:748:748:50:65:metal
+zone:750:750:748:748:50:65:ladder of the bridge
+tile:750:750:749:1300:65:81:bridge
+tile:751:751:749:1300:65:80:wallchain
+zone:750:750:749:1500:65:66:bridge
+tile:749:749:749:1300:65:80:wallchain
+tile:60:60:60:60:0:50:concrete
+tile:60:60:260:260:0:50:concrete
+tile:60:60:460:460:0:50:concrete
+zone:60:60:60:60:0:49:stairs
+tile:45:60:45:60:50:50:concrete2
+tile:750:750:750:750:50:100:concrete5
+tile:45:60:60:75:50:50:concrete2
+tile:1250:1250:1250:1250:100:150:fence
+tile:60:75:45:75:50:50:concrete2
+tile:750:750:751:1249:100:100:metal
+zone:45:75:45:75:50:70:tower
+src:750:750:751:1249:100:110:birds30.ogg
+tile:751:500:751:500:100:110:wallsheetrock
+tile:750:1000:750:1000:100:110:walltable
+tile:750:1000:750:750:100:110:walltable
+tile:751:1000:751:1000:102:110:wallmetal
+zone:60:60:260:260:0:49:stairs
+zone:45:75:245:275:50:70:tower
+tile:45:75:245:275:50:50:concrete2
+zone:60:60:460:460:0:49:stairs
+tile:45:75:445:475:50:50:concrete2
+zone:45:75:445:475:50:70:tower
+tile:260:260:60:60:0:50:concrete
+zone:260:260:60:60:0:49:stairs
+tile:245:275:45:75:50:50:concrete2
+zone:245:275:45:75:50:70:tower
+tile:751:753:751:753:100:110:wallscreen2
+tile:260:260:260:260:0:50:concrete
+zone:260:260:260:260:0:49:stairs
+tile:245:275:245:275:50:50:concrete2
+zone:245:275:245:275:50:70:tower
+tile:260:260:460:460:0:50:concrete
+zone:260:260:460:460:0:49:stairs
+tile:245:275:445:475:50:50:concrete2
+zone:245:275:445:475:50:70:tower
+tile:460:460:60:60:0:50:concrete
+zone:460:460:60:60:0:49:stairs
+tile:750:1000:1000:750:100:110:walldoor2
+tile:445:475:45:75:50:50:concrete2
+zone:445:475:45:75:50:70:tower
+tile:750:1000:750:1000:100:110:walltable
+tile:460:460:260:260:0:50:concrete2
+zone:460:460:260:260:0:49:stairs
+tile:445:475:245:275:50:50:concrete2
+zone:445:475:245:275:50:70:tower
+tile:460:460:460:460:0:50:concrete
+zone:460:460:460:460:0:49:stairs
+tile:445:475:445:475:50:50:concrete2
+zone:445:475:445:475:50:70:tower
+src:0:1000:0:1000:15:15:soaz.ogg
+tile:255:256:110:110:15:50:ladder2
+tile:257:300:110:110:50:50:concrete3
+tile:301:301:109:111:50:100:wallbigmetal2
+tile:254:300:109:109:50:100:wallbigmetal2
+tile:254:300:111:111:50:100:wallbigmetal2
+tile:254:254:110:110:50:100:wallbigmetal2
+zone:255:300:110:110:50:100:shelter hideout
+tile:250:260:99:99:0:15:metal3
+tile:250:260:99:122:15:15:concrete
+tile:255:256:110:110:15:50:ladder2
+zone:255:256:110:110:15:50:stairs:trackme
+tile:250:300:100:150:100:100:metal
+tile:299:300:110:110:50:100:metal5
+tile:249:301:100:100:100:150:wallbigmetal2
+tile:301:301:101:251:100:150:wallbigmetal2
+tile:249:249:101:251:100:150:wallbigmetal2
+tile:250:300:151:151:100:150:wallbigmetal2
+zone:250:300:101:150:100:150:open-air sky shelter hideout
+zone:299:300:110:110:50:100:stairs
+src:250:300:100:150:100:120:wind2.ogg
+tile:0:1:100:100:5:30:ladder2
+zone:0:1:100:100:5:30:stairs:trackme
+tile:5:10:95:105:30:30:bleacher
+tile:0:5:95:105:30:30:bleacher
+tile:0:1:101:101:7:29:wallrail
+tile:0:1:100:100:30:30:ladder2
+zone:0:10:95:105:30:40:the store guard tower:trackme
+tile:2:2:99:101:7:29:wallrail
+tile:0:1:99:99:7:29:wallrail
+zone:0:1:100:100:30:40:stairs
+tile:0:11:94:94:30:35:wallrail
+tile:11:11:95:105:30:35:wallrail
+tile:0:10:106:106:30:35:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:50:stairs
+tile:1:2:488:488:0:50:stairs
+tile:1:12:49:499:50:50:metal2
+tile:0:0:489:500:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:0:0:0:488:50:60:wallmetal
+tile:12:12:0:488:50:60:wallmetal
+zone:1:2:488:488:0:50:Stairs to tower
+zone:0:12:0:487:50:60:Sky tunnel:trackme
+src:1:11:0:487:50:70:tunnel.ogg
+zone:0:12:489:499:50:60:Northwest Tower.:trackme
+src:0:12:489:499:50:60:rumble2.ogg
+tile:1:2:488:488:50:50:stairs
+tile:3:12:488:488:50:60:wallchain
+tile:3:12:488:488:50:60:wallmetal
+tile:1:12:1:49:50:50:metal2
+tile:0:11:0:0:50:60:wallmetal
+tile:12:12:44:49:50:53:wallfence
+tile:12:12:44:49:54:60:fence
+zone:11:12:44:49:50:60:Escape rout, jump?:trackme
+tile:12:12:1:43:50:60:wallmetal
+tile:12:12:489:499:50:60:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:30:ladder to sky tunnel:trackme
+zone:3:4:100:100:31:49:climbing a ladder
+tile:0:3:488:489:0:49:wallrail
+tile:0:3:487:487:1:49:wallrail
+tile:2:5:200:200:50:50:metal6
+zone:2:5:200:200:50:60:bottom of a staircase:trackme
+zone:0:1:200:200:50:100:a narrow staircase
+tile:0:2:199:201:51:99:wallrail
+tile:0:1:200:200:50:100:metal5
+src:0:500:0:500:100:600:wind2.ogg
+zone:0:100:0:500:100:300:sky
+zone:0:100:199:301:100:199:A network of skybeams!:trackme
+tile:2:100:200:200:100:100:metal
+tile:0:100:199:199:100:104:wallrail
+tile:0:100:201:201:100:104:wallrail
+tile:101:101:199:201:100:154:wallrail
+tile:100:100:200:250:150:150:metal
+tile:100:100:200:201:100:150:metal5
+tile:99:99:200:250:150:154:wallrail
+tile:99:99:200:201:101:149:wallrail
+tile:100:100:199:199:100:154:wallrail
+tile:100:100:202:202:100:149:wallrail
+tile:101:101:200:250:150:154:wallrail
+tile:0:200:200:300:200:200:metal2
+tile:99:101:249:252:150:199:wallrail
+tile:100:100:249:249:150:150:metal
+tile:100:100:250:251:150:200:metal5
+tile:0:200:199:199:200:204:wallchain
+tile:201:201:200:300:200:204:wallchain
+tile:0:200:301:301:200:204:wallchain
+zone:0:201:199:301:200:210:a giant platform in the sky:trackme
+tile:493:494:3:3:0:20:ladder2
+tile:495:500:0:5:20:20:metal2
+zone:495:500:0:5:0:30:Southeast tower:trackme
+zone:494:494:3:3:0:20:Tower latter
+tile:495:500:5:5:0:3:wallrail
+tile:495:495:5:5:20:23:wallrail
+tile:495:495:4:4:20:23:wallrail
+tile:495:500:5:5:20:23:wallrail
+tile:495:495:0:2:20:23:wallrail
+tile:500:500:0:4:20:23:wallrail
+tile:496:499:0:0:20:23:wallrail
+tile:480:490:0:39:0:0:concrete2
+tile:480:490:0:39:0:0:concrete3
+zone:480:490:0:39:0:10:Michigan avenue:trackme
+tile:491:493:3:3:0:0:stone
+zone:250:260:99:99:0:14:stairs:trackme
+tile:99:101:100:100:0:20:fence
+tile:106:106:100:100:20:20:branch
+tile:106:106:100:105:20:20:branch
+tile:106:106:105:105:25:25:bleacher
+tile:102:102:105:105:25:25:bridge
+tile:97:97:105:105:25:25:ladder
+tile:97:97:100:100:25:25:metal2
+tile:100:100:100:100:30:30:plank
+src:100:100:100:100:30:30:generator.ogg
+tile:0:1500:499:750:0:0:concrete
+tile:0:1500:501:501:0:10:walldirt
+zone:0:1500:499:499:0:10:mountain
+tile:501:1500:0:498:0:0:dirt2
+tile:501:1500:0:498:0:0:dirt2
+tile:1000:1000:1500:1500:0:30:tree
+zone:1000:1000:1500:1500:0:30:the old tree:trackme
+travelpoint:480:480:0:0:0:0:Cemetery of old trains:0:0:0:movving to Cemetery of old trains
+travelpoint:700:700:700:700:0:0:dragons-fight-map:0:0:0:dragons-fight-map
+zone:700:700:700:700:0:0:press enter to go to dragons-fight-map:trackme
+tile:200:204:200:204:0:0:stairs
+travelpoint:222:222:400:400:0:0:old_city:0:0:0:you entered to the old city
+zone:222:222:400:400:0:0:to enter to the old city press enter.:trackme
+travelpoint:40:40:20:20:0:0:desert:2:2:0:you entered to the huge desert
+zone:40:40:20:20:0:0:to enter to desert press enter:trackme
+travelpoint:0:0:0:0:0:0:main_sity:500:500:0:you enter the second city
+zone:0:0:0:0:0:10:press enter to go to the city:trackme
+travelpoint:201:201:201:201:0:0:small_house:23:1:0:!Wow! it's small house
+zone:201:201:201:201:0:0:to enter to the small house press enter:trackmetile:100:103:100:100:0:30:ladder
+noitems:0:1500:0:1500:0:2000:hand_grenade:concussive_grenade:nuclear_bomb
+travelpoint:100:100:100:100:20:20:disco:0:0:0:done
+zone:100:100:100:100:20:20:to go to disco press enter:trackme
+src:100:100:100:100:20:20:farfclub1.ogg
+travelpoint:100:100:100:100:19:19:store:0:10:0:done
+zone:100:100:100:100:19:19:store doors:trackme 5-20-2020, 10:56:46 PM
+zyad (zyad) sent /rawdata mapname:test
+maxx:1500
+maxy:1500
+maxz:2000
+zone:0:1500:0:1500:0:2000:main
+tile:0:500:0:250:0:0:dirt
+zone:0:500:0:250:0:20:bare area of the battlefield
+src:0:500:0:250:10:40:birds.ogg:-1
+zone:55:85:55:85:0:0:Muddy area of the lake
+tile:55:85:55:85:0:0:mud
+tile:60:80:60:80:0:0:water
+src:60:80:60:80:0:3:lake.ogg:-1
+tile:68:72:54:54:0:15:metal
+tile:68:72:86:86:0:15:metal
+tile:68:72:55:85:15:15:metal
+tile:0:500:251:500:0:0:grass
+zone:0:500:251:500:0:500:Forestly area of the battlefield
+tile:0:1500:500:1500:0:0:grass
+tile:0:1500:501:501:0:10:walldirt
+tile:0:1500:500:500:0:9:concrete
+zone:0:1500:500:550:0:49:mountain
+tile:0:1500:500:510:10:10:concrete
+tile:0:1500:511:511:10:19:walldirt
+tile:0:1500:510:510:10:20:concrete
+src:0:1500:0:1500:0:60:amb1.ogg:-
+tile:0:1500:510:520:20:20:concrete
+tile:0:1500:521:521:20:29:walldirt
+tile:0:1500:520:520:20:30:concrete
+tile:0:1500:520:530:30:30:concrete
+tile:0:1500:531:531:30:39:walldirt
+tile:0:1500:530:530:30:40:concrete
+tile:0:1500:530:540:40:40:concrete
+tile:0:1500:540:540:40:50:concrete
+tile:0:1500::540:550:50:50:concrete
+zone:0:1500:540:550:50:60:mountain
+tile:0:1500::551:748:50:50:grass
+zone:0:1500::551:748:50:60:top of the mountain
+tile:0:1500:541:541:40:49:walldirt
+tile:0:1500:749:750:0:50:dirt
+zone:0:1500:749:750:0:50:mountain
+tile:750:750:748:748:50:65:metal
+zone:750:750:748:748:50:65:ladder of the bridge
+tile:750:750:749:1300:65:81:bridge
+tile:751:751:749:1300:65:80:wallchain
+zone:750:750:749:1500:65:66:bridge
+tile:749:749:749:1300:65:80:wallchain
+tile:60:60:60:60:0:50:concrete
+tile:60:60:260:260:0:50:concrete
+tile:60:60:460:460:0:50:concrete
+zone:60:60:60:60:0:49:stairs
+tile:45:60:45:60:50:50:concrete2
+tile:750:750:750:750:50:100:concrete5
+tile:45:60:60:75:50:50:concrete2
+tile:1250:1250:1250:1250:100:150:fence
+tile:60:75:45:75:50:50:concrete2
+tile:750:750:751:1249:100:100:metal
+zone:45:75:45:75:50:70:tower
+src:750:750:751:1249:100:110:birds30.ogg
+tile:751:500:751:500:100:110:wallsheetrock
+tile:750:1000:750:1000:100:110:walltable
+tile:750:1000:750:750:100:110:walltable
+tile:751:1000:751:1000:102:110:wallmetal
+zone:60:60:260:260:0:49:stairs
+zone:45:75:245:275:50:70:tower
+tile:45:75:245:275:50:50:concrete2
+zone:60:60:460:460:0:49:stairs
+tile:45:75:445:475:50:50:concrete2
+zone:45:75:445:475:50:70:tower
+tile:260:260:60:60:0:50:concrete
+zone:260:260:60:60:0:49:stairs
+tile:245:275:45:75:50:50:concrete2
+zone:245:275:45:75:50:70:tower
+tile:751:753:751:753:100:110:wallscreen2
+tile:260:260:260:260:0:50:concrete
+zone:260:260:260:260:0:49:stairs
+tile:245:275:245:275:50:50:concrete2
+zone:245:275:245:275:50:70:tower
+tile:260:260:460:460:0:50:concrete
+zone:260:260:460:460:0:49:stairs
+tile:245:275:445:475:50:50:concrete2
+zone:245:275:445:475:50:70:tower
+tile:460:460:60:60:0:50:concrete
+zone:460:460:60:60:0:49:stairs
+tile:750:1000:1000:750:100:110:walldoor2
+tile:445:475:45:75:50:50:concrete2
+zone:445:475:45:75:50:70:tower
+tile:750:1000:750:1000:100:110:walltable
+tile:460:460:260:260:0:50:concrete2
+zone:460:460:260:260:0:49:stairs
+tile:445:475:245:275:50:50:concrete2
+zone:445:475:245:275:50:70:tower
+tile:460:460:460:460:0:50:concrete
+zone:460:460:460:460:0:49:stairs
+tile:445:475:445:475:50:50:concrete2
+zone:445:475:445:475:50:70:tower
+src:0:1000:0:1000:15:15:soaz.ogg
+tile:255:256:110:110:15:50:ladder2
+tile:257:300:110:110:50:50:concrete3
+tile:301:301:109:111:50:100:wallbigmetal2
+tile:254:300:109:109:50:100:wallbigmetal2
+tile:254:300:111:111:50:100:wallbigmetal2
+tile:254:254:110:110:50:100:wallbigmetal2
+zone:255:300:110:110:50:100:shelter hideout
+tile:250:260:99:99:0:15:metal3
+tile:250:260:99:122:15:15:concrete
+tile:255:256:110:110:15:50:ladder2
+zone:255:256:110:110:15:50:stairs:trackme
+tile:250:300:100:150:100:100:metal
+tile:299:300:110:110:50:100:metal5
+tile:249:301:100:100:100:150:wallbigmetal2
+tile:301:301:101:251:100:150:wallbigmetal2
+tile:249:249:101:251:100:150:wallbigmetal2
+tile:250:300:151:151:100:150:wallbigmetal2
+zone:250:300:101:150:100:150:open-air sky shelter hideout
+zone:299:300:110:110:50:100:stairs
+src:250:300:100:150:100:120:wind2.ogg
+tile:0:1:100:100:5:30:ladder2
+zone:0:1:100:100:5:30:stairs:trackme
+tile:5:10:95:105:30:30:bleacher
+tile:0:5:95:105:30:30:bleacher
+tile:0:1:101:101:7:29:wallrail
+tile:0:1:100:100:30:30:ladder2
+zone:0:10:95:105:30:40:the store guard tower:trackme
+tile:2:2:99:101:7:29:wallrail
+tile:0:1:99:99:7:29:wallrail
+zone:0:1:100:100:30:40:stairs
+tile:0:11:94:94:30:35:wallrail
+tile:11:11:95:105:30:35:wallrail
+tile:0:10:106:106:30:35:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:50:stairs
+tile:1:2:488:488:0:50:stairs
+tile:1:12:49:499:50:50:metal2
+tile:0:0:489:500:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:1:12:499:499:50:60:wallchain
+tile:0:0:0:488:50:60:wallmetal
+tile:12:12:0:488:50:60:wallmetal
+zone:1:2:488:488:0:50:Stairs to tower
+zone:0:12:0:487:50:60:Sky tunnel:trackme
+src:1:11:0:487:50:70:tunnel.ogg
+zone:0:12:489:499:50:60:Northwest Tower.:trackme
+src:0:12:489:499:50:60:rumble2.ogg
+tile:1:2:488:488:50:50:stairs
+tile:3:12:488:488:50:60:wallchain
+tile:3:12:488:488:50:60:wallmetal
+tile:1:12:1:49:50:50:metal2
+tile:0:11:0:0:50:60:wallmetal
+tile:12:12:44:49:50:53:wallfence
+tile:12:12:44:49:54:60:fence
+zone:11:12:44:49:50:60:Escape rout, jump?:trackme
+tile:12:12:1:43:50:60:wallmetal
+tile:12:12:489:499:50:60:wallrail
+tile:3:4:100:100:30:50:ladder2
+zone:3:4:100:100:30:30:ladder to sky tunnel:trackme
+zone:3:4:100:100:31:49:climbing a ladder
+tile:0:3:488:489:0:49:wallrail
+tile:0:3:487:487:1:49:wallrail
+tile:2:5:200:200:50:50:metal6
+zone:2:5:200:200:50:60:bottom of a staircase:trackme
+zone:0:1:200:200:50:100:a narrow staircase
+tile:0:2:199:201:51:99:wallrail
+tile:0:1:200:200:50:100:metal5
+src:0:500:0:500:100:600:wind2.ogg
+zone:0:100:0:500:100:300:sky
+zone:0:100:199:301:100:199:A network of skybeams!:trackme
+tile:2:100:200:200:100:100:metal
+tile:0:100:199:199:100:104:wallrail
+tile:0:100:201:201:100:104:wallrail
+tile:101:101:199:201:100:154:wallrail
+tile:100:100:200:250:150:150:metal
+tile:100:100:200:201:100:150:metal5
+tile:99:99:200:250:150:154:wallrail
+tile:99:99:200:201:101:149:wallrail
+tile:100:100:199:199:100:154:wallrail
+tile:100:100:202:202:100:149:wallrail
+tile:101:101:200:250:150:154:wallrail
+tile:0:200:200:300:200:200:metal2
+tile:99:101:249:252:150:199:wallrail
+tile:100:100:249:249:150:150:metal
+tile:100:100:250:251:150:200:metal5
+tile:0:200:199:199:200:204:wallchain
+tile:201:201:200:300:200:204:wallchain
+tile:0:200:301:301:200:204:wallchain
+zone:0:201:199:301:200:210:a giant platform in the sky:trackme
+tile:493:494:3:3:0:20:ladder2
+tile:495:500:0:5:20:20:metal2
+zone:495:500:0:5:0:30:Southeast tower:trackme
+zone:494:494:3:3:0:20:Tower latter
+tile:495:500:5:5:0:3:wallrail
+tile:495:495:5:5:20:23:wallrail
+tile:495:495:4:4:20:23:wallrail
+tile:495:500:5:5:20:23:wallrail
+tile:495:495:0:2:20:23:wallrail
+tile:500:500:0:4:20:23:wallrail
+tile:496:499:0:0:20:23:wallrail
+tile:480:490:0:39:0:0:concrete2
+tile:480:490:0:39:0:0:concrete3
+zone:480:490:0:39:0:10:Michigan avenue:trackme
+tile:491:493:3:3:0:0:stone
+zone:250:260:99:99:0:14:stairs:trackme
+tile:99:101:100:100:0:20:fence
+tile:106:106:100:100:20:20:branch
+tile:106:106:100:105:20:20:branch
+tile:106:106:105:105:25:25:bleacher
+tile:102:102:105:105:25:25:bridge
+tile:97:97:105:105:25:25:ladder
+tile:97:97:100:100:25:25:metal2
+tile:100:100:100:100:30:30:plank
+src:100:100:100:100:30:30:generator.ogg
+tile:0:1500:499:750:0:0:concrete
+tile:0:1500:501:501:0:10:walldirt
+zone:0:1500:499:499:0:10:mountain
+tile:501:1500:0:498:0:0:dirt2
+tile:501:1500:0:498:0:0:dirt2
+tile:1000:1000:1500:1500:0:30:tree
+zone:1000:1000:1500:1500:0:30:the old tree:trackme
+travelpoint:480:480:0:0:0:0:Cemetery of old trains:0:0:0:movving to Cemetery of old trains
+travelpoint:700:700:700:700:0:0:dragons-fight-map:0:0:0:dragons-fight-map
+zone:700:700:700:700:0:0:press enter to go to dragons-fight-map:trackme
+tile:200:204:200:204:0:0:stairs
+travelpoint:222:222:400:400:0:0:old_city:0:0:0:you entered to the old city
+zone:222:222:400:400:0:0:to enter to the old city press enter.:trackme
+travelpoint:40:40:20:20:0:0:desert:2:2:0:you entered to the huge desert
+zone:40:40:20:20:0:0:to enter to desert press enter:trackme
+travelpoint:0:0:0:0:0:0:main_sity:500:500:0:you enter the second city
+zone:0:0:0:0:0:10:press enter to go to the city:trackme
+travelpoint:201:201:201:201:0:0:small_house:23:1:0:!Wow! it's small house
+zone:201:201:201:201:0:0:to enter to the small house press enter:trackmetile:100:103:100:100:0:30:ladder
+noitems:0:1500:0:1500:0:2000:hand_grenade:concussive_grenade:nuclear_bomb
+travelpoint:100:100:100:100:20:20:disco:0:0:0:done
+zone:100:100:100:100:20:20:to go to disco press enter:trackme
+src:100:100:100:100:20:20:farfclub1.ogg
+travelpoint:100:100:100:100:19:19:store:0:10:0:done
+zone:100:100:100:100:19:19:store doors:trackme 5-20-2020, 10:56:52 PM
+zyad (zyad) sent /giveall aircraft 1 5-20-2020, 11:01:54 PM
+zyad (zyad) sent /quit 5-20-2020, 11:02:31 PM
+zyad (zyad) sent /storemoveto 0 1 0 5-20-2020, 11:10:39 PM
+zyad (zyad) sent /move zyad 0 0 0 main 5-20-2020, 11:10:50 PM
+zyad (zyad) sent /move zyad 0 0 0 5-20-2020, 11:11:18 PM
+zyad (zyad) sent /maps 5-20-2020, 11:11:56 PM
+zyad (zyad) sent /move zyad 0 0 0 drowning 5-20-2020, 11:12:28 PM
+zyad (zyad) sent /move zyad 0 0 100 5-20-2020, 11:12:49 PM
+zyad (zyad) sent /move zyad 0 0 0 main 5-20-2020, 11:12:56 PM
+zyad (zyad) sent /move zyad 0 0 0 fight 5-20-2020, 11:13:10 PM
+zyad (zyad) sent /move zyad 0 0 0 large_forest 5-20-2020, 11:13:39 PM
+zyad (zyad) sent /rawmap 5-20-2020, 11:14:31 PM
+zyad (zyad) sent /give zyad horn 1 5-20-2020, 11:15:11 PM
+zyad (zyad) sent /quit 5-20-2020, 11:16:58 PM
+zyad (zyad) sent /give zyad shield 10000 5-20-2020, 11:21:07 PM
+zyad (zyad) sent /killrobots 5-20-2020, 11:21:27 PM
+zyad (zyad) sent /move zyad 0 0 0 main 5-20-2020, 11:21:40 PM
+zyad (zyad) sent /move zyad 0 0 0 store 5-20-2020, 11:21:47 PM
+zyad (zyad) sent /quit 5-20-2020, 11:21:51 PM
+zyad (zyad) sent /move zyad 0 0 0 main 5-20-2020, 11:32:11 PM
+zyad (zyad) sent /maps 5-20-2020, 11:32:30 PM
+zyad (zyad) sent /move zyad 0 0 0 large_forest 5-20-2020, 11:33:40 PM
+zyad (zyad) sent /admintell hi 5-20-2020, 11:35:10 PM
+zyad (zyad) sent /quir 5-20-2020, 11:38:26 PM
+zyad (zyad) sent /quit 5-20-2020, 11:38:28 PM
+zyad (zyad) sent /move zyad 0 0 0 test 5-20-2020, 11:59:05 PM

@@ -1,0 +1,36 @@
+class googletranslateclient{
+private http req;
+private string from;
+private string to;
+private string phpscript_url;
+bool selecionar_url(string phpscript){
+this.phpscript_url=url_encode(phpscript);
+this.phpscript_url=string_replace(this.phpscript_url, "%3a", ":", true);
+this.phpscript_url=string_replace(this.phpscript_url, "%2f", "/", true);
+return this.phpscript_url!="";
+}
+bool selecionar_linguagem_origem(string lang){
+this.from=lang;
+return this.from==lang;
+}
+bool selecionar_linguagem_destino(string lang){
+this.to=lang;
+return this.to==lang;
+}
+string traduzir(string texto){
+string t="origem="+from+"&destino="+to+"&texto="+texto;
+string trans=this.req.post(this.phpscript_url, t);
+if(trans==""){
+if(get_last_error()==0){
+while(this.req.progress){
+game();
+trans+=this.req.request();
+}
+string textotxt=trans;
+if(textotxt!="")return textotxt;
+else return "";
+}
+}
+return "";
+}
+}

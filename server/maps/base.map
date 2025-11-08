@@ -1,0 +1,16 @@
+
+mapname:base
+maxx:50
+maxy:50
+maxz:50
+tile:0:50:0:50:0:0:carpet
+fightingstate:0
+zone:0:50:0:50:0:500:base
+amb:0:50:0:50:0:50:store.ogg
+tile:0:0:5:5:0:0:metal4
+zone:0:0:5:5:0:30:vending machine. For purchase, press enter.:trackme
+travelpoint:0:50:50:50:0:50:camp:250:300:0:Now is the time for adventure. Sepen and enjoy. The dangers that you face will not let you give up your purpose. good luck my friend
+zone:0:50:50:50:0:50:press enter to exit the secure area:trackme
+noitems:0:30:0:30:0:30:wirebomb:motion_bomb:mine:stun_dart:remote_timebomb:security_bomb:remote_gun:timebomb:warp_box:barricade_bomb:health_dart:suicide_bomb:mass_bomb:grenade:concussive_grenade:rocket_launcher,bottle_bomb:missile_interceptor:impact_bomb:aircraft:bomb_defuser:wood:guided_missile:tank:police_car:ultrabomb:tank:bottle_bomb:carrier_missile:bullet_bomb:stone:poisoned_small_projectile:tasing_small_projectile:small_projectile:sail_boats:poison_dart:poison_dart:poison_dagger:poison_dagger:item_grabber:robocop:helicopter:pipe_bomb:mine:tank:aircraft:dogan_slx:Truck:police_car:police_car_super:stone:suicide_bomb:armored_tank:hand_grenade
+
+tile:279:279:461:461:0:50:concrete6

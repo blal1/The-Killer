@@ -1,0 +1,9 @@
+void main()
+{
+string reason=input_box("TK info updater","Enter reason of server being down");
+if(reason=="")
+exit();
+string success=url_post("http://nbm-studios.tk/tk/reasonupdate.php","what="+reason);
+alert(success,"");
+exit();
+}

@@ -1,0 +1,21 @@
+string output;
+string txt;
+void main() {
+file f;
+f.open("tk.bgt","rb");
+txt=f.read();
+f.close();
+string[] data=string_split(txt,"\r\n",false);
+for(uint i=0; i<data.length(); i++)
+{
+if(string_contains(data[i],"send_reliable(",1)>-1 or string_contains(data[i],"send_unreliable(",1)>-1)
+{
+output+="On line: "+i+": "+data[i]+"\r\n";
+}
+}
+file f2;
+f2.open("send.log","wb");
+f2.write(output);
+f2.close();
+alert("done","ok done");
+}

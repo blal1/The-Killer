@@ -1,0 +1,10 @@
+Type /newevent <eventname> to create a new event. This should send back an ID with the event ID. This ID will contain only numbers and should only be 4 digets. From there, you need to set everything up through the /eventset command.
+Setting up the event will be kind of easy, but it can be a process. Type /eventset <id> <setting=val> to set the event.
+Event values are as follows: 
+*Map: a string defining where the user will be moved when joining the event. the default value is main.
+*description: a string defining the description the user will see when requesting information about the event.
+*can_keep_inventory: an int defining if the user is allowed to keep their inventory after and when joining the event. If the inventory value is set to 0, the user's inventory will be removed when joining the event and will be backed up. Once the user leaves or the event ends, he will then have his or her inventory back to normal. If the can_keep_inventory int is 1, he will be able to join with his or her inventory and when they leave, will leave with that same inventory. There will be other things as well, such as the ability to collect items.
+*can_leave: an int defining if the user is allowed to type /leaveevent at any time. If this command is sent, the user will leave the event.
+*Joinx,joiny, and joinz, ints defining the coordinates the player will be moved to when joining. They are set to 0, 0, 0 by default.
+After setting all the params you wish to fill out, you can type /eventinfo <id> to check everything in the event. and make sure everything checks out like you wish. If everything is ready, you can type /launchevent <id> and launch the event! Note: when an event is launched and started the event settings will not be editable anymore. So make sure that you launch the event when you're absolutely sure everything is set to go!
+If you wish to end an event, you can tyep /endevent <id>, and the event will end.

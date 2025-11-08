@@ -1,0 +1,15 @@
+name coyote
+health 5000
+defence 0
+speed 300
+damage 200,2000
+shoot 2000
+distance 5
+aggro 1000
+spread 1
+angle 90
+steps 0
+loot dollar
+amount 50
+voices 5
+kills 5

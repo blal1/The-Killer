@@ -1,0 +1,183 @@
+barricade_bomb@[] barricade_bombs(0);
+class barricade_bomb
+{
+string owner;
+int z;
+string map;
+int x, y;
+int seconds=1000;
+int beeptime=500;
+timer beeptimer, bombtimer;
+string teamname;
+timer scantimer;
+bool d=false;
+player@ p;
+barricade_bomb(int tx,int ty,int tz, string tmap, string towner)
+{
+owner=towner;
+@p=players[get_player_index_from(owner)];
+x=tx;
+y=ty;
+z=tz;
+map=tmap;
+}
+bool barricadecheck()
+{
+int ind=get_player_index_from(owner);
+if(ind>-1&&@p==null) @p=players[ind];
+else if(ind<0&&@p!=null) @p=null;
+bool ret=false;
+for(uint i2=0; i2<vs.length(); i2++)
+{
+if(is_part_of_team(vs[i2].owner,teamname)) continue;
+if (get_3d_distance(x,y,z,vs[i2].x,vs[i2].y,vs[i2].z)<=15 and vs[i2].map==map and vs[i2].owner!=owner)
+{
+ret=true;
+}
+}
+for(uint i2=0; i2<players.length(); i2++)
+{
+if(players[i2].invinsible==true || players[i2].is_dead==true||in_vehicle(players[i2].name)>-1||is_part_of_team(players[i2].name,teamname)) continue;
+if (get_3d_distance(x,y,z,players[i2].x,players[i2].y,players[i2].z)<=15 and players[i2].map==map and players[i2].name!=owner)
+{
+ret=true;
+}
+}
+return ret;
+}
+}
+void bbombloop()
+{
+for (uint i=0; i<barricade_bombs.length(); i++)
+{
+player@ p=barricade_bombs[i].p;
+if(@p!=null and p.teamname!=barricade_bombs[i].teamname) barricade_bombs[i].teamname=p.teamname;
+if(barricade_bombs[i].scantimer.elapsed>=1000 )
+{
+barricade_bombs[i].scantimer.restart();
+play("barricade_bombscan",barricade_bombs[i].x,barricade_bombs[i].y,barricade_bombs[i].z,barricade_bombs[i].map);
+bool t=barricade_bombs[i].d;
+barricade_bombs[i].d=barricade_bombs[i].barricadecheck();
+if(t==false and barricade_bombs[i].d==true) {barricade_bombs[i].beeptimer.restart();barricade_bombs[i].bombtimer.restart();}
+netloop();
+}
+if(barricade_bombs[i].d==true)
+{
+barricade_bombs[i].seconds=3000-barricade_bombs[i].bombtimer.elapsed;
+if (barricade_bombs[i].beeptimer.elapsed>=barricade_bombs[i].beeptime)
+{
+if(seconds>300) barricade_bombs[i].d=barricade_bombs[i].barricadecheck();
+barricade_bombs[i].beeptimer.restart();
+play("barricade_bombbeep",barricade_bombs[i].x,barricade_bombs[i].y,barricade_bombs[i].z,barricade_bombs[i].map);
+}
+if (barricade_bombs[i].seconds<=0)
+{
+play("barricade_bomb",barricade_bombs[i].x,barricade_bombs[i].y,barricade_bombs[i].z,barricade_bombs[i].map);
+send_reliable(0,"distsound barricade_bombdist "+barricade_bombs[i].x+" "+barricade_bombs[i].y+" "+barricade_bombs[i].z+" "+barricade_bombs[i].map,0);
+for(uint i2=0; i2<impact_bombs.length(); i2++)
+{
+if(get_3d_distance(impact_bombs[i2].x,impact_bombs[i2].y,impact_bombs[i2].z,barricade_bombs[i].x,barricade_bombs[i].y,barricade_bombs[i].z)<=20 and impact_bombs[i2].map==barricade_bombs[i].map)
+{
+impact_bombs[i2].health-=random(8000,80000);
+play("ibombhit"+random(1,3),impact_bombs[i2].x,impact_bombs[i2].y,impact_bombs[i2].z,impact_bombs[i2].map);
+}
+}
+for(uint i2=0; i2<bullet_bombs.length(); i2++)
+{
+if(get_3d_distance(bullet_bombs[i2].x,bullet_bombs[i2].y,bullet_bombs[i2].z,barricade_bombs[i].x,barricade_bombs[i].y,barricade_bombs[i].z)<=20 and bullet_bombs[i2].map==barricade_bombs[i].map)
+{
+bullet_bombs[i2].health-=random(8000,80000);
+play("bullet_bombimpact",bullet_bombs[i2].x,bullet_bombs[i2].y,bullet_bombs[i2].z,bullet_bombs[i2].map);
+send_reliable(0,"distsound bullet_bombimpactdist "+bullet_bombs[i2].x+" "+bullet_bombs[i2].y+" "+bullet_bombs[i2].z+" "+bullet_bombs[i2].map,0);
+}
+}
+for (uint i2=0; i2<players.length(); i2++)
+{
+if(players[i2].invinsible==true || players[i2].is_dead==true||in_vehicle(players[i2].name)>-1) continue;
+if (get_3d_distance(barricade_bombs[i].x,barricade_bombs[i].y,barricade_bombs[i].z,players[i2].x,players[i2].y,players[i2].z)<=20 and players[i2].map==barricade_bombs[i].map)
+{
+players[i2].hit(8000,80000);
+players[i2].should_subtract=false;
+players[i2].hitby=barricade_bombs[i].owner+"'s barricade bomb";
+players[i2].playsound("barricade_bombhit");
+}
+}
+for (uint i2=0; i2<objs.length(); i2++)
+{
+if (get_3d_distance(barricade_bombs[i].x,barricade_bombs[i].y,barricade_bombs[i].z,objs[i2].x,objs[i2].y,objs[i2].z)<=20 and objs[i2].map==barricade_bombs[i].map)
+{
+play("obj_break"+random(1,3),objs[i2].x,objs[i2].y,objs[i2].z,objs[i2].map);
+objs.remove_at(i2);
+}
+}
+for (uint i2=0; i2<remguns.length(); i2++)
+{
+if (get_3d_distance(barricade_bombs[i].x,barricade_bombs[i].y,barricade_bombs[i].z,remguns[i2].x,remguns[i2].y,remguns[i2].z)<=20 and remguns[i2].map==barricade_bombs[i].map)
+{
+remguns[i2].health-=random(8000,80000);
+remguns[i2].hitby=barricade_bombs[i].owner+"'s barricade bomb";
+play("remgunhit"+random(1, 3),remguns[i2].x,remguns[i2].y,remguns[i2].z,remguns[i2].map);
+}
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_3d_distance(barricade_bombs[i].x,barricade_bombs[i].y,barricade_bombs[i].z,vs[v].x,vs[v].y,vs[v].z)<=20&&vs[v].map==barricade_bombs[i].map)
+vs[v].hit(random(8000,80000),barricade_bombs[i].owner+"'s barricade bomb");
+}
+@barricade_bombs[i]=null;
+barricade_bombs.remove_at(i);
+}
+}
+}
+}
+void spawn_barricade_bomb(int x,int y, int z, string map,string owner)
+{
+barricade_bomb bomb1(x,y,z,map,owner);
+int index=get_player_index_from(owner);
+if(players[index].teamname!="")
+bomb1.teamname=players[index].teamname;
+barricade_bombs.insert_last(bomb1);
+}
+void destroy_all_barricade_bombs()
+{
+barricade_bombs.resize(0);
+}
+void create_barricade_bomb_from_datastream(string data)
+{
+dictionary d=deserialize(data);
+int x=dget_int(d,"x"),y=dget_int(d,"y"),z=dget_int(d,"z");
+string map=dget_string(d,"map"),owner=dget_string(d,"owner"),teamname=dget_string(d,"teamname");
+barricade_bomb m1(x,y,z,map,owner);
+if(teamname!="") m1.teamname=teamname;
+barricade_bombs.insert_last(m1);
+}
+void create_barricade_bomb_array_from_datastream(string stream)
+{
+dictionary@ temp=deserialize(stream);
+string[] keys=temp.get_keys();
+for(uint i=0; i<keys.length; i++)
+{
+string val=dget_string(temp,keys[i]);
+create_barricade_bomb_from_datastream(val);
+}
+@temp=null;
+}
+string[] create_datastream_from_barricade_bomb(barricade_bomb@ m)
+{
+dictionary d;
+d.set("x",m.x);d.set("y",m.y);d.set("z",m.z);d.set("owner",m.owner);d.set("map",m.map);d.set("teamname",m.teamname);
+string[] ret(2);
+ret[0]=randomstring(5);
+ret[1]=serialize(d);
+return ret;
+}
+string create_datastream_from_barricade_bomb_array()
+{
+dictionary d;
+for(uint i=0; i<barricade_bombs.length; i++)
+{
+string[] r=create_datastream_from_barricade_bomb(barricade_bombs[i]);
+d.set(r[0],r[1]);
+}
+return serialize(d);
+}

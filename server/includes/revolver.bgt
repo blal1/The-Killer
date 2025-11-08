@@ -1,0 +1,98 @@
+revolver@[]revolvers(0);
+class revolver {
+double x,y,z;
+int dir=0;
+bool explode=false;
+timer explodetimer;
+int range=1;
+int distance=0;
+int mindammage=20000;
+int maxdammage=30000;
+string map;
+string owner;
+int spread=5;
+
+revolver(double gx, double gy, double gz, double gdir, string gmap, string gowner)
+{
+x=gx;
+y=gy;
+z=gz;
+dir=gdir;
+map=gmap;
+owner=gowner;
+play("revolverwarn",x,y,z,map);
+} // constructor.
+} // class.revolver.
+
+void revolverloop()
+{
+for(uint j=0; j<revolvers.length(); j++)
+{
+if(revolvers[j].explodetimer.elapsed>=1)
+{
+revolvers[j].explodetimer.restart();
+play("revolver",revolvers[j].x,revolvers[j].y,revolvers[j].z,revolvers[j].map);
+send_reliable(0,"distsound revolversdasdtdist "+revolvers[j].x+" "+revolvers[j].y+" "+revolvers[j].z+" "+revolvers[j].map,0);
+for(uint s=0; s<shelters.length; s++)
+{
+if(get_3d_distance(revolvers[j].x,revolvers[j].y,revolvers[j].z,shelters[s].x,shelters[s].y,shelters[s].z)<=revolvers[j].range&&shelters[s].map==revolvers[j].map)
+shelters[s].hit(random(20000,30000),revolvers[j].owner+"'s revolver","revolver");
+}
+for(uint x=0; x<players.length(); x++)
+{
+if(in_vehicle(players[x].name)>-1 or players[x].newb==1 or players[x].is_dead or players[x].invinsible) continue;
+if(get_3d_distance(revolvers[j].x,revolvers[j].y,revolvers[j].z,players[x].x,players[x].y,players[x].z)<=revolvers[j].range and players[x].map==revolvers[j].map)
+{
+players[x].hit(revolvers[j].mindammage,revolvers[j].maxdammage);
+players[x].should_subtract=true;
+players[x].hitby=revolvers[j].owner+"'s revolver";
+players[x].playsound("revolverhit");
+}
+}
+for (uint i2=0; i2<objs.length(); i2++)
+{
+if (get_3d_distance(revolvers[j].x,revolvers[j].y,revolvers[j].z,objs[i2].x,objs[i2].y,objs[i2].z)<=revolvers[j].range and objs[i2].map==revolvers[j].map)
+{
+play("obj_break"+random(1,3),objs[i2].x,objs[i2].y,objs[i2].z,objs[i2].map);
+objs.remove_at(i2);
+}
+}
+for(uint i2=0; i2<horbs.length; i2++)
+{
+if(get_3d_distance(revolvers[j].x,revolvers[j].y,revolvers[j].z,horbs[i2].x,horbs[i2].y,horbs[i2].z)<=revolvers[j].range&&horbs[i2].map==revolvers[j].map) horbs[i2].shoot();
+}
+for (uint i2=0; i2<remguns.length(); i2++)
+{
+if (get_3d_distance(revolvers[j].x,revolvers[j].y,revolvers[j].z,remguns[i2].x,remguns[i2].y,remguns[i2].z)<=revolvers[j].range and remguns[i2].map==revolvers[j].map)
+{
+remguns[i2].health-=random(20000,30000);
+remguns[i2].hitby=revolvers[j].owner+"'s revolver";
+play("remgunhit"+random(1, 3),remguns[i2].x,remguns[i2].y,remguns[i2].z,remguns[i2].map);
+}
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_2d_distance(vs[v].x,vs[v].y,revolvers[j].x,revolvers[j].y)<=revolvers[j].range)
+{
+vs[v].hit(random(revolvers[j].mindammage,revolvers[j].maxdammage),revolvers[j].owner+"'s revolver","revolver");
+}
+}
+for(uint x=0; x<impact_bombs.length(); x++)
+{
+if(get_3d_distance(revolvers[j].x,revolvers[j].y,revolvers[j].z,impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z)<=30 and revolvers[j].map==impact_bombs[x].map)
+{
+play("ibombhit"+random(1,3),impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z,impact_bombs[x].map);
+impact_bombs[x].health-=random(revolvers[j].mindammage,revolvers[j].maxdammage);
+}
+}
+@revolvers[j]=null;
+revolvers.remove_at(j);
+continue;
+}
+}
+}
+void spawn_revolver(double x, double y, double z, double dir, string map, string owner)
+{
+revolver f1(x, y, z, dir, map, owner);
+revolvers.insert_last(f1);
+}

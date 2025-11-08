@@ -1,0 +1,64 @@
+string achievelist="I'm just bad at this grenade thing, die by your own grenade. Humiliation achievement.
+Bad at dodging, die by your own ultrabomb.
+I really like booms! Die by your own impact bombs
+I wanna die now, kill yourself any other way.
+kill an invisible player, self-explanatory
+butcher, kill somebody with a knife.
+Commander Blade, kil somebody with a knife while they are not stunned.
+grenade in your face, kill somebody with a grenade.
+tastes like grenade, die by somebody's grenade. Humiliation achievement.
+killed somebody in a tank, blow an aircraft out of the sky, bring down the popo. Killing somebody in one of these vehicles while you yourself are not in one.
+killed a vehicle with your knife, self-explanatory
+laser a tank to death, kill a tank with a vehicle with an onboard laser.
+professional dogfighter, kill an aircraft with an aircraft.
+AWOL, kill a police car with your police car
+nailed by a rogue, die in a police car that was killed by another police car.
+eat my missile, die by missile.
+almost had it, die by missile while your interceptor is powering up.
+Private Shotgun, kill somebody with a shotgun.
+General Shotgun, kill somebody with a shotgun while they are not stunned.
+holy shit that was close, manage a kill with less than 1000 health.
+close, but no cigar, be the one killed by the obtainer of the previous achievement.
+Youch! That hurt, manage a kill where the player went from over 2000 health to death.
+you beat my shield, kill somebody with a shield, without using a bomb.
+bullseye, kill somebody with a stun or health dart.";
+class achievements
+{
+string achieve;
+int count_achievements()
+{
+int ret=0;
+if(achieve=="")
+return ret;
+string[]  ac=string_split(achieve,"+",false);
+return ac.length();
+}
+bool add(string name)
+{
+if (!achievement_exists(name))
+{
+achieve+="+"+name;
+return true;
+}
+return false;
+}
+string[] list_achievements()
+{
+string[] a=string_split(achieve,"+",true);
+if (achieve=="")
+a.insert_last("No achievements");
+return a;
+}
+bool achievement_exists(string name)
+{
+string[] s=list_achievements();
+for (uint i=0; i<s.length(); i++)
+{
+if (s[i]==name)
+{
+return true;
+}
+}
+return false;
+}
+}

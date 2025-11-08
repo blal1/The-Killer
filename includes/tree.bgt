@@ -1,0 +1,61 @@
+tree@[]trees(0);
+class tree
+{
+int x,y,z;
+int id=-1;
+bool killed=false;
+string map;
+tree(int tx,int ty, int tz,string m,int tID=-1)
+{
+x=tx;
+y=ty;
+z=tz;
+map=m;
+if(tID>-1)
+id=tID;
+
+}
+}
+void treeloop()
+{
+for(uint i=0; i<trees.length(); i++)
+{
+if(trees[i].killed==true)
+{
+@trees[i]=null;
+trees.remove_at(i);
+continue;
+}
+}
+}
+int is_on_tree(int x,int y,int z,string map)
+{
+for(uint i=0; i<trees.length(); i++)
+{
+if(trees[i].x==x and trees[i].y==y and trees[i].z==z and trees[i].map==map)
+return i;
+}
+return -1;
+}
+void spawn_tree(int x,int y,int z,string map,int id=random(1000,9999))
+{
+z+=random(3,15);
+tree t1(x,y,z,map,id);
+trees.insert_last(t1);
+}
+int find_tree(int id)
+{
+for(uint i=0; i<trees.length(); i++)
+{
+if(trees[i].id==id)
+return i;
+}
+return -1;
+}
+void remove_all_trees()
+{
+for(uint i=0; i<trees.length(); i++)
+{
+trees[i].killed=true;
+}
+}

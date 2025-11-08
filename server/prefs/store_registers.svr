@@ -1,0 +1,6 @@
+weapon_store=10=150=200=store
+ammo_store=5=165=200=store
+misc_store=15=160=200=store
+medical_store=30=175=200=store
+explosive_store=25=155=200=store
+vehicle_store=0=180=200=store

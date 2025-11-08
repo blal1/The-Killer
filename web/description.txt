@@ -1,0 +1,1 @@
+switches all things to the new server and changing ports

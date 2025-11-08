@@ -1,0 +1,287 @@
+projectile@[] projectiles(0);
+class projectile
+{
+int x;
+int y;
+int z;
+string map;
+string zone;
+string mid;
+string owner;
+timer mtimer;
+int mtime=100;
+timer removetimer;
+projectile(int sx,int sy,int sz,string smap,string soner)
+{
+x=sx;
+y=sy;
+z=sz;
+map=smap;
+owner=soner;
+play("smallprojectilefire",x,y,z,map);
+mid=spawn_moving_sound("smallprojectile.ogg",x,y,z,map);
+}
+}
+void projectileloop()
+{
+for(uint i=0; i<projectiles.length(); i++)
+{
+if(projectiles[i].removetimer.elapsed>60000)
+{
+destroy_moving_sound(projectiles[i].mid);
+projectiles.remove_at(i);
+continue;
+}
+int oindex=get_player_index_from(projectiles[i].owner);
+if(oindex<0)
+{
+destroy_moving_sound(projectiles[i].mid);
+projectiles.remove_at(i);
+continue;
+}
+int index=get_nearest_player(projectiles[i].x,projectiles[i].y,projectiles[i].z,projectiles[i].map,oindex);
+if(index>-1)
+{
+if(players[index].newb==1 or players[index].is_dead or players[index].invinsible) continue;
+int v=in_vehicle(players[index].name);
+int dist=get_3d_distance(projectiles[i].x,projectiles[i].y,projectiles[i].z,players[index].x,players[index].y,players[index].z);
+if(dist<5 and index!=oindex and players[index].z==projectiles[i].z)
+{
+if(v>-1) {
+vs[v].hit(10,6000);
+vs[v].hitby=projectiles[i].owner+"'s small projectile ";
+destroy_moving_sound(projectiles[i].mid);
+projectiles.remove_at(i);
+i--;
+continue;
+}
+else
+if(in_vehicle(players[index].name)>-1)
+{
+continue;
+}
+else
+{
+{players[index].hit(100,10000);
+players[index].hitby=projectiles[i].owner+"'s small projectile ";
+players[index].playsound("smallprojectilehit");
+send_reliable(players[index].peer_id, "You got wacked with "+projectiles[i].owner+"'s small projectile!", 2);
+send_reliable(players[oindex].peer_id, "Your small projectile smacked "+players[index].name+"! ", 2);
+destroy_moving_sound(projectiles[i].mid);
+projectiles.remove_at(i);
+i--;
+continue;
+}
+}
+}
+if(projectiles[i].mtimer.elapsed>projectiles[i].mtime)
+{
+projectiles[i].mtimer.restart();
+if(projectiles[i].x<players[index].x)
+projectiles[i].x++;
+else if(projectiles[i].x>players[index].x)
+projectiles[i].x--;
+if(projectiles[i].y<players[index].y)
+projectiles[i].y++;
+if(projectiles[i].y>players[index].y)
+projectiles[i].y--;
+if(projectiles[i].z<players[index].z)
+projectiles[i].z++;
+if(projectiles[i].z>players[index].z)
+projectiles[i].z--;
+update_moving_sound(projectiles[i].mid,projectiles[i].x,projectiles[i].y,projectiles[i].z);
+}
+}
+}
+}
+void spawn_projectile(int x,int y,int z,string map,string owner)
+{
+projectile s(x,y,z,map,owner);
+projectiles.insert_last(s);
+}
+tprojectile@[] tprojectiles(0);
+class tprojectile
+{
+int x;
+int y;
+int z;
+string map;
+string zone;
+string mid;
+string owner;
+timer mtimer;
+int mtime=100;
+timer removetimer;
+tprojectile(int sx,int sy,int sz,string smap,string soner)
+{
+x=sx;
+y=sy;
+z=sz;
+map=smap;
+owner=soner;
+play("smallprojectilefire",x,y,z,map);
+mid=spawn_moving_sound("smallprojectile.ogg",x,y,z,map);
+}
+}
+void tprojectileloop()
+{
+for(uint i=0; i<tprojectiles.length(); i++)
+{
+if(tprojectiles[i].removetimer.elapsed>60000)
+{
+destroy_moving_sound(tprojectiles[i].mid);
+tprojectiles.remove_at(i);
+continue;
+}
+int oindex=get_player_index_from(tprojectiles[i].owner);
+if(oindex<0)
+{
+destroy_moving_sound(tprojectiles[i].mid);
+tprojectiles.remove_at(i);
+continue;
+}
+int index=get_nearest_player(tprojectiles[i].x,tprojectiles[i].y,tprojectiles[i].z,tprojectiles[i].map,oindex);
+if(index>-1)
+{
+if(players[index].newb==1 or players[index].is_dead or players[index].invinsible) continue;
+int dist=get_3d_distance(tprojectiles[i].x,tprojectiles[i].y,tprojectiles[i].z,players[index].x,players[index].y,players[index].z);
+int v=in_vehicle(players[index].name);
+if(dist<5 and index!=oindex and players[index].z==tprojectiles[i].z)
+{
+if(v>-1) {
+vs[v].hit(10,6000);
+vs[v].hitby=tprojectiles[i].owner+"'s tasing small projectile ";
+destroy_moving_sound(tprojectiles[i].mid);
+tprojectiles.remove_at(i);
+i--;
+continue;
+}
+else
+if(in_vehicle(players[index].name)>-1)
+{
+continue;
+}
+else
+{
+players[index].hit(100,1000);
+players[index].hitby=tprojectiles[i].owner+"'s tasing small projectile ";
+players[index].playsound("smallprojectilehit");
+players[index].playsound("stun_darthit");
+players[index].stun(10000,true,true);
+send_reliable(players[index].peer_id, "You got wacked with "+tprojectiles[i].owner+"'s tasing small projectile!", 2);
+send_reliable(players[oindex].peer_id, "Your tasing small projectile smacked "+players[index].name+"! ", 2);
+destroy_moving_sound(tprojectiles[i].mid);
+tprojectiles.remove_at(i);
+i--;
+continue;
+}
+}
+if(tprojectiles[i].mtimer.elapsed>tprojectiles[i].mtime)
+{
+tprojectiles[i].mtimer.restart();
+if(tprojectiles[i].x<players[index].x)
+tprojectiles[i].x++;
+else if(tprojectiles[i].x>players[index].x)
+tprojectiles[i].x--;
+if(tprojectiles[i].y<players[index].y)
+tprojectiles[i].y++;
+if(tprojectiles[i].y>players[index].y)
+tprojectiles[i].y--;
+if(tprojectiles[i].z<players[index].z)
+tprojectiles[i].z++;
+if(tprojectiles[i].z>players[index].z)
+tprojectiles[i].z--;
+update_moving_sound(tprojectiles[i].mid,tprojectiles[i].x,tprojectiles[i].y,tprojectiles[i].z);
+}
+}
+}
+}
+void spawn_tprojectile(int x,int y,int z,string map,string owner)
+{
+tprojectile s(x,y,z,map,owner);
+tprojectiles.insert_last(s);
+}pprojectile@[] pprojectiles(0);
+class pprojectile
+{
+int x;
+int y;
+int z;
+string map;
+string zone;
+string mid;
+string owner;
+timer mtimer;
+int mtime=100;
+timer removetimer;
+pprojectile(int sx,int sy,int sz,string smap,string soner)
+{
+x=sx;
+y=sy;
+z=sz;
+map=smap;
+owner=soner;
+play("smallprojectilefire",x,y,z,map);
+mid=spawn_moving_sound("smallprojectile.ogg",x,y,z,map);
+}
+}
+void pprojectileloop()
+{
+for(uint i=0; i<pprojectiles.length(); i++)
+{
+if(pprojectiles[i].removetimer.elapsed>60000)
+{
+destroy_moving_sound(pprojectiles[i].mid);
+pprojectiles.remove_at(i);
+continue;
+}
+int oindex=get_player_index_from(pprojectiles[i].owner);
+if(oindex<0)
+{
+destroy_moving_sound(pprojectiles[i].mid);
+pprojectiles.remove_at(i);
+continue;
+}
+int index=get_nearest_player(pprojectiles[i].x,pprojectiles[i].y,pprojectiles[i].z,pprojectiles[i].map,oindex);
+if(index>-1)
+{
+if(in_vehicle(players[index].name)>-1 or players[index].newb==1 or players[index].is_dead or players[index].invinsible) continue;
+int dist=get_3d_distance(pprojectiles[i].x,pprojectiles[i].y,pprojectiles[i].z,players[index].x,players[index].y,players[index].z);
+if(dist<3 and index!=oindex and players[index].z==pprojectiles[i].z)
+{
+players[index].hit(100,6000);
+players[index].poisoned=true;
+players[index].poisontimer.restart();
+players[index].hitby=pprojectiles[i].owner+"'s poisoned small projectile ";
+players[index].playsound("smallprojectilehit");
+players[index].playsound("poisonstart");
+send_reliable(players[index].peer_id, "You got wacked with "+pprojectiles[i].owner+"'s poisoned small projectile!", 2);
+send_reliable(players[oindex].peer_id, "Your poisoned small projectile smacked "+players[index].name+"! ", 2);
+destroy_moving_sound(pprojectiles[i].mid);
+pprojectiles.remove_at(i);
+continue;
+}
+if(pprojectiles[i].mtimer.elapsed>pprojectiles[i].mtime)
+{
+pprojectiles[i].mtimer.restart();
+if(pprojectiles[i].x<players[index].x)
+pprojectiles[i].x++;
+else if(pprojectiles[i].x>players[index].x)
+pprojectiles[i].x--;
+if(pprojectiles[i].y<players[index].y)
+pprojectiles[i].y++;
+if(pprojectiles[i].y>players[index].y)
+pprojectiles[i].y--;
+if(pprojectiles[i].z<players[index].z)
+pprojectiles[i].z++;
+if(pprojectiles[i].z>players[index].z)
+pprojectiles[i].z--;
+update_moving_sound(pprojectiles[i].mid,pprojectiles[i].x,pprojectiles[i].y,pprojectiles[i].z);
+}
+}
+}
+}
+void spawn_pprojectile(int x,int y,int z,string map,string owner)
+{
+pprojectile s(x,y,z,map,owner);
+pprojectiles.insert_last(s);
+}

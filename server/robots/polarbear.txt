@@ -1,0 +1,15 @@
+name polarbear
+health 15000
+defence 0
+speed 300
+damage 200,10000
+shoot 1000
+distance 7
+aggro 1000
+spread 3
+angle 90
+steps 0
+loot dollar
+amount 50
+voices 5
+kills 3

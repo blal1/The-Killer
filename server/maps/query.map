@@ -1,0 +1,10 @@
+mapname:query
+maxx:100
+maxy:100
+maxz:100
+tile:0:100:0:100:0:0:carpet2
+tile:0:1:1:1:0:100:wallbri
+tile:1:1:0:1:0:100:wallpol
+tile:0:100:1:100:15:15:chair
+tile:0:100:0:0:15:15:wallscreen2
+fightingstate:0

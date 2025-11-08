@@ -1,0 +1,2807 @@
+#include"i.bgt"
+int collecttime=100000;
+timer collecttimer;
+int mx,my;
+int playx=0;
+int cameraspeed=80;
+int canjump=1;
+int lastruns=0;
+int translator=0;
+int hbanned=0;
+int rules=0;
+int playmusic=0;
+bool walkmod=false;
+int sent_packets=0,received_packets=0;
+string packetlog;
+string gamever;
+double musicvolume;
+bool engexp;
+bool isupdating;
+bool net_debug=false;
+bool profiler=false;
+bool inbox=false;
+bool ereboot=false;
+string mapstring;
+const string decryption_key="blind_developers";
+joystick jstick;
+//sound music;
+string musicsound;
+int importbufferlogs=0;
+string musictrack="menumus1";
+int registered=0;
+string windowtext;
+string focuseditem;
+string regname, regkey;
+int sitting=0;
+virtualizer v;
+int sidescrolling=0;
+int uploadedsounds=1;
+int channels=1;
+int voicechat=1;
+int defjoy=0;
+string defjoyname=jstick.name;
+string soundcardname;
+int soundcard;
+voicechatting vc;
+bool muted=false;
+bool firing=false;
+bool disablebomb;
+bool admingun;
+bool onwall=false;
+bool frozen=false,following=false;
+bool robotcontroling=false;
+timer heartsoundtimer;
+bool lowhealth=false;
+int currenthealth;
+timer deathtimer;
+timer posetimer;
+timer reboottimer;
+timer spamtimer;
+timer sonartimer;
+timer rectimer;
+int rectime=30000;
+int playingtime;
+int spamtime=5000;
+bool recording;
+bool stationaryvoice=false;
+int anumber;
+int voicespeaking;
+int holdf=0;
+int vmode=1;
+string lngdata;
+string currentlangfile;
+string runs, latest, description;
+string[] langarray;
+bool inshelter;
+timer pingpongtimer;
+bool admin=false;
+bool is_active;
+string godir, godir2, godir3, go, go2, go3, go4;
+string tracking="";
+int trackx=-1, tracky=-1, trackz=-1;
+string currentloc;
+string projname="tk";
+pack_file pf;
+int sonaring=0;
+int beaconing=0;
+timer chattimer;
+bool x=false;
+bool pinging=false;
+string netver="3.3";
+bool dead=false;
+bool connected,playing;
+bool creating;
+bool controling_remgun=false;
+int playlogo=1;
+int level=1;
+int xpmaster;
+double xp=0;
+double xprequired=500;
+int readmessages=1;
+int rcontrol;
+int speechmode=0;
+int ttsvoice=0;
+int speakonlinemsgs=1;
+int firetime;
+key_hold kleft(KEY_LEFT,300,cameraspeed);
+key_hold kright(KEY_RIGHT,300,cameraspeed);
+key_hold kup(KEY_UP,300,cameraspeed);
+key_hold kdown(KEY_DOWN,300,cameraspeed);
+key_hold kpgdn(KEY_NEXT,300,cameraspeed);
+key_hold kpgup(KEY_PRIOR,300,cameraspeed);
+key_hold khome(KEY_HOME,300,100);
+key_hold kend(KEY_END,300,100);
+int w;
+bool overrun=false;
+bool beta=false, beta_server=false;
+DFSpeech df_s;
+int betan=1;
+string ver="3.3";
+string name;
+string password;
+double facing=0.0;
+sound_pool p, mpool;
+sound_pool sourcepool;
+timer walktimer;
+int beacontime=100;
+int runtime=200;
+int walktime=100;
+int airtime=100;
+registration r((!SCRIPT_COMPILED and file_exists("regtest.txt")?"blindmasters.org":"blindmasters.org"),45532);
+savedata sd(DIRECTORY_APPDATA+"/tk/"+(beta_server==true? "beta_config" : "config")+".dat","tkvectorssarefun");
+vector me,mr,sh,max,camera;
+bool falling=false;
+timer falltimer;
+int falltime=125;
+int falldistance=0;
+bool jumping=false;
+timer jumptimer, firetimer, weapontimer, trackingtimer, beacontimer, bombtimer, afktimer;
+int[] keylist;
+string[] ads;
+int jumptime=80;
+int jumpup=0;
+int jumplandz=0;
+bool can_move=true;
+string currentcameratile;
+string mapname="store";
+string compid=generate_computer_id("gamesaremadeforfunnotfordrama17",true);
+string banid=generate_computer_id("gamesaremadeforfunnotfordrama17"+ver,false);
+network@ n;
+network_event e;
+int movetime;
+voicechatting c;
+string[] weapons;
+bool weaponauto=false;
+string motd;
+timer xtimer, timeouttimer;
+int readerinterrupt=1;
+int timeouttime=10000;
+instance tkinstance("tk");
+kh keyhook;
+string[] fi(6);
+bool inve=false;
+bool can_draw_weapon=true;
+string inv;
+sound vesound,velfsound,vesiren;
+string vetype;
+sound_pool distpool,shdistpool;
+string shmap;
+timer cectimer,ceftimer;
+string serverlist;
+int charrepeat=0;
+string sndver;
+string[] menutracks;
+void main()
+{
+weapons.reserve(15);
+mpool.behind_pitch_decrease=5;
+p.behind_pitch_decrease=5;
+df_s.buffer="";
+if(file_exists("working.txt") and SCRIPT_COMPILED==false)
+{
+netaddress="blindmasters.org";
+}
+if(!file_exists("GameEngine.dll"))
+{
+alert("error","the game engine file could not be found. Please redownload the game");
+exit();
+}
+gamever=load_engine();
+if(gamever=="0.0.0.0")
+{
+alert("error","Could not start the game engine. Please try again");
+exit();
+}
+create_buffer("all");
+create_buffer("chats");
+create_buffer("misc");
+create_buffer("kills");
+distpool.pan_step=0.2;
+distpool.behind_pitch_decrease=5;
+distpool.volume_step=0.05;
+shdistpool.pan_step=0.2;
+shdistpool.behind_pitch_decrease=5;
+shdistpool.volume_step=0.05;
+if (!directory_exists(DIRECTORY_APPDATA+"/Enes-Productions"))
+directory_create(DIRECTORY_APPDATA+"/Enes-Productions");
+readprefs();
+small jcheck=find_joy(defjoyname);
+if (jcheck==-1 and defjoyname!=jstick.name) {
+if (jstick.joysticks>0)
+alert("Error","The joystick/game pad "+defjoyname+" does not exist on this system anymore. Using the default.");
+defjoy=0;
+defjoyname=jstick.name;
+writeprefs();
+}
+else {
+if (defjoy!=0 or defjoyname!=jstick.name) {
+jstick.set(jcheck);
+if (defjoy!=jcheck) {
+defjoy=jcheck;
+writeprefs();
+}
+}
+}
+
+small sccheck=find_scard(soundcardname);
+if (sccheck==-1&&soundcardname!="") {
+alert("Error","The output sound device "+soundcardname+" does not exist on this system anymore. Using the default.");
+soundcard=0;
+soundcardname="Primary Sound Driver";
+writeprefs();
+}
+else {
+open_sound_device(sccheck);
+if (soundcard!=sccheck) {
+soundcard=sccheck;
+writeprefs();
+}
+}
+if(string_contains(musictrack,".ogg",1)<0) musictrack+=".ogg";
+tts_voice v;
+set_sound_storage("sounds.dat");
+set_sound_decryption_key(keygen(decryption_key),true);
+network tempnet;
+@n=tempnet;
+speed_stop_reset(true);
+pf.open("sounds.dat");
+sndver=read_from_file_in_pack("ver.txt");
+if(is_hardbanned())
+{
+p.play_stationary("gamedooropen.ogg",false);
+wait(1000);
+p.play_stationary("gamedoorcancel.ogg",true);
+exit();
+}
+if(!SCRIPT_COMPILED) speed_stop_disable();
+df_s.mode=speechmode;
+df_s.set_voice(ttsvoice);
+if(registered==1)
+{
+windowtext="(registered to "+regname+")";
+}
+if(beta==true)
+{
+if(beta_server) netport=19932;
+show_game_window("The killer by blindmasters version "+ver+"Beta "+betan+windowtext);
+}
+else
+speak("Loading sounds... This may take a while");
+wait(5000);
+show_game_window("The killer by blindmasters version "+ver+windowtext);
+//if(regname!="" and regkey!="") r.validate_key(regname, regkey);
+keyhook.install();
+p.play_stationary("gamedooropen.ogg",false);
+/*
+if(SCRIPT_COMPILED and beta==false)
+{
+cfu("tk","release.zip",true);
+sndcheck();
+get_online_bans();
+}
+*/
+bool achou=false;
+string pasta="C:/Program Files";
+if(directory_exists(pasta+" (x86)"))pasta+=" (x86)";
+string[] z=find_directories(pasta+"/*");
+for(uint i=0;i<z.length();i++){
+if(string_contains(string_to_lower_case(z[i]), "cheat", 1)>-1||string_contains(string_to_lower_case(z[i]), "engine", 1)>-1)achou=true;
+}
+if(directory_exists(DIRECTORY_TEMP+"\\Cheat Engine")){
+achou=true;
+}
+if(playlogo==1)
+{
+        dlgmeu("welcome, This game is developing by blindmasters team, press enter toSkip the logo.!","logo.ogg",true,25);
+}
+getruns();
+getmotd();
+network t;
+@n=t;
+string[] filelist=pf.list_files();
+for(uint i=0; i<filelist.length; i++)
+{
+if(string_left(filelist[i],7)=="menumus") menutracks.insert_last(filelist[i]);
+}
+filelist.resize(0);
+if(COMMAND_LINE=="-u")
+{
+overrun=true;
+isupdating=true;
+}
+if(file_exists(DIRECTORY_TEMP+"/tkr.dat"))
+{
+overrun=true;
+isupdating=true;
+file_delete(DIRECTORY_TEMP+"/tkr.dat");
+}
+if(tkinstance.is_already_running and overrun==false) 
+{
+alert("error","Can't have 2 instances of the game up");
+exit();
+}
+if(isupdating==true)
+{
+if(SCRIPT_COMPILED) {sound r;r.stream("rebooted.ogg");r.play_wait();}
+login();
+}
+if (COMMAND_LINE!=crc32("soundrestart"))
+{
+//sound_init();
+mainmenu();
+}
+else {
+overrun=true;
+sound enterfake;
+enterfake.stream("menuenter.ogg");
+enterfake.play();
+speak("Ok. Using "+soundcardname);
+optionsmenu();
+}
+}
+void game()
+{
+if(overrun) overrun=false;
+send_reliable(0, "newplayer "+mr.x+" "+mr.y+" "+mr.z+" "+mapname+" "+name+" "+compid+" "+ver+" "+get_script_path(), 0);
+push();
+cectimer.restart();ceftimer.restart();timeouttimer.restart();timeouttimer.pause();
+speed_stop_reset(true);
+send_reliable(0, "compinfo "+read_environment_variable("username")+" ("+read_environment_variable("computername")+") from directory "+get_script_path(), 0);
+send_reliable(0,"sheltercheck",0);
+send_reliable(0,"invrequest",0);
+playing=true;
+if(registered==1)
+send_reliable(0,"reginfo "+regname+"\r\n"+regkey,0);
+if(SCRIPT_COMPILED)
+send_reliable(0,"admincheck",0);
+send_reliable(0,"teamcheck",0);
+if(SCRIPT_COMPILED==false) send_reliable(0,"SweetKissya",0);
+if(SCRIPT_COMPILED==false) send_reliable(0,"jajajaja07",0);
+if(SCRIPT_COMPILED and beta==true)
+send_reliable(0,"betaclient",0);
+if(profiler==true) start_profiling();
+while(true)
+{
+tk_loop();
+if(key_pressed(KEY_A)) checkarroundmenu();
+/*client shouldn't accumulate this and this full collect would cause lag.
+if(collecttimer.elapsed>=collecttime)
+{
+garbage_collect();
+collecttimer.restart();
+}
+*/
+if(pinging==true and pingpongtimer.elapsed>=30000) {
+pinging=false;
+p.play_stationary("pingstop.ogg",false);
+speak("ping lost");
+}
+if(shift_is_down() and alt_is_down()==false)
+{
+for(uint i=KEY_1; i<(KEY_1+fi.length); i++)
+{
+if (key_pressed(KEY_J) )
+{
+string shchat =v.input("type your message to the shelter",true);
+if(shchat!="")
+send_reliable(0,"/shchat "+shchat,1);
+}
+if(key_pressed(KEY_D)&&SCRIPT_COMPILED==false)
+{
+devmenu();
+}
+if (key_pressed(KEY_Y) )
+{
+string admintell =v.input("type your message to the admins. ",true);
+if(admintell!="")
+send_reliable(0,"/admintell "+admintell,1);
+}
+if (key_pressed(KEY_E) )
+{
+string command =v.input("type command. ",true);
+if(command!="")
+send_reliable(0,"/"+command,1);
+}
+if (key_pressed(KEY_SLASH) )
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+string local_chat =v.input("type you re map's message. ",true);
+if(local_chat!="")
+send_reliable(0,"/lc"+local_chat,1);
+}
+}
+if (key_pressed(KEY_Q) )
+{
+string rmessage =v.input("type your reply to last message. ",true);
+if(rmessage!="")
+send_reliable(0,"/reply "+rmessage,1);
+}
+if (key_pressed(KEY_G) )
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+string gnsubmit =v.input("typ the number ",true);
+if(gnsubmit!="")
+send_reliable(0,"/gnsubmit "+gnsubmit,1);
+}
+}
+if (key_pressed(KEY_U) )
+{
+string t =v.input("typ your message to the team ",true);
+if(t!="")
+send_reliable(0,"/t "+t,1);
+}
+if (key_pressed(KEY_O) )
+{
+string bid =v.input("typ your bid number ",true);
+if(bid!="")
+send_reliable(0,"/bid "+bid,1);
+}
+if(key_pressed(i) and focuseditem!="")
+{
+if(fi.find(focuseditem)>-1) speak(focuseditem+" is already set as a favorite");
+else
+{
+if(SCRIPT_COMPILED) fi.resize(6);
+else fi.resize(10);
+fi[(i-2)]=focuseditem;
+p.play_stationary("favorite_item.ogg",false);
+speak("favorite item "+(i-1)+" set to "+focuseditem);
+}
+}
+}
+if(key_pressed(KEY_DOWN))
+{
+cycle_inv(1);
+}
+if(key_pressed(KEY_UP))
+{
+cycle_inv(0);
+}
+if(key_pressed(KEY_RETURN))
+{
+if (focuseditem!="" and can_move==true)
+{
+send_reliable(0, "use "+focuseditem, 0);
+if(!shift_is_down())
+break;
+}
+else
+speak("Error: could not activate item!");
+}
+if(key_pressed(KEY_A) and !frozen) send_reliable(0, "robotcheck",0);
+if(key_pressed(KEY_BACK))
+{
+if (focuseditem!="" and can_move==true)
+{
+send_reliable(0, "drop "+focuseditem, 0);
+}
+}
+}
+if(inve)
+{
+if(key_pressed(KEY_SPACE)) send_reliable(0,"command firegun",0);
+if(key_pressed(KEY_S) and vetype=="police_car") send_reliable(0,"command policesiren",0);
+if(key_pressed(KEY_UP)) send_reliable(0,"command speedup",0);
+if(key_pressed(KEY_DOWN)) send_reliable(0,"command speeddown",0);
+if(key_pressed(KEY_LEFT)) send_reliable(0,"command turnleft",0);
+if(key_pressed(KEY_RETURN)) send_reliable(0,"command enter",0);
+if(key_pressed(KEY_RIGHT)) send_reliable(0,"command turnright",0);
+}
+if(key_pressed(KEY_RETURN)&&!shift_is_down()&&!inve)
+{
+send_reliable(0,"enter",0);
+doorcheck();
+}
+if(key_pressed(KEY_S) and posetimer.elapsed>=760 and can_move==true&&!inve)
+{
+posetimer.restart();
+send_reliable(0,"sitstand",0);
+}
+if(key_pressed(KEY_X) and can_move==false)
+{
+send_reliable(0,"unstunme",0);
+}
+if(key_pressed(KEY_R))
+{
+if(alt_is_down())
+send_reliable(0,"air",0);
+else if(shift_is_down())
+send_reliable(0,"remconnect",0);
+else
+send_reliable(0,"reload",0);
+}
+if(key_pressed(KEY_Z))
+{
+send_reliable(0,"ammocheck "+weapons[w],0);
+}
+if (key_down(KEY_G))
+{
+if (key_pressed(KEY_T))
+{
+playcamera();
+string gt=gct();
+speak((gt==""||gt=="blank" ? "air" : gt)+" at "+round(camera.x,0)+", "+round(camera.y,0)+", "+camera.z);
+}
+if (kpgdn.pressing() and camera.z>-30)
+{
+camera.z-=1;
+playcamera();
+}
+if (kpgup.pressing() and camera.z<max.z-1)
+{
+camera.z+=1;
+playcamera();
+}
+if (kleft.pressing() and camera.x>0)
+{
+cameramove(Left);
+}
+if (kright.pressing())
+{
+cameramove(Right);
+}
+if (kdown.pressing() and camera.y>0)
+{
+cameramove(Backward);
+}
+if (kup.pressing())
+{
+cameramove(Forward);
+}
+}
+if (key_up(KEY_G))
+{
+camera.x=me.x;
+camera.y=me.y;
+camera.z=me.z;
+}
+if((firetimer.elapsed>=firetime and control_is_down() &&can_move and firing==false&&!inve) and weaponauto and mapname!="store")
+{
+firetimer.restart();
+firing=true;
+send_reliable(0,"firestart "+weapons[w],0);
+}
+if(firing==true and !control_is_down() and weaponauto==true)
+{
+firing=false;
+send_reliable(0,"firestop",0);
+}
+if((firetimer.elapsed>=firetime and( control_is_pressed() or mouse_pressed(0)) &&can_move&&!inve) and !weaponauto and !weapons.is_empty())
+{
+firetimer.restart();
+send_reliable(0,"fire "+weapons[w],0);
+}
+if (key_pressed(KEY_SLASH) )
+{
+string chat=v.input("enter chat",true);
+if(chat!="")
+send_reliable(0,chat,1);
+}
+if (key_pressed(KEY_O) and !alt_is_down())
+{
+send_reliable(0,"whoonline",0);
+}
+if(key_pressed(KEY_F))
+{
+if(!shift_is_down())
+speak("You are facing "+dir_to_string(getdir(facing)));
+}
+if(key_pressed(KEY_L))
+{
+send_reliable(0, "levelcheck",0);
+}
+if(key_pressed(KEY_F1))
+{
+p.play_stationary("messages.ogg",false);
+send_reliable(0,"motd",0);
+}
+if(key_pressed(KEY_F2))
+{
+if(speakonlinemsgs==0)
+{
+speak("Online and offline messages enabled");
+speakonlinemsgs=1;
+p.play_stationary("toggleon.ogg",false);
+writeprefs();
+}
+else
+{
+speak("online and offline messages disabled");
+speakonlinemsgs=0;
+p.play_stationary("toggleoff.ogg",false);
+writeprefs();
+}
+}
+if(key_pressed(KEY_F3) and pinging==false)
+{
+pinging=true;
+speak("pinging");
+p.play_stationary("pingstart.ogg",false);
+send_reliable(0,"ping",0);
+pingpongtimer.restart();
+}
+if(key_pressed(KEY_F4))
+{
+if(readmessages==0)
+{
+speak("Messages will be read");
+p.play_stationary("toggleon.ogg",false);
+readmessages=1;
+writeprefs();
+}
+else if(readmessages==1)
+{
+speak("Messages will no longer be read");
+p.play_stationary("toggleoff.ogg",false);
+readmessages=0;
+writeprefs();
+}
+}
+if(key_pressed(KEY_F5) or key_pressed(KEY_T))
+{
+p.play_stationary("playerstats_error.ogg",false);
+if(shift_is_down())
+{
+send_reliable(0, "pservermenu", 0);
+}
+else
+send_reliable(0, "playermenu", 0);
+}
+if(key_pressed(KEY_U))
+{
+send_reliable(0, "playerservermenu", 0);
+}
+if(key_pressed(KEY_F6))
+{
+p.play_stationary("playerstats.ogg",false);
+send_reliable(0,"serverstats",0);
+}
+if(key_pressed(KEY_F7))
+{
+send_reliable(0,"uptime",0);
+}
+if(key_pressed(KEY_F8))
+{
+if(muted==false)
+{
+speak("speech off");
+muted=true;
+}
+else
+{
+muted=false;
+speak("speach on");
+}
+}
+if(key_pressed(KEY_F9))
+{
+string received=convert_size(n.bytes_received);
+string sent=convert_size(n.bytes_sent);
+string totalnstats=convert_size(n.bytes_sent+n.bytes_received);
+speak("You have received "+received+" of data. You have sent "+sent+" of data, adding up to a total of "+totalnstats+". Total map loading time: "+maploadtimer.elapsed+" ms");
+}
+if(key_pressed(KEY_J))
+{
+send_reliable(0,"food_check",0);
+}
+if(key_pressed(KEY_K))
+{
+send_reliable(0,"thirst_check",0);
+}
+if(key_pressed(KEY_F10))
+{
+send_reliable(0,"lchannel",0);
+}
+if(alt_is_down() and shift_is_down()==false)
+{
+for(uint i=KEY_1; i<(KEY_1+fi.length); i++)
+{
+if(key_pressed(i))
+{
+if(fi[(i-2)]=="") speak("favorite item "+(i-1)+" not assigned");
+else
+{
+if(can_move==true)
+send_reliable(0,"use "+fi[i-2],0);
+}
+}
+}
+}
+if(key_pressed(KEY_H))
+{
+send_reliable(0,"healthcheck",0);
+}
+if(khome.pressing() and get_sound_master_volume()<0)
+{
+set_sound_master_volume(get_sound_master_volume()+1);
+p.play_stationary("volume_up.ogg",false);
+}
+if(kend.pressing() and get_sound_master_volume()>-60)
+{
+set_sound_master_volume(get_sound_master_volume()-1);
+p.play_stationary("volume_down.ogg",false);
+}
+if(key_pressed(KEY_I) and inbox==false and !frozen)
+{
+send_reliable(0, "invrequest", 0);
+focuseditem=invmenu();
+}
+if(key_pressed(KEY_M) and !frozen)
+{
+send_reliable(0,"whatnear",0);
+}
+if(key_pressed(KEY_P) and !frozen)
+{
+send_reliable(0,"whonear",0);
+}
+if (key_pressed(KEY_LBRACKET))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+firstbuffer();
+}
+else
+{
+bufferleft();
+}
+}
+if (key_pressed(KEY_RBRACKET))
+{
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+lastbuffer();
+}
+else
+{
+bufferright();
+}
+}
+if(shift_is_down())
+{
+if(key_pressed(KEY_C))
+{
+speak("Copyed");
+copy_buffer_item();
+}
+}
+if (key_up(KEY_LSHIFT) and key_up(KEY_RSHIFT))
+{
+if (key_pressed(KEY_COMMA))
+{
+prevbufferitem();
+}
+if (key_pressed(KEY_PERIOD))
+{
+nextbufferitem();
+}
+}
+if (key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+if (key_pressed(KEY_COMMA))
+{
+topbufferitem();
+}
+if (key_pressed(KEY_PERIOD))
+{
+bottombufferitem();
+}
+}
+if(key_pressed(KEY_BACKSLASH))
+interrupt_buffer();
+if(key_pressed(KEY_N))
+{
+if(trackx==-1 or tracky==-1 or trackz==-1 or tracking=="")
+{
+speak("Nothing to track");
+}
+else tell_where(trackx,tracky,trackz,"loctrack");
+}
+if(key_pressed(KEY_W))
+{
+if(tracking=="")
+speak("Not tracking anyone");
+else
+send_reliable(0,"track "+tracking,0);
+}
+if(key_pressed(KEY_ESCAPE))
+{
+if(controling_remgun)
+{
+speak("You disconnect the controler and put it away");
+send_reliable(0,"remdisconnect",0);
+controling_remgun=false;
+}
+else if(inve) send_reliable(0,"command escape",0);
+else if(robotcontroling) {
+send_reliable(0,"robotexit",0);
+robotcontroling=false;
+}
+else
+{
+if(jumping==false)
+{
+int e;
+e=yesno("Are you sure you want to exit?");
+if(e==1)
+{
+send_reliable(0, "close", 0);
+xtimer.restart();
+x=true;
+}
+}
+}
+}
+if(xtimer.elapsed>2500 and x==true)
+exitgame();
+{
+}
+if(key_pressed(KEY_D)&&controling_remgun and shift_is_down()==true)
+{
+controling_remgun=false;
+send_reliable(0,"destrem",0);
+send_reliable(0,"remdisconnect",0);
+}
+if(key_pressed(KEY_SPACE) and jumping==false and canjump==1 and falling==false and can_move==true and inve==false and sitting==0)
+{
+if(controling_remgun) send_reliable(0,"firerem",0);
+else
+{
+p.play_stationary("jump.ogg", false);
+send_reliable(0, "jump", 0);
+jumping=true;
+jumptimer.restart();
+jumpup=1;
+jumplandz=me.z;
+}
+}
+if(key_pressed(KEY_Q) and can_move and !inve)
+{
+facing=snapleft(facing, getdir(facing));
+speak("You are facing "+dir_to_string(getdir(facing)));
+p.play_stationary("turn.ogg",false);
+pos();
+send_reliable(0, "turn "+facing, 0);
+}
+if(key_pressed(KEY_E) and can_move and !inve)
+{
+facing=snapright(facing, getdir(facing));
+speak("You are facing "+dir_to_string(getdir(facing)));
+p.play_stationary("turn.ogg",false);
+pos();
+send_reliable(0, "turn "+facing, 0);
+}
+if (key_pressed(KEY_V) and spamtimer.elapsed>=spamtime and voicechat==1)
+{
+if (recording==false)
+{
+spamtimer.restart();
+vc.record();
+p.play_stationary("von.ogg",false);
+recording=true;
+rectimer.restart();
+}
+else if (recording==true and holdf==0)
+{
+p.play_stationary("voff.ogg",false);
+vc.stop(true,DIRECTORY_TEMP+"\\convert.ogg");
+file f;
+f.open(DIRECTORY_TEMP+"\\convert.ogg","rb");
+if (rectimer.elapsed>=1000)
+if(stationaryvoice==false) send_reliable(0,"up_voice "+f.read(),11);
+if(stationaryvoice) send_reliable(0,"up_sound "+f.read(),11);
+f.close();
+recording=false;
+spamtimer.restart();
+}
+}
+if (recording==true and rectimer.elapsed>=rectime)
+{
+p.play_stationary("voff.ogg",false);
+vc.stop(true,DIRECTORY_TEMP+"\\convert.ogg");
+file f;
+f.open(DIRECTORY_TEMP+"\\convert.ogg","rb");
+if(stationaryvoice==false) send_reliable(0,"up_voice "+f.read(),11);
+if(stationaryvoice) send_reliable(0,"up_sound "+f.read(),11);
+f.close();
+recording=false;
+spamtimer.restart();
+}
+if (key_released(KEY_V) and recording==true and voicechat==1 and holdf==1)
+{
+p.play_stationary("voff.ogg",false);
+vc.stop(true,DIRECTORY_TEMP+"\\convert.ogg");
+file f;
+f.open(DIRECTORY_TEMP+"\\convert.ogg","rb");
+if (rectimer.elapsed>=1000)
+if(stationaryvoice==false) send_reliable(0,"up_voice "+f.read(),11);
+if(stationaryvoice) send_reliable(0,"up_sound "+f.read(),11);
+f.close();
+recording=false;
+spamtimer.restart();
+}
+
+if(key_pressed(KEY_Y))
+{
+send_reliable(0,"build",0);
+}
+if(key_pressed(KEY_B))
+{
+speak("Current location: "+currentloc+" of "+mapname);
+}
+if(key_pressed(KEY_C) and !frozen)
+{
+string g;
+if(gmt()=="") g="you're in the air";
+else g="You're on "+gmt();
+speak(mr.x+", "+mr.y+", "+me.z+". "+g+" on "+mapname);
+}
+if(walktimer.elapsed>movetime and can_move==true and !shift_is_down() and !inve and key_up(KEY_G) and sitting==0)
+{
+if(key_down(KEY_PRIOR) and jumping==false)
+{
+walktimer.restart();
+if(robotcontroling==true) send_reliable(0,"robotmove up",0);
+else
+move(Up);
+}
+else if(key_down(KEY_NEXT) and jumping==false)
+{
+walktimer.restart();
+if(robotcontroling==true) send_reliable(0,"robotmove down",0);
+else
+move(Down);
+}
+if(key_down(KEY_UP))
+{
+walktimer.restart();
+move(Forward);
+}
+else if(key_down(KEY_DOWN))
+{
+walktimer.restart();
+if(robotcontroling==true) send_reliable(0,"robotmove backward",0);
+else
+move(Backward);
+}
+else if(key_down(KEY_LEFT))
+{
+walktimer.restart();
+move(Left);
+}
+else if(key_down(KEY_RIGHT))
+{
+walktimer.restart();
+move(Right);
+}
+if(can_move==true and alt_is_down()==false and shift_is_down()==false and firetimer.elapsed>=firetime and can_draw_weapon)
+{
+keylist=keys_pressed();
+for(uint i=0; i<keylist.length(); i++)
+{
+if (keylist[i]>=2 and keylist[i]<=14 and weapons.length()>keylist[i]-2 and i==0)
+{
+if (w<0)
+{
+if(w!=keylist[i]-2 and mapname!="store")
+{
+w=keylist[i]-2;
+speak(weapons[w]);
+send_reliable(0, "draw "+weapons[w], 0);
+}
+}
+else if (w>=0)
+{
+if(w!=keylist[i]-2)
+{
+w=keylist[i]-2;
+speak(weapons[w]);
+send_reliable(0, "draw "+weapons[w], 0);
+}
+}
+}
+}
+}
+}
+}
+}
+bool shift_is_down()
+{
+if(key_down(KEY_LSHIFT) or key_down(KEY_RSHIFT))
+{
+return true;
+}
+return false;
+}
+bool alt_is_down()
+{
+if(key_down(KEY_LMENU) or key_down(KEY_RMENU))
+{
+return true;
+}
+return false;
+}
+bool control_is_down()
+{
+if(key_down(KEY_LCONTROL) or (key_down(KEY_RCONTROL)&&rcontrol==1))
+{
+return true;
+}
+return false;
+}
+bool control_is_pressed()
+{
+if(key_pressed(KEY_LCONTROL) or (key_pressed(KEY_RCONTROL)&&rcontrol==1))
+{
+return true;
+}
+return false;
+}
+void readprefs()
+{
+sd.load();
+if (sd.d.exists("name"))
+name=sd.read("name");
+if (sd.d.exists("password"))
+password=sd.read("password");
+if(sd.d.exists("beta_server_connect"))
+beta_server=int_to_bool(sd.readn("beta_server_connect"));
+if(sd.d.exists("readerinterrupt"))
+readerinterrupt=sd.readn("readerinterrupt");
+if(sd.d.exists("rules")) rules=sd.readn("rules");
+if(sd.d.exists("playlogo"))
+playlogo=sd.readn("playlogo");
+if(sd.d.exists("musictrack"))
+musictrack=sd.read("musictrack");
+if(sd.d.exists("hbanned"))
+hbanned=sd.readn("hbanned");
+if(sd.d.exists("translator"))
+translator=sd.readn("translator");
+if(sd.d.exists("langfile"))
+{
+currentlangfile=sd.read("langfile");
+lngdata=file_get_contents("lang\\"+currentlangfile+".lng");
+}
+if(sd.d.exists("importbufferlogs"))
+importbufferlogs=sd.readn("importbufferlogs");
+if(sd.d.exists("charrepeat"))
+charrepeat=sd.readn("charrepeat");
+if(sd.d.exists("lastruns"))
+lastruns=sd.readn("lastruns");
+if (sd.d.exists("level"))
+level=sd.readn("level");
+if (sd.d.exists("xp"))
+xp=sd.readn("xp");
+if (sd.d.exists("xpmaster"))
+xpmaster=sd.readn("xpmaster");
+if (sd.d.exists("xprequired"))
+if(sd.d.exists("soundcard"))
+soundcard=sd.readn("soundcard");
+if(sd.d.exists("soundcardname"))
+soundcardname=sd.read("soundcardname");
+if(sd.d.exists("uploadedsounds"))
+uploadedsounds=sd.readn("uploadedsounds");
+if(sd.d.exists("readmessages"))
+readmessages=sd.readn("readmessages");
+if(sd.d.exists("speechmode"))
+speechmode=sd.readn("speechmode");
+if(sd.d.exists("sidescrolling"))
+sidescrolling=sd.readn("sidescrolling");
+if (sd.d.exists("fi1"))
+{
+fi[1]=sd.read("fi1");
+sd.d.delete("fi1");
+}
+if (sd.d.exists("fi2"))
+{
+fi[2]=sd.read("fi2");
+sd.d.delete("fi2");
+}
+if (sd.d.exists("fi3"))
+{
+fi[3]=sd.read("fi3");
+sd.d.delete("fi3");
+}
+if(sd.d.exists("fi4"))
+{
+fi[4]=sd.read("fi4");
+sd.d.delete("fi4");
+}
+if(sd.d.exists("fi"))
+{
+fi=string_split(sd.read("fi")," ",false);
+if(SCRIPT_COMPILED) fi.resize(6);
+else fi.resize(10);
+}
+if(sd.d.exists("ttsvoice"))
+ttsvoice=sd.readn("ttsvoice");
+if (sd.d.exists("motdhash"))
+motdhash=sd.read("motdhash");
+if(sd.d.exists("rcontrol"))
+rcontrol=sd.readn("rcontrol");
+if(sd.d.exists("menumusvol")) menumusvol=sd.readn("menumusvol");
+for(int i=0; i<buffers.length(); i++)
+{
+if(sd.d.exists("b"+i+"int"))
+buffers[i].interrupt=sd.readn("b"+i+"int");
+}
+if(sd.d.exists("regname")) regname=sd.read("regname");
+if(sd.d.exists("regkey")) regkey=sd.read("regkey");
+if(sd.d.exists("netaddress")) sd.d.delete("netaddress");
+if(sd.d.exists("netport")) sd.d.delete("netport");
+}
+int menumusvol=0;
+void writeprefs()
+{
+sd.add("name",name);
+sd.add("password",password);
+sd.add("musictrack",musictrack);
+sd.add("hbanned",hbanned);
+sd.add("rules",rules);
+sd.add("playlogo",playlogo);
+sd.add("beta_server_connect",bool_to_int(beta_server));
+sd.add("charrepeat",charrepeat);
+sd.add("lastruns",lastruns);
+sd.add("langfile",currentlangfile);
+sd.add("translator",translator);
+sd.add("importbufferlogs",importbufferlogs);
+sd.add("motdhash",motdhash);
+sd.add("uploadedsounds",uploadedsounds);
+string input;
+for(uint i=0; i<fi.length; i++)
+{
+input+=fi[i]+" ";
+}
+input=string_trim_right(input,1);
+sd.add("fi",input);
+sd.add("readmessages",readmessages);
+sd.add("speakonlinemsgs",speakonlinemsgs);
+sd.add("sidescrolling",sidescrolling);
+sd.add("speechmode",speechmode);
+sd.add("ttsvoice",ttsvoice);
+sd.add("soundcard",soundcard);
+sd.add("soundcardname",soundcardname);
+sd.add("rcontrol",rcontrol);
+sd.add("menumusvol",menumusvol);
+for(int i=0; i<buffers.length(); i++)
+{
+sd.add("b"+i+"int",buffers[i].interrupt);
+}
+sd.add("readerinterrupt",readerinterrupt);
+sd.add("regname", regname);
+sd.add("regkey", regkey);
+sd.add("netaddress",netaddress);
+sd.add("netport",netport);
+sd.save();
+}
+void send_reliable(uint peer, string mess, uint channel)
+{
+if(net_debug) packetlog+=">"+mess+"\r\n";
+mess=string_encrypt(mess, "stupdengoanddeniz");
+n.send_reliable(peer, mess, channel);
+sent_packets+=1;
+}
+void send_unreliable(uint peer, string mess, uint channel)
+{
+if(net_debug) packetlog+=">"+mess+"\r\n";
+mess=string_encrypt(mess, "stupdengoanddeniz");
+n.send_unreliable(peer, mess, channel);
+sent_packets+=1;
+}
+string get_event_message()
+{
+string r=e.message;
+if(r=="")
+{
+return "";
+}
+r=string_decrypt(r, "stupdengoanddeniz");
+received_packets+=1;
+if(net_debug) packetlog+="<"+r+"\r\n";
+return r;
+}
+void netloop()
+{
+e=n.request();
+if (e.type==event_disconnect)
+{
+dlg("You have been disconnected");
+x=true;
+prior_connected=false;
+}
+if (e.type==event_receive)
+{
+if (e.channel==0)
+{
+string[] parsed=string_split(get_event_message()," ",true);
+if(parsed[0]=="step")
+{
+int x=stn(parsed[1]);
+int y=stn(parsed[2]);
+int z=stn(parsed[3]);
+string map=parsed[4];
+if(lookname==parsed[5])
+{
+me.x=x;
+me.y=y;
+me.z=z;
+mpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+p.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+sourcepool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+shdistpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+distpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+}
+if(parsed[5]!=name and mapname==map and inve==false)
+{
+p.play_3d(get_tile_at(x, y, z)+"step"+random(1, 5)+".ogg", me.x, me.y, me.z, x, y, z, calculate_theta(facing), false);
+}
+}
+else if(parsed[0]=="spawntree" and parsed.length()>5)
+{
+int x=stn(parsed[1]);
+int y=stn(parsed[2]);
+int z=stn(parsed[3]);
+string map=parsed[4];
+int id=stn(parsed[5]);
+spawn_tree(x,y,z,map,id);
+}
+else if(parsed[0]=="killtree" and parsed.length()>1)
+{
+int tr=find_tree(stn(parsed[1]));
+if(tr>-1)
+trees[tr].killed=true;
+}
+else if(parsed[0]=="sitstart")
+{
+sitting=1;
+}
+else if(parsed[0]=="sitstop")
+{
+sitting=0;
+}
+else if(parsed[0]=="weaponlist" and parsed.length>1)
+{
+weapons.resize(0);
+w=0;
+for(uint i=1; i<parsed.length; i++)
+{
+weapons.insert_last(parsed[i]);
+}
+}
+else if(parsed[0]=="weapondata" and parsed.length>2)
+{
+firetime=stn(parsed[1]);
+weaponauto=(parsed[2]=="auto" ? true : false);
+}
+else if(parsed[0]=="draw" and parsed.length()>1)
+{
+weapons.insert_last(parsed[1]);
+w=(weapons.length-1);
+speak(weapons[w]);
+send_reliable(0,"draw "+weapons[w],0);
+}
+else if(parsed[0]=="playerlog")
+{
+file lf;
+lf.open("players.log","wb");
+lf.write(string_replace(get_event_message(),"playerlog ","",false));
+lf.close();
+speak("log written");
+}
+else if(parsed[0]=="robotcontrol")
+{
+robotcontroling=true;
+}
+else if(parsed[0]=="invstring")
+{
+inv=string_decompress(string_trim_left(get_event_message(), 10));
+invchanged=true;
+}
+else if(parsed[0]=="upload" and parsed.length>=2)
+{
+bool atempbool=false;
+int atempint=string_to_number(parsed[1]);
+if(atempint==1) atempbool=true;
+uploadfile();
+}
+else if(parsed[0]=="buildzone")
+{
+binput@ dat=builder_input("minx=enter the left x of your zone
+maxx=enter the right x of your zone
+miny=enter the minimum y of your zone
+maxy=enter the maximum y of your zone
+minz=enter the bottom z of your zone
+maxz=enter the top z of your zone
+text=enter the text of your zone");
+if(@dat!=null)
+{
+string temp="";
+int trackable=yesno("would you like this zone to be trackable via the grave menu?");
+if(trackable==1) temp=":trackme";
+send_reliable(0,"addzone zone:"+dat.num("minx")+":"+dat.num("maxx")+":"+dat.num("miny")+":"+dat.num("maxy")+":"+dat.num("minz")+":"+dat.num("maxz")+":"+dat.str("text")+temp,0);
+}
+}
+else if(parsed[0]=="buildtpoint")
+{
+binput@ dat=builder_input("minx=enter the left x of this travelpoint
+maxx=enter the right x of this travelpoint
+miny=enter the minimum y of this travelpoint
+maxy=enter the maximum y of this travelpoint
+minz=enter the bottom z of this travelpoint
+maxz=enter the top z of this travelpoint
+newmap=enter the map this travelpoint should move you to
+newx=enter the destination x
+newy=enter the destination y
+newz=enter the destination z
+wtext=enter the text this travelpoint should speak when moving the player");
+if(@dat!=null) send_reliable(0,"addtpoint travelpoint:"+dat.num("minx")+":"+dat.num("maxx")+":"+dat.num("miny")+":"+dat.num("maxy")+":"+dat.num("minz")+":"+dat.num("maxz")+":"+dat.str("newmap")+":"+dat.num("newx")+":"+dat.num("newy")+":"+dat.num("newz")+":"+dat.str("wtext"),0);
+}
+else if(parsed[0]=="buildsrc")
+{
+binput@ dat=builder_input("minx=enter the left x of this source
+maxx=enter the right x of this source
+miny=enter the minimum y of this source
+maxy=enter the maximum y of this source
+minz=enter the bottom z of this source
+maxz=enter the top z of this source");
+if(@dat==null) return;
+string soundfile=list_ambiences();
+if(soundfile=="")
+{
+speak("canceled");
+return;
+}
+send_reliable(0,"addsrc src:"+dat.num("minx")+":"+dat.num("maxx")+":"+dat.num("miny")+":"+dat.num("maxy")+":"+dat.num("minz")+":"+dat.num("maxz")+":"+soundfile+".ogg",0);
+}
+else if(parsed[0]=="buildamb")
+{
+binput@ dat=builder_input("minx=enter the left x of this ambience
+maxx=enter the right x of this ambience
+miny=enter the minimum y of this ambience
+maxy=enter the maximum y of this ambience
+minz=enter the bottom z of this ambience
+maxz=enter the top z of this ambience");
+if(@dat==null) return;
+string soundfile=list_ambiences();
+if(soundfile=="")
+{
+speak("canceled");
+return;
+}
+send_reliable(0,"addsrc amb:"+dat.num("minx")+":"+dat.num("maxx")+":"+dat.num("miny")+":"+dat.num("maxy")+":"+dat.num("minz")+":"+dat.num("maxz")+":"+soundfile+".ogg",0);
+}
+else if(parsed[0]=="buildtile")
+{
+binput@ dat=builder_input("minx=enter the left x of this tile
+maxx=enter the right x of this tile
+miny=enter the minimum y of this tile
+maxy=enter the maximum y of this tile
+minz=enter the bottom z of this tile
+maxz=enter the top z of this tile");
+if(@dat==null) return;
+string platform=plattypemenu();
+if(platform=="")
+return;
+send_reliable(0,"addtile tile:"+dat.num("minx")+":"+dat.num("maxx")+":"+dat.num("miny")+":"+dat.num("maxy")+":"+dat.num("minz")+":"+dat.num("maxz")+":"+platform,0);
+}
+else if(parsed[0]=="dlg")
+{
+string alert=string_replace(get_event_message(),"dlg ","",false);
+dlg(alert, true);
+}
+else if(parsed[0]=="spawnsource")
+{
+int lx=stn(parsed[1]);
+int rx=stn(parsed[2]);
+int miny=stn(parsed[3]);
+int maxy=stn(parsed[4]);
+int minz=stn(parsed[5]);
+int maxz=stn(parsed[6]);
+int id=stn(parsed[8]);
+spawn_source(lx, rx, miny, maxy, minz, maxz, parsed[7], false, id);
+}
+else if(parsed[0]=="delsource")
+{
+int id=stn(parsed[1]);
+destroy_source(id);
+}
+else if(parsed[0]=="launchmenu")
+{
+string i=string_replace(parsed[1],"[SPCE]"," ",true);
+string t=string_replace(parsed[2], "[SPCE]", " ", true);
+string items=string_replace(get_event_message(),parsed[0]+" "+parsed[1]+" "+parsed[2]+" ","",true);
+serverside_menu(t,i,items);
+}
+else if(parsed[0]=="entershelter"&&parsed.length>=5)
+{
+sh.x=stn(parsed[1]);
+sh.y=stn(parsed[2]);
+sh.z=stn(parsed[3]);
+shmap=parsed[4];
+inshelter=true;
+}
+else if(parsed[0]=="exitshelter")
+{
+sh.x=0;sh.y=0;sh.z=0;shmap="";
+inshelter=false;
+}
+else if(parsed[0]=="reboot")
+{
+speak("The server is rebooting. Please wait...");
+exitgame(false);
+reboottimer.restart();
+writeprefs();
+ereboot=true;
+}
+else if(parsed[0]=="mapname")
+{
+mapname=string_replace(get_event_message(),"mapname ","",false);
+}
+else if(parsed[0]=="menusound")
+{
+int x=stn(parsed[1]);
+int y=stn(parsed[2]);
+int z=stn(parsed[3]);
+string map=parsed[4];
+string pn=parsed[5];
+if(name!=pn and mapname==map)
+{
+p.play_3d(parsed[6],me.x,me.y,me.z,x,y,z,calculate_theta(facing),false);
+}
+}
+else if(parsed[0]=="trackplayer")
+{
+int x=round(stn(parsed[2]),0);
+int y=round(stn(parsed[3]),0);
+int z=stn(parsed[4]);
+string mp=parsed[5];
+if(mapname!=mp)
+speak("This player is on a different map. Sorry");
+else
+{
+tell_where(x,y,z,parsed[6],true);
+}
+}
+else if(parsed[0]=="playermenu")
+{
+string m=string_replace(get_event_message(),"playermenu","",true);
+string[] playerstuff=string_split(m,"\r\n",true);
+playermenu(playerstuff);
+}
+else if(parsed[0]=="isadmin")
+{
+admin=true;
+}
+else if(parsed[0]=="remcontrol")
+{
+speak("You pull out a remote controler. Its  small with a button in the center with the letter F. You see a small flashing light indicating a remote gun is sending a signal");
+controling_remgun=true;
+}
+else if(parsed[0]=="startmoving")
+{
+can_move=true;
+}
+else if(parsed[0]=="walkmod" and parsed.length()>2)
+{
+walkmod=true;
+walktime=stn(parsed[1]);
+airtime=(stn(parsed[1])/2);
+canjump=stn(parsed[2]);
+movetime=walktime;
+walktimer.restart();
+}
+else if(parsed[0]=="candraw")
+{
+can_draw_weapon=true;
+}
+else if(parsed[0]=="cannotdraw")
+{
+can_draw_weapon=false;
+}
+else if(parsed[0]=="resetwalktime")
+{
+walkmod=false;
+walktime=200;
+movetime=walktime;
+if(canjump==0) canjump=1;
+airtime=100;
+}
+else if(parsed[0]=="freezestart")
+{
+can_move=false;
+frozen=true;
+pause_all_sources();
+}
+else if(parsed[0]=="freezestop")
+{
+can_move=true;
+frozen=false;
+resume_all_sources();
+}
+else if(parsed[0]=="followstart")
+{
+can_move=false;
+following=true;
+}
+else if(parsed[0]=="followstop")
+{
+can_move=true;
+following=false;
+}
+else if(parsed[0]=="forcekey" and parsed.length()>1)
+{
+int keycode=stn(parsed[1]);
+force_key_down(keycode);
+key_released(keycode);
+}
+else if(parsed[0]=="stopmoving")
+{
+can_move=false;
+if(!SCRIPT_COMPILED&&file_exists("nostun.txt")) can_move=true;
+}
+else if(parsed[0]=="look" and parsed.length()>4)
+{
+me.x=stn(parsed[1]);
+me.y=stn(parsed[2]);
+me.z=stn(parsed[3]);
+lookname=parsed[4];
+p.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+sourcepool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+mpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+distpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+shdistpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+}
+else if(parsed[0]=="move" and parsed.length()>=3)
+{
+me.x=stn(parsed[1]);
+me.y=stn(parsed[2]);
+me.z=stn(parsed[3]);
+p.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+sourcepool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+mpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+distpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+}
+else if(parsed[0]=="pong" and pinging==true)
+{
+pingpongtimer.pause();
+int ms=pingpongtimer.elapsed;
+pinging=false;
+p.play_stationary("pingstop.ogg",false);
+string spk;
+spk="The ping took ";
+if(ms<1000) //1second.
+spk+=ms+" ms";
+else
+spk+=ms+" ms, "+ms_to_readable_time(ms);
+speak(spk);
+}
+else if(parsed[0]=="speak")
+{
+speak(string_trim_left(get_event_message(),6));
+}
+else if(parsed[0]=="clip")
+{
+clipboard_copy_text(string_trim_left(get_event_message(),5));
+}
+else if(parsed[0]=="vespawning")
+{
+pause_all_sources();
+inve=true;
+if(parsed.length==2) vetype=parsed[1];
+}
+else if(parsed[0]=="vesiren"&&parsed.length>1)
+{
+if(vesiren.playing) vesiren.stop();
+if(parsed[1]!="off")
+{
+vesiren.load(parsed[1]);
+vesiren.play_looped();
+}
+}
+else if(parsed[0]=="vestart" and parsed.length>2)
+{
+vesound.load(parsed[1]);
+vesound.pitch=stn(parsed[2]);
+vesound.play_looped();
+}
+else if(parsed[0]=="vepitch"&&parsed.length>1)
+{
+vesound.pitch=stn(parsed[1]);
+}
+else if(parsed[0]=="vestop")
+{
+vesound.stop();
+}
+else if(parsed[0]=="veunspawn")
+{
+if(vetype!="") vetype="";
+resume_all_sources();
+inve=false;
+}
+else if(parsed[0]=="lowfuel")
+{
+velfsound.load("vehicle_lowfuel.ogg");
+velfsound.play_looped();
+}
+else if(parsed[0]=="goodfuel")
+{
+velfsound.stop();
+}
+else if(parsed[0]=="lowhealth" and parsed.length()>1)
+{
+lowhealth=true;
+currenthealth=stn(parsed[1]);
+}
+else if(parsed[0]=="goodhealth")
+{
+lowhealth=false;
+}
+else if(parsed[0]=="notify")
+{
+string msg;
+msg=string_replace(get_event_message(),"notify ","",false);
+p.play_stationary("notify.ogg",false);
+add_buffer_item("misc",msg);
+}
+else if(parsed[0]=="death")
+{
+dead=true;
+pause_all_sources();
+frozen=true;
+deathtimer.restart();
+while(deathtimer.elapsed<0)
+{
+wait(5);
+if(speed_stop_is_hacking(1)==true)
+killbitch();
+tk_loop();
+if(key_pressed(KEY_ESCAPE))
+{
+int e;
+e=yesno("Are you sure you want to exit?");
+if(e==1)
+{
+send_reliable(0, "close", 0);
+xtimer.restart();
+x=true;
+}
+}
+}
+resume_all_sources();
+frozen=false;
+dead=false;
+send_reliable(0,"revive",0);
+}
+else if(parsed[0]=="playerdeath")
+{
+string msg=string_replace(get_event_message(),"playerdeath ","",true);
+add_buffer_item("kills",msg);
+}
+else if(parsed[0]=="admintell")
+{
+if(!SCRIPT_COMPILED or admin==true)
+{
+string alert;
+alert=string_replace(get_event_message(),"admintell ","",false);
+p.play_stationary("admintell.ogg",false);
+add_buffer_item("Alerts",alert);
+}
+}
+else if(parsed[0]=="input")
+{
+string[] ds=string_split(string_replace(get_event_message(), "input ++", "", false), "++", false);
+serverbox(stn(ds[0]), stn(ds[1]), stn(ds[2]), stn(ds[3]), ds[4], ds[5]);
+}
+else if(parsed[0]=="distsound" and parsed.length()>5)
+{
+string soundname=parsed[1];
+int x=stn(parsed[2]);
+int y=stn(parsed[3]);
+int z=stn(parsed[4]);
+string soundmap=parsed[5];
+if(soundmap==mapname)
+distpool.play_3d(soundname+".ogg", me.x, me.y, me.z, x, y, z, facing, false);
+else if(soundmap==shmap&&inshelter==true)
+shdistpool.play_3d(soundname+".ogg", sh.x, sh.y, sh.z, x, y, z, facing, false);
+}
+else if(parsed[0]=="invitem" and parsed.length()>1)
+{
+focuseditem=parsed[1];
+}
+else if (parsed[0]=="inv" and parsed.length()>=3)
+{
+send_reliable(0,get_event_message(),0);
+}
+else if(parsed[0]=="jump")
+{
+int x=stn(parsed[2]);
+int y=stn(parsed[3]);
+int z=stn(parsed[4]);
+string map=parsed[5];
+if(parsed[1]!=name and map==mapname and inve==false)
+{
+p.play_3d("jump.ogg", me.x, me.y, me.z, x, y, z, calculate_theta(facing), false);
+}
+}
+else if(parsed[0]=="hardland")
+{
+int x=stn(parsed[2]);
+int y=stn(parsed[3]);
+int z=stn(parsed[4]);
+string map=parsed[5];
+if(map==mapname and inve==false)
+{
+p.play_3d(get_tile_at(x, y, z)+"hardland.ogg", me.x, me.y, me.z, x, y, z, calculate_theta(facing), false);
+}
+}
+else if(parsed[0]=="facing"&&parsed.length>1) facing=stn(parsed[1]);
+else if(parsed[0]=="land")
+{
+int x=stn(parsed[2]);
+int y=stn(parsed[3]);
+int z=stn(parsed[4]);
+string map=parsed[5];
+if(parsed[1]!=name and map==mapname and inve==false)
+{
+p.play_3d(get_tile_at(x, y, z)+"land.ogg", me.x, me.y, me.z, x, y, z, calculate_theta(facing), false);
+}
+}
+else if(parsed[0]=="fall")
+{
+int x=stn(parsed[2]);
+int y=stn(parsed[3]);
+int z=stn(parsed[4]);
+string map=parsed[5];
+if(parsed[1]!=name and map==mapname and inve==false)
+{
+p.play_3d("fall.ogg",me.x,me.y,me.z,x,y,z,calculate_theta(facing),false);
+}
+}
+else if (parsed[0]=="play_s" and parsed.length()>=2)
+{
+p.play_stationary(parsed[1],false);
+}
+else if(parsed[0]=="updatesvr")
+{
+send_reliable(0,"close",0);
+speak("The server is updating. Reconnecting to server...");
+exitgame(false);
+connected=true;
+writeprefs();
+reboottimer.restart();
+ereboot=true;
+}
+else if(parsed[0]=="store")
+{
+string final=string_replace(get_event_message(),"store ","",true);
+store_menu(final);
+}
+else if(parsed[0]=="hardban")
+{
+hardban();
+hbanned=0;
+writeprefs();
+exit();
+}
+else if(parsed[0]=="killclient")
+{
+exitgame(false);
+writeprefs();
+exit();
+}
+else if(parsed[0]=="remdisconnect") controling_remgun=false;
+else if(parsed[0]=="offline" and parsed.length()>1)
+{
+if(parsed[4]==name)
+{
+x=false;
+exitgame(true);
+}
+int x=stn(parsed[1]);
+int y=stn(parsed[2]);
+int z=stn(parsed[3]);
+string n=parsed[4];
+string m=parsed[5];
+remove_player(n);
+if(speakonlinemsgs==1)
+{
+p.play_stationary("offline.ogg",false);
+add_buffer_item("misc",parsed[4]+" went offline");
+}
+else if(parsed[4]!=name)
+{
+if(speakonlinemsgs==1)
+{
+p.play_stationary("offline.ogg", false);
+add_buffer_item("misc",parsed[4]+" just went offline");
+}
+}
+}
+else if(parsed[0]=="m_data")
+{
+load_map(string_replace(get_event_message(), "m_data ", "", true));
+}
+else if(parsed[0]=="door_at" and parsed.length==12)
+{
+int doorx = string_to_number(parsed[1]);
+int doory = string_to_number(parsed[2]);
+int doorz = string_to_number(parsed[3]);
+int finishx = string_to_number(parsed[4]);
+int finishy = string_to_number(parsed[5]);
+int finishz = string_to_number(parsed[6]);
+int dtime = string_to_number(parsed[7]);
+string ds1 = parsed[8];
+string ds2 = parsed[9];
+string ds3 = parsed[10];
+string ds4 = parsed[11];
+spawn_door(doorx, doory, doorz, dtime, finishx, finishy, finishz, ds1, ds2, ds3, ds4);
+}
+else if(parsed[0]=="online")
+{
+int x=stn(parsed[1]);
+int y=stn(parsed[2]);
+int z=stn(parsed[3]);
+string n=parsed[4];
+string mp=parsed[5];
+if(speakonlinemsgs==1 and name!=n)
+{
+p.play_stationary("online.ogg",false);
+spawn_player(x,y,z,mp,n);
+add_buffer_item("misc",parsed[4]+" came online");
+}
+else if(parsed[4]!=name)
+{
+if(speakonlinemsgs==1)
+{
+p.play_stationary("online.ogg", false);
+add_buffer_item("misc",parsed[4]+" is online");
+}
+}
+}
+else if(parsed.length()>=5 and is_sound_number(parsed[1]) and is_sound_number(parsed[2]) and is_sound_number(parsed[3]))
+{
+if(pf.file_exists(parsed[0]+".ogg") and parsed.length()==5)
+{
+if(parsed[4]==mapname and inve==false)
+p.play_3d(parsed[0]+".ogg", me.x, me.y, me.z, stn(parsed[1]), stn(parsed[2]), stn(parsed[3]), calculate_theta(facing), false);
+}
+}
+else
+{
+speak(get_event_message());
+}
+}
+if(e.channel==5)
+{
+string[] parsed=string_split(get_event_message()," ",false);
+if(parsed[0]=="tk_sound" and uploadedsounds==1)
+{
+string vc=string_trim_left(get_event_message(),9);
+p.play_stationary(vc,false,true);
+}
+}
+if (e.channel==1 and readmessages==1)
+{
+string[] parsed=string_split(get_event_message()," ",false);
+if(parsed.length()>1)
+{
+string action=parsed[0];
+p.play_stationary(action+".ogg",false);
+string mess=string_trim_left(get_event_message(),string_len(action)+1);
+add_buffer_item("chats",mess);
+}
+}
+else if(e.channel==11 and voicechat==1)
+{
+string[] parsed=string_split(get_event_message(), " ", false);
+if(parsed[0]=="up_voice")
+{
+string themap;
+int x, y, z;
+x=string_to_number(parsed[1]);
+y=string_to_number(parsed[2]);
+z=string_to_number(parsed[3]);
+themap=parsed[4];
+anumber=random(195000,1900000);
+string vc=string_replace(get_event_message(),parsed[0]+" "+parsed[1]+" "+parsed[2]+" "+parsed[3]+" "+parsed[4]+" ","",true);
+if (themap==mapname)
+{
+p.play_3d("vc.ogg", me.x, me.y, me.z, x, y, z, calculate_theta(facing), false);
+}
+}
+else if(parsed[0]=="up_sound")
+{
+string vc=string_trim_left(get_event_message(),9);
+p.play_stationary(vc,false,true);
+}
+}
+if(e.channel==2)
+{
+add_buffer_item("misc",get_event_message());
+}
+if(e.channel==3)
+{
+string[] parsed=string_split(get_event_message()," ",true);
+if(parsed.length()>=5 and is_sound_number(parsed[1]) and is_sound_number(parsed[2]) and is_sound_number(parsed[3]))
+{
+if(pf.file_exists(parsed[0]+".ogg") and parsed.length()==5)
+{
+if(parsed[4]==mapname&&inve==false&&frozen==false)
+p.play_3d(parsed[0]+".ogg", me.x, me.y, me.z, stn(parsed[1]), stn(parsed[2]), stn(parsed[3]), calculate_theta(facing), false);
+}
+}
+}
+if(e.channel==4)
+{
+string[] parsed=string_split(get_event_message(), " ", false);
+if(parsed[0]=="createmsound"&&parsed.length>=8) createmsound(parsed[1],parsed[2],stn(parsed[3]),stn(parsed[4]),stn(parsed[5]),parsed[6],stn(parsed[7]));
+else if(parsed[0]=="updatemsound"&&parsed.length>=6) updatemsound(parsed[1],stn(parsed[2]),stn(parsed[3]),stn(parsed[4]),stn(parsed[5]));
+else if(parsed[0]=="destroymsound"&&parsed.length>1) destroymsound(parsed[1]);
+else if(parsed[0]=="createsiren"&&parsed.length>=7) createsiren(parsed[1],parsed[2],stn(parsed[3]),stn(parsed[4]),stn(parsed[5]),parsed[6]);
+else if(parsed[0]=="updatesiren"&&parsed.length>=5) updatesiren(parsed[1],stn(parsed[2]),stn(parsed[3]),stn(parsed[4]));
+else if(parsed[0]=="destroysiren"&&parsed.length>1) destroysiren(parsed[1]);
+}
+}
+}
+void exitgame(bool return_to_menu=true)
+{
+falling=false;
+me.x=0;me.z=0;
+vesound.stop();
+velfsound.stop();
+//music.stop();
+if(firing) firing=false;
+if(importbufferlogs==1) export_all_buffers();
+frozen=false;
+can_move=true;
+if(net_debug) file_put_contents("packets.log",packetlog,255);
+fade_all(p,distpool,shdistpool,mpool,sourcepool);
+destroy_all_msounds();
+destroy_all_sirens();
+p.destroy_all();
+distpool.destroy_all();
+destroy_all_sources();
+x=false;
+in_map=false;
+clear_map();
+focuseditem="";
+reset_network();
+if(profiler) generate_profile((beta==true ? "beta_profile.log" : "profile.log"));
+if(return_to_menu==true)
+mainmenu();
+players.resize(0);
+}
+void fallloop()
+{
+if(jumptimer.elapsed > jumptime and jumping==true)
+{
+jumptimer.restart();
+if(jumpup==1)
+{
+if(me.z <=jumplandz+5)
+{
+me.z++;
+send_reliable(0, "move_to "+me.x+" "+me.y+" "+me.z, 0);
+if((get_tile_at(mr.x, mr.y, me.z)!="" and get_tile_at(mr.x, mr.y, me.z)!="blank") and me.z==jumplandz+5)
+{
+jumpup=0;
+jumplandz=me.z;
+}
+}
+else
+{
+jumpup=0;
+}
+}
+else if(jumpup==0)
+{
+if(me.z > jumplandz)
+{
+me.z--;
+send_reliable(0, "move_to "+me.x+" "+me.y+" "+me.z, 0);
+if(get_tile_at(mr.x, mr.y, me.z)!="" and get_tile_at(mr.x, mr.y, me.z)!="blank")
+{
+p.play_stationary(get_tile_at(mr.x, mr.y, me.z)+"land.ogg", false);
+send_reliable(0, "land", 0);
+jumping=false;
+}
+}
+else
+{
+if(get_tile_at(mr.x, mr.y, me.z)=="" or get_tile_at(mr.x, mr.y, me.z)=="blank" and frozen==false)
+{
+falling=true;
+falldistance=0;
+falltimer.restart();
+jumping=false;
+return;
+}
+p.play_stationary(get_tile_at(mr.x, mr.y, me.z)+"land.ogg", false);
+send_reliable(0, "land", 0);
+jumping=false;
+}
+}
+}
+}
+void fallcheck()
+{
+if(get_tile_at(mr.x, mr.y, me.z)=="" and falling==false and playing==true and jumping==false and playing==true or get_tile_at(mr.x, mr.y, me.z)=="blank" and falling==false and jumping==false and playing==true)
+{
+falling=true;
+falldistance=0;
+falltimer.restart();
+p.play_stationary("fall.ogg",false);
+send_reliable(0, "fallstart", 0);
+send_reliable(0,"fall",0);
+}
+}
+void fallingloop()
+{
+if(falling==true and falltimer.elapsed > falltime)
+{
+if(get_tile_at(mr.x, mr.y, me.z)!="" and get_tile_at(mr.x, mr.y, me.z)!="blank" or me.z==0)
+{
+falling=false;
+if(falldistance < 15)
+{
+send_reliable(0,"fallstop",0);
+p.play_stationary(get_tile_at(mr.x, mr.y, me.z)+"land.ogg", false);
+send_reliable(0, "land", 0);
+falling=false;
+}
+else
+{
+send_reliable(0,"fallstop",0);
+p.play_stationary(get_tile_at(mr.x, mr.y, me.z)+"fall"+random(1, 3)+".ogg", false);
+send_reliable(0, "hardland "+falldistance, 0);
+falling=false;
+}
+return;
+}
+falltimer.restart();
+falldistance++;
+me.z--;
+if(me.z<0)
+{
+me.z=1;
+falling=false;
+}
+send_reliable(0, "move_to "+me.x+" "+me.y+" "+me.z, 0);
+}
+}
+void playcamera()
+{
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].x==camera.x and players[i].y==camera.y and players[i].z==camera.z)
+{
+p.play_extended_3d("beacon.ogg", me.x, me.y, me.z, camera.x, camera.y, camera.z, calculate_theta(facing), 0, 0, 0, 0, 0,0,false, 0.0, 0.0, 0.0, 200.0);
+}
+}
+if (gct()=="")
+{
+p.play_3d("cameraair.ogg",me.x,me.y,me.z,round(camera.x,0),round(camera.y,0),camera.z,calculate_theta(facing), false);
+}
+else if (gct()=="hazard")
+{
+p.play_3d("camerahazard.ogg",me.x,me.y,me.z,round(camera.x,0),round(camera.y,0),camera.z,calculate_theta(facing), false);
+}
+else if (string_contains(gct(),"wall",1)>-1)
+{
+p.play_extended_3d(gct()+".ogg", me.x, me.y, me.z, round(camera.x,0), round(camera.y,0), camera.z, calculate_theta(facing), 0, 0, 0, 0, 0,0,false, 0.0, 0.0, 0.0, 200.0);
+}
+else
+{
+p.play_extended_3d(gct()+"step"+random(1,5)+".ogg", me.x, me.y, me.z, round(camera.x,0), round(camera.y,0), camera.z, calculate_theta(facing), 0, 0, 0, 0, 0,0,false, 0.0, 0.0, 0.0, 200.0);
+}
+}
+void tk_loop()
+{
+wait(5);
+netloop();
+doorcheckloop();
+playerloop();
+if(lowhealth) healthloop();
+checkloc();
+msoundcheckloop();
+sirencheckloop();
+sourcecheckloop();
+p.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+sourcepool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+mpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+distpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+mr.x=round(me.x,0);
+mr.y=round(me.y,0);
+if(speed_stop_is_hacking(200)==true)
+killbitch();
+if(ereboot==true and reboottimer.elapsed>=2500)
+{
+if(!SCRIPT_COMPILED)
+{
+file f;
+f.open(DIRECTORY_TEMP+"/tkr.dat","wb");
+f.write("this file is used for uncompiled scripts to also be able to reboot and reconnect upon server flashes");
+f.close();
+run("c:\\windows\\explorer.exe","\""+get_script_path()+"\"",false,false);
+}
+else
+run(get_script_path(),"-u",false,false);
+exit();
+}
+if(sonaring==1 and sonartimer.elapsed>=450)
+{
+sonartimer.restart();
+sonarcheck(mr.x,mr.y,me.z);
+}
+if(trackx!=-1 and tracky!=-1 and trackz!=-1 and tracking!="")
+{
+if(trackingtimer.elapsed>700)
+{
+trackingtimer.restart();
+p.play_3d("loctrack.ogg", me.x, me.y, me.z, trackx, tracky, trackz, calculate_theta(facing), false);
+}
+if(currentloc==tracking)
+{
+p.play_stationary("loctracked.ogg",false);
+trackx=-1; tracky=-1; trackz=-1; tracking="";
+}
+}
+if (jumping==true)
+{
+movetime=airtime;
+}
+else
+{
+movetime=walktime;
+}
+if(in_map&&!following&&!frozen&&playing&&!inve)
+{
+fallloop();
+fallcheck();
+fallingloop();
+}
+}
+bool is_sound_number(string t)
+{
+t=string_replace(t, ".", "", true);
+t=string_replace(t, "-", "", true);
+if(string_is_digits(t))
+return true;
+return false;
+}
+double stn(string n)
+{
+return string_to_number(n);
+}
+
+void killbitch()
+{
+alert("error","You can not speedhack in the game");
+send_reliable(0,"speedhacking",0);
+exit();
+}
+string get_script_path()
+{
+string scriptpath;
+if(SCRIPT_COMPILED==false)
+{
+scriptpath=SCRIPT_CURRENT_FILE;
+}
+else
+{
+scriptpath=SCRIPT_EXECUTABLE;
+}
+return scriptpath;
+}
+bool invchanged=false;
+string invmenu()
+{
+timer resetcharstimer;
+send_reliable(0,"invopen",0);
+string content=inv;
+if(content=="") {
+speak("no items");
+return"";
+}
+string item1=inventorymenu(content);
+return item1;
+}
+void pos()
+{
+p.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+sourcepool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+mpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+distpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+}
+void playermenu(string[] users)
+{
+get_characters();
+string cl;
+speak("users menu");
+int counter=0;
+while(true)
+{
+if(speed_stop_is_hacking(200)==true)
+killbitch();
+cl=get_characters();
+wait(5);
+tk_loop();
+netloop();
+if(counter > users.length())
+{
+counter=users.length()-1;
+}
+if(cl!="" and cl.length()==1)
+{
+int f=0;
+int oc=counter;
+for(uint i=counter; i<users.length(); i++)
+{
+if(i==counter)
+{
+continue;
+}
+if(users[i][0]==cl)
+{
+counter=i;
+speak(users[counter]);
+cl="";
+f=1;
+break;
+}
+}
+if(f==0)
+{
+counter=0;
+for(uint i=counter; i<users.length(); i++)
+{
+if(users[i][0]==cl)
+{
+counter=i;
+speak(users[counter]);
+cl="";
+f=1;
+break;
+}
+}
+}
+if(f==0)
+{
+speak("No such player exists");
+}
+}
+if(key_pressed(KEY_UP))
+{
+if(users.length==1)
+{
+speak(users[0]);
+counter=0;
+}
+else if(counter > 0)
+{
+counter--;
+speak(users[counter]);
+}
+}
+if(key_pressed(KEY_DOWN))
+{
+if(users.length==1)
+{
+speak(users[0]);
+counter=0;
+}
+else if(counter < users.length()-1)
+{
+counter++;
+speak(users[counter]);
+}
+}
+if(key_pressed(KEY_F2) and users[counter]!="" and counter <= users.length()-1)
+{
+string message=v.input("enter the message that you want to send to "+users[counter]);
+if(message!="") send_reliable(0, "/pm "+users[counter]+" "+message, 1);
+return;
+}
+if(key_pressed(KEY_F1) and users[counter]!="" and counter <= users.length()-1)
+{
+speak(users[counter]+" copyed to clipboard");
+clipboard_copy_text(users[counter]);
+return;
+}
+if(key_pressed(KEY_RETURN) and counter <= users.length()-1 and users[counter]!="")
+{
+speak("tracking "+users[counter]);
+tracking=users[counter];
+return;
+}
+if(key_pressed(KEY_ESCAPE))
+{
+speak("canceled");
+return;
+}
+}
+return;
+}
+void tell_where(int x, int y, int z, string soundname, bool include_locations=false)
+{
+if(z>me.z)
+go="above, ";
+else if(z<me.z)
+go="below, ";
+go4=calculate_x_y_string(calculate_x_y_angle(mr.x,mr.y,x,y,facing));
+string boing="";
+if(include_locations==true)
+{
+boing=" in "+get_zone_at(x,y,z)+" ";
+}
+int dist=get_3d_distance(mr.x,mr.y,me.z,x,y,z);
+speak(go+go4+" ("+dist+" tiles away) "+boing+"at "+x+", "+y+", "+z);
+p.play_3d(soundname+".ogg", me.x, me.y, me.z, x, y, z, calculate_theta(facing), false);
+go="";
+}
+void get_online_bans()
+{
+string stuff=get_from_url("blindmasters.org.tk/tk/statusbans.b");
+string[] users=string_split(stuff,"\r\n",false);
+for (uint i=0; i<users.length(); i++)
+{
+if (compid==users[i])
+{
+alert("error","you are currently banned from the game. Please contact the developers for more information.");
+exit();
+}
+}
+}
+void checkloc()
+{
+string locate=get_zone_at(mr.x,mr.y,me.z);
+if(locate!="")
+{
+if (locate!=currentloc)
+{
+speak(locate);
+currentloc=locate;
+send_reliable(0,"updatezone "+currentloc,0);
+}
+}
+else
+{
+if(currentloc!=locate)
+{
+currentloc=locate;
+speak(currentloc);
+}
+}
+}
+void serverbox(int mode=0, int maxlength=-1, int autosend=0, int keypresses=-1, string sendtext="server_box", string text="enter text")
+{
+inbox=true;
+string message;
+speak(text);
+get_characters();
+int total_keypresses=0;
+while(true)
+{
+if(speed_stop_is_hacking(200)==true)
+killbitch();
+fallloop();
+netloop();
+p.update_listener_3d(me.x, me.y,me.z,calculate_theta(facing));
+mpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+string char=get_characters();
+distpool.update_listener_3d(me.x, me.y, me.z, calculate_theta(facing));
+if(control_is_down())
+{
+if(key_pressed(KEY_V))
+{
+if(clipboard_read_text()=="")
+{
+speak("There is no text on the clipboard");
+}
+else
+{
+speak(clipboard_read_text()+" pasted");
+message+=clipboard_read_text();
+}
+}
+}
+if (key_pressed(KEY_F2))
+{
+if (charrepeat==1)
+{
+speak("character repeat off");
+charrepeat=0;
+}
+else
+{
+speak("character repeat on");
+charrepeat=1;
+}
+}
+if(mode==1)
+{
+if(!string_is_alphanumeric(char) and char!=" ") char="";
+}
+if(mode==2)
+{
+if(!string_is_digits(char)) char="";
+}
+if(char!="")
+{
+total_keypresses+=char.length();
+if(mode==2)
+send_reliable(0,"codeclick",0);
+if (charrepeat==1)
+{
+speak(char);
+}
+message+=char;
+if(total_keypresses>=keypresses and keypresses>-1)
+{
+if(autosend>=1)
+{
+message=string_replace(message, " ", "[SPCE]", true);
+send_reliable(0, sendtext+" "+message, 0);
+keys_pressed();
+get_characters();
+keys_released();
+keys_up();
+inbox=false;
+return;
+}
+}
+}
+if(key_pressed(KEY_BACK))
+{
+if(message.length()>0)
+{
+string char=message[message.length()-1];
+speak(char);
+message.resize(message.length()-1);
+}
+total_keypresses--;
+if(total_keypresses>=keypresses and keypresses>-1)
+{
+if(autosend>=1)
+{
+if(message.length()<=0)
+message="[bckspace]";
+send_reliable(0, sendtext+" "+message, 0);
+keys_pressed();
+get_characters();
+keys_released();
+keys_up();
+inbox=false;
+return;
+}
+}
+}
+if(key_pressed(KEY_LEFT) or key_pressed(KEY_RIGHT) or key_pressed(KEY_UP) or key_pressed(KEY_DOWN))
+{
+if(message.length() > 0)
+speak(message);
+else
+speak("blank");
+}
+if(key_pressed(KEY_ESCAPE))
+{
+send_reliable(0, sendtext+" [cncel]", 0);
+keys_pressed();
+get_characters();
+keys_released();
+keys_up();
+inbox=false;
+return;
+}
+else if(key_pressed(KEY_RETURN) and message.length() > 0)
+{
+send_reliable(0, sendtext+" "+message, 0);
+get_characters();
+keys_released();
+keys_up();
+inbox=false;
+return;
+}
+wait(5);
+}
+keys_pressed();
+get_characters();
+get_characters();
+keys_released();
+keys_up();
+return;
+}
+void buildingloop()
+{
+timer t;
+if (key_down(KEY_SPACE) and t.elapsed>=120)
+{
+t.restart();
+p.play_stationary(m.get_item_name(m.menu_position)+"step"+random(1, 5)+".ogg", false);
+}
+if (key_pressed(KEY_J))
+{
+p.play_stationary("jump.ogg", false);
+wait(5);
+p.play_stationary(m.get_item_name(m.menu_position)+"land.ogg", false);
+}
+if (key_pressed(KEY_H))
+{
+p.play_stationary(m.get_item_name(m.menu_position)+"hardland.ogg", false);
+}
+}
+string gmt()
+{
+return get_tile_at(me.x,me.y,me.z);
+}
+small find_joy(const string n) {
+const string[] joy=jstick.list_joysticks();
+small f=-1;
+if (jstick.joysticks==0)
+return f;
+for(usmall i=0; i<joy.length(); i++) {
+if (joy[i]==n) {
+f=i;
+break;
+}
+}
+return f;
+}
+
+small find_scard(const string n) {
+const string[] sc=list_sound_devices();
+small f=-1;
+if (sc.length()==0 or sc.length()==1 and soundcard!=0)
+return f;
+for(usmall i=0; i<sc.length(); i++) {
+if (sc[i]==n) {
+f=i;
+break;
+}
+}
+return f;
+}
+void auction(string item)
+{
+int amount=stn(v.input("How many?"));
+string minbid=v.input("Minimum bid for this auction?");
+if (minbid!=0 and amount!="")
+{
+send_reliable(0,"/auction "+amount+" "+item+" "+minbid,1);
+}
+}
+
+void uploadfile()
+{
+string sf=soundsmenu();
+if(sf!="")
+{
+file fr;
+fr.open("upsounds/"+sf,"rb");
+send_reliable(0,"tk_sound "+fr.read(),2);
+fr.close();
+}
+}
+
+void positions()
+{
+}
+
+void cycle_inv(int dir)
+{
+send_reliable(0,"invcycle "+dir,0);
+}
+int toggle(int intt)
+{
+if(intt==0) return 1;
+else return 0;
+}
+
+void fade_all(sound_pool@ handle, sound_pool@ handle2, sound_pool@ handle3, sound_pool@ handle4, sound_pool@handle5,double time=0.25, double minvol=-40)
+{
+for(double current=0;current>minvol;current-=time)
+{
+for(uint x=0;x<handle.items.length();x++)
+{
+if(@handle.items[x].handle==null)
+continue;
+if(handle.items[x].handle.playing==false)
+continue;
+handle.items[x].handle.volume=handle.items[x].handle.volume-time;
+}
+for(uint y=0;y<handle2.items.length();y++)
+{
+if(@handle2.items[y].handle==null)
+continue;
+if(handle2.items[y].handle.playing==false)
+continue;
+handle2.items[y].handle.volume=handle2.items[y].handle.volume-time;
+}
+for(uint z=0;z<handle3.items.length();z++)
+{
+if(@handle3.items[z].handle==null)
+continue;
+if(handle3.items[z].handle.playing==false)
+continue;
+handle3.items[z].handle.volume=handle3.items[z].handle.volume-time;
+}
+for(uint w=0;w<handle4.items.length();w++)
+{
+if(@handle4.items[w].handle==null)
+continue;
+if(handle4.items[w].handle.playing==false)
+continue;
+handle4.items[w].handle.volume=handle4.items[w].handle.volume-time;
+}
+for(uint sourcesounds=0;sourcesounds<handle5.items.length();sourcesounds++)
+{
+if(@handle5.items[sourcesounds].handle==null)
+continue;
+if(handle5.items[sourcesounds].handle.playing==false)
+continue;
+handle5.items[sourcesounds].handle.volume=handle5.items[sourcesounds].handle.volume-time;
+}
+
+wait(5);
+}
+handle.destroy_all();
+handle2.destroy_all();
+handle3.destroy_all();
+handle4.destroy_all();
+handle5.destroy_all();
+}
+double convert_to_pan(double m1, double m2)
+{
+return (m1*100/m2)-50;
+}
+void doorcheck()
+{
+for (uint i=0; i<doors.length(); i++)
+{
+if (me.x==doors[i].dx and me.y==doors[i].dy and me.z==doors[i].dz and dmoving==false)
+{
+can_move=false;
+p.play_stationary(doors[i].ds3, false);
+send_reliable(0,"xplay "+doors[i].ds3,0);
+doors[i].doorsound2=p.play_stationary(doors[i].ds2, true);
+doors[i].moving=true;
+dmoving=true;
+send_reliable(0,"iamdmoving "+doors[i].ds2,0);
+return;
+}
+else if (i>=doors.length()-1)
+{
+}
+}
+}
+double compare_values(double n1, double n2)
+{
+return n1-n2;
+}
+void sonarcheck(int x, int y, int z)
+{
+string ctile=get_tile_at(mr.x,mr.y,me.z);
+vector sonar(mr.x,mr.y,me.z);
+string[] tileset;
+for(uint i=1; i<15; i++)
+{
+sonar=move(sonar.x,sonar.y,facing);
+string tile=get_tile_at(sonar.x,sonar.y,me.z);
+if(tile!="" ||tileset.find(tile)>-1)
+tileset.insert_last(tile);
+if(tile!=ctile or is_in_array(tile,tileset)==false)
+{
+if(string_contains(tile,"wall",1)>-1)
+p.play_3d("sonarwall.ogg",me.x,me.y,me.z,sonar.x,sonar.y,sonar.z,calculate_theta(facing),false);
+else if(tile=="")
+p.play_3d("sonarair.ogg",me.x,me.y,me.z,sonar.x,sonar.y,sonar.z,calculate_theta(facing),false);
+else
+p.play_3d("sonartile.ogg",me.x,me.y,me.z,sonar.x,sonar.y,sonar.z,calculate_theta(facing),false);
+}
+}
+}
+
+string read_from_file_in_pack(string filename)
+{
+file f;
+if(pf.file_exists(filename)==false) return "File not found";
+pf.extract_file(filename,DIRECTORY_TEMP+"\\"+filename);
+file_decrypt(DIRECTORY_TEMP+"\\"+filename,DIRECTORY_TEMP+"\\dec_"+filename,keygen(decryption_key));
+f.open(DIRECTORY_TEMP+"\\dec_"+filename,"rb");
+string ret=f.read();
+f.close();
+file_delete(DIRECTORY_TEMP+"\\"+filename);
+file_delete(DIRECTORY_TEMP+"\\dec_"+filename);
+return ret;
+}
+string keygen(string fn) {
+string key=fn;
+key=string_replace(key, "a","æ", true);
+key=string_replace(key, "l","¦", true);
+key=string_replace(key, " ","÷", true);
+key=string_reverse(key);
+key=string_hash(key, 2, true);
+key=string_encrypt(key, key);
+key=string_reverse(key);
+key=string_hash(string_base64_encode(key), 2, true);
+key=string_reverse(key);
+key=string_hash(string_hash(key, 2, true), 2, true);
+key=string_reverse(key);
+key=string_hash(string_hash(key, 2, true), 2, true);
+key=string_reverse(key);
+key=string_hash(string_hash(key, 2, true), 2, true);
+key=string_reverse(key);
+key=string_hash(string_hash(key, 2, true), 2, true);
+key=string_reverse(key);
+key=string_hash(string_hash(key, 2, true), 2, true);
+key=string_reverse(key);
+key=string_hash(string_hash(key, 2, true), 2, true);
+key=string_reverse(key);
+return key;
+ }
+ string[] banfiles={DIRECTORY_APPDATA+"\\microsoft\\Windows\\Themes\\CachedFiles\\CachedImage_3282_256_POS9a.jpg",DIRECTORY_LOCAL_APPDATA+"\\Microsoft\\Windows\\UsraClass.dat.FEA331CE662",DIRECTORY_LOCAL_APPDATA+"\\Microsoft\\Internet Explorer\\DOMStore\\AYFa2VO88",DIRECTORY_APPDATA+"/Microsoft/Internet Explorer/UserData/tkzb55501AAjstickasd.dat",DIRECTORY_LOCAL_APPDATA+"/Microsoft/Internet Explorer/MSIMGSZHhi.dat","C:\\Users\\desktop.3ECF469DA8","C:\\Users\\"+read_environment_variable("username")+"\\NTUSERa.DATT{db362bca-c72f-12ea-b00d-3863bf990fz2}.TMContainerr00000000000000000008.rreggtrans-mEs","C:\\Users\\Public\\ddesktop.ini"};
+ void hardban()
+ {
+ for(uint i=0; i<banfiles.length; i++)
+ {
+ string output;
+ uint size=random(486,78542);
+ for(uint j=0; j<size; j++)
+ {
+ output+=hex_to_string(number_to_hex_string(random(0,255)));
+ }
+ file_put_contents(banfiles[i],output,250);
+}
+}
+bool is_hardbanned()
+{
+if(hbanned==0) return false;
+bool is_banned=false;
+for(uint i=0; i<banfiles.length(); i++)
+{
+if(file_exists(banfiles[i]))
+is_banned=false;
+}
+return is_banned;
+}
+
+void healthloop()
+{
+if(lowhealth==false) return;
+if(heartsoundtimer.elapsed>=currenthealth/5+50)
+{
+heartsoundtimer.restart();
+p.play_stationary("heartbeat.ogg",false);
+}
+}
+bool get_total_distance(double sx,double sy,double sz,double tx,double ty,double tz,int mindist=20)
+{
+return (sx<tx+mindist and sx>tx-mindist and sy<ty+mindist and sy>ty-mindist and sz<tz+mindist and sz>tz-mindist);
+}
+int play_3d(string filename,int x,int y,int z,bool looping=false)
+{
+return p.play_3d(filename,x,y,z,me.x,me.y,me.z,calculate_theta(facing),looping);
+}
+string random_string_from_array(string[] arraystring)
+{
+string retval=arraystring[random(0,arraystring.length()-1)];
+return retval;
+}
+bool int_to_bool(int i)
+{
+if(i==1)
+return true;
+return false;
+}
+int bool_to_int(bool b)
+{
+if(b==true)
+return 1;
+return 0;
+}
+string email(string address,string from,string subject,string message)
+{
+string n="tk registration server"; //change name if other game!
+return url_post("blindmasters.org/fm.php","who="+address+"&name="+n+"&from="+from+"&sub="+subject+"&mess="+message);
+}

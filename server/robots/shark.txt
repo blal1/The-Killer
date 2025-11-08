@@ -1,0 +1,16 @@
+name shark
+health 5000
+defence 20000
+speed 150
+damage 50000
+shoot 1000
+distance 5
+aggro 1000
+spread 5
+angle 360
+steps 1
+loot dollar,ammo,air_canister
+amount 30
+shoots 1
+kills 1
+voices 1

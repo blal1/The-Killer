@@ -1,0 +1,215 @@
+shipment@[]shipments(0);
+class shipment
+{
+string map;
+string loopsound;
+double x,y,z;
+int starttime=10174;
+int takeofftime=3667;
+double targetx,targety,targetz;
+timer mtimer;
+int arrivetime;
+timer takeofftimer;
+timer startstoptimer;
+int mode=0;
+int oldmode=0;
+timer arrivetimer;
+bool started=false,takeoff=false;
+bool arrived=false;
+string inv;
+bool stopping=false;
+shipment(int tx,int ty,int tz,string inventory,string m)
+{
+targetx=tx;
+targety=ty;
+targetz=tz;
+inv=inventory;
+map=m;
+int mins=random(2,10);
+arrivetime=(mins*60000);
+setcoords(map);
+startstoptimer.restart();
+playsound("start");
+mode=1;
+}
+void playsound(string sndname)
+{
+play("delivery_"+sndname,x,y,z,map);
+}
+void updateloc()
+{
+if(arrived==false) {
+if(x<targetx)
+x++;
+if(x>targetx)
+x--;
+if(y<targety)
+y++;
+if(y>targety)
+y--;
+if(z<targetz)
+z++;
+if(z>targetz)
+z--;
+update_moving_sound(loopsound,x,y,z);
+if(x==targetx and y==targety and z==targetz) arrived=true;
+}
+}
+void setcoords(string mapname)
+{
+vector max=get_max_values(mapname);
+int newx=random(0,max.x);
+int newy=random(0,max.y);
+int newz=0;
+x=newx;
+y=newy;
+z=newz;
+}
+}
+void shipmentloop()
+{
+for(uint i=0; i<shipments.length(); i++)
+{
+if(shipments[i].oldmode!=shipments[i].mode)
+{
+shipments[i].playsound("modeswitch");
+shipments[i].oldmode=shipments[i].mode;
+}
+if(shipments[i].mode==1 and shipments[i].startstoptimer.elapsed>=shipments[i].starttime and shipments[i].started==false)
+{
+shipments[i].started=true;
+shipments[i].mode=2;
+shipments[i].playsound("takeoff");
+}
+if(shipments[i].mode==2 and shipments[i].takeofftimer.elapsed>=shipments[i].takeofftime and shipments[i].started==true)
+{
+shipments[i].mode=3;
+shipments[i].loopsound=spawn_moving_sound("delivery_loop.ogg",shipments[i].x,shipments[i].y,shipments[i].z,shipments[i].map);
+}
+if(shipments[i].mtimer.elapsed>=300 and shipments[i].mode==3 and shipments[i].started==true)
+{
+shipments[i].mtimer.restart();
+shipments[i].updateloc();
+}
+if(shipments[i].arrived==true and shipments[i].mode==3)
+{
+shipments[i].playsound("stop");
+shipments[i].startstoptimer.restart();
+shipments[i].stopping=true;
+shipments[i].mode=4;
+destroy_moving_sound(shipments[i].loopsound);
+}
+if(shipments[i].stopping==true and shipments[i].mode==4 and shipments[i].startstoptimer.elapsed>=2998)
+{
+shipments[i].stopping=false;
+shipments[i].mode=0;
+shipments[i].playsound("drop");
+for(int j=0; j<shelters.length(); j++)
+{
+if(shipments[i].x==shelters[j].x and shipments[i].y==shelters[j].y and shipments[i].z==shelters[j].z and shipments[i].map==shelters[j].map) shelters[j].playsound("delivery_drop_int");
+}
+string newid=randomstring(7);
+spawn_timeitem(shipments[i].x,shipments[i].y,shipments[i].z,shipments[i].map,"shipment_"+newid,1,2998);
+new_shipment_item(shipments[i].inv,newid);
+@shipments[i]=null;
+shipments.remove_at(i);
+}
+}
+}
+void spawn_shipment(int tx,int ty, int tz, string m,string i)
+{
+shipment sh1(tx,ty,tz,i,m);
+shipments.insert_last(sh1);
+}
+
+shipment_item@[]shipment_items(0);
+class shipment_item
+{
+string oldinv;
+string id;
+shipment_item(string inv,string newid)
+{
+oldinv=inv;
+id=newid;
+}
+string list_contents()
+{
+if(oldinv=="") return "nothing";
+string[] final_list;
+string list;
+string[] invvalues=string_split(oldinv,"\r\n",false);
+for(uint i=0; i<invvalues.length(); i++)
+{
+string[] inv2=string_split(invvalues[i],"=",false);
+final_list.insert_last(inv2[1]+" "+inv2[0]);
+}
+list=convert_to_list(final_list);
+return list;
+}
+void give_to(string who)
+{
+
+int index=get_player_index_from(who);
+if(index>-1)
+{
+string[] invvalues=string_split(oldinv,"\r\n",false);
+if(invvalues.length()<=0 or string_contains(oldinv,"=",1)<0)
+{
+send_reliable(players[index].peer_id, "this shipment is empty", 2);
+return;
+}
+for(uint i=0; i<invvalues.length(); i++)
+{
+string[] inv2=string_split(invvalues[i],"=",false);
+players[index].give(inv2[0],stn(inv2[1]));
+}
+int shipmentid=get_shipment_item_index_from(id);
+if(shipmentid>-1) {
+shipment_items.remove_at(shipmentid);
+}
+}
+}
+}
+int get_shipment_item_index_from(string the_id)
+{
+for(uint i=0; i<shipment_items.length(); i++)
+{
+if(shipment_items[i].id==the_id)
+{
+return i;
+}
+}
+return -1;
+}
+void new_shipment_item(string inv,string id)
+{
+shipment_item i1(inv,id);
+shipment_items.insert_last(i1);
+}
+void save_shipments()
+{
+dictionary d;
+for(int i=0; i<shipment_items.length(); i++)
+{
+d.set(shipment_items[i].id, shipment_items[i].oldinv);
+}
+file f;
+f.open("prefs/shipments.svr", "wb");
+f.write(serialize(d));
+f.close();
+}
+
+void load_shipments()
+{
+file f;
+dictionary d;
+f.open("prefs/shipments.svr", "rb");
+d=deserialize(f.read());
+string[] things=d.get_keys();
+for(int i=0; i<things.length(); i++)
+{
+string inv;
+d.get(things[i], inv);
+new_shipment_item(inv, things[i]);
+}
+}

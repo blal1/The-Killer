@@ -1,0 +1,23 @@
+void main()
+{
+string admin=input_box("Admin util","Please enter the name of the char you would like to make admin");
+if(admin=="") exit();
+if(!directory_exists("chars/"+admin))
+{
+alert("Error","That player could not be found.");
+exit();
+}
+else if(file_exists("chars/"+admin+"/admin.usr"))
+{
+alert("Error","This player already has admin status.");
+exit();
+}
+else
+{
+file f;
+f.open("chars/"+admin+"/admin.usr","wb");
+f.close();
+alert("Success","The player "+admin+" is now an admin of the game.");
+exit();
+}
+}

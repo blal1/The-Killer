@@ -1,0 +1,57 @@
+stun_grenade@[] stun_grenades(0);
+class stun_grenade
+{
+string owner;
+timer explodetimer;
+int z;
+string map;
+int x, y;
+stun_grenade(int tx,int ty,int tz, string tmap, string towner)
+{
+owner=towner;
+x=tx;
+y=ty;
+z=tz;
+map=tmap;
+play("stungrenadestart",x,y,z,map);
+}
+}
+void stun_grenadeloop()
+{
+for (uint i=0; i<stun_grenades.length(); i++)
+{
+if(stun_grenades[i].explodetimer.elapsed>=5000)
+{
+stun_grenades[i].explodetimer.restart();
+play("stungrenade",stun_grenades[i].x,stun_grenades[i].y,stun_grenades[i].z,stun_grenades[i].map);
+send_reliable(0,"distsound stungrenadedist "+stun_grenades[i].x+" "+stun_grenades[i].y+" "+stun_grenades[i].z+" "+stun_grenades[i].map,0);
+for (uint i2=0; i2<players.length(); i2++)
+{
+if(players[i2].invinsible==true || players[i2].newb==1 || players[i2].is_dead==true||in_vehicle(players[i2].name)>-1) continue;
+if (get_3d_distance(stun_grenades[i].x,stun_grenades[i].y,stun_grenades[i].z,players[i2].x,players[i2].y,players[i2].z)<=25 and players[i2].map==stun_grenades[i].map)
+{
+players[i2].stun(15000,true,true);
+players[i2].hit(10,1000);
+players[i2].should_subtract=true;
+players[i2].playsound("stun_darthit");
+}
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_3d_distance(stun_grenades[i].x,stun_grenades[i].y,stun_grenades[i].z,vs[v].x,vs[v].y,vs[v].z)<=30&&vs[v].map==stun_grenades[i].map)
+vs[v].hit(random(500,1500),stun_grenades[i].owner+"'s stun grenade");
+}
+@stun_grenades[i]=null;
+stun_grenades.remove_at(i);
+}
+}
+}
+void placestun_grenade(int x,int y, int z, string map,string owner)
+{
+stun_grenade bomb1(x,y,z,map,owner);
+stun_grenades.insert_last(bomb1);
+}
+void destroy_all_stun_grenades()
+{
+stun_grenades.resize(0);
+}

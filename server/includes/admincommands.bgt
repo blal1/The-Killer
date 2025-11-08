@@ -1,0 +1,125 @@
+string admincmd="
+Admin commands:
+Player related commands:
+/itemtesting: This new command is used for testing items out. If you type this command, you can test any item in the game out by giving it to yourself. In this mode, your items won't be saved. Note: when using or testing items, make sure you are clear by a developer. You can not test items on players. Just because you turn this mode on, it does not give you the ability to freely give out or use items to kill players.
+/varset <param> <value>: changes a setting in the server. Contact a developer for information about these settings, as these can change from server updates, etc.
+/invforce <playername>: Force the invinsibility of a player, stunning them and making them untrackable or shootable. This is good for stopping the player and making them listen to you. Once the situation has been resolved, you can type this command again to disable it.
+/moveplayer: moves one player to another player. Example: /moveplayer x0 enes, moves x0 to enes.
+/move playername x y z, moves playername to coordinates x y z. Example, /move enes 0 0 0. This command may optionally take a map to move them too after the coordinates, example /move enes 10 20 0 store
+/changemap playername mapname: changes a player to a specified map. Note this moves them to 0 0 0, and was superceeded by /move gaining the optional ability to take a map.
+/mapmove params: can move one or more players matching certain criteria to random spots on a map. Params can be one or more of:
+<playername>: a player to match directly.
+map:<name>: All players on a specified map.
+dest:<name>: a map they should be dumped to. Default value for this is main.
+This function will always dump them to a random location gotten by querying the max values of the map for a random threshold. You may include as many param instances as you like.
+**begin examples**:
+/mapmove x0 enes dest:main_builder
+will move both x0 and enes to random points on main_builder
+/mapmove map:store
+will move everyone in the store to random locations on main. Can be used to get a jamming team out.
+/mapmove x0 map:store dest:jail
+Extreme example. Will move everyone in the store, and x0, to the map jail.
+**end examples**
+/hideme: Hides you from other players. Note: you need to log off and log in again to take affect.
+/follow <playername>: starts following that player. You need to type /stopfollow to stop following them. This command only works with hidden enabled.
+/ip <playername> Gets the IP address of a player.
+/compinfo <playername> Gets information about someone's computer such as the scriptpath they are running the game from. This is useful for detecting players making secondary accounts.
+/stopfollow: stops following the selected player.
+/blockfeature <playername> <feature>: blocks a feature from a player. example: /blockfeature enes chat. Blocks enes from sending chats.
+/where playername: tells you where a player is, including some stats like if they are in a vehicle, or invinsible, etc.
+/inv: toggles your invinsibility status. This begins with a beepy countdown so you can't do it mid fight. This mode is designed for if you have to do admin related things where you must type a lot etc without getting killed mid-message. While in this mode, you cannot use items, you cannot fire, and players cannot track you in any form.
+/cdata playername value: this command returns the player's value. For example: /cdata enes level: returns the level of the player enes. This can be any file in their char folder, examples are location and nickname. Some values update in realtime, such as inv, shields, and health. Health also returns a vehicle's health and it's type if they are in one at the time of execution.
+/cdataset playername value new value: changes a player's value to the one specified here. For this to work correctly it saves the player's data, overwrites the stored value, and then reloads it. This can be used to set a player's inv or nickname.
+/chars: reports how many, and the chars that are created on the server.
+/warn playername level message: Warns a player of something. Levels are indicated to what this person is doing. For example: /warn enes 5 You are speedhacking! Levels are 1 through 5. It is good admin practice to warn players before taking serious actions, generally how many times you do it depends on the level and it should increase.
+/settitle playername title: Sets a player's title to something. I.E: /settitle enes master.
+/cleartitle playername: clears a player's title, removing anything that was there. For example: /cleartitle enes removes enes's title, which is probably developer, so it just says enes.
+/kick <playername>: Kics a player from the server.
+/ban: bans a player.
+/banned: Returns a list of all banned players on the server.
+/tempban <playername> <minutes>: Bans someone for a certain amount of time. example: /tempban enes 20: bans enes for 20 minutes.
+/tempbans: tells you the temp bans on the server and how long they have until an unban.
+/untempban : un temp ban the player
+/gamestop : frozen the game.
+/gamestart : un frozen the game.
+/unban: unbans a player.
+
+Server commands
+/garbage_collect: Starts a garbage collect cycle. This may lag the server but frees server lag.
+/adminlog: Views the admin log.
+/addalog: Writes to the admin log.
+/eventhelp: copies the guide on how to create events to clipboard.
+*** note: This admin log is only used for messages about bans, warnings, or anything you think all admins should know about.
+map related commands:
+/maps: gives you a list of maps and their sizes. Note that shelters also generate maps.
+/intmaps: gives you a list of maps currently loaded into RAM by the server. This can be used to make sure that a map is not missing from RAM after being created.
+/rawmap: copies the text of the current map to your clipboard.
+/rawdata data: sets your current map's data to data, this should be pasted from your clipboard. Do not! Do this to main! Don't build on main at all until a dev gives you permission to do so. Note that if the mapname attribute does not match the map's actual filename, this command will terminate with an error.
+/newmap name x y z tile: creates a new map. The x, y and z parameters are the maximum values put at the top of the file, they can be changed later. The tile is a surface to put on the entire bottom of the map so when you go to it you don't fall into nothingness.
+
+item related commands:
+/give <playername> <item> <amount>: gives the amount of items to the given playername. Warning! Using this command to give yourself or your friends free items to cheat this game will not be allowed! This command is only used when giving back items a player has lost, I.E: server crashes and inventory was not saved, etc.
+/itemlist: Gets a list of all items that spawn and sends them to your clipboard.
+/spawn_obj x y z map item amount: spawns an object of type item, containing amount of this item, at x y z on map. For example: /spawn_obj 0 0 0 store dollar 1000
+/killobjs: nukes all items on the map.
+/killremguns: kills all remote guns on the server. Please note that this sends a notification to the server showing how many remguns were cleared.
+/mbclear: clears all motion bombs. This sends a notification just to you of how many were killed.
+/mineclear: clears mines.
+/shockwave: clears all bombs by making them detinate.
+/countbombs: tells you how many bombs are active and how many of each type. Useful for tracking down lag.
+/fireoutall: kills all fires.
+
+misc commands:
+/adtomotd: Adds to the existing message of the day.
+/newmotd: sets the message of the day to something you want. for example: /newmotd hi, thank you for trying out the game.
+/notify message: sends out a notification to the server. example: /notify this server is going to be updated in 30 minutes.
+Have fun!";
+
+string help="Any of these commands are typed with a slash after the input box. So open the chatbox with the slash key and type any command including it's prepending slash.
+/newbie: disables the newbie flag if you have it enabled.
+/mute <playername>: mutes a player.
+/unmute <playername>: unmutes a player.
+/changes: views a list of changes to the server. This displays in a menu.
+/request: request anything to the developers. Suggestions and bugs should go here.
+/events: Sends you a message with all the events on the server.
+/joinevent <ID:  joins an event in progress.
+/leaveevent: leaves the current event if you joined any.
+/nickfind <nickname>: Finds players(if any) with that nickname. Not case sensative. Prints out each player on it's own packet in the misc buffer, since multiple people can have the same nickname.
+/beacon: toggles whether you hear player beacons or not.
+/teamcreate: create a team. Just press enter and it will ask you for your team name.
+/members: Lists your team's members.
+/teamshelters: tells you what shelters are assigned to your team. To assign a shelter to your team, you must build it and then type \"/shteam set\" inside it.
+/teampass <password>: updates your team's password. Only works if you are leader of the team.
+/teamremove <playername>: removes a player from your team.
+/teamcancel: cancels your team
+/teamleave: leaves a team you are in, if you're not the leader. If you are the leader use cancel.
+/t <message>: sends a message to your team.
+/jointeam <teamname> <teampassword>: Joins a team. If a player wants you in their team they will probably pm you with the info to join it.
+/shadd <playername>: Adds a player to the shelter allowed players list. Please note that in order for this to work, you must be in a shelter you own.
+/shremove <playername>: Removes a player from the shelter allowed players list. Please note that in order for this to work, you must be in a shelter you own.
+/shallowed: checks allowed players in a shelter you own.
+/shteam: can link a shelter to a team. Use /shteam by itself to check currently associated team, /shteam set to assign it to the team you are a part of, and /shteam remove to unlink it from that team. This can be used to let anyone from that team enter the shelter, among possibly other things.
+/shchat <message>: sends out a chat into a shelter you are currently in for anyone inside. Does not require owner permissions.
+/me: sends a me message, called emotes on some games.
+/activeadmins: checks the connected admins and developers
+/admins: lists the current admins, even if they are not online.
+/sell: opens a menu to sell items to the store.
+/transfer playername item amount: transfer amount of item to playername. This is our way of adding a player to player give feature without a client update. As such, it has a limitation range of 5 tiles.
+/auction amount item bid: auctions amount of a certain item with a minimum bid of bid. Note that you can also do this by hitting space in your inv menu. If this command is followed by no parameters, I.E. /auction, it will tell you about the current auction in progress.
+/cancelauction: cancels your auction.
+/bid number: bids number of dollars on an active auction. If the bid is too low it will tell you.
+/cancelbid: cancels your previous bid, mainly useful if you added one too many digits or whatever. It will revert to the state it was previously in.
+/deleteme: deletes your character. Note that once you do this even we developers can't get it back!
+If you need any help, let one of us know.
+";
+
+string eventhelp="Type /newevent <eventname> to create a new event. This should send back an ID with the event ID. This ID will contain only numbers and should only be 4 digets. From there, you need to set everything up through the /eventset command.
+Setting up the event will be kind of easy, but it can be a process. Type /eventset <id> <setting=val> to set the event.
+Event values are as follows: 
+*Map: a string defining where the user will be moved when joining the event. the default value is main.
+*description: a string defining the description the user will see when requesting information about the event.
+*can_keep_inventory: an int defining if the user is allowed to keep their inventory after and when joining the event. If the inventory value is set to 0, the user's inventory will be removed when joining the event and will be backed up. Once the user leaves or the event ends, he will then have his or her inventory back to normal. If the can_keep_inventory int is 1, he will be able to join with his or her inventory and when they leave, will leave with that same inventory. There will be other things as well, such as the ability to collect items.
+*can_leave: an int defining if the user is allowed to type /leaveevent at any time. If this command is sent, the user will leave the event.
+*Joinx,joiny, and joinz, ints defining the coordinates the player will be moved to when joining. They are set to 0, 0, 0 by default.
+After setting all the params you wish to fill out, you can type /eventinfo <id> to check everything in the event. and make sure everything checks out like you wish. If everything is ready, you can type /launchevent <id> and launch the event! Note: when an event is launched and started the event settings will not be editable anymore. So make sure that you launch the event when you're absolutely sure everything is set to go!
+If you wish to end an event, you can tyep /endevent <id>, and the event will end.";

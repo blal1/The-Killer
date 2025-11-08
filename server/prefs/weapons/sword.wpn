@@ -1,0 +1,12 @@
+name sword
+dammage 900 3500
+range 20
+spread 5
+bullet 1
+stunning 0
+stuntime 0
+hitsounds 3
+shieldchance 10
+speedtime 5
+shieldhits3
+reloadable 1

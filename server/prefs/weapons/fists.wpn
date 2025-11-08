@@ -1,0 +1,12 @@
+name fists
+dammage 100 400
+range 4
+spread 3
+bullet 0
+stunning 0
+stuntime 0
+hitsounds 3
+shieldchance 100
+speedtime 5
+shieldhits0
+reloadable 1

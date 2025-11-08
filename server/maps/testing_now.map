@@ -1,0 +1,9 @@
+mapname:testing_now
+maxx:50
+maxy:50
+maxz:50
+src:7:7:7:7:0:0:desktop1.ogg:-1
+tile:0:50:0:50:0:0:shelter
+src:0:50:0:50:0:50:shelteramb.ogg:-1
+zone:0:50:0:50:0:50:testing_now
+zone:5:5:5:5:0:0:to exit this shelter, press enter.

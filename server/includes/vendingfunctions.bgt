@@ -1,0 +1,14 @@
+string[] snackitems;
+int[] snackprices;
+void add_snack_item(string snack,int price)
+{
+snackitems.insert_last(snack);
+snackprices.insert_last(price);
+}
+string[] drinkitems;
+int[] drinkprices;
+void add_drink_item(string item, int amount)
+{
+drinkitems.insert_last(item);
+drinkprices.insert_last(amount);
+}

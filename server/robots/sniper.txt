@@ -1,0 +1,15 @@
+name sniper
+health 35000
+defence 1000
+speed 400
+damage 700,27000
+shoot 950
+distance 20
+aggro 1000
+spread 5
+angle 10
+steps 2
+loot dollar
+amount 1000
+kills 2
+hits 6

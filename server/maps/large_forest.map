@@ -1,0 +1,14 @@
+mapname:large_forest
+maxx:1000
+maxy:1000
+maxz:1000
+tile:0:1000:0:1000:0:0:grass
+zone:0:1000:0:1000:0:500:large forest
+tile:245:255:0:1000:0:0:concrete
+zone:245:255:0:1000:0:0:great auto road:trackme
+travelpoint:245:255:1000:1000:0:300:old_abandoned_ruined_city:250:0:0:goink too the old city
+src:0:1000:0:1000:0:300:birds50.ogg
+noitems:0:1000:0:1000:0:1000:sail_boats:
+robots:0:1000:0:1000:0:0:1:1000:amphibian,bear,cockroach,coyote,dentist,dog,glider,harvester,helicopter,metallurgist,psychiatrist,robocop,securityguard,sniper,soldier,storekeeper,surgeon,trainer,train,tushkano,welder,wolf,worm,zombie
+
+robots:0:1000:0:1000:0:0:10:10000:amphibian,bear,cockroach,coyote,dentist,dog,glider,harvester,helicopter,metallurgist,psychiatrist,robocop,securityguard,sniper,soldier,storekeeper,surgeon,trainer,train,tushkano,welder,wolf,worm,zombie

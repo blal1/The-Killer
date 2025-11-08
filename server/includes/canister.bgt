@@ -1,0 +1,60 @@
+canister@[] canisters(0);
+class canister
+{
+int z;
+string map;
+int x, y;
+int ms=1500;
+string type;
+timer actiontimer;
+canister(int cx,int cy,int cz, string cmap, string ctype)
+{
+x=cx;
+y=cy;
+z=cz;
+map=cmap;
+type=ctype;
+play("canisteruse",x,y,z,map);
+}
+}
+void canisterloop()
+{
+for (uint i=0; i<canisters.length(); i++)
+{
+if (canisters[i].actiontimer.elapsed>=canisters[i].ms)
+{
+canisters[i].actiontimer.restart();
+play("canister",canisters[i].x,canisters[i].y,canisters[i].z,canisters[i].map);
+send_reliable(0,"distsound canisterdist "+canisters[i].x+" "+canisters[i].y+" "+canisters[i].z+" "+canisters[i].map,0);
+for (uint i2=0; i2<players.length(); i2++)
+{
+if(players[i2].invinsible==true || players[i2].newb==1 || players[i2].is_dead==true||in_vehicle(players[i2].name)>-1) continue;
+if (get_3d_distance(canisters[i].x,canisters[i].y,canisters[i].z,players[i2].x,players[i2].y,players[i2].z)<=3 and players[i2].map==canisters[i].map)
+{
+if(canisters[i].type=="antibiotic")
+{
+players[i].statchangetimer.restart();
+players[i2].health+=random(20, 120);
+players[i2].oldhealth=players[i2].health;
+}
+if(canisters[i].type=="air")
+{
+players[i2].air+=random(10000,10000);
+}
+play("canisterhit",players[i2].x,players[i2].y,players[i2].z,players[i2].map);
+}
+}
+@canisters[i]=null;
+canisters.remove_at(i);
+}
+}
+}
+void spawn_canister(int x,int y, int z, string map,string type)
+{
+canister can1(x,y,z,map,type);
+canisters.insert_last(can1);
+}
+void destroy_all_canisters()
+{
+canisters.resize(0);
+}

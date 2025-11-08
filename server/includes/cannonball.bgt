@@ -1,0 +1,94 @@
+cannonball@[]cannonballs(0);
+class cannonball {
+double x,y,z;
+int dir=0;
+bool explode=false;
+int range=20;
+int distance=0;
+int mindammage=50000;
+int maxdammage=50000;
+string map;
+string owner;
+int spread=10;
+cannonball(double gx, double gy, double gz, double gdir, string gmap, string gowner)
+{
+x=gx;
+y=gy;
+z=gz;
+dir=gdir;
+map=gmap;
+owner=gowner;
+} // constructor.
+} // class.cannonball.
+
+void cannonballloop()
+{
+for(uint j=0; j<cannonballs.length(); j++)
+{
+{
+send_reliable(0,"distsound cannondist "+cannonballs[j].x+" "+cannonballs[j].y+" "+cannonballs[j].z+" "+cannonballs[j].map,0);
+play("cannonhit"+random(1,3),cannonballs[j].x,cannonballs[j].y,cannonballs[j].z,cannonballs[j].map);
+send_reliable(0,"distsound cannon "+cannonballs[j].x+" "+cannonballs[j].y+" "+cannonballs[j].z+" "+cannonballs[j].map,0);
+for(uint r=0; r<robots.length; r++)
+{
+if(get_3d_distance(cannonballs[j].x,cannonballs[j].y,cannonballs[j].z,robots[r].x,robots[r].y,robots[r].z)<=cannonballs[j].range&&robots[r].map==cannonballs[j].map)
+robots[r].hit(random(cannonballs[j].mindammage,cannonballs[j].maxdammage),"cannonball",cannonballs[j].owner+"'s cannonball");
+}
+for(uint s=0; s<shelters.length; s++)
+{
+if(get_3d_distance(cannonballs[j].x,cannonballs[j].y,cannonballs[j].z,shelters[s].x,shelters[s].y,shelters[s].z)<=cannonballs[j].range&&shelters[s].map==cannonballs[j].map)
+shelters[s].hit(random(80000,90000),cannonballs[j].owner+"'s cannonball","cannonball");
+}
+for(uint x=0; x<players.length(); x++)
+{
+if(in_vehicle(players[x].name)>-1 or players[x].newb==1 or players[x].is_dead or players[x].invinsible) continue;
+if(get_3d_distance(cannonballs[j].x,cannonballs[j].y,cannonballs[j].z,players[x].x,players[x].y,players[x].z)<=cannonballs[j].range and players[x].map==cannonballs[j].map)
+{
+players[x].hit(cannonballs[j].mindammage,cannonballs[j].maxdammage);
+players[x].should_subtract=true;
+players[x].hitby=cannonballs[j].owner+"'s cannonball";
+}
+}
+for (uint i2=0; i2<objs.length(); i2++)
+{
+if (get_3d_distance(cannonballs[j].x,cannonballs[j].y,cannonballs[j].z,objs[i2].x,objs[i2].y,objs[i2].z)<=cannonballs[j].range and objs[i2].map==cannonballs[j].map)
+{
+play("obj_break"+random(1,3),objs[i2].x,objs[i2].y,objs[i2].z,objs[i2].map);
+objs.remove_at(i2);
+}
+}
+for (uint i2=0; i2<remguns.length(); i2++)
+{
+if (get_3d_distance(cannonballs[j].x,cannonballs[j].y,cannonballs[j].z,remguns[i2].x,remguns[i2].y,remguns[i2].z)<=cannonballs[j].range and remguns[i2].map==cannonballs[j].map)
+{
+remguns[i2].health-=random(8000,90000);
+remguns[i2].hitby=cannonballs[j].owner+"'s cannonball";
+play("remgunhit"+random(1, 3),remguns[i2].x,remguns[i2].y,remguns[i2].z,remguns[i2].map);
+}
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_2d_distance(vs[v].x,vs[v].y,cannonballs[j].x,cannonballs[j].y)<=cannonballs[j].range)
+{
+vs[v].hit(random(cannonballs[j].mindammage,cannonballs[j].maxdammage),cannonballs[j].owner+"'s cannonball","cannonball");
+}
+}
+for(uint x=0; x<impact_bombs.length(); x++)
+{
+if(get_3d_distance(cannonballs[j].x,cannonballs[j].y,cannonballs[j].z,impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z)<=20 and cannonballs[j].map==impact_bombs[x].map)
+{
+play("ibombhit"+random(1,3),impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z,impact_bombs[x].map);
+impact_bombs[x].health-=random(cannonballs[j].mindammage,cannonballs[j].maxdammage);
+}
+}
+@cannonballs[j]=null;
+cannonballs.remove_at(j);
+continue;
+}
+}
+}
+void spawn_cannonball(double x, double y, double z, double dir, string map, string owner)
+{
+cannonball f1(x, y, z, dir, map, owner);
+cannonballs.insert_last(f1);
+}

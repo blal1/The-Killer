@@ -1,0 +1,12 @@
+mapname:swamp
+maxx:500
+maxy:500
+maxz:500
+tile:0:500:0:500:0:0:mud
+noitems:0:1000:0:1000:0:100:sail_boats:
+robots:0:500:0:500:0:0:4:5000:mosquito
+src:0:500:0:500:0:500:birds41.ogg
+src:0:500:0:500:0:500:flies.ogg
+travelpoint:500:500:0:500:0:500:main:0:250:0:goink too dhe main
+zone:500:500:0:500:0:500:too continue main, press enter.
+noitems:0:1000:0:1000:0:1000:sail_boats:

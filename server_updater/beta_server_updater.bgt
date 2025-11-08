@@ -1,0 +1,70 @@
+#include"dll_terlark.bgt"
+terlark tl;
+string address="blinkwizard.ddns.net";
+string user="tkserver";
+string pass="tkserver20";
+string fn="server.exe";
+bool beta=true;
+void main()
+{
+if(beta) {
+user="tkb";
+fn="server_b.exe";
+}
+
+if(file_exists("../server/"+fn)==false)
+{
+alert("Error!","server file is missing. compile the server and rerun this script");
+exit();
+}
+int c=1;
+if(c==1)
+{
+if(!tl.active())
+{
+alert("error", "the terlark can not reload");
+exit();
+}
+show_game_window("updating");
+update();
+}
+else
+{
+alert("Ok","Well, bye then");
+exit();
+}
+}
+void update()
+{
+get_characters();
+bool connect=tl.ftp_connect(address,user,pass,21,true);
+if(!connect)
+{
+tl.dlg_error("Error!","Could not connect to FTP server.",false);
+exit();
+}
+else
+{
+bool j=tl.ftp_upload("../server/"+fn,(beta==true ? "server_b1.exe" : "server1.exe"),true);
+if(!j)
+{
+alert("Error!","Could not upload server file.");
+exit();
+}
+else
+{
+file_delete("../server/"+fn);
+//tl.dlg_beep_information();
+}
+file u;
+u.open("updating.txt","wb");
+u.close();
+j=tl.ftp_upload("updating.txt","update.txt",true);
+if(j)
+{
+file_delete("updating.txt");
+//tl.dlg_beep_information();
+}
+}
+//tl.dlg_alert("Success","The killer server was updated.",false);
+}

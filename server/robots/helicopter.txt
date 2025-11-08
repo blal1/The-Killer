@@ -1,0 +1,14 @@
+name helicopter
+health 60000
+defence 2500
+speed 150
+damage 1000,75000
+shoot 3000
+distance 20
+aggro 1000
+spread 10
+angle 30
+steps 1
+loot dollar,antibiotic,ammo,dollar
+amount 40
+hits 2

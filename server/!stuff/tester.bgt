@@ -1,0 +1,18 @@
+void main()
+{
+string o=input_box("key","Enter the key");
+if(o=="")
+exit();
+string keys=url_post("http://ims-productions.com/tk/keys.php","password=moneyisgoodforyouTK7727007");
+string[] k=string_split(keys,"\r\n",false);
+for(uint i=0; i<k.length(); i++)
+{
+string[] parsed=string_split(k[i],"=",true);
+if(parsed[0]==o)
+{
+alert("Success","The key was found.");
+}
+}
+alert(keys,"");
+clipboard_copy_text(keys);
+}

@@ -1,0 +1,10 @@
+mapname:testing
+maxx:100
+maxy:100
+maxz:100
+tile:0:100:0:100:0:0:grass
+tile:0:3:0:3:2:2:bleacher
+src:0:100:0:100:0:100:amb2.ogg
+amb:0:3:0:3:0:3:alarm1.ogg
+zone:0:100:0:100:0:100:dicks:trackme
+travelpoint:0:100:0:0:0:100:main:0:0:0:dicks

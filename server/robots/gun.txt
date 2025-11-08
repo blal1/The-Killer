@@ -1,0 +1,13 @@
+name gun
+health 30000
+defence 1000
+speed 600
+damage 700,17000
+shoot 3000
+distance 30
+aggro 1000
+spread 3
+angle 10
+steps 2
+loot dollar
+amount 1000

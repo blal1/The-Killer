@@ -1,0 +1,17 @@
+mapname:deep
+maxx:500
+maxy:1000
+maxz:100
+tile:0:500:0:1000:100:100:water
+tile:0:500:0:1000:0:99:underwater
+src:0:500:0:1000:0:70:underwater.ogg
+src:0:500:0:1000:100:120:ocean5.ogg
+robots:0:500:0:500:0:100:5:500:shark
+zone:0:500:0:1000:100:300:deep ocean
+zone:0:500:0:1000:0:99:under the ocean
+
+travelpoint:0:500:1000:1000:100:300:main:250:0:0:goink too the mainland
+travelpoint:0:500:0:0:100:130:old_abandoned_ruined_city:250:500:0:old, rundown and abandoned; continues to the city full of dangers surrounding.
+tile:0:500:20:980:100:100:wallwater
+zone:0:500:0:0:0:500:too continue city, pres enter
+noitems:0:500:0:1000:0:100:dogan_slx:police_car:police_car_super:tank:Truck:armored_tank:old_car:

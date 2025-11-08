@@ -1,0 +1,33 @@
+string motdhash;
+string webdir="enes-productions.tr.ht/tk/motd";
+void getmotd()
+{
+string mode=url_get(webdir+"/mode.txt");
+if(mode!="t"&&mode!="a") return;
+if(mode=="t")
+{
+string motd=url_get(webdir+"/text.txt");
+if(string_hash(motd,2,false)!=motdhash)
+{
+motdhash=string_hash(motd,2,false);
+p.play_stationary("motdstart.wav",false);
+dlg("Message of the day: "+motd);
+sound m;
+m.load("motdend.wav");
+m.play_wait();
+m.close();
+return;
+}
+}
+if(mode=="a")
+{
+speak("loading audio message of the day...");
+string motd=url_get(webdir+"/audio.ogg");
+string hash=string_hash(motd,2,false);
+if(hash!=motdhash)
+{
+motdhash=hash;
+dlgplay(motd,true,15, false);
+}
+}
+}

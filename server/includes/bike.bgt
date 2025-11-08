@@ -1,0 +1,60 @@
+bool riding;
+sound_pool bikepool(100000);
+bike@[] bks(0);
+class bike
+{
+int x, y, z, speed, loopsound;
+int gosound;
+timer gotimer;
+bike(int bx, int by, int bz)
+{
+bx=x;
+by=y;
+bz=z;
+if(!riding)
+loopsound=bikepool.play_3d("bikeloop.ogg",me.x,me.y,me.z,bx,by,bz,calculate_theta(facing),true);
+}
+}
+void bikeloop()
+{
+for(uint i=0; i<bks.length(); i++)
+{
+if(me.x==bks[i].x and me.y==bks[i].y and me.z==bks[i].z)
+{
+if(key_pressed(KEY_RETURN))
+{
+if(!riding)
+{
+riding=true;
+bikepool.destroy_sound(bks[i].loopsound);
+}
+else
+{
+riding=false;
+bks[i].loopsound=bikepool.play_3d("bikeloop.ogg",me.x,me.y,me.z,bks[i].x,bks[i].y,bks[i].z,calculate_theta(facing),true);
+}
+}
+}
+if(riding)
+{
+bks[i].x=me.x;
+bks[i].y=me.y;
+bks[i].z=me.z;
+if(key_down(KEY_W))
+{
+if(bks[i].gotimer.elapsed>=1000)
+{
+bks[i].gotimer.restart();
+me=move(me.x,me.y,me.z,north,getdir(facing));
+bks[i].gosound=bikepool.play_stationary("bikeloop.ogg",false);
+}
+}
+}
+updatelistener3d(bikepool);
+}
+}
+void spawn_bike(int bx, int by, int bz)
+{
+bike bike1(bx,by,bz);
+bks.insert_last(bike1);
+}

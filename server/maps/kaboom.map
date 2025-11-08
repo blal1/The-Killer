@@ -1,0 +1,5 @@
+mapname:kaboom
+maxx:10000
+maxy:10000
+maxz:10000
+tile:0:10000:0:10000:0:0:dirt2

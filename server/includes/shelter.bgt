@@ -1,0 +1,859 @@
+shelter@[]shelters(0);
+class shelter
+{
+int x, y, z;
+string map, owner,teamname="";
+int fuel=20;
+double health=100000;
+string hitby="nothing";
+string soundloop;
+double facing=0;
+bool hasplayers=false;
+bool broken=false;
+bool on=true;
+int maxhealth=10000000;
+string id=randomstring(8);
+string compsound;
+string sheltername;
+double coins;
+timer breakintimer;
+timer fueltimer;
+timer personchecktimer;
+timer t;
+string[] aplayers(0);
+int personchecking=0;
+int compcode;
+shelter(int sx, int sy, int sz, string smap, string sowner,string n,bool power)
+{
+x=sx;
+y=sy;
+z=sz;
+map=smap;
+owner=sowner;
+sheltername=n;
+compcode=random(1000,9999);
+on=power;
+if(on) play("shelter_generatorstart",x,y,z,map);
+if(on==true)
+{
+soundloop=spawn_moving_sound("shelter_generator.ogg",x,y,z,map);
+compsound=spawn_moving_sound("shelter_computerloop.ogg",0,0,0,sheltername);
+}
+}
+string generate_map()
+{
+string mapdata="mapname:"+sheltername+"
+maxx:20
+maxy:20
+maxz:100
+maxx:30
+maxy:30
+maxz:100
+tile:0:30:0:30:0:0:hardwood3
+zone:0:30:0:30:0:10:1 floor
+zone:4:4:4:4:0:10:shelter_storage:trackme
+zone:2:2:2:2:0:10:to exit this shelter, press enter:trackme
+zone:0:0:0:0:0:10:shelter power breaker:trackme
+tile:30:30:30:30:0:20:concrete2
+src:0:100:0:100:0:100:shelteramb.ogg
+zone:30:30:30:30:0:19:staircase:trackme
+tile:0:30:0:30:20:20:deck
+zone:0:30:0:30:20:29:2nd Floor:trackme
+zone:30:30:30:30:20:50:2nd Floor:trackme
+tile:30:30:30:30:20:20:concrete2
+zone:30:30:30:30:20:50:staircase:trackme
+tile:5:25:5:25:10:20:shallow
+zone:5:25:5:25:10:29:pool:trackme
+tile:5:25:5:25:10:15:underwater
+tile:25:25:0:25:10:19:walldirt
+tile:0:25:25:25:10:19:walldirt
+tile:9:4:0:25:10:19:walldoor2
+tile:4:4:5:25:20:23:walldoor2
+src:5:25:5:25:10:20:stream3.ogg
+tile:4:26:4:4:20:23:walldoor2
+tile:26:26:5:26:20:23:walldoor2
+tile:4:26:26:26:20:23:walldoor2
+zone:0:30:0:30:0:100:"+sheltername+"
+zone:0:0:0:0:0:0:shelter power breaker:trackme
+zone:2:2:2:2:0:0:to exit this shelter, press enter.:track";
+return mapdata;
+}
+bool players_nearby()
+{
+bool found=false;
+for(uint i=0; i<players.length(); i++)
+{
+if(is_allowed(players[i].name)) continue;
+if(players[i].distancecheck(x,y,z)<=25 and players[i].map==map)
+{
+found=true;
+}
+}
+return found;
+}
+string get_allowed_players(bool output=false)
+{
+string outs;
+if(aplayers.length<=0)
+{
+if(output) return "nobody but you can enter this shelter";
+else return "";
+}
+for(uint i=0; i<aplayers.length; i++)
+{
+outs+=aplayers[i]+",";
+if(output) outs+=" ";
+}
+return outs;
+}
+void set_allowed_players(string input)
+{
+aplayers.resize(0);
+if(input=="") return;
+string[] data=string_split(input,",",false);
+for(uint i=0; i<data.length; i++)
+{
+aplayers.insert_last(data[i]);
+}
+}
+void chat(string msg)
+{
+sendmap("shelter_chat "+msg,sheltername,1);
+}
+void compplay(string sound)
+{
+play(sound,0,0,0,sheltername);
+}
+bool is_allowed(string playername)
+{
+if(broken==true) return true;
+return (aplayers.find(playername)>-1||playername==owner||(teamname!=""&&is_part_of_team(playername,teamname)));
+}
+int add_allowed_player(string playername)
+{
+int index=get_player_index_from(playername);
+if(index>-1)
+{
+if(aplayers.find(playername)<0&&playername!=owner)
+{
+aplayers.insert_last(playername);
+send_reliable(players[index].peer_id,"You have been granted access to the "+sheltername+" shelter! The shelter is located at "+x+", "+y+", "+z,2);
+return 0;
+}
+return 2;
+}
+return 1;
+}
+bool remove_allowed_player(string playername)
+{
+if(aplayers.find(playername)>-1)
+{
+aplayers.remove_at(aplayers.find(playername));
+return true;
+}
+return false;
+}
+dictionary inventory;
+int count_total_items()
+{
+int amount=0;
+for (uint i=0; i<inventory.get_keys().length(); i++)
+{
+int a;
+inventory.get(inventory.get_keys()[i],a);
+amount+=a;
+}
+return amount;
+}
+int get_item_count(string item)
+{
+int amount=0;
+for (uint i=0; i<inventory.get_keys().length(); i++)
+{
+int a=0;
+if (inventory.get_keys()[i]==item)
+inventory.get(inventory.get_keys()[i],a);
+amount+=a;
+}
+return amount;
+}
+string invdic_to_string(bool showall=true)
+{
+string ss;
+string[] ds;
+if(inventory.get_keys().length()<=0)
+return "";
+ds=inventory.get_keys();
+for(uint i=0; i<ds.length(); i++)
+{
+if(!showall&&string_left(ds[i],5)=="ammo_") continue;
+int val;
+inventory.get(ds[i],val);
+ss+=ds[i]+"="+val+"\r\n";
+}
+return ss;
+}
+void give(string item, double amount)
+{
+int a;
+if (!inventory.exists(item))
+{
+inventory.set(item,amount);
+}
+else
+{
+inventory.get(item,a);
+if (a+amount<=0)
+inventory.delete(item);
+else
+{
+int b=(a+amount);
+inventory.delete(item);
+inventory.set(item,b);
+}
+}
+this.neg_inv_check();
+}
+void neg_inv_check()
+{
+string[] k=inventory.get_keys();
+for(uint i=0; i<k.length; i++)
+{
+int v;
+inventory.get(k[i],v);
+if(v<=0) inventory.delete(k[i]);
+}
+}
+void play_outside(string soundname, int x, int y, int z, string map)
+{
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].map==sheltername) continue;
+send_reliable(players[i].peer_id,soundname+" "+x+" "+y+" "+z+" "+map,3);
+}
+}
+void playsound(string snd)
+{
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].map==sheltername)
+{
+send_reliable(players[i].peer_id,"play_s "+snd+".ogg",0);
+}
+}
+}
+void sheltersend(string packet,int channel=0)
+{
+for(uint i=0; i<players.length(); i++)
+{
+if(players[i].map==sheltername)
+{
+send_reliable(players[i].peer_id,packet,channel);
+}
+}
+}
+void hit(int damage,string hb,string type="")
+{
+this.health-=damage;
+this.hitby=hb;
+if(type=="" or type=="knife" or type=="crossbow" or type=="cannon" or type=="spear")
+{
+play_outside("hshelter_ext",x,y,z,map);
+playsound("hshelter_int");
+}
+else
+{
+play_outside(type+"hit_shelter_ext",x,y,z,map);
+playsound(type+"hit_shelter_int");
+}
+}
+string playerscan()
+{
+string s;
+int index=get_shelter_index(sheltername);
+if(index > -1)
+{
+for (uint i=0; i<players.length(); i++)
+{
+if(players[i].is_dead==true||in_vehicle(players[i].name)>-1||(players[i].invinsible)) continue;
+if (players[i].x<shelters[index].x+20 and players[i].x>shelters[index].x-20 and players[i].y<shelters[index].y+20 and players[i].y>shelters[index].y-20 and players[i].z<shelters[index].z+20 and players[i].z>shelters[index].z-20 and players[i].map==shelters[index].map and players[i].invisible==false)
+{
+int level=1;
+if(players[i].z>shelters[index].z)
+{
+level=2;
+}
+else if(players[i].z<shelters[index].z)
+{
+level=0;
+}
+else
+{
+level=1;
+}
+if(players[i].shielded==true)
+s+="shielded ";
+if(players[i].invinsible==true)
+s+="supernatural ";
+if(players[i].teamname!="") s+=players[i].teamname+" ";
+s+=players[i].nickname+" is ";
+if(level==2)
+{
+s+="above, ";
+}
+else if(level==0)
+{
+s+="below, ";
+}
+s+=calculate_x_y_string(calculate_x_y_angle(shelters[index].x, shelters[index].y, players[i].x, players[i].y, shelters[index].facing))+", "+get_3d_distance(shelters[index].x, shelters[index].y, shelters[index].z, players[i].x, players[i].y, shelters[index].z)+" feet away. ";
+}
+}
+for(uint i=0; i<vs.length; i++)
+{
+if(get_3d_distance(shelters[index].x,shelters[index].y,shelters[index].z,vs[i].x,vs[i].y,vs[i].z)<=30&&vs[i].map==shelters[index].map)
+{
+int level=1;
+if(vs[i].z>shelters[index].z) level=2;
+if(vs[i].z<shelters[index].z) level=0;
+s+=cn2n(vs[i].owner)+"'s "+vs[i].type+" is ";
+if(level==2)
+{
+s+="above, ";
+}
+else if(level==0)
+{
+s+="below, ";
+}
+s+=calculate_x_y_string(calculate_x_y_angle(shelters[index].x, shelters[index].y, players[i].x, players[i].y, shelters[index].facing))+", "+get_3d_distance(shelters[index].x, shelters[index].y, shelters[index].z, players[i].x, players[i].y, players[i].z)+" feet away. ";
+}
+}
+if(s=="")
+s="There is no one around";
+}
+return s;
+}
+void sh_money_command(string cmd,int peer)
+{
+play("keytype"+random(1,5),0,0,0,sheltername);
+string[] parsed=string_split(cmd," ",false);
+if(parsed[0]=="b")
+{
+string information;
+information="Current balance: "+coins+" coins";
+send_serverbox(peer,0,-1,1,1,"shmoneycommand",information+".\r\nwhat would you like to do");
+}
+else if(parsed[0]=="c")
+{
+string stuff;
+int px=get_player_index(peer);
+if(players[px].name!=owner)
+stuff+="Error: you do not have permition to view this information";
+else
+stuff="You're computer code has been copyed to the windows clipboard";
+send_reliable(peer,"clip "+compcode,0);
+send_serverbox(peer,0,-1,1,1,"shmoneycommand",stuff+".\r\nwhat would you like to do");
+}
+else if(parsed[0]=="o")
+{
+string stuff="Enter shelter code";
+send_serverbox(peer,2,-1,0,-1,"shmoneycashout",stuff);
+}
+else if(parsed[0]=="t")
+{
+string stuff="Enter shelter code";
+send_serverbox(peer,2,-1,0,-1,"shsendmoneyrequest",stuff);
+}
+else if(parsed[0]=="i")
+{
+string stuff="copied to clipboard";
+send_serverbox(peer,0,-1,1,1,"shmoneycommand",stuff+".\r\nwhat would you like to do");
+send_reliable(peer, "clip "+id, 0);
+}
+else if(parsed[0]=="[cncel]")
+{
+send_serverbox(peer,0,-1,1,1,"shcommand","canceled. what would you like to do");
+}
+else
+{
+send_reliable(peer,"Invalid command",0);
+send_serverbox(peer,0,-1,1,1,"shcommand","canceled. what would you like to do");
+return;
+}
+}
+void command(string cmd,int peer)
+{
+play("keytype"+random(1,5),0,0,0,sheltername);
+string[] parsed=string_split(cmd," ",false);
+if(parsed[0]=="i")
+{
+string information;
+information="shelter information: owner: "+owner+". There are a total of "+aplayers.length()+" players allowed in this shelter. This shelter "+(teamname=="" ? "doesn't belong to a team" : "belongs to the "+teamname+" team")+". Health "+health+", last hit by "+hitby+". This shelter has "+fuel+" fuel, enough to last about "+ms_to_readable_time(fuel*45000)+". This shelter has been up for "+ms_to_readable_time(t.elapsed)+". shelter ID "+id;
+send_serverbox(peer,0,-1,1,1,"shcommand",information+".\r\nwhat would you like to do");
+}
+else if(parsed[0]=="b")
+{
+personchecking=toggle(personchecking);
+if(personchecking==1)
+{
+compplay("shelter_alarmon");
+string stuff="PNB alarm on";
+send_serverbox(peer,0,-1,1,1,"shcommand",stuff+".\r\nwhat would you like to do");
+}
+else
+{
+compplay("shelter_alarmoff");
+string stuff="PNB alarm off";
+send_serverbox(peer,0,-1,1,1,"shcommand",stuff+".\r\nwhat would you like to do");
+}
+}
+else if(parsed[0]=="h")
+{
+string stuff="Press H to access this message. Press B to turn the PNB alarm on or off. Press I for information about this shelter. Press P for A summary of players near by. Press S to access the store. Press t to get yourself some coins from the shelter account. Press escape to close this window";
+send_serverbox(peer,0,-1,1,1,"shcommand",stuff+".\r\nwhat would you like to do");
+}
+else if(parsed[0]=="p")
+{
+string stuff=playerscan();
+send_serverbox(peer,0,-1,1,1,"shcommand",stuff+".\r\nwhat would you like to do");
+}
+else if(parsed[0]=="s")
+{
+string storelist;
+for(int i=0; i<stores.length(); i++)
+{
+storelist+=string_replace(stores[i].name, "_", " ", true)+":"+stores[i].name+"[]";
+}
+if(shopping_cart.get_size()>0)
+storelist+="view your shopping cart and checkout:shoppingcart[]";
+send_menu(peer, "stores menu. choose one of the following stores.", "shsendstore", storelist);
+}
+else if(parsed[0]=="t")
+{
+string stuff="Press B to see available balance. Press C to check and copy your shelter code to the 	clipboard(requires owner permitions). Press T to transfer money to another shelter. Press O to withdraw coins. press i to copy the shelter's id";
+send_serverbox(peer,0,-1,1,1,"shmoneycommand",stuff+".\r\nwhat would you like to do");
+}
+else if(parsed[0]=="[cncel]")
+{
+send_reliable(peer,"Ok",0);
+}
+else
+{
+send_reliable(peer,"Invalid command",0);
+return;
+}
+}
+void storage_command(string cmd,int peer)
+{
+send_reliable(peer,cmd,0);
+string[] parsed=string_split(cmd," ",false);
+if(parsed[0]=="g")
+{
+if(inventory.get_size()==0)
+{
+string stuff="You look at the small storage cabinet, but there's nothing inside";
+send_serverbox(peer,0,-1,1,1,"shstoragecommand",stuff);
+}
+else
+{
+string menuitems;
+string items=invdic_to_string();
+string[] p=string_split(items,"\r\n",false);
+menuitems+="the entire cabinet:invall[]";
+for(uint i=0; i<p.length(); i++)
+{
+string[] another_p=string_split(p[i],"=",false);
+menuitems+=another_p[0]+", "+another_p[1]+":"+another_p[0]+"[]";
+}
+send_menu(peer,"Select the item you would like to take out of the storage CABINET","shtake",menuitems);
+}
+}
+else if(parsed[0]=="s")
+{
+int index=get_player_index(peer);
+string menuitems;
+string items=players[index].get_inv();
+if(items=="")
+{
+send_reliable(peer,"Sorry, your inventory is empty",0);
+return;
+}
+string[] p=string_split(items,"\r\n",false);
+menuitems="Your entire inventory:invall[]";
+for(uint i=0; i<p.length(); i++)
+{
+string[] another_p=string_split(p[i],"=",false);
+menuitems+=another_p[0]+", "+another_p[1]+":"+another_p[0]+"[]";
+}
+send_menu(peer,"What would you like to put inside the shelter's storage CABINET?","shgive",menuitems);
+}
+else if(parsed[0]=="[cncel]")
+{
+play("shelter_storage_close",20,20,0,sheltername);
+send_reliable(peer,"You slide the cabinet door closed",0);
+}
+}
+//here starts the shopping cart code
+dictionary shopping_cart;
+void add_to_cart(string item, int quantity)
+{
+if(!shopping_cart.exists(item))
+{
+if(quantity>0) shopping_cart.set(item, quantity);
+}
+else
+{
+int a;
+string[] items=shopping_cart.get_keys();
+for(int i=0; i<items.length(); i++)
+{
+if(items[i]==item)
+shopping_cart.get(items[i], a);
+}
+if(a+quantity<=0) shopping_cart.delete(item);
+else shopping_cart.set(item, a+quantity);
+}
+}
+int get_cart_item_amount(string name)
+{
+int a;
+string[] temp=shopping_cart.get_keys();
+for(int i=0; i<temp.length(); i++)
+{
+if(temp[i]==name)
+shopping_cart.get(temp[i], a);
+}
+return a;
+}
+int get_total_cart_price()
+{
+int final=0;
+for(int i=0; i<shopping_cart.get_keys().length(); i++)
+{
+final+=get_shelter_price(shopping_cart.get_keys()[i], get_cart_item_amount(shopping_cart.get_keys()[i]));
+}
+return final;
+}
+void checkout(int peer)
+{
+string shipment_inv;
+string[] contents=shopping_cart.get_keys();
+if(contents.length<=0)
+{
+compplay("shelter_computererror");
+return;
+}
+for(int i=0; i<contents.length(); i++)
+{
+shipment_inv+=contents[i]+"="+get_cart_item_amount(contents[i]);
+if(i<contents.length()-1) shipment_inv+="\r\n";
+}
+int64 tp=get_total_cart_price();
+if(tp<=0)
+{
+send_serverbox(peer, 0, -1, 1, 1, "shcommand", "Overflow error.\r\nwhat would you like to do?");
+return;
+}
+if(coins<tp)
+{
+send_serverbox(peer, 0, -1, 1, 1, "shcommand", "sorry, you don't have enough money to buy that much. \r\nwhat would you like to do?");
+return;
+}
+coins-=tp;
+spawn_shipment(x, y, z, map, shipment_inv);
+compplay("store_order_complete");
+send_serverbox(peer, 0, -1, 1, 1, "shcommand", "your shippment should arive soon! \r\nwhat would you like to do?");
+shopping_cart.delete_all();
+}
+}
+void shelterloop()
+{
+for(uint i=0; i<shelters.length(); i++)
+{
+if(shelters[i].health>shelters[i].maxhealth)
+shelters[i].health=shelters[i].maxhealth;
+if(shelters[i].fuel<=0 and shelters[i].on==true)
+{
+shelters[i].on=false;
+shelters[i].compplay("shelter_computeroff");
+destroy_moving_sound(shelters[i].compsound);
+play("shelter_poweroff",20,0,0,shelters[i].sheltername);
+destroy_moving_sound(shelters[i].soundloop);
+play("shelter_generatoroff",shelters[i].x,shelters[i].y,shelters[i].z,shelters[i].map);
+}
+if(shelters[i].on==true and shelters[i].fuel>0)
+{
+if(shelters[i].fueltimer.elapsed>=45000)
+{
+shelters[i].fueltimer.restart();
+shelters[i].fuel-=1;
+}
+}
+if(shelters[i].health<=2000 and shelters[i].broken==false)
+{
+shelters[i].broken=true;
+shelters[i].play_outside("shelter_doorbreak",shelters[i].x,shelters[i].y,shelters[i].z,shelters[i].map);
+play("shelter_doorbreak",10,0,0,shelters[i].sheltername);
+}
+if(shelters[i].broken==true)
+{
+if(shelters[i].breakintimer.elapsed>=5000 and shelters[i].on==true)
+{
+shelters[i].breakintimer.restart();
+shelters[i].playsound("shelter_breakinalarm");
+}
+}
+if(shelters[i].health>2000 and shelters[i].broken==true)
+{
+shelters[i].broken=false;
+}
+if(shelters[i].personchecking==1 and shelters[i].personchecktimer.elapsed>=5000 and shelters[i].on==true)
+{
+shelters[i].personchecktimer.restart();
+bool n=shelters[i].players_nearby();
+if(n==true)
+{
+shelters[i].sheltersend("Alert! An enemy is near your shelter!",0);
+play("shelter_personalert",7,7,0,shelters[i].sheltername);
+}
+}
+if(shelters[i].health<=0)
+{
+string hb=shelters[i].hitby;
+int x=-1;
+if(string_contains(hb,"'",1)>-1)
+{
+string pn=string_left(hb,string_contains(hb,"'",1));
+hb=string_replace(hb,pn,cn2n(pn),false);
+x=get_player_index_from(pn);
+}
+else hb=cn2n(hb,true);
+send_reliable(0,"play_s kill.ogg",0);
+send_reliable(0,"playerdeath "+cn2n(shelters[i].owner)+"'s "+shelters[i].sheltername+" shelter was just destroyed by "+hb+"!",0);
+int index=get_player_index_from(shelters[i].owner);
+if(index>-1) send_reliable(players[index].peer_id,"your "+shelters[i].sheltername+" shelter was just destroyed!",2);
+if(x>-1)
+{
+int wood=random(10,1000);
+send_reliable(players[x].peer_id,"you get "+wood+" wood from the shelter's remains",2);
+players[x].give("wood",wood);
+if(players[x].name!=shelters[i].owner) add_achievement("bring down a shelter",x,"5 wood_pack");
+int tm=is_in_team(players[x].name);
+if(tm>-1)
+{
+if(shelters[i].teamname!=teams[tm].teamname&&teams[tm].is_member(shelters[i].owner)==false)
+{
+teams[tm].points+=5000;
+teams[tm].transmit("This team just got 5000 extra points for killing somebody else's shelter!");
+}
+}
+}
+for(uint p=0; p<players.length(); p++)
+{
+if(players[p].map==shelters[i].sheltername)
+{
+players[p].hitby="shelter destruction";
+players[p].health-=random(1000,30000);
+move_player(players[p],shelters[i].map,shelters[i].x,shelters[i].y,shelters[i].z);
+}
+}
+play("shelterfall",shelters[i].x,shelters[i].y,shelters[i].z,shelters[i].map);
+remove_shelter(shelters[i].sheltername);
+return;
+}
+}
+}
+void build_shelter(int x, int y, int z, string map, string owner, string name,bool power=true)
+{
+if(name=="" or name==".")
+return;
+shelter sh(x,y,z,map,owner,name,power);
+shelters.insert_last(sh);
+saveshelters();
+init_mapsystem();
+}
+bool has_shelter(player@p)
+{
+bool ret=false;
+for(uint s=0; s<shelters.length(); s+=1)
+{
+if(shelters[s].is_allowed(p.name) or p.name==shelters[s].owner)
+{
+ret=true;
+}
+}
+return ret;
+}
+void saveshelters()
+{
+file shfile;
+if(directory_exists("shelters")==false)
+directory_create("shelters");
+for(uint i=0; i<shelters.length(); i++)
+{
+string inv=shelters[i].invdic_to_string();
+inv=string_replace(inv,"\r\n",";",true);
+shfile.open("shelters/"+shelters[i].sheltername+".shelter","wb");
+shfile.write("shelter:"+shelters[i].sheltername+"\r\nid:"+shelters[i].id+"\r\ncoins:"+shelters[i].coins+"\r\npowerstate:"+bool_to_int(shelters[i].on)+"\r\ntime:"+shelters[i].t.elapsed+"\r\nfuel:"+shelters[i].fuel+"\r\nowner:"+shelters[i].owner+"\r\ncompcode:"+shelters[i].compcode+"\r\nshelterx:"+shelters[i].x+"\r\nsheltery:"+shelters[i].y+"\r\nshelterz:"+shelters[i].z+"\r\nsheltermap:"+shelters[i].map+"\r\nshelterhealth:"+shelters[i].health);
+if(shelters[i].teamname!="") shfile.write("\r\nshelterteam:"+shelters[i].teamname);
+if(shelters[i].aplayers.length>0) shfile.write("\r\naplayers:"+shelters[i].get_allowed_players());
+if(inv!="") shfile.write("\r\ninventory:"+inv);
+shfile.close();
+}
+}
+void remove_shelter(string sname)
+{
+for(uint i=0; i<shelters.length(); i++)
+{
+if(shelters[i].sheltername==sname)
+{
+play("shelter_generatoroff",shelters[i].x,shelters[i].y,shelters[i].z,shelters[i].map);
+destroy_moving_sound(shelters[i].soundloop);
+file_delete("shelters/"+shelters[i].sheltername+".shelter");
+shelters.remove_at(i);
+}
+}
+}
+void load_shelter(string n)
+{
+if(n=="") return;
+string[] invvalues;
+string name, aplayers, mapname, owner,id,teamname; double x,y,z,health, coins,fuel,time,compcode;
+bool powerstate;
+if(string_contains(n,".",1)>-1)
+{
+return;
+}
+file f;
+f.open("shelters/"+n+".shelter","rb");
+string[] sdata=string_split(f.read(),"\r\n",false);
+f.close();
+for(uint i=0; i<sdata.length(); i++)
+{
+string[] parsed=string_split(sdata[i],":",false);
+if(parsed[0]=="shelter" and parsed.length>1)
+{
+name=parsed[1];
+}
+if(parsed[0]=="fuel" and parsed.length()>1)
+{
+fuel=stn(parsed[1]);
+}
+if(parsed[0]=="inventory" and parsed.length()>1)
+{
+invvalues=string_split(parsed[1],";",false);
+}
+else if(parsed[0]=="time" and parsed.length()>1)
+{
+time=stn(parsed[1]);
+}
+else if(parsed[0]=="compcode" and parsed.length()>1)
+{
+compcode=stn(parsed[1]);
+}
+else if(parsed[0]=="coins" and parsed.length()>1)
+{
+coins=stn(parsed[1]);
+}
+else if(parsed[0]=="id")
+{
+id=parsed[1];
+}
+else if(parsed[0]=="aplayers"&&parsed.length>1)
+{
+aplayers=parsed[1];
+}
+else if(parsed[0]=="sheltermap")
+{
+mapname=parsed[1];
+}
+else if(parsed[0]=="shelterx")
+{
+x=stn(parsed[1]);
+}
+else if(parsed[0]=="sheltery")
+{
+y=stn(parsed[1]);
+}
+else if(parsed[0]=="shelterz")
+{
+z=stn(parsed[1]);
+}
+else if(parsed[0]=="powerstate" and parsed.length()>1)
+{
+powerstate=int_to_bool(string_to_number(parsed[1]));
+}
+else if(parsed[0]=="owner")
+{
+owner=parsed[1];
+}
+else if(parsed[0]=="shelterteam" and parsed.length>1) teamname=parsed[1];
+else if(parsed[0]=="shelterhealth")
+{
+health=stn(parsed[1]);
+}
+}
+shelter shelt(x,y,z,mapname,owner,name,powerstate);
+shelt.health=health;
+shelt.owner=owner;
+shelt.fuel=fuel;
+shelt.coins=coins;
+shelt.id=id;
+shelt.t.force(time);
+shelt.set_allowed_players(aplayers);
+if(team_exists(teamname)) shelt.teamname=teamname;
+shelt.compcode=stn(compcode);
+for(uint i=0; i<invvalues.length(); i++)
+{
+string[] parsed=string_split(invvalues[i],"=",false);
+shelt.give(parsed[0],stn(parsed[1]));
+}
+shelters.insert_last(shelt);
+}
+int get_shelter_index(string name)
+{
+for(uint i=0; i<shelters.length(); i++)
+{
+if(shelters[i].sheltername==name)
+{
+return i;
+}
+}
+return -1;
+}
+int in_shelter(string pname)
+{
+int index=get_player_index_from(pname);
+if(index<0) return -1;
+for(uint x=0; x<shelters.length(); x++)
+{
+if(players[index].map==shelters[x].sheltername) return x;
+}
+return -1;
+}
+bool shelter_exists(string sname)
+{
+return file_exists("shelters/"+sname+".shelter");
+}
+bool is_near_shelter(int x, int y, int z, int mindist,string map)
+{
+for(uint i=0; i<shelters.length(); i++)
+{
+if(get_3d_distance(shelters[i].x,shelters[i].y,shelters[i].z,x,y,z)<=mindist and shelters[i].map==map)
+{
+return true;
+}
+}
+return false;
+}
+
+int get_shelter_from_id(string id)
+{
+for(uint i=0; i<shelters.length(); i++)
+{
+if(shelters[i].id==id)
+{
+return i;
+}
+}
+return -1;
+}

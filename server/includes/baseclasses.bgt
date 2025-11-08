@@ -1,0 +1,64 @@
+hittable@[] hobjs;
+class hittable
+{
+int x,y,z,health;
+string map,hid,lasthit;
+hittable(int ox, int oy, int oz, string omap, int ohealth,string htype)
+{
+health=ohealth;x=ox;y=oy;z=oz;map=omap;
+hid=generate_hid(htype);
+hobjs.insert_last(this);
+}
+hittable(string htype)
+{
+hid=generate_hid(htype);
+hobjs.insert_last(this);
+}
+void hit(int damage, string hitby, string type="")
+{
+health-=damage;
+this.onhit(hitby,type);
+if(health<=0)
+{
+this.onkill(hitby);
+remove_hobj(this.hid);
+}
+}
+void onhit(string hb, string type="")
+{
+//this is to be defined in children. Health has already been subtracted, and health less than or equal to 0 checks will fire the onkill function if necessary. This is for something such as a damage sound.
+}
+void onkill(string hitby)
+{
+//this is to be defined in children. The only parameter contains the identifier sent of what has last hit you, player's item. Note that the class will terminate itself so you don't call any remove functions.
+}
+}
+bool is_hid_used(string hid)
+{
+for(uint i=0; i<hobjs.length; i++)
+{
+if(hobjs[i].hid==hid) return true;
+}
+return false;
+}
+string generate_hid(string type)
+{
+string hid;
+do
+{
+hid=type+"_"+randomstring(5);
+}
+while(is_hid_used(hid));
+return hid;
+}
+void remove_hobj(string hid)
+{
+for(uint i=0; i<hobjs.length; i++)
+{
+if(hobjs[i].hid==hid)
+{
+hobjs.remove_at(i);
+return;
+}
+}
+}

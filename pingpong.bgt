@@ -1,0 +1,116 @@
+#include"sounds.dat"
+sound p;
+tts_voice tts;
+bool beta=false;
+network net;
+int found_reader=0;
+network_event event;
+string netaddress="enes-productions.tr.ht";
+int netport=31318;
+void main()
+{
+if(beta==true) netport=45533;
+set_sound_storage("*");
+set_sound_decryption_key("sananelan",true);
+net.setup_client(20, 500);
+net.connect(netaddress,netport);
+speak("connecting");
+timer t;
+while(true)
+{
+wait(5);
+event=net.request();
+if(event.type==event_connect)
+{
+speak("pinging");
+ping();
+exit();
+}
+if(t.elapsed>5000)
+{
+alert("error", "can't connect");
+exit();
+}
+}
+}
+void ping()
+{
+speak("pinging");
+p.stream("pingstart.ogg");
+p.play();
+send_reliable(event.peer_id,"ping",0);
+timer t;
+while(true)
+{
+wait(5);
+event=net.request();
+if(event.type==event_receive and get_event_message()=="pong" and event.channel==0)
+{
+double thing=t.elapsed;
+p.stream("pingstop.ogg");
+p.play();
+file pf;
+pf.open("server/lastping.svr","wb");
+pf.write("ip: "+netaddress+"\r\nport: "+netport+"\r\nResults: pingtime="+thing+" milliseconds");
+pf.close();
+alert("ping results",netaddress+" returned the ping in "+thing+" ms");
+exit();
+}
+if(t.elapsed>5000)
+{
+alert("error", "ping lost");
+exit();
+}
+}
+}
+void send_reliable(uint peer, string mess, uint channel)
+{
+mess=string_encrypt(mess, "stupdengoanddeniz");
+net.send_reliable(peer, mess, channel);
+}
+string get_event_message()
+{
+string r=event.message;
+if(r=="")
+{
+return "";
+}
+r=string_decrypt(r, "stupdengoanddeniz");
+return r;
+}
+bool speak(string text, int interrupt=1)
+{
+if(found_reader==0)
+found_reader=auto_select_screen_reader();
+if(found_reader==0)
+{
+if(interrupt==1)
+tts.speak_interrupt(text);
+else
+tts.speak_wait(text);
+}
+if(interrupt==1)
+screen_reader_speak_interrupt(found_reader, text);
+else
+screen_reader_speak(found_reader, text);
+return true;
+}
+int auto_select_screen_reader()
+{
+if (screen_reader_is_running(1))
+{
+return 1;
+}
+if (screen_reader_is_running(3))
+{
+return 3;
+}
+if (screen_reader_is_running(4))
+{
+return 4;
+}
+else
+{
+return 0;
+}
+}

@@ -1,0 +1,7 @@
+mapname:admin_rum
+maxx:30
+maxy:30
+maxz:30
+tile:0:30:0:30:0:0:carped
+tile:0:50:0:50:0:0:carpet4
+src:0:30:0:30:0:30:arabmusic.ogg

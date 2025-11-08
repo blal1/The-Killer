@@ -1,0 +1,501 @@
+string wnames="fists knife shotgun sniper pistol HKMP5 machinegun FRNTAssaultRifle crossbow FlameThrower admingun";
+weapon@[]weapons(0);
+class weapon {
+double x,y,z;
+int dir=0;
+string type;
+timer speedtimer;
+int speedtime;
+int range;
+int stuntime=0;
+int distance=0;
+int mindammage=50;
+int maxdammage=1000;
+string map;
+string owner;
+int spread=0;
+int shieldhits=1,shieldchance=0;
+int hitsounds=0;
+bool stunning=false;
+bool bullet=true;
+bool requires_ammo=true;
+bool teamhittable=false;
+vector maxcoords;
+weapon(double bx, double by, double bz, double bdir, string btype, string bmap, string bowner)
+{
+x=bx;
+y=by;
+z=bz;
+dir=bdir;
+type=btype;
+map=bmap;
+maxcoords=get_max_values(map);
+owner=bowner;
+if(type=="crossbow")
+{
+bullet=false;
+requires_ammo=true;
+speedtime=20;
+range=75;
+mindammage=500;
+maxdammage=1100;
+spread=5;
+shieldchance=10;
+shieldhits=random(1,3);
+}
+if(type=="HKMP5")
+{
+bullet=true;
+requires_ammo=true;
+speedtime=5;
+range=20;
+mindammage=900;
+maxdammage=3500;
+spread=5;
+shieldchance=10;
+shieldhits=random(2,5);
+}
+if(type=="stun_dart")
+{
+bullet=false;
+requires_ammo=false;
+speedtime=20;
+range=10;
+mindammage=10;
+maxdammage=20;
+spread=2;
+shieldchance=100;
+}
+if(type=="health_dart")
+{
+bullet=false;
+requires_ammo=false;
+speedtime=20;
+range=10;
+mindammage=0;
+maxdammage=0;
+spread=2;
+shieldchance=100;
+teamhittable=true;
+}
+if(type=="grenade")
+{
+bullet=false;
+requires_ammo=false;
+speedtime=15;
+range=120;
+mindammage=0;
+maxdammage=0;
+spread=6;
+shieldchance=100;
+}
+if(type=="sticky_bomb")
+{
+bullet=false;
+requires_ammo=false;
+speedtime=1;
+range=60;
+mindammage=0;
+maxdammage=0;
+spread=3;
+shieldhits=random(3,5);
+shieldchance=30;
+}
+if(type=="knife")
+{
+bullet=false;
+requires_ammo=false;
+speedtime=10;
+range=4;
+mindammage=800;
+maxdammage=1500;
+spread=3;
+shieldhits=random(4,8);
+shieldchance=15;
+}
+else if(type=="pistol")
+{
+bullet=true;
+requires_ammo=true;
+speedtime=3;
+range=20;
+mindammage=8000;
+maxdammage=15000;
+spread=10;
+shieldhits=random(7,9);
+shieldchance=50;
+}
+else if(type=="admingun")
+{
+bullet=true;
+requires_ammo=false;
+speedtime=5;
+range=1000;
+mindammage=100000;
+maxdammage=400000000;
+spread=4;
+shieldhits=random(200,200);
+shieldchance=200;
+}
+else if(type=="fists")
+{
+bullet=false;
+speedtime=5;
+range=4;
+mindammage=100;
+maxdammage=400;
+spread=3;
+shieldhits=0;
+shieldchance=100;
+hitsounds=4;
+}
+else if(type=="FlameThrower")
+{
+bullet=false;
+requires_ammo=true;
+speedtime=2;
+range=7;
+mindammage=900;
+maxdammage=2000;
+spread=5;
+shieldhits=random(3,7);
+shieldchance=75;
+}
+else if(type=="FRNTAssaultRifle")
+{
+bullet=true;
+requires_ammo=true;
+speedtime=5;
+range=18;
+mindammage=1000;
+maxdammage=2400;
+spread=4;
+shieldhits=random(4,10);
+shieldchance=40;
+}
+else if(type=="admingun")
+{
+bullet=true;
+requires_ammo=false;
+speedtime=5;
+range=50;
+mindammage=25000;
+maxdammage=200014000;
+spread=10;
+shieldchance=0;
+shieldhits=random(40,80);
+}
+else if(type=="artillery")
+{
+bullet=false;
+requires_ammo=false;
+speedtime=5;
+range=250;
+mindammage=4000;
+maxdammage=7000;
+spread=10;
+shieldhits=random(10,30);
+shieldchance=35;
+}
+else if(type=="shotgun")
+{
+speedtime=10;
+requires_ammo=true;
+range=5;
+mindammage=3200;
+maxdammage=3800;
+spread=4;
+shieldhits=random(10,20);
+shieldchance=40;
+}
+else if(type=="machinegun")
+{
+bullet=false;
+requires_ammo=true;
+speedtime=5;
+range=15;
+mindammag0e=60;
+maxdammage=1755;
+spread=6;
+shieldhits=random(3,9);
+shieldchance=5;
+}
+else if(type=="sniper")
+{
+bullet=true;
+requires_ammo=true;
+speedtime=10;
+range=150;
+mindammage=1350;
+maxdammage=2500;
+spread=6;
+shieldhits=3;
+shieldchance=15;
+}
+}
+}
+void weaponloop()
+{
+for(uint j=0; j<weapons.length(); j++)
+{
+if(weapons[j].speedtimer.elapsed>=weapons[j].speedtime)
+{
+weapons[j].speedtimer.restart();
+vector wr;
+wr=move(weapons[j].x,weapons[j].y,weapons[j].dir);
+weapons[j].x=wr.x;
+weapons[j].y=wr.y;
+int rx=round(weapons[j].x, 0);
+int ry=round(weapons[j].y, 0);
+weapons[j].distance++;
+if(weapons[j].distance > weapons[j].range)
+{
+if(weapons[j].type=="stun_dart" or weapons[j].type=="health_dart")
+{
+play("stun_dartdrop",weapons[j].x,weapons[j].y,weapons[j].z,weapons[j].map);
+@weapons[j]=null;
+weapons.remove_at(j);
+continue;
+}
+else if(weapons[j].type=="sticky_bomb")
+{
+spawn_stickybomb(rx,ry,weapons[j].z,weapons[j].dir,weapons[j].map,weapons[j].owner,"");
+@weapons[j]=null;
+weapons.remove_at(j);
+continue;
+}
+else if(weapons[j].type=="grenade")
+{
+spawn_grenade(rx,ry,weapons[j].z,weapons[j].dir,weapons[j].map,weapons[j].owner);
+@weapons[j]=null;
+weapons.remove_at(j);
+continue;
+}
+if(weapons[j].type=="invisibility_shield")
+{
+int index=get_player_index_from(weapons[j].owner);
+if(index>-1)
+{
+if(players[index].invisible==false)
+{
+players[index].invisible=true;
+players[index].invisibilitytimer.restart();
+play("invisibility_start",players[index].x,players[index].y,players[index].z,players[index].map);
+@weapons[j]=null;
+weapons.remove_at(j);
+continue;
+}
+else
+{
+send_reliable(e.peer_id,"inv invisibility_shield 1",0);
+send_reliable(players[index].peer_id,"You can't go invisible while you're using an invisibility shield",2);
+@weapons[j]=null;
+weapons.remove_at(j);
+continue;
+}
+}
+}
+else
+{
+@weapons[j]=null;
+weapons.remove_at(j);
+continue;
+}
+}
+bool hit=false;
+string sendtext="";
+int index=get_player_index_from(weapons[j].owner);
+if(index>-1)
+{
+if(string_left(get_tile_at(rx,ry,weapons[j].z,weapons[j].map),4)=="wall" or rx>weapons[j].maxcoords.x or ry>weapons[j].maxcoords.y or rx<0 or ry<0)
+{
+if(weapons[j].bullet) play("rico"+random(1, 5), rx, ry, weapons[j].z, weapons[j].map, index);
+else if(weapons[j].type=="sticky_bomb")
+{
+spawn_stickybomb(rx,ry,weapons[j].z,weapons[j].dir,weapons[j].map,weapons[j].owner,"");
+@weapons[j]=null;
+weapons.remove_at(j);
+continue;
+}
+else if(weapons[j].type=="grenade")
+spawn_grenade(rx,ry,weapons[j].z,weapons[j].dir,weapons[j].map,weapons[j].owner);
+@weapons[j]=null;
+weapons.remove_at(j);
+continue;
+}
+for(uint x=0; x<players.length(); x++)
+{
+if(in_vehicle(players[x].name)>-1 or players[x].is_dead or players[x].invinsible or players[x].newb==1) continue;
+if(get_3d_distance(rx, ry, weapons[j].z, players[x].x, players[x].y, players[x].z)<=weapons[j].spread and weapons[j].owner!=players[x].name and players[x].map==weapons[j].map)
+{
+send_reliable(players[index].peer_id,"play_s "+(are_teamed(weapons[j].owner, players[x].name)?"weaponpingteam":"weaponping")+".ogg",0);
+if(weapons[j].type=="artillery") send_reliable(players[index].peer_id,"hit "+players[x].nickname,2);
+hit=true;
+if(weapons[j].type!="grenade" or weapons[j].type!="sticky_bomb" or weapons[j].type!="fists")
+{
+if(players[x].shielded and random(0,100)>weapons[j].shieldchance)
+{
+players[x].playsound("shieldhit"+random(1,2));
+players[x].shieldshots-=weapons[j].shieldhits;
+players[x].statchangetimer.restart();
+}
+else
+{
+if(weapons[j].bullet) play("body"+random(1,3),players[x].x,players[x].y,players[x].z,players[x].map);
+else {
+string hitsound;
+if(weapons[j].hitsounds==0) hitsound=weapons[j].type+"hit";
+else
+hitsound=weapons[j].type+"hit"+random(1,weapons[j].hitsounds);
+play(hitsound,players[x].x,players[x].y,players[x].z,players[x].map);
+}
+int inpact=random(weapons[j].mindammage,weapons[j].maxdammage);
+if(inpact>1) play("hit"+random(1,3),players[x].x,players[x].y,players[x].z,players[x].map);
+players[x].health-=inpact;
+if(weapons[j].type!="artillery"&&weapons[j].type!="admingun") players[x].should_subtract=true;
+else players[x].should_subtract=false;
+}
+if(weapons[j].stunning)
+{
+players[x].stun(weapons[j].stuntime,false,false);
+}
+players[x].hitby=players[index].name+"'s "+weapons[j].type;
+if(weapons[j].type=="artillery") players[x].hitby=players[index].name+"'s tank";
+}
+else if(weapons[j].type=="sticky_bomb")
+{
+spawn_stickybomb(rx,ry,weapons[j].z,weapons[j].dir,weapons[j].map,weapons[j].owner,players[x].name);
+}
+if(weapons[j].type=="grenade")
+{
+spawn_grenade(players[x].x,players[x].y,players[x].z,players[x].facing,players[x].map,weapons[j].owner);
+}
+if(weapons[j].type=="health_dart")
+{
+players[x].playsound("stun_darthit");
+if(players[x].warping&&players[x].warpstage==0)
+{
+players[x].playsound("wpfail");
+players[x].warping=false;
+send_reliable(players[x].peer_id,"startmoving",0);
+}
+int oi=get_player_index_from(weapons[j].owner);
+int val=random(400,4000);
+players[oi].health+=val;
+players[x].health-=val;
+}
+if(weapons[j].type=="stun_dart")
+{
+players[x].hitby=players[index].name+"'s stun dart";
+players[x].stun(5000,true,true,5000);
+if(players[x].warping&&players[x].warpstage==0)
+{
+players[x].playsound("wpfail");
+players[x].warping=false;
+}
+}
+}
+}
+if(weapons[j].type!="artillery" and weapons[j].type!="grenade")
+{
+for(uint x=0; x<objs.length(); x++)
+{
+if(get_3d_distance(rx, ry, weapons[j].z, objs[x].x, objs[x].y, objs[x].z)<=weapons[j].spread and objs[x].map==weapons[j].map)
+{
+play("obj_break"+random(1,3),objs[x].x,objs[x].y,objs[x].z,objs[x].map);
+objs.remove_at(x);
+hit=true;
+}
+}
+for(uint x=0; x<horbs.length; x++)
+{
+if(get_3d_distance(rx, ry, weapons[j].z, horbs[x].x, horbs[x].y, horbs[x].z)<=weapons[j].spread and horbs[x].map==weapons[j].map)
+horbs[x].shoot();
+}
+}
+for(uint x=0; x<remguns.length(); x++)
+{
+if(get_3d_distance(rx, ry, weapons[j].z, remguns[x].x, remguns[x].y, remguns[x].z)<=weapons[j].spread and remguns[x].map==weapons[j].map)
+{
+send_reliable(players[index].peer_id,"play_s weaponping.ogg",0);
+if(weapons[j].type=="artillery") send_reliable(players[index].peer_id,"hit "+cn2n(remguns[x].owner)+"'s remote gun "+remguns[x].id,2);
+remguns[x].health-=random(weapons[j].mindammage, weapons[j].maxdammage);
+play("remgunhit"+random(1, 3), rx, ry, weapons[j].z, weapons[j].map);
+remguns[x].hitby=weapons[j].owner+"'s "+(weapons[j].type=="artillery" ? "tank" : weapons[j].type);
+hit=true;
+if(weapons[j].type=="grenade")
+{
+spawn_grenade(rx,ry,weapons[j].z,weapons[j].dir,weapons[j].map,weapons[j].owner);
+break;
+}
+}
+}
+for(uint x=0; x<impact_bombs.length(); x++)
+{
+if(get_3d_distance(rx, ry, weapons[j].z, impact_bombs[x].x, impact_bombs[x].y, impact_bombs[x].z)<=weapons[j].spread and impact_bombs[x].map==weapons[j].map)
+{
+impact_bombs[x].health-=random(weapons[j].mindammage, weapons[j].maxdammage);
+play("ibombhit"+random(1, 3), rx, ry, weapons[j].z, weapons[j].map);
+hit=true;
+if(weapons[j].type=="grenade")
+{
+spawn_grenade(rx,ry,weapons[j].z,weapons[j].dir,weapons[j].map,weapons[j].owner);
+break;
+}
+}
+}
+for(uint v=0; v<shelters.length; v++)
+{
+if(are_teamed(weapons[j].owner,shelters[v].owner)) continue;
+if(get_3d_distance(weapons[j].x,weapons[j].y,weapons[j].z,shelters[v].x,shelters[v].y,shelters[v].z)<=weapons[j].spread&&shelters[v].map==weapons[j].map and weapons[j].owner!=shelters[v].owner)
+{
+string t="";
+if(!weapons[j].bullet) t=weapons[j].type;
+if(weapons[j].type=="grenade")
+{
+t="";
+spawn_grenade(rx,ry,weapons[j].z,weapons[j].dir,weapons[j].map,weapons[j].owner);
+}
+shelters[v].hit(random(weapons[j].mindammage,weapons[j].maxdammage),weapons[j].owner+"'s "+weapons[j].type,t);
+int index=get_player_index_from(weapons[j].owner);
+if(index>-1)
+{
+send_reliable(players[index].peer_id,"play_s weaponping.ogg",0);
+if(weapons[j].type=="artillery") send_reliable(players[index].peer_id,"hit "+cn2n(shelters[v].owner)+"'s shelter",2);
+}
+hit=true;
+}
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_2d_distance(weapons[j].x,weapons[j].y,vs[v].x,vs[v].y)<=weapons[j].spread&&vs[v].map==weapons[j].map&&vs[v].owner!=weapons[j].owner and ((vs[v].z>=weapons[j].z&&(vs[v].z<=(weapons[j].z+8))&&weapons[j].type!="artillery")||(vs[v].z>=weapons[j].z&&(vs[v].z<=(weapons[j].z+10))&&weapons[j].type=="artillery")))
+{
+string t="";
+if(!weapons[j].bullet) t=weapons[j].type;
+if(weapons[j].type=="grenade")
+{
+t="";
+spawn_grenade(rx,ry,weapons[j].z,weapons[j].dir,weapons[j].map,weapons[j].owner);
+}
+vs[v].hit(random(weapons[j].mindammage,weapons[j].maxdammage),weapons[j].owner+"'s "+string_replace(weapons[j].type,"artillery","tank",false),t);
+int index=get_player_index_from(weapons[j].owner);
+if(index>-1)
+{
+send_reliable(players[index].peer_id,"play_s "+(are_teamed(weapons[j].owner, vs[v].owner)?"weaponpingteam":"weaponping")+".ogg",0);
+if(weapons[j].type=="artillery") send_reliable(players[index].peer_id,"hit "+cn2n(vs[v].owner,true),2);
+}
+hit=true;
+}
+}
+if(hit) { @weapons[j]=null;
+ weapons.remove_at(j);
+}
+}
+}
+}
+}
+void spawn_weapon(double x, double y, double z, double dir, string type, string map, string owner)
+{
+weapon w1(x, y, z, dir, type, map, owner);
+weapons.insert_last(w1);
+}

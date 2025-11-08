@@ -1,0 +1,12 @@
+name shotgun
+dammage 3200 3800
+range 5
+spread 4
+bullet 1
+stunning 0
+stuntime 0
+hitsounds 3
+shieldchance 40
+speedtime 10
+shieldhits15
+reloadable 1

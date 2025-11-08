@@ -1,0 +1,23 @@
+#include"dll_terlark.bgt"
+terlark tl;
+void main()
+{
+int r=tl.gui_create_window("Test");
+if(tl.active())
+alert("terlark dll","The tl dll has been loaded and is now running");
+alert("starting file opener","");
+tl.gui_show();
+string[] res=tl.dlg_open();
+string selected="You have selected "+res.length()+" files. They are: ";
+for(uint f=0; f<res.length(); f++)
+{
+selected+=res[f]+", ";
+}
+alert("information",selected);
+while(true)
+{
+if(key_pressed(KEY_ESCAPE))
+exit();
+wait(5);
+}
+}

@@ -1,0 +1,19 @@
+mapname:fight
+maxx:1000
+maxy:1000
+maxz:1000
+tile:0:1000:0:1000:0:0:concrete5
+tile:0:100:0:100:0:0:cement
+tile:100:200:100:200:0:0:concrete2
+tile:60:60:60:60:0:50:concrete
+tile:0:1000:0:1000:50:50:concrete2
+travelpoint:0:0:0:0:50:50:fight:0:0:1000:ahaha
+tile:0:1000:0:1000:1000:1000:deepsand
+tile:60:60:60:60:0:50:carpet2
+src:3:3:3:3:3:3:birds2.ogg
+zone:0:1000:0:1000:0:1000:fight_ area!:trackme
+tile:1:1:1:1:1:1:shallow
+src:1:1:1:1:1:1:birds3.ogg
+amb:3:3:3:3:3:3:alarm5.ogg
+zone:2:2:2:2:2:2:2:trackme
+travelpoint:2:2:2:2:2:2:2:2:2:2:2

@@ -1,0 +1,24 @@
+void main()
+{
+string n=input_box("num","Enter the amount the script should cut off the string");
+if(n=="") exit();
+string s=input_box("String","Enter the string");
+if(s=="") exit();
+string m=input_box("mode","Type 1 for string left or 2 for string right");
+if(m=="") exit();
+uint mode=string_to_number(m);
+string res;
+if(mode==1) 
+res=string_trim_left(s,string_to_number(n));
+else if(mode==2)
+res=string_trim_right(s,string_to_number(n));
+if(mode==3)
+res=string_left(s,string_to_number(n));
+if(mode==4)
+res=string_right(s,string_to_number(n));
+alert("",res);
+int q=question("Clipboard","Do you want ot copy this string to your clipboard?");
+if(q==1)
+clipboard_copy_text(res);
+exit();
+}

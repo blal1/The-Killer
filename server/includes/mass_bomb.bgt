@@ -1,0 +1,93 @@
+mass_bomb@[] mass_bombs(0);
+class mass_bomb
+{
+string owner;
+timer explodetimer;
+int z;
+string map;
+int x, y;
+mass_bomb(int tx,int ty,int tz, string tmap, string towner)
+{
+owner=towner;
+x=tx;
+y=ty;
+z=tz;
+map=tmap;
+play("massbombplace",x,y,z,map);
+} // constructor.
+} // class.mass_bomb.
+
+void mass_bombloop()
+{
+for (uint i=0; i<mass_bombs.length(); i++)
+{
+if(mass_bombs[i].explodetimer.elapsed>=10000)
+{
+mass_bombs[i].explodetimer.restart();
+play("massbomb",mass_bombs[i].x,mass_bombs[i].y,mass_bombs[i].z,mass_bombs[i].map);
+send_reliable(0,"distsound massbombdist "+mass_bombs[i].x+" "+mass_bombs[i].y+" "+mass_bombs[i].z+" "+mass_bombs[i].map,0);
+for (uint r=0; r<robots.length(); r++)
+{
+if (get_3d_distance(mass_bombs[i].x,mass_bombs[i].y,mass_bombs[i].z,robots[r].x,robots[r].y,robots[r].z)<=100 and robots[r].map==mass_bombs[i].map)
+robots[r].hit(random(100,10000),"mass bomb",mass_bombs[i].owner+"'s mass bomb");
+}
+for(uint i2=0; i2<impact_bombs.length(); i2++)
+{
+if(get_3d_distance(impact_bombs[i2].x,impact_bombs[i2].y,impact_bombs[i2].z,mass_bombs[i].x,mass_bombs[i].y,mass_bombs[i].z)<=100 and impact_bombs[i2].map==mass_bombs[i].map)
+{
+impact_bombs[i2].health-=random(100,10000);
+play("ibombhit"+random(1,3),impact_bombs[i2].x,impact_bombs[i2].y,impact_bombs[i2].z,impact_bombs[i2].map);
+}
+}
+for (uint i2=0; i2<players.length(); i2++)
+{
+if(players[i2].invinsible==true || players[i2].newb==1 || players[i2].is_dead==true||in_vehicle(players[i2].name)>-1) continue;
+if (get_3d_distance(mass_bombs[i].x,mass_bombs[i].y,mass_bombs[i].z,players[i2].x,players[i2].y,players[i2].z)<=80 and players[i2].map==mass_bombs[i].map)
+{
+players[i2].hit(1000,10000);
+players[i2].should_subtract=true;
+players[i2].hitby=mass_bombs[i].owner+"'s mass bomb";
+players[i2].playsound("massbombhit");
+}
+}
+for (uint i2=0; i2<objs.length(); i2++)
+{
+if (get_3d_distance(mass_bombs[i].x,mass_bombs[i].y,mass_bombs[i].z,objs[i2].x,objs[i2].y,objs[i2].z)<=100 and objs[i2].map==mass_bombs[i].map)
+{
+play("obj_break"+random(1,3),objs[i2].x,objs[i2].y,objs[i2].z,objs[i2].map);
+objs.remove_at(i2);
+}
+}
+for (uint i2=0; i2<remguns.length(); i2++)
+{
+if (get_3d_distance(mass_bombs[i].x,mass_bombs[i].y,mass_bombs[i].z,remguns[i2].x,remguns[i2].y,remguns[i2].z)<=20 and remguns[i2].map==mass_bombs[i].map)
+{
+remguns[i2].health-=random(100, 10000);
+remguns[i2].hitby=mass_bombs[i].owner+"'s mass bomb";
+play("remgunhit"+random(1, 3),remguns[i2].x,remguns[i2].y,remguns[i2].z,remguns[i2].map);
+}
+}
+for(uint s=0; s<shelters.length; s++)
+{
+if(get_3d_distance(mass_bombs[i].x,mass_bombs[i].y,mass_bombs[i].z,shelters[s].x,shelters[s].y,shelters[s].z)<=80&&shelters[s].map==mass_bombs[i].map)
+shelters[s].hit(random(1000,10000),mass_bombs[i].owner+"'s mass bomb");
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_3d_distance(mass_bombs[i].x,mass_bombs[i].y,mass_bombs[i].z,vs[v].x,vs[v].y,vs[v].z)<=80&&vs[v].map==mass_bombs[i].map)
+vs[v].hit(random(1000,10000),mass_bombs[i].owner+"'s mass bomb");
+}
+@mass_bombs[i]=null;
+mass_bombs.remove_at(i);
+}
+}
+}
+void placemass_bomb(int x,int y, int z, string map,string owner)
+{
+mass_bomb bomb1(x,y,z,map,owner);
+mass_bombs.insert_last(bomb1);
+}
+void destroy_all_mass_bombs()
+{
+mass_bombs.resize(0);
+}

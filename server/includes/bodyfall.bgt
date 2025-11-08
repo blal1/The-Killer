@@ -1,0 +1,43 @@
+bodyfall@[] bodyfalls(0);
+class bodyfall
+{
+int btime=3000;
+int x, y, z;
+int pindex=-1;
+string map;
+timer btimer;
+bodyfall(int bx, int by, int bz, string bmap, int bodytime=3000,int pbindex=-1)
+{
+x=bx;
+y=by;
+z=bz;
+map=bmap;
+btime=bodytime;
+if(pbindex>-1) pindex=pbindex;
+}
+}
+void bodyfallloop()
+{
+for (uint i=0; i<bodyfalls.length(); i++)
+{
+if (bodyfalls[i].btimer.elapsed>=bodyfalls[i].btime)
+{
+play(get_tile_at(bodyfalls[i].x,bodyfalls[i].y,bodyfalls[i].z,bodyfalls[i].map)+"hardland", bodyfalls[i].x, bodyfalls[i].y, bodyfalls[i].z, bodyfalls[i].map);
+if(bodyfalls[i].pindex>-1)
+{
+int px=bodyfalls[i].pindex;
+if(px>-1)
+players[px].sitting=1;
+send_reliable(players[px].peer_id,"sitstart",0);
+}
+@bodyfalls[i]=null;
+bodyfalls.remove_at(i);
+continue;
+}
+}
+}
+void spawn_bodyfall(int x, int y, int z, string map, int time=4000,int index=-1)
+{
+bodyfall b1(x,y,z,map, time,index);
+bodyfalls.insert_last(b1);
+}

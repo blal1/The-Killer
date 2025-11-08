@@ -1,0 +1,109 @@
+dog@[] dogs(0);
+class dog
+{
+int x;
+int y;
+int z;
+string map;
+string zone;
+string mid;
+string owner;
+timer stimer;
+timer mtimer;
+int mtime=200;
+timer xtimer;
+int health=random(1000,100000);
+int id=random(1,100);
+string hitby;
+dog(int sx,int sy,int sz,string smap,string soner)
+{
+x=sx;
+y=sy;
+z=sz;
+map=smap;
+owner=soner;
+mid=spawn_moving_sound("dogloop.ogg",x,y,z,map);
+}
+}
+void dogloop()
+{
+for(uint i=0; i<dogs.length(); i++)
+{
+if(dogs[i].xtimer.elapsed>300000)
+{
+destroy_moving_sound(dogs[i].mid);
+dogs[i].health=-1;
+dogs[i].hitby="dead battery";
+dogs.remove_at(i);
+i--;
+continue;
+}
+int oindex=get_player_index_from(dogs[i].owner);
+if(oindex<0)
+{
+destroy_moving_sound(dogs[i].mid);
+dogs.remove_at(i);
+i--;
+continue;
+}
+if(dogs[i].health<0)
+{
+play("dog_kill1",dogs[i].x,dogs[i].y,dogs[i].z,dogs[i].map);
+send_reliable(0,"play_s robotkillalert.ogg",0);
+send_reliable(0,"playerdeath "+killmsg(dogs[i].owner+"'s dog "+dogs[i].id,dogs[i].hitby,dogs[i].map),0);
+destroy_moving_sound(dogs[i].mid);
+dogs.remove_at(i);
+i--;
+continue;
+}
+int index=get_nearest_player(dogs[i].x,dogs[i].y,dogs[i].z,dogs[i].map,oindex);
+if(index>-1)
+{
+if(in_vehicle(players[index].name)>-1 or players[index].newb==1 or players[index].is_dead or players[index].invinsible) continue;
+int miss=random(1,30);
+int dist=get_3d_distance(dogs[i].x,dogs[i].y,dogs[i].z,players[index].x,players[index].y,players[index].z);
+if(dist<10 and dogs[i].stimer.elapsed>500 and index!=oindex and players[index].z==dogs[i].z)
+{
+dogs[i].stimer.restart();
+play("dog_shoot5"+random(1,3),dogs[i].x,dogs[i].y,dogs[i].z,dogs[i].map);
+send_reliable(0,"distsound dogfiredist "+dogs[i].x+" "+dogs[i].y+" "+dogs[i].z+" "+dogs[i].map,0);
+if(miss<30)
+{
+if(players[index].shielded)
+{
+players[index].playsound("shieldhit"+random(1,12));
+players[index].shieldshots-=random(1,17);
+}
+else
+{
+players[index].hit(80,8000);
+players[index].hitby=dogs[i].owner+"'s dog "+dogs[i].id;
+players[index].playsound("dog_hit1"+random(1,4));
+}
+}
+}
+if(dogs[i].mtimer.elapsed>dogs[i].mtime)
+{
+dogs[i].mtimer.restart();
+if(dogs[i].x<players[index].x)
+dogs[i].x++;
+else if(dogs[i].x>players[index].x)
+dogs[i].x--;
+if(dogs[i].y<players[index].y)
+dogs[i].y++;
+if(dogs[i].y>players[index].y)
+dogs[i].y--;
+if(dogs[i].z<players[index].z)
+dogs[i].z++;
+if(dogs[i].z>players[index].z)
+dogs[i].z--;
+update_moving_sound(dogs[i].mid,dogs[i].x,dogs[i].y,dogs[i].z);
+}
+}
+}
+}
+void spawn_dog(int x,int y,int z,string map,string owner)
+{
+dog s(x,y,z,map,owner);
+dogs.insert_last(s);
+}

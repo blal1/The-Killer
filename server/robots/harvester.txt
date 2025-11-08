@@ -1,0 +1,15 @@
+name harvester
+health 20000
+defence 0
+speed 400
+damage 1000,10000
+shoot 1000
+distance 10
+aggro 1000
+spread 3
+angle 45
+steps 2
+loot dollar
+amount 200
+shoots 3
+hits 3

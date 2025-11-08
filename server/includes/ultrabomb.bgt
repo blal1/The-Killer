@@ -1,0 +1,153 @@
+ultrabomb@[] ultrabombs(0);
+class ultrabomb
+{
+string owner;
+int z;
+string map;
+int x, y;
+int seconds=10000;
+int beeptime;
+timer beeptimer, bombtimer;
+bool d=false,ownerrange=true,readyd=false,started=false,silenced=false;
+int mindist=200;
+uint coins=0;
+string id;
+string loopid;
+~ultrabomb()
+{
+destroy_moving_sound(this.loopid);
+}
+ultrabomb(int tx,int ty,int tz, string tmap, string towner)
+{
+owner=towner;
+x=tx;
+y=ty;
+z=tz;
+map=tmap;
+string tempid;
+do
+{
+tempid=randomstring(5);
+}
+while(is_ultrabomb_id_used(tempid));
+this.id=tempid;
+}
+}
+void ultrabombloop()
+{
+for (uint i=0; i<ultrabombs.length(); i++)
+{
+if(ultrabombs[i].d==false and ultrabombs[i].readyd==false)
+{
+if(ultrabombs[i].coins>=5 and ultrabombs[i].started==false)
+{
+play("ultrabombgenerator_on",ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z,ultrabombs[i].map);
+ultrabombs[i].started=true;
+ultrabombs[i].loopid=spawn_moving_sound("ultrabombgenerator_loop.ogg",ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z,ultrabombs[i].map);
+}
+if(ultrabombs[i].coins>=20)
+{
+play("remote_timebombcode",ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z,ultrabombs[i].map);
+ultrabombs[i].readyd=true;
+sendint("speak your ultrabomb is ready to go! Just get out of range so I can start my countdown!",ultrabombs[i].owner);
+}
+}
+if(ultrabombs[i].readyd and ultrabombs[i].ownerrange)
+{
+int index=get_player_index_from(ultrabombs[i].owner);
+if(index<0)
+{
+ultrabombs.remove_at(i);
+return;
+}
+else
+{
+if(((get_3d_distance(players[index].x,players[index].y,players[index].z,ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z)>ultrabombs[i].mindist and players[index].map==ultrabombs[i].map) or players[index].map!=ultrabombs[i].map or players[index].invinsible) and players[index].warping==false)
+{
+play("ultrabombstart",ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z,ultrabombs[i].map);
+playint("ultrabombstart",ultrabombs[i].owner);
+destroy_moving_sound(ultrabombs[i].loopid);
+if(!ultrabombs[i].silenced) play("ultrabombgenerator_off",ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z,ultrabombs[i].map);
+sendint("speak ultrabomb countdown started!",ultrabombs[i].owner);
+ultrabombs[i].bombtimer.restart();ultrabombs[i].beeptimer.restart();
+ultrabombs[i].ownerrange=false;ultrabombs[i].d=true;
+}
+}
+}
+if(ultrabombs[i].d==true)
+{
+ultrabombs[i].seconds=7000-ultrabombs[i].bombtimer.elapsed;
+ultrabombs[i].beeptime=ultrabombs[i].seconds/5+20;
+if (ultrabombs[i].beeptimer.elapsed>=ultrabombs[i].beeptime)
+{
+ultrabombs[i].beeptimer.restart();
+play("ultrabombbeep",ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z,ultrabombs[i].map);
+}
+if (ultrabombs[i].seconds<=0)
+{
+play("ultrabomb",ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z,ultrabombs[i].map);
+send_reliable(0,"distsound ultrabombdist "+ultrabombs[i].x+" "+ultrabombs[i].y+" "+ultrabombs[i].z+" "+ultrabombs[i].map,0);
+for (uint i2=0; i2<players.length(); i2++)
+{
+if(players[i2].invinsible==true || players[i2].is_dead==true||in_vehicle(players[i2].name)>-1) continue;
+if (get_3d_distance(players[i2].x,players[i2].y,players[i2].z,ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z)<=ultrabombs[i].mindist and players[i2].map==ultrabombs[i].map)
+{
+players[i2].health-=random(6000,20000);
+players[i2].should_subtract=false;
+players[i2].hitby=ultrabombs[i].owner+"'s ultrabomb";
+play("hit"+random(1,3),players[i2].x,players[i2].y,players[i2].z,players[i2].map);
+}
+}
+for (uint i2=0; i2<objs.length(); i2++)
+{
+if (get_3d_distance(ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z,objs[i2].x,objs[i2].y,objs[i2].z)<=250 and objs[i2].map==ultrabombs[i].map)
+{
+play("obj_break"+random(1,3),objs[i2].x,objs[i2].y,objs[i2].z,objs[i2].map);
+objs.remove_at(i2);
+}
+}
+for (uint i2=0; i2<remguns.length(); i2++)
+{
+if (get_3d_distance(ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z,remguns[i2].x,remguns[i2].y,remguns[i2].z)<=ultrabombs[i].mindist and remguns[i2].map==ultrabombs[i].map)
+{
+remguns[i2].health-=random(5000,10000);
+remguns[i2].hitby=ultrabombs[i].owner+"'s ultrabomb";
+play("remgunhit"+random(1, 3),remguns[i2].x,remguns[i2].y,remguns[i2].z,remguns[i2].map);
+}
+}
+for (uint i2=0; i2<impact_bombs.length(); i2++)
+{
+if (get_3d_distance(ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z,impact_bombs[i2].x,impact_bombs[i2].y,impact_bombs[i2].z)<=ultrabombs[i].mindist and impact_bombs[i2].map==ultrabombs[i].map)
+{
+impact_bombs[i2].health=-1;
+play("ibombhit"+random(1, 3),impact_bombs[i2].x,impact_bombs[i2].y,impact_bombs[i2].z,impact_bombs[i2].map);
+}
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_3d_distance(ultrabombs[i].x,ultrabombs[i].y,ultrabombs[i].z,vs[v].x,vs[v].y,vs[v].z)<=ultrabombs[i].mindist&&vs[v].map==ultrabombs[i].map)
+vs[v].hit(random(5000,15000),ultrabombs[i].owner+"'s ultrabomb","artillery");
+}
+ultrabombs.remove_at(i);
+}
+}
+}
+}
+void spawn_ultrabomb(int x,int y, int z, string map,string owner)
+{
+ultrabomb bomb1(x,y,z,map,owner);
+if(map!="store")
+ultrabombs.insert_last(bomb1);
+}
+void destroy_all_ultrabombs()
+{
+ultrabombs.resize(0);
+}
+bool is_ultrabomb_id_used(string checkid)
+{
+for(uint i=0; i<ultrabombs.length; i++)
+{
+if(ultrabombs[i].id==checkid) return true;
+}
+return false;
+}

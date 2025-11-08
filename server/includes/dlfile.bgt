@@ -1,0 +1,34 @@
+#include"downloader.bgt"
+downloader dl;
+string dl_file(string url, string disk_file, string text="")
+{
+dl.initiate_download(url, disk_file);
+if (text=="")
+speak("Downloading. Press Space for percentage, 1 2 and 3 keys for detailed progress, or escape to cancel");
+else
+speak(text);
+string status;
+double dlpercent=-1;
+while(dl.is_active())
+{
+dl.monitor();
+if (key_pressed(KEY_ESCAPE))
+{
+dl.abort();
+status="canceled";
+wait(600);
+return status;
+}
+if(round(dl.get_percentage(),0)!=dlpercent)
+{
+dlpercent=round(dl.get_percentage(),0);
+}
+}
+if (status!="canceled")
+{
+status="finished";
+wait(600);
+return status;
+}
+return "";
+}

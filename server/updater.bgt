@@ -1,0 +1,23 @@
+#include"includes/speech.bgt"
+bool beta=false;
+void main()
+{
+wait(4000);
+if(beta==true)
+run("c:/windows/system32/taskkill.exe","/f /im server_b.exe",true,true);
+else
+run("c:/windows/system32/taskkill.exe","/f /im server.exe",true,true);
+if(beta==true)
+file_copy("server_b1.exe","server_b.exe",true);
+else
+file_copy("server1.exe","server.exe",true);
+if(beta==true)
+file_delete("server_b1.exe");
+else
+file_delete("server1.exe");
+if(beta==true)
+run("server_b.exe","",false,false);
+else
+run("server.exe","",false,false);
+exit();
+}

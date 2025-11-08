@@ -1,0 +1,17 @@
+name gangster
+health 20000
+defence 300
+speed 400
+damage 500,20000
+shoot 2000
+distance 12
+aggro 1000
+spread 5
+angle 60
+steps 0
+loot dollar,ammo,grenade,beer_bottle
+amount 10
+voices 14
+hits 4
+pains 11
+kills 6

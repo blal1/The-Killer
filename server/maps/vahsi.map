@@ -1,0 +1,64 @@
+mapname:vahsi
+maxx:1000
+maxy:1000
+maxz:1000
+tile:0:1000:0:1000:0:0:concrete15
+
+tile:0:500:0:500:0:0:water
+tile:175:375:175:375:5:5:wood6
+tile:175:375:175:175:5:20:wallscreen1
+tile:175:175:175:375:5:20:wallscreen1
+tile:175:375:375:375:5:20:wallscreen1
+tile:375:375:175:375:5:20:wallscreen1
+tile:150:400:150:400:21:21:wood
+tile:374:374:176:176:5:21:carpet
+src:150:400:150:400:0:10:car2.ogg
+src:0:500:0:500:0:1:ocean3.ogg
+src:150:400:150:400:20:50:bandroom.ogg
+tile:150:400:150:150:20:24:wallscreen1
+tile:150:150:150:400:20:24:wallscreen1
+tile:150:400:400:400:20:24:wallscreen1
+tile:400:400:150:400:20:24:wallscreen1
+tile:175:375:175:375:0:4:wallstand
+tile:0:500:0:500:-1:-1:air1
+tile:190:200:175:175:5:12:walldoor
+tile:185:205:155:174:5:5:wood5
+travelpoint:190:200:176:176:5:5:vahsi:190:174:5:dehset
+travelpoint:190:200:174:174:5:5:vahsi:190:176:5:dehset
+tile:190:200:155:155:1:5:beam
+tile:175:375:175:175:20:40:wallmetal9
+tile:175:175:175:375:20:40:wallmetal9
+tile:175:375:375:375:20:40:wallmetal9
+tile:375:375:175:375:20:40:wallmetal9
+tile:175:375:175:375:41:41:carpet3
+tile:176:176:206:210:20:40:carpet
+tile:175:375:175:175:40:65:wallwoodcrate
+tile:175:175:175:375:40:65:wallwoodcrate
+tile:175:375:375:375:40:65:wallwoodcrate
+tile:375:375:175:375:40:65:wallwoodcrate
+tile:374:374:206:210:40:65:carpet1
+tile:175:375:175:375:65:65:carpet4
+tile:175:175:175:375:65:100:walldoor2
+tile:175:375:175:175:65:100:walldoor2
+tile:375:375:175:375:65:100:walldoor2
+tile:175:375:375:375:65:100:walldoor2
+tile:206:210:374:374:65:100:carpet1
+tile:175:375:175:375:100:100:roof2
+src:175:375:175:375:65:80:bar1.ogg
+src:175:375:175:375:65:85:bar.ogg
+tile:375:375:206:210:21:25:walldoor
+travelpoint:374:374:206:210:21:21:vahsi:376:206:21:vahsi
+travelpoint:376:376:206:210:21:21:vahsi:374:206:21:vahsi
+tile:150:400:150:150:24:24:plank
+tile:400:400:150:400:24:24:plank
+tile:150:400:400:400:24:24:plank
+tile:150:150:150:400:24:24:plank
+zone:0:500:0:500:0:500:güzel bir deniz manzarasý
+zone:190:200:155:155:1:4:vapur merdiveni:trackme
+zone:185:205:155:174:5:19:vapur iskelesi
+zone:190:200:174:174:5:19:vapura girmek için enter:trackme
+zone:175:375:175:375:5:20:vapurun makina dairesi
+zone:190:200:176:176:5:19:vapurdan vapur iskelesine geçmek için enter:trackme
+zone:374:374:176:176:5:20:merdiven:trackme
+zone:150:400:150:400:21:39:vapur rýhtýmý
+zone:175:375:175:375:21:39:vapurun birinci katý

@@ -1,0 +1,15 @@
+name mega_dragon
+health 1500000
+defence 1000
+speed 500
+damage 200,20000
+shoot 1000
+distance 1
+aggro 1000
+spread 1
+angle 90
+steps 0
+loot dollar
+amount 35000
+voices 3
+kills 1

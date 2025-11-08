@@ -1,0 +1,181 @@
+string[] actable_items={"motion_bomb","air_canister","timebomb","wirebomb","impact_bomb","mine","ultrabomb_silencer","remote_gun"};
+carrier_missile@[] carrier_missiles(0);
+class carrier_missile
+{
+int x;
+int y;
+int z;
+int targetx;
+int targety;
+int targetz;
+int item_amount=1;
+string item;
+string map;
+player@ owner;
+timer stimer;
+timer mtimer;
+timer intercepttimer;
+bool act=false;
+bool intercepted=false,sendback=false;
+int mtime=60;
+timer xtimer;
+string mid;
+carrier_missile(int sx, int sy, int sz, int tx, int ty, int tz,string smap, player@ soner, string targetitem,bool a=false)
+{
+x=sx;
+y=sy;
+z=sz;
+targetx=tx;
+targety=ty;
+targetz=tz;
+map=smap;
+@owner=soner;
+item=targetitem;
+if(a==true)
+act=true;
+else
+act=false;
+stimer.force(200);
+mid=spawn_moving_sound("carrier_missile_loop.ogg",x,y,z,map);
+}
+void deploy(string ite)
+{
+if(ite=="timebomb")
+{
+placetimebomb(x,y,z,map,owner.name,5000);
+}
+else if(ite=="remote_gun")
+{
+placetimeremgun(x,y,z,map,owner.name);
+}
+else if(ite=="motion_bomb")
+spawn_motion_bomb(x,y,z,map,owner.name);
+else if(ite=="mine" and mines_at(x, y, z, map)<10)
+place_mine(x,y,z,map,owner.name);
+else if(ite=="impact_bomb")
+spawn_impact_bomb(x,y,z,map,owner.name);
+else if(ite=="wirebomb")
+place_wirebomb(x,y,z,map,owner.name);
+else if(ite=="ultrabomb_silencer")
+{
+bool hasu=false;
+string[] ultrabombset;
+for(uint i=0; i<ultrabombs.length(); i++)
+{
+if(ultrabombs[i].x==x and ultrabombs[i].y==y and ultrabombs[i].z==z and map==ultrabombs[i].map and ultrabombs[i].silenced==false)
+{
+ultrabombset.insert_last(ultrabombs[i].id);
+hasu=true;
+}
+}
+if(hasu==true)
+{
+for(uint j=0; j<ultrabombset.length(); j++)
+{
+for(uint j2=0; j2<ultrabombs.length(); j2++)
+{
+if(ultrabombs[j2].id==ultrabombset[j])
+{
+play("ultrabombgenerator_off",ultrabombs[j2].x,ultrabombs[j2].y,ultrabombs[j2].z,ultrabombs[j2].map);
+destroy_moving_sound(ultrabombs[j2].loopid);
+ultrabombs[j2].silenced=true;
+}
+}
+}
+}
+}
+else
+act=false;
+}
+}
+void cmloop()
+{
+for(uint i=0; i<carrier_missiles.length(); i++)
+{
+if(@carrier_missiles[i].owner==null)
+{
+destroy_moving_sound(carrier_missiles[i].mid);
+spawn_obj(carrier_missiles[i].x,carrier_missiles[i].y,carrier_missiles[i].z,carrier_missiles[i].map,"carrier_missile",1,false);
+if(carrier_missiles[i].sendback==false) spawn_obj(carrier_missiles[i].x,carrier_missiles[i].y,carrier_missiles[i].z,carrier_missiles[i].map,carrier_missiles[i].item,carrier_missiles[i].item_amount);
+carrier_missiles.remove_at(i);
+continue;
+}
+if(carrier_missiles[i].intercepted==false)
+{
+if(carrier_missiles[i].x==carrier_missiles[i].targetx and carrier_missiles[i].y==carrier_missiles[i].targety and carrier_missiles[i].z==carrier_missiles[i].targetz)
+{
+if(carrier_missiles[i].sendback==false)
+{
+play("carrier_missile_deposit",carrier_missiles[i].x,carrier_missiles[i].y,carrier_missiles[i].z,carrier_missiles[i].map);
+if(carrier_missiles[i].act==true)
+{
+carrier_missiles[i].deploy(carrier_missiles[i].item);
+send_reliable(carrier_missiles[i].owner.peer_id, carrier_missiles[i].item+" deployed at "+carrier_missiles[i].x+", "+carrier_missiles[i].y+", "+carrier_missiles[i].z, 2);
+}
+else
+{
+send_reliable(carrier_missiles[i].owner.peer_id, "Item successfully sent", 2);
+spawn_timeitem(carrier_missiles[i].x,carrier_missiles[i].y,carrier_missiles[i].z,carrier_missiles[i].map,carrier_missiles[i].item,carrier_missiles[i].item_amount);
+}
+carrier_missiles[i].sendback=true;
+carrier_missiles[i].targetx=carrier_missiles[i].owner.x;
+carrier_missiles[i].targety=carrier_missiles[i].owner.y;
+carrier_missiles[i].targetz=carrier_missiles[i].owner.z;
+return;
+}
+else
+{
+play("carrier_missileclick",carrier_missiles[i].x,carrier_missiles[i].y,carrier_missiles[i].z,carrier_missiles[i].map);
+destroy_moving_sound(carrier_missiles[i].mid);
+carrier_missiles[i].owner.give("carrier_missile",1);
+send_reliable(carrier_missiles[i].owner.peer_id,"your carrier missile has returned",2);
+carrier_missiles.remove_at(i);
+continue;
+}
+}
+if(carrier_missiles[i].mtimer.elapsed>carrier_missiles[i].mtime)
+{
+carrier_missiles[i].mtimer.restart();
+if(carrier_missiles[i].sendback)
+{
+if(carrier_missiles[i].owner.map!=carrier_missiles[i].map)
+{
+destroy_moving_sound(carrier_missiles[i].mid);
+spawn_obj(carrier_missiles[i].x,carrier_missiles[i].y,0,carrier_missiles[i].map,"carrier_missile",1,false);
+carrier_missiles.remove_at(i);
+continue;
+}
+if(carrier_missiles[i].owner.x!=carrier_missiles[i].targetx) carrier_missiles[i].targetx=carrier_missiles[i].owner.x;
+if(carrier_missiles[i].owner.y!=carrier_missiles[i].targety) carrier_missiles[i].targety=carrier_missiles[i].owner.y;
+if(carrier_missiles[i].owner.z!=carrier_missiles[i].targetz) carrier_missiles[i].targetz=carrier_missiles[i].owner.z;
+}
+if(carrier_missiles[i].x<carrier_missiles[i].targetx)
+carrier_missiles[i].x++;
+if(carrier_missiles[i].x>carrier_missiles[i].targetx)
+carrier_missiles[i].x--;
+if(carrier_missiles[i].y<carrier_missiles[i].targety)
+carrier_missiles[i].y++;
+if(carrier_missiles[i].y>carrier_missiles[i].targety)
+carrier_missiles[i].y--;
+if(carrier_missiles[i].z<carrier_missiles[i].targetz)
+carrier_missiles[i].z++;
+if(carrier_missiles[i].z>carrier_missiles[i].targetz)
+carrier_missiles[i].z--;
+update_moving_sound(carrier_missiles[i].mid,carrier_missiles[i].x,carrier_missiles[i].y,carrier_missiles[i].z);
+}
+}
+if(carrier_missiles[i].intercepted==true and carrier_missiles[i].intercepttimer.elapsed>=1140)
+{
+carrier_missiles[i].intercepttimer.restart();
+spawn_obj(carrier_missiles[i].x,carrier_missiles[i].y,carrier_missiles[i].z,carrier_missiles[i].map,"carrier_missile",1,false);
+if(carrier_missiles[i].sendback==false) spawn_obj(carrier_missiles[i].x,carrier_missiles[i].y,carrier_missiles[i].z,carrier_missiles[i].map,carrier_missiles[i].item,carrier_missiles[i].item_amount);
+carrier_missiles.remove_at(i);
+continue;
+}
+}
+}
+void spawn_carrier_missile(int x, int y, int z, int targetx, int targety, int targetz, string map, player@ owner, string item,bool acting=false)
+{
+carrier_missile s(x, y, z, targetx, targety, targetz, map, owner, item,acting);
+carrier_missiles.insert_last(s);
+}

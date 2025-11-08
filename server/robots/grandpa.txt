@@ -1,0 +1,13 @@
+name grandpa
+health 15000
+defence 500
+speed 500
+damage 100,10000
+shoot 3500
+distance 20
+aggro 1000
+spread 5
+angle 30
+steps 0
+loot dollar
+amount 100

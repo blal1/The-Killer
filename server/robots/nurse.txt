@@ -1,0 +1,13 @@
+name nurse
+health 30000
+defence 1000
+speed 400
+damage 1000,10000
+shoot 1000
+distance 15
+aggro 1000
+spread 1
+angle 10
+steps 2
+loot antibiotic,health_dart,health_orb
+amount 5

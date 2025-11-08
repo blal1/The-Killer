@@ -1,0 +1,13 @@
+name cockroach
+health 20000
+defence 10000
+speed 400
+damage 1000,100000
+shoot 1000
+distance 5
+aggro 1000
+spread 1
+angle 90
+steps 2
+loot dollar
+amount 1000

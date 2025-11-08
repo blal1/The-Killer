@@ -1,0 +1,13 @@
+name dentist
+health 50000
+defence 1000
+speed 400
+damage 2000,20000
+shoot 800
+distance 7
+aggro 1000
+spread 4
+angle 90
+steps 2
+loot antibiotic,health_dart,health_orb
+amount 10

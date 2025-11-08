@@ -1,0 +1,339 @@
+class registration
+{
+network @net;
+network_event event;
+private uint peer;
+string ip_address;
+int port;
+timer connectiontimer;
+registration(string ip,int p)
+{
+ip_address=ip;
+port=p;
+network tempnet;
+@net=tempnet;
+}
+void nloop()
+{
+if(event.type==event_receive and event.channel==0)
+{
+string[] parsed=string_split(get_message()," ",false);
+if(parsed[0]=="key" and parsed.length()>1)
+{
+dlg("Your registration info is as follows:\r\nname: "+parsed[1]+"\r\nkey:\r\n"+parsed[2],false,"dlgalert3.ogg","dlgdismiss3.ogg");
+clipboard_copy_text("Your registration info is as follows:\r\nname: "+parsed[1]+"\r\nkey:\r\n"+parsed[2]);
+int em=yesno("Email this key?");
+if(em==1)
+{
+string eml=v.input("Enter email");
+if(eml!="")
+{
+string act=email(eml,"no-reply@ims-productions.com","TK registration information","Hello!\r\nThank you for your purchase to IMS Productions. Here is your registration information:\r\nname: "+parsed[1]+"\r\nactivation key: \r\n"+parsed[2]);
+dlg(act,false,"dlgalert2.ogg","dlgdismiss2.ogg");
+}
+else multimenu();
+}
+multimenu();
+}
+else if(parsed[0]=="unreg")
+{
+if(parsed.length()==2)
+{
+string v=parsed[1];
+string error_message;
+if(v=="notfound") error_message="Your name was not found on our servers";
+else if(v=="bannedkey") error_message="Your key has been banned";
+dlg(error_message,false,"dlgalert4.ogg","dlgdismiss4.ogg");
+}
+else if(parsed.length()==3)
+{
+if(parsed[1]=="unregged")
+{
+int r=stn(parsed[2]);
+dlg("Your key has been deactivated from our servers. You are able to register "+r+" more computers",false,"dlgalert3.ogg","dlgdismiss3.ogg");
+}
+}
+regname=""; regkey=""; registered=0;
+writeprefs();
+multimenu();
+}
+else if(parsed[0]=="activated" and parsed.length()>1)
+{
+int r=stn(parsed[3]);
+dlg("You have successfully activated your copy of the killer! You are able to activate "+r+" computers. Enjoy!",false,"dlgalert1.ogg","dlgdismiss1.ogg");
+regname=parsed[1];
+regkey=parsed[2];
+registered=1;
+writeprefs();
+multimenu();
+}
+else if(parsed[0]=="c")
+{
+if(parsed[1]=="notfound")
+{
+dlg("this name doesn't exist in the database",false,"dlgalert4.ogg","dlgdismiss4.ogg");
+multimenu();
+return;
+}
+else if(parsed[1]=="banned")
+{
+dlg( "your key has been banned",false,"dlgalert5.ogg");
+multimenu();
+return;
+}
+else if(parsed[1]=="invkey")
+{
+dlg("your key is invalid",false,"dlgalert5.ogg");
+multimenu();
+return;
+}
+else if(parsed[1]=="allused")
+{
+dlg("all slots are currently being used. unregister one device to be able to register this computer",false,"dlgalert5.ogg");
+multimenu();
+return;
+}
+}
+else if(parsed[0]=="deletedkey")
+{
+dlg("the key for "+parsed[1]+" has been deleted");
+multimenu();
+}
+else if(parsed[0]=="bannedkey")
+{
+dlg("you've banned the key for "+parsed[1]+".",false,"dlgalert3.ogg","dlgdismiss3.ogg");
+multimenu();
+}
+else if(parsed[0]=="unbannedkey")
+{
+dlg("you have unbanned the key for "+parsed[1],false,"dlgalert3.ogg","dlgdismiss3.ogg");
+multimenu();
+}
+else if(parsed[0]=="slots")
+{
+if(parsed[1]=="setto")
+{
+int q=question("question", "this key has currently "+parsed[3]+" remaining slots. are you sure you want to change it?");
+if(q==1)
+{
+string n=input_box("slots", "how many slots do you want to set for this key?");
+send(0, "setslots "+parsed[2]+" "+n, 0);
+}
+else
+{
+multimenu();
+}
+}
+else if(parsed[1]=="done")
+{
+dlg("you have successfully set "+parsed[3]+"slots for "+parsed[2]);
+multimenu();
+}
+}
+else if(parsed[0]=="nolic")
+{
+dlg("there was no key found for "+parsed[1]+". add it to the database first.");
+multimenu();
+}
+}
+}
+void action(string name,string key,string a="")
+{
+if(a=="") return;
+string packet;
+if(a=="unregister") packet="unreg_me "+name+" "+key+" "+read_environment_variable("computername");
+else if(a=="register") packet="reg_me "+name+" "+key+" "+read_environment_variable("computername");
+if(a=="kg") packet="generate_k "+name;
+else if(a=="kgw") packet="generate_k "+name+" write";
+bool c=connect();
+if(!c)
+{
+dlg("Couldn't connect to the registration server at this time. Try again later",false,"dlgalert2.ogg","dlgdismiss2.ogg");
+multimenu();
+return;
+}
+send(peer,packet,0);
+while(true) {
+wait(1);
+event=net.request();
+nloop();
+if(event.type==event_disconnect)
+{
+reset_connection();
+return;
+}
+}
+}
+bool connect()
+{
+net.setup_client(20,500);
+net.connect(ip_address,port);
+connectiontimer.restart();
+while(true)
+{
+event=net.request();
+if(connectiontimer.elapsed>=10000)
+{
+return false;
+}
+if (event.type==event_connect)
+{
+//connected=true;
+return true;
+}
+}
+return false;
+}
+bool send(uint peer,string packet,int channel)
+{
+return net.send_reliable(peer,string_encrypt(packet,"regpacket32"),channel);
+}
+string get_message()
+{
+return string_decrypt(event.message, "bombedoclahoma1995");
+}
+void reset_connection()
+{
+peer=0;
+net.disconnect_peer(0);
+net.destroy();
+@net=null;
+network temp;
+@net=temp;
+}
+
+void validate_key(string n, string key)
+{
+bool c=connect();
+if(!c)
+{
+dlg("error contacting the license server",false,"dlgalert2.ogg","dlgdismiss2.ogg");
+return;
+}
+send(0, "validate "+n+" "+key+" "+read_environment_variable("computername"), 0);
+while(true)
+{
+wait(1);
+event=net.request();
+if(event.type==event_receive and event.channel==0)
+{
+string[]parsed=string_split(get_message(), " ", false);
+if(parsed[0]=="ok")
+{
+registered=1;
+return;
+}
+else if(parsed[0]=="nolic")
+{
+dlg("this license doesn't exist",false,"dlgalert5.ogg");
+regname="";
+regkey="";
+registered=0;
+writeprefs();
+return;
+}
+else if(parsed[0]=="invkey")
+{
+dlg("this key is invalid",false,"dlgalert5.ogg");
+regname=""; regkey=""; registered=0;
+writeprefs();
+return;
+}
+else if(parsed[0]=="banned")
+{
+dlg("this license is banned!",false,"dlgalert5.ogg");
+regname=""; regkey=""; registered=0;
+writeprefs();
+return;
+}
+}
+}
+}
+void keylist()
+{
+bool c=connect();
+if(!c)
+{
+dlg("error contacting the license server",false,"dlgalert5.ogg");
+multimenu();
+return;
+}
+send(0, "klist", 0);
+while(true)
+{
+event=net.request();
+if(event.type==event_receive and event.channel==0)
+{
+string[] parsed=string_split(get_message(), " ", false);
+if(parsed[0]=="nokey")
+{
+dlg("sorry, no license key is setup yet");
+reset_connection();
+multimenu();
+}
+if(parsed[0]=="klist")
+{
+string final=string_replace(get_message(), "klist ", "", false);
+list_keys(final);
+}
+}
+}
+}
+
+void list_keys(string what)
+{
+string[] things=string_split(what, "\r\n", false);
+m.reset(true);
+m.click_sound="menumove.ogg";
+m.enter_sound="menuenter.ogg";
+m.enable_side_scrolling=int_to_bool(sidescrolling);
+m.enable_left_and_right=int_to_bool(sidescrolling);
+m.enable_up_and_down=(sidescrolling==0?true:false);
+m.enable_first_letter_navigation=true;
+for(int i=0; i<things.length(); i++)
+{
+string temp=string_replace(things[i], ".key", "", true);
+string tempid=string_replace(temp, "(banned)", "", true);
+m.add_item_tts(temp, tempid);
+}
+m.add_item_tts("go back", "back");
+int res=m.run("keys menu", true);
+if(res==0 or m.get_item_name(res)=="back") multimenu();
+else todo(m.get_item_name(res));
+}
+void todo(string n)
+{
+m.reset(true);
+m.enter_sound="menuenter.ogg";
+m.click_sound="menumove.ogg";
+m.enable_side_scrolling=int_to_bool(sidescrolling);
+m.enable_left_and_right=int_to_bool(sidescrolling);
+m.enable_up_and_down=(sidescrolling==0?true:false);
+m.enable_first_letter_navigation=true;
+m.speak_letter=true;
+m.add_item_tts("see the generated key", "generate_k","g");
+m.add_item_tts("set the available slots for this key. caution! if you set a number of slots it's the number of the free ones without the registered computers!", "setslots");
+m.add_item_tts("ban or unban this key", "bankey");
+m.add_item_tts("delete this key from the database", "deletekey");
+m.add_item_tts("back to the multiplayer menu", "back");
+int res=m.run("what do you want to do to this key?", true);
+if(m.get_item_name(res)=="back" or res==0) multimenu();
+else
+{
+send(0, m.get_item_name(res)+" "+n, 0);
+while(true)
+{
+event=net.request();
+nloop();
+}
+}
+}
+}
+void ask_for_reg()
+{
+string name=input_box("name","Enter the name this key was asigned to");
+if(name=="") multimenu();
+string key=input_box("key","Now, enter the key that was emailed or given to you");
+if(key=="") multimenu();
+r.action(name,key,"register");
+}

@@ -1,0 +1,13 @@
+name flamethrower
+health 25000
+defence 250
+speed 500
+damage 50,5000
+shoot 2000
+distance 10
+aggro 1000
+spread 3
+angle 45
+steps 0
+loot dollar
+amount 300

@@ -1,0 +1,109 @@
+helicopter@[] helicopters(0);
+class helicopter
+{
+int x;
+int y;
+int z;
+string map;
+string zone;
+string mid;
+string owner;
+timer stimer;
+timer mtimer;
+int mtime=200;
+timer xtimer;
+int health=random(1000,100000);
+int id=random(1,100);
+string hitby;
+helicopter(int sx,int sy,int sz,string smap,string soner)
+{
+x=sx;
+y=sy;
+z=sz;
+map=smap;
+owner=soner;
+mid=spawn_moving_sound("helicopterloop.ogg",x,y,z,map);
+}
+}
+void helicopterloop()
+{
+for(uint i=0; i<helicopters.length(); i++)
+{
+if(helicopters[i].xtimer.elapsed>300000)
+{
+destroy_moving_sound(helicopters[i].mid);
+helicopters[i].health=-1;
+helicopters[i].hitby="dead battery";
+helicopters.remove_at(i);
+i--;
+continue;
+}
+int oindex=get_player_index_from(helicopters[i].owner);
+if(oindex<0)
+{
+destroy_moving_sound(helicopters[i].mid);
+helicopters.remove_at(i);
+i--;
+continue;
+}
+if(helicopters[i].health<0)
+{
+play("helicopterkill",helicopters[i].x,helicopters[i].y,helicopters[i].z,helicopters[i].map);
+send_reliable(0,"play_s robotkillalert.ogg",0);
+send_reliable(0,"playerdeath "+killmsg(helicopters[i].owner+"'s helicopter "+helicopters[i].id,helicopters[i].hitby,helicopters[i].map),0);
+destroy_moving_sound(helicopters[i].mid);
+helicopters.remove_at(i);
+i--;
+continue;
+}
+int index=get_nearest_player(helicopters[i].x,helicopters[i].y,helicopters[i].z,helicopters[i].map,oindex);
+if(index>-1)
+{
+if(in_vehicle(players[index].name)>-1 or players[index].newb==1 or players[index].is_dead or players[index].invinsible) continue;
+int miss=random(1,30);
+int dist=get_3d_distance(helicopters[i].x,helicopters[i].y,helicopters[i].z,players[index].x,players[index].y,players[index].z);
+if(dist<10 and helicopters[i].stimer.elapsed>500 and index!=oindex and players[index].z==helicopters[i].z)
+{
+helicopters[i].stimer.restart();
+play("helicopterfire"+random(1,3),helicopters[i].x,helicopters[i].y,helicopters[i].z,helicopters[i].map);
+send_reliable(0,"distsound helicopterfiredist "+helicopters[i].x+" "+helicopters[i].y+" "+helicopters[i].z+" "+helicopters[i].map,0);
+if(miss<30)
+{
+if(players[index].shielded)
+{
+players[index].playsound("shieldhit"+random(1,12));
+players[index].shieldshots-=random(1,17);
+}
+else
+{
+players[index].hit(80,8000);
+players[index].hitby=helicopters[i].owner+"'s helicopter "+helicopters[i].id;
+players[index].playsound("helicopterimpact"+random(1,3));
+}
+}
+}
+if(helicopters[i].mtimer.elapsed>helicopters[i].mtime)
+{
+helicopters[i].mtimer.restart();
+if(helicopters[i].x<players[index].x)
+helicopters[i].x++;
+else if(helicopters[i].x>players[index].x)
+helicopters[i].x--;
+if(helicopters[i].y<players[index].y)
+helicopters[i].y++;
+if(helicopters[i].y>players[index].y)
+helicopters[i].y--;
+if(helicopters[i].z<players[index].z)
+helicopters[i].z++;
+if(helicopters[i].z>players[index].z)
+helicopters[i].z--;
+update_moving_sound(helicopters[i].mid,helicopters[i].x,helicopters[i].y,helicopters[i].z);
+}
+}
+}
+}
+void spawn_helicopter(int x,int y,int z,string map,string owner)
+{
+helicopter s(x,y,z,map,owner);
+helicopters.insert_last(s);
+}

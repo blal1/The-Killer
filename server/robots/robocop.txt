@@ -1,0 +1,13 @@
+name robocop
+health 30000
+defence 10000
+speed 400
+damage 500,30000
+shoot 1000
+distance 25
+aggro 1000
+spread 1
+angle 10
+steps 2
+loot ammo,police_car
+amount 1

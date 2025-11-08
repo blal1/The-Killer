@@ -1,0 +1,58 @@
+cs_grenade@[]cs_grenades(0);
+class cs_grenade {
+double x,y,z;
+int dir=0;
+bool explode=false;
+timer explodetimer;
+int range=15;
+int distance=0;
+int mindammage=0;
+int maxxdammage=0;
+string map;
+string owner;
+int spread=2;
+cs_grenade(double gx, double gy, double gz, double gdir, string gmap, string gowner)
+{
+x=gx;
+y=gy;
+z=gz;
+dir=gdir;
+map=gmap;
+owner=gowner;
+play("cs_grenade_warn",x,y,z,map);
+}
+}
+void cs_grenadeloop()
+{
+for(uint j=0; j<cs_grenades.length(); j++)
+{
+if(cs_grenades[j].explodetimer.elapsed>=2500)
+{
+cs_grenades[j].explodetimer.restart();
+play("cs_grenadeexplode",cs_grenades[j].x,cs_grenades[j].y,cs_grenades[j].z,cs_grenades[j].map);
+send_reliable(0,"distsound cs_grenadeexplodedist "+cs_grenades[j].x+" "+cs_grenades[j].y+" "+cs_grenades[j].z+" "+cs_grenades[j].map,0);
+for(uint x=0; x<players.length(); x++)
+{
+if(in_vehicle(players[x].name)>-1 or players[x].newb==1 or players[x].is_dead or players[x].invinsible) continue;
+if(get_3d_distance(cs_grenades[j].x,cs_grenades[j].y,cs_grenades[j].z,players[x].x,players[x].y,players[x].z)<=cs_grenades[j].range and players[x].map==cs_grenades[j].map)
+{
+players[x].playsound("hit"+random(1,3));
+//players[x].health-=random(cs_grenades[j].mindammage,cs_grenades[j].maxdammage);
+players[x].should_subtract=false;
+players[x].hitby=cs_grenades[j].owner+"'s cs grenade";
+players[x].playsound("cs_cough"+random(1,3));
+players[x].blinded=true;
+players[x].stun(random(1000, 3000),false,true);
+}
+}
+@cs_grenades[j]=null;
+cs_grenades.remove_at(j);
+continue;
+}
+}
+}
+void spawn_cs_grenade(double x, double y, double z, double dir, string map, string owner)
+{
+cs_grenade f1(x, y, z, dir, map, owner);
+cs_grenades.insert_last(f1);
+}

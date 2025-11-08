@@ -1,0 +1,26 @@
+void save_bombs()
+{
+dictionary data;
+if(mines.length()>0) data.set("mines",create_datastream_from_mine_array());
+if(motion_bombs.length()>0) data.set("motion_bombs",create_datastream_from_motion_bomb_array());
+if(security_bombs.length()>0) data.set("security_bombs",create_datastream_from_security_bomb_array());
+if(wirebombs.length()>0) data.set("wirebombs",create_datastream_from_wirebomb_array());
+if(data.get_size()>0)
+{
+fl.open("prefs/save_bombs.dat","wb");
+fl.write(serialize(data));
+fl.close();
+}
+}
+void load_bombs()
+{
+if(file_exists("prefs/save_bombs.dat")==false) return;
+fl.open("prefs/save_bombs.dat","rb");
+dictionary d=deserialize(fl.read());
+fl.close();
+file_delete("prefs/save_bombs.dat");
+if(d.exists("mines")) create_mine_array_from_datastream(dget_string(d,"mines"));
+if(d.exists("motion_bombs")) create_motion_bomb_array_from_datastream(dget_string(d,"motion_bombs"));
+if(d.exists("security_bombs")) create_security_bomb_array_from_datastream(dget_string(d,"security_bombs"));
+if(d.exists("wirebombs")) create_wirebomb_array_from_datastream(dget_string(d,"wirebombs"));
+}

@@ -1,0 +1,13 @@
+name mosquito
+health 100
+defence 0
+speed 100
+damage 100,1000
+shoot 500
+distance 3
+aggro 1000
+spread 2
+angle 10
+steps 1
+loot dollar
+amount 5

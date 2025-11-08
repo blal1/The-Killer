@@ -1,0 +1,110 @@
+class siren
+{
+string id,soundloop,map;
+int x,y,z;
+bool dist=true;
+sound loop;
+siren(string i, string l, int c1, int c2,int c3,string cm)
+{
+id=i;
+soundloop=l;
+x=c1;
+y=c2;
+z=c3;
+loop.load(soundloop+(get_total_distance(me.x,me.y,me.z,x,y,z,50) ? ".ogg" : "_dist.ogg"));
+if(cm==mapname)
+{
+loop.play_looped();
+position_me();
+}
+this.map=cm;
+}
+void updateme(int c1, int c2,int c3)
+{
+x=c1;
+y=c2;
+z=c3;
+if(mapname==this.map&&loop.playing==false)
+{
+loop.play_looped();
+position_me();
+}
+if(mapname!=this.map&&loop.playing) loop.pause();
+if(mapname==this.map&&loop.playing==false) loop.play_looped();
+}
+void position_me()
+{
+bool d=get_total_distance(me.x,me.y,me.z,x,y,z,50);
+if(d)
+{
+if(d!=dist)
+{
+double pos=loop.position;
+loop.stop();
+loop.load(soundloop+".ogg");
+loop.seek(pos);
+if(map==mapname) loop.play_looped();
+}
+}
+else
+{
+if(d!=dist)
+{
+double pos=loop.position;
+loop.stop();
+loop.load(soundloop+"_dist.ogg");
+loop.seek(pos);
+if(map==mapname) loop.play_looped();
+}
+}
+position_sound_3d(loop,me.x,me.y,me.z,x,y,z,calculate_theta(facing),0.2,0.05,5);
+dist=d;
+}
+}
+siren@[] sirens;
+void createsiren(string id, string loop, int x, int y,int z,string map)
+{
+siren m1(id,loop,x,y,z,map);
+sirens.insert_last(m1);
+}
+void updatesiren(string id, int x, int y,int z)
+{
+for(uint i=0; i<sirens.length; i++)
+{
+if(sirens[i].id==id) sirens[i].updateme(x,y,z);
+}
+}
+void destroysiren(string id)
+{
+for(uint i=0; i<sirens.length; i++)
+{
+if(sirens[i].id==id)
+{
+sirens[i].loop.stop();
+sirens[i].loop.close();
+sirens.remove_at(i);
+continue;
+}
+}
+}
+void destroy_all_sirens()
+{
+for(uint i=0; i<sirens.length; i++)
+{
+destroysiren(sirens[i].id);
+}
+}
+void siren_map_update()
+{
+for(uint i=0; i<sirens.length; i++)
+{
+sirens[i].updateme(sirens[i].x,sirens[i].y,sirens[i].z);
+}
+}
+void sirencheckloop()
+{
+for(uint i=0; i<sirens.length(); i++)
+{
+sirens[i].position_me();
+}
+}

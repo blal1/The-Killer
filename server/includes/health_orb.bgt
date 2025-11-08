@@ -1,0 +1,64 @@
+health_orb@[] horbs;
+class health_orb
+{
+int x,y,z;
+string map,mid;
+timer lifetimer,affecttimer;
+bool dead=false;
+health_orb(int x, int y, int z, string map)
+{
+this.x=x;this.y=y;this.z=z;this.map=map;
+play("health_orb_start",x,y,z,map);
+this.mid=spawn_moving_sound("health_orb_loop.ogg",x,y,z,map);
+this.affect();
+}
+void affect()
+{
+for(uint i=0; i<players.length; i++)
+{
+if(get_3d_distance(x,y,z,players[i].x,players[i].y,players[i].z)<=5&&players[i].map==map)
+{
+players[i].health=antibiotic(players[i].health);
+}
+}
+}
+void shoot()
+{
+this.dead=true;
+destroy_moving_sound(this.mid);
+play("health_orb_shot",x,y,z,map);
+}
+void loop()
+{
+if(this.dead) return;
+if(lifetimer.elapsed>=30000)
+{
+this.dead=true;
+destroy_moving_sound(this.mid);
+play("health_orb_stop",x,y,z,map);
+}
+if(affecttimer.elapsed>=400)
+{
+affecttimer.restart();
+affect();
+}
+}
+}
+void horbloop()
+{
+for(uint i=0; i<horbs.length; i++)
+{
+if(horbs[i].dead)
+{
+@horbs[i]=null;
+horbs.remove_at(i);
+continue;
+}
+horbs[i].loop();
+}
+}
+void spawn_horb(int x, int y, int z, string map)
+{
+health_orb h1(x,y,z,map);
+horbs.insert_last(h1);
+}

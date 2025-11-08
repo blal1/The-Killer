@@ -1,0 +1,12 @@
+mapname:items
+maxx:100
+maxy:100
+maxz:100
+zone:0:100:0:100:0:100:items_map:trackme
+tile:0:100:0:100:0:0:tile3
+src:0:100:0:100:0:100:amb1.ogg
+fightingstate:0
+travelpoint:10:10:10:10:0:0:store:5:5:0:moved
+zone:10:10:10:10:0:10:go to the store, press enter:trackme
+noitems:0:100:0:100:0:100:grenade:stone:stun_dart:timebomb:suicidebomb:suicide_bomb:stone:motion_bomb:mine:healt_dart:ultrabomb:cannon:tank:air_craft:police_car_super:police_car:dogan_slx:Truck:security_bomb:guided_missile:guidedmissile
+ispawn:0:100:0:100:0:0:50:50:tank:antibiotic:antibiotic_pack:police_car:coin:ammo:suicidebomb:grenade_pack:stone:metal_pack

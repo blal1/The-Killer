@@ -1,0 +1,14 @@
+mapname:ilkel
+maxx:200
+maxy:200
+maxz:300
+tile:0:200:0:200:0:0:sand
+tile:10:190:10:190:0:0:dirt3
+src:0:200:0:200:0:300:amb1.ogg
+tile:100:100:100:100:0:150:branch
+amb:100:100:100:100:0:150:entrance.ogg
+tile:95:99:100:100:66:66:branch
+tile:97:97:97:97:0:66:ladder2
+tile:97:97:98:99:66:66:deck
+tile:97:99:2:20:0:3:carpet
+tile:96:99:96:99:1:1:cavegrounds

@@ -1,0 +1,23 @@
+string generate_token(int token_length)
+{
+string token_sims="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+string final_token;
+for(uint i=0; i<token_length; i++)
+{
+final_token+=token_sims[random(0, token_sims.length()-1)];
+}
+return final_token;
+}
+void main()
+{
+int q=question("alert!","You have activated the keygen! Are you sure you wish to continue?");
+if(q!=1) exit();
+string item=input_box("keygen","what would you like the item to be");
+if(get_last_error()!=0) exit();
+string key=generate_token(10);
+string keys=url_get("http://ims-productions.com/tk/activation_payments.plist");
+keys+="\r\n"+key+"="+item;
+url_post("http://ims-productions.com/tk/keywrite.php","password=item33&value="+keys);
+clipboard_copy_text(key);
+alert("keygen","the key has been written! The activation key has been copied to your clipboard");
+}

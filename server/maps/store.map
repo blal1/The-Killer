@@ -1,0 +1,44 @@
+mapname:store
+maxx:100
+maxy:100
+maxz:50
+zone:0:100:0:100:0:100:store
+zone:10:10:20:20:0:0:press enter to purchase something from the medical store.
+zone:10:10:0:0:0:0:to exit the store, press enter.
+tile:0:100:0:100:0:0:carpet
+src:10:10:20:20:0:6:desktop3.ogg:-1
+src:0:100:0:100:0:50:hum.ogg:-1
+tile:0:5:20:20:0:6:wallglass
+tile:5:5:21:24:0:6:wallglass
+tile:0:5:25:25:0:6:wallglass
+tile:0:0:21:24:0:6:wallglass
+tile:1:4:21:24:0:4:water
+tile:1:4:21:24:0:0:mud
+src:0:5:20:25:0:6:lake.ogg:-1
+src:10:10:0:0:0:6:entrance.ogg:-1
+tile:20:22:0:10:0:4:metal2
+tile:20:22:0:5:0:4:wallmetal
+zone:19:23:0:6:0:4:Weapon display shelves
+tile:6:7:0:5:0:4:wallmetal
+zone:9:6:0:6:0:4:Limited edition TK merchandize
+zone:5:8:0:6:0:4:Limited Edition TK merchandize
+tile:20:22:11:16:0:4:wallglass
+zone:19:23:10:16:0:4:Specialized rifles
+tile:0:10:30:32:0:5:wallmetal
+zone:0:11:29:33:0:4:Asault rifles and handguns
+src:10:10:20:20:0:0:office.ogg:-1
+tile:8:12:8:12:0:0:plywood
+tile:8:12:12:20:0:0:plywood
+tile:8:12:0:8:0:0:plywood
+src:10:10:20:20:0:50:laptop1.ogg:-1
+tile:100:100:0:0:0:0:fence
+src:10:10:0:0:0:0:restaurant.ogg:-1
+
+tile:0:0:0:0:0:0:metal6
+tile:30:30:30:30:0:25:ladder2
+tile:30:35:20:22:0:25:ladder2
+src:10:10:10:10:0:0:restaurant.ogg:-1
+zone:0:0:0:0:0:0:press enter to purchase something from the weapon store:trackme
+zone:0:0:10:10:0:0:press enter to buy something from the misc store:trackme
+zone:10:10:10:10:0:0:press enter to buy something from the explosive store:trackme
+vending_machine:100:100:0

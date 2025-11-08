@@ -1,0 +1,8 @@
+mapname:arena
+maxx:100
+maxy:200
+maxz:200
+tile:0:100:0:100:0:0:carpet2
+tile:0:100:0:100:0:0:deepsand
+zone:0:100:0:100:0:100:arena:trackme
+src:0:1000:0:1000:0:1000:wind2.ogg

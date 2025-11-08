@@ -1,0 +1,192 @@
+missile@[] missiles(0);
+class missile
+{
+int x;
+int y;
+int z;
+int targetx;
+int targety;
+int targetz;
+string targetname;
+string map;
+player@owner,targetplayer;
+timer stimer;
+timer mtimer;
+timer intercepttimer;
+bool intercepted=false,sendback=false;
+int mtime=50;
+timer xtimer;
+string mid;
+missile(int sx, int sy, int sz, int tx, int ty, int tz,string smap, player@sowner, string tname)
+{
+x=sx;
+y=sy;
+z=sz;
+targetx=tx;
+targety=ty;
+targetz=tz;
+map=smap;
+@owner=sowner;
+targetname=tname;
+if(targetname!="") @targetplayer=players[get_player_index_from(targetname)];
+stimer.force(120);
+mid=spawn_moving_sound("missileloop.ogg",x,y,z,map);
+}
+void send_back()
+{
+destroy_moving_sound(mid);
+play("carrier_missile_start",x,y,z,map);
+mid=spawn_moving_sound("carrier_missile_loop.ogg",x,y,z,map);
+targetname=owner.name;
+@targetplayer=owner;
+sendback=true;
+}
+}
+void missileloop()
+{
+for(uint i=0; i<missiles.length(); i++)
+{
+if(@missiles[i].owner==null)
+{
+destroy_moving_sound(missiles[i].mid);
+missiles.remove_at(i);
+continue;
+}
+if(missiles[i].intercepted==false)
+{
+if(missiles[i].targetname!="")
+{
+if(@missiles[i].targetplayer!=null)
+{
+if(missiles[i].targetplayer.map!=missiles[i].map)
+{
+missiles[i].send_back();
+continue;
+}
+if(missiles[i].targetplayer.x!=missiles[i].targetx)
+missiles[i].targetx=missiles[i].targetplayer.x;
+if(missiles[i].targetplayer.y!=missiles[i].targety)
+missiles[i].targety=missiles[i].targetplayer.y;
+if(missiles[i].targetplayer.z!=missiles[i].targetz)
+missiles[i].targetz=missiles[i].targetplayer.z;
+}
+else
+{
+missiles[i].send_back();
+continue;
+}
+}
+int dist=0;
+dist=get_3d_distance(missiles[i].x, missiles[i].y, missiles[i].z, missiles[i].targetx,missiles[i].targety,missiles[i].targetz);
+if(dist<=13&&missiles[i].sendback==false)
+{
+missiles[i].mtime=150-(dist*40);
+}
+else
+{
+missiles[i].mtime=100;
+}
+if(missiles[i].x==missiles[i].targetx and missiles[i].y==missiles[i].targety and missiles[i].z==missiles[i].targetz)
+{
+destroy_moving_sound(missiles[i].mid);
+if(missiles[i].sendback)
+{
+int index=get_player_index_from(missiles[i].targetname);
+if(index>-1)
+{
+play("carrier_missileclick",missiles[i].x,missiles[i].y,missiles[i].z,missiles[i].map);
+players[index].give("guided_missile",1);
+send_reliable(players[index].peer_id,"your guided missile has returned.",2);
+}
+}
+else
+{
+play("missileexplode",missiles[i].x,missiles[i].y,missiles[i].z,missiles[i].map);
+send_reliable(0,"distsound missiledist "+missiles[i].x+" "+missiles[i].y+" "+missiles[i].z+" "+missiles[i].map,0);
+string hit;
+for(uint x=0; x<players.length(); x++)
+{
+if(players[x].invinsible==true || players[x].newb==1 || players[x].is_dead==true||in_vehicle(players[x].name)>-1) continue;
+if(get_3d_distance(missiles[i].x,missiles[i].y,missiles[i].z,players[x].x,players[x].y,players[x].z)<=15 and players[x].map==missiles[i].map)
+{
+hit+=cn2n(players[x].name)+", ";
+players[x].hitby=missiles[i].owner.name+"'s missile";
+players[x].hit(10000,18000);
+}
+}
+for(uint x=0; x<remguns.length(); x++)
+{
+if(get_3d_distance(missiles[i].x,missiles[i].y,missiles[i].z,remguns[x].x,remguns[x].y,remguns[x].z)<=15 and remguns[x].map==missiles[i].map)
+{
+hit+=cn2n(remguns[x].owner)+"'s remote gun "+remguns[x].id+", ";
+remguns[x].hitby=missiles[i].owner.name+"'s missile";
+remguns[x].health-=random(10000,18000);
+play("remgunhit"+random(1,3),remguns[x].x,remguns[x].y,remguns[x].z,remguns[x].map);
+}
+}
+for(uint x=0; x<shelters.length(); x++)
+{
+if(get_3d_distance(missiles[i].x,missiles[i].y,missiles[i].z,shelters[x].x,shelters[x].y,shelters[x].z)<=15 and shelters[x].map==missiles[i].map)
+{
+hit+=cn2n(shelters[x].owner)+"'s shelter, ";
+shelters[x].hit(random(10000,18000),missiles[i].owner.name+"'s missile","artillery");
+}
+}
+for (uint x=0; x<impact_bombs.length(); x++)
+{
+if (get_3d_distance(missiles[i].x,missiles[i].y,missiles[i].z,impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z)<=15 and impact_bombs[x].map==missiles[i].map)
+{
+impact_bombs[x].health=-1;
+play("ibombhit"+random(1, 3),impact_bombs[x].x,impact_bombs[x].y,impact_bombs[x].z,impact_bombs[x].map);
+}
+}
+for(uint x=0; x<vs.length(); x++)
+{
+if(get_3d_distance(missiles[i].x,missiles[i].y,missiles[i].z,vs[x].x,vs[x].y,vs[x].z)<=15 and missiles[i].map==vs[x].map)
+{
+hit+=cn2n(vs[x].owner)+"'s "+vs[x].type+", ";
+vs[x].hit(random(10000,18000),missiles[i].owner.name+"'s missile","artillery");
+}
+}
+if(hit!="") hit=string_trim_right(hit,2);
+if(hit=="") hit="nothing";
+missiles[i].owner.sendpacket("play_s weaponping.ogg",0);
+missiles[i].owner.sendpacket("Your missile hit "+hit+"! ", 2);
+}
+@missiles[i]=null;
+missiles.remove_at(i);
+continue;
+}
+if(missiles[i].mtimer.elapsed>missiles[i].mtime)
+{
+missiles[i].mtimer.restart();
+if(missiles[i].x<missiles[i].targetx)
+missiles[i].x++;
+if(missiles[i].x>missiles[i].targetx)
+missiles[i].x--;
+if(missiles[i].y<missiles[i].targety)
+missiles[i].y++;
+if(missiles[i].y>missiles[i].targety)
+missiles[i].y--;
+if(missiles[i].z<missiles[i].targetz)
+missiles[i].z++;
+if(missiles[i].z>missiles[i].targetz)
+missiles[i].z--;
+update_moving_sound(missiles[i].mid,missiles[i].x,missiles[i].y,missiles[i].z);
+}
+}
+if(missiles[i].intercepted==true and missiles[i].intercepttimer.elapsed>=1140)
+{
+missiles[i].intercepttimer.restart();
+spawn_obj(missiles[i].x,missiles[i].y,missiles[i].z,missiles[i].map,"guided_missile",1,false);
+@missiles[i]=null;
+missiles.remove_at(i);
+continue;
+}
+}
+}
+void spawn_missile(int x, int y, int z, int targetx, int targety, int targetz, string map, player@owner, string tname="")
+{
+missile s(x, y, z, targetx, targety, targetz, map, owner, tname);
+missiles.insert_last(s);
+}

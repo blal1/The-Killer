@@ -1,0 +1,81 @@
+class siren
+{
+string id,soundloop,map,owner;
+int x,y,z;
+siren(string i, string l, int c1, int c2,int c3,string cm,string own=)
+{
+id=i;
+soundloop=l;
+x=c1;
+y=c2;
+z=c3;
+map=cm;
+owner=own;
+}
+void updateme(int c1, int c2, int c3)
+{
+x=c1;
+y=c2;
+z=c3;
+}
+}
+siren@[] sirens;
+string spawn_siren(string loop, int x, int y,int z,string map,string owner)
+{
+string id;
+bool breakit=false;
+while(true)
+{
+id=randomstring(3);
+breakit=true;
+for(uint i=0; i<sirens.length; i++)
+{
+if(sirens[i].id==id) breakit=false;
+}
+if(breakit) break;
+}
+siren m1(id,loop,x,y,z,map,owner);
+sirens.insert_last(m1);
+for(uint i=0; i<players.length; i++)
+{
+if(players[i].name!=owner) send_reliable(players[i].peer_id,"createsiren "+id+" "+loop+" "+x+" "+y+" "+z+" "+map,4);
+}
+return id;
+}
+void update_siren(string id, int x, int y,int z)
+{
+for(uint i=0; i<sirens.length; i++)
+{
+if(sirens[i].id==id)
+{
+sirens[i].updateme(x,y,z);
+for(uint j=0; j<players.length; j++)
+{
+if(players[j].name!=sirens[i].owner) send_unreliable(players[j].peer_id,"updatesiren "+id+" "+x+" "+y+" "+z,4);
+}
+}
+}
+}
+bool siren_exists(string id)
+{
+for(uint i=0; i<sirens.length(); i++)
+{
+if(sirens[i].id==id)
+{
+return true;
+}
+}
+return false;
+}
+void destroy_siren(string id)
+{
+for(uint i=0; i<sirens.length; i++)
+{
+if(sirens[i].id==id)
+{
+send_reliable(0,"destroysiren "+id,4);
+sirens.remove_at(i);
+continue;
+}
+}
+}

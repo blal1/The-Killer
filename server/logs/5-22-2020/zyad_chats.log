@@ -1,0 +1,97 @@
+
+zyad (zyad) said f 5-22-2020, 1:59:35 PM
+zyad (zyad) said no 5-22-2020, 1:59:38 PM
+zyad (zyad) said aa 5-22-2020, 2:00:56 PM
+zyad (zyad) said f 5-22-2020, 2:20:16 PM
+zyad (zyad) said . 5-22-2020, 2:20:35 PM
+zyad (zyad) said f 5-22-2020, 2:20:39 PM
+zyad (zyad) said f 5-22-2020, 2:20:39 PM
+zyad (zyad) said f 5-22-2020, 2:20:47 PM
+zyad (zyad) said f 5-22-2020, 2:20:49 PM
+zyad (zyad) said f/f 5-22-2020, 2:20:52 PM
+zyad (zyad) said f 5-22-2020, 2:20:53 PM
+zyad (zyad) said f 5-22-2020, 2:20:55 PM
+zyad (zyad) said f 5-22-2020, 2:20:56 PM
+zyad (zyad) said f 5-22-2020, 2:20:57 PM
+zyad (zyad) said f 5-22-2020, 2:20:57 PM
+zyad (zyad) said f 5-22-2020, 2:20:58 PM
+zyad (zyad) said f 5-22-2020, 2:21:00 PM
+zyad (zyad) said r/awdata mapname:main
+maxx:1000
+maxy:1000
+maxz:1000
+zone:0:1000:0:1000:0:50:main
+src:0:1990:13:1990:0:300:birds8.ogg
+tile:0:1000:0:1000:0:0:grass
+tile:0:1000:11:13:0:0:dirt3
+tile:0:1000:0:10:0:0:deepsand
+travelpoint:0:1000:1000:1000:0:500:desert:500:0:0:moved
+zone:0:1000:1000:1000:0:500:to continue the desert. Press enter:trackme
+src:0:1000:1000:1000:0:500:desert.ogg
+tile:0:1000:990:1000:0:0:deepsand
+zone:0:990:990:1000:0:300:desert entrance:trackme
+tile:0:990:986:989:0:0:dirt
+zone:0:990:986:989:0:3000:near the desert:trackme
+src:1000:1000:13:987:0:3000:wind1.ogg
+tile:990:1000:13:987:0:0:dirt2
+zone:990:1000:13:987:0:300:mountain-base:trackme
+zone:0:1000:0:10:0:300:coastline:trackme
+tile:0:1000:0:2:0:0:shallow
+tile:0:10:14:986:0:0:mud
+zone:0:10:13:986:0:300:near-the-swamp:trackme
+src:0:0:15:984:0:300:flies.ogg
+src:0:0:14:985:0:300:birds41.ogg
+tile:11:300:13:300:0:0:clay
+zone:10:300:13:300:0:300:clay zone:trackme
+tile:301:303:13:303:0:0:mud
+zone:301:303:13:300:0:300:near-the-stream
+tile:304:324:13:303:0:0:shallow
+src:304:324:13:325:0:0:lake.ogg
+tile:325:329:13:330:0:0:mud
+tile:11:326:326:330:0:0:mud
+tile:11:324:303:325:0:0:shallow
+src:13:313:303:325:0:0:lake.ogg
+tile:10:300:301:302:0:0:mud
+zone:11:329:326:330:0:300:near-the-stream
+zone:11:300:301:303:0:300:near-the-stream
+zone:325:330:13:330:0:300:near the-stream
+zone:11:323:303:325:0:300:stream:trackme
+zone:304:324:13:330:0:300:stream:trackme
+tile:400:420:400:500:0:0:sand
+zone:400:420:400:480:0:0:sand-field-by-the-lake
+tile:421:481:400:420:0:0:sand
+zone:421:481:400:420:0:0:sand-field-by-the-lake
+tile:482:500:400:500:0:0:sand
+zone:482:500:400:500:0:0:sand-field-by-the-lake
+tile:421:481:481:500:0:0:sand
+zone:421:481:481:500:0:0:sand-field-by the-lake
+tile:421:481:477:479:0:0:mud
+zone:421:481:477:479:0:0:muddy-lake-edge
+tile:478:481:421:479:0:0:mud
+zone:478:481:421:479:0:0:muddy-lake-edge
+tile:421:479:421:423:0:0:mud
+zone:421:479:421:423:0:0:muddy-lake-edge
+tile:421:423:421:479:0:0:mud
+zone:421:423:421:479:0:0:muddy-lake-edge
+src:424:480:424:480:-30:-20:underwater.ogg
+tile:424:480:424:480:-30:-1:underwater
+tile:481:481:421:481:-30:-1:wallunderwater
+tile:420:481:421:424:-30:-1:wallunderwater
+tile:421:423:421:480:-30:-1:wallunderwater
+tile:421:481:481:481:-30:-1:wallunderwater
+tile:478:478:424:481:-30:-1:wallunderwater
+tile:424:479:424:480:0:0:water
+src:424:479:424:479:0:3:waves3.ogg
+zone:424:480:424:480:0:300:the-deep-pond
+tile:421:481:481:483:0:0:mud
+zone:421:481:481:483:0:0:muddy-lake-edge
+travelpoint:0:1000:0:0:0:5000:deep:250:1000:100:you open to the deep ocean full of dangers
+src:0:500:0:3:0:500:ocean1.ogg
+zone:0:1000:0:0:0:500:to continue ocean, press enter.
+noitems:0:1000:0:1000:0:100:sail_boats:
+travelpoint:0:0:13:990:0:500:swamp:500:250:0:going too the swamp
+zone:0:0:13:990:0:300:too continue swamp, press enter.
+ 5-22-2020, 4:31:57 PM
+zyad (zyad) said f 5-22-2020, 8:27:34 PM
+zyad (zyad) said f 5-22-2020, 9:41:40 PM
+zyad (zyad) said f 5-22-2020, 9:42:25 PM

@@ -1,0 +1,15 @@
+string translate_text(string text)
+{
+if(translator==0 or currentlangfile=="english")
+return text;
+string[] rr=string_split(lngdata,"\r\n",true);
+for(int i=0;i<rr.length();i++)
+{
+string[] q=string_split(rr[i],"=",true);
+if(string_contains(string_to_lower_case(text),q[0],1)>-1)
+{
+text=string_replace(text,q[0],q[1],false);
+}
+}
+return text;
+}

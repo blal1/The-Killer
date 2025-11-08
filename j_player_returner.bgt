@@ -1,0 +1,20 @@
+void main()
+{
+string[] files=find_files("sounds/jloops/*.ogg");
+string scripttext;
+for(uint i=0; i<files.length(); i++)
+{
+int ms=get_sound_length("sounds/jloops/"+files[i]);
+scripttext+="if(songindex=="+i+") return "+ms+";\r\n";
+}
+alert("done","");
+clipboard_copy_text(scripttext);
+}
+int get_sound_length(string snd)
+{
+sound s;
+s.load(snd);
+int ret=s.length;
+s.close();
+return ret;
+}

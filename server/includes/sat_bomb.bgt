@@ -1,0 +1,138 @@
+sat_bomb@[] sat_bombs(0);
+class sat_bomb
+{
+string owner;
+int z,code;
+string map;
+int x, y;
+int seconds=2000;
+int beeptime;
+timer beeptimer, bombtimer;
+int r=random(1,2);
+bool d=false;
+sat_bomb(int rtx,int rty,int rtz, string rtmap, string rtowner,int rcode)
+{
+owner=rtowner;
+x=rtx;
+y=rty;
+z=rtz;
+map=rtmap;
+code=rcode;
+play("sat_bombplace",x,y,z,map);
+}
+}
+void sat_bombloop()
+{
+for (uint i=0; i<sat_bombs.length(); i++)
+{
+if(sat_bombs[i].d==true)
+{
+sat_bombs[i].seconds=2000-sat_bombs[i].bombtimer.elapsed;
+if (sat_bombs[i].seconds<=0)
+{
+play("sat_bombexplode",sat_bombs[i].x,sat_bombs[i].y,sat_bombs[i].z,sat_bombs[i].map);
+//if(sat_bombs[i].r==2)
+//spawn_fire(sat_bombs[i].x,sat_bombs[i].y,sat_bombs[i].z,sat_bombs[i].map,random(400,700));
+send_reliable(0,"distsound sat_bombexplode_dist "+sat_bombs[i].x+" "+sat_bombs[i].y+" "+sat_bombs[i].z+" "+sat_bombs[i].map,0);
+for(uint i2=0; i2<impact_bombs.length(); i2++)
+{
+if(get_3d_distance(impact_bombs[i2].x,impact_bombs[i2].y,impact_bombs[i2].z,sat_bombs[i].x,sat_bombs[i].y,sat_bombs[i].z)<=30 and impact_bombs[i2].map==sat_bombs[i].map)
+{
+impact_bombs[i2].health-=random(5000,15000);
+play("ibombhit"+random(1,3),impact_bombs[i2].x,impact_bombs[i2].y,impact_bombs[i2].z,impact_bombs[i2].map);
+}
+}
+for (uint i2=0; i2<players.length(); i2++)
+{
+if(players[i2].invinsible==true || players[i2].is_dead==true||in_vehicle(players[i2].name)>-1) continue;
+if (get_3d_distance(sat_bombs[i].x,sat_bombs[i].y,sat_bombs[i].z,players[i2].x,players[i2].y,players[i2].z)<=30 and players[i2].map==sat_bombs[i].map)
+{
+players[i2].hit(20000,40000);
+players[i2].should_subtract=false;
+players[i2].hitby=sat_bombs[i].owner+"'s sat_bomb";
+}
+}
+for (uint i2=0; i2<objs.length(); i2++)
+{
+if (get_3d_distance(sat_bombs[i].x,sat_bombs[i].y,sat_bombs[i].z,objs[i2].x,objs[i2].y,objs[i2].z)<=30 and objs[i2].map==sat_bombs[i].map)
+{
+play("obj_break"+random(1,3),objs[i2].x,objs[i2].y,objs[i2].z,objs[i2].map);
+objs.remove_at(i2);
+}
+}
+for (uint i2=0; i2<remguns.length(); i2++)
+{
+if (get_3d_distance(sat_bombs[i].x,sat_bombs[i].y,sat_bombs[i].z,remguns[i2].x,remguns[i2].y,remguns[i2].z)<=30 and remguns[i2].map==sat_bombs[i].map)
+{
+remguns[i2].health-=random(5000, 15000);
+remguns[i2].hitby=sat_bombs[i].owner+"'s sat_bomb";
+play("remgunhit"+random(1, 3),remguns[i2].x,remguns[i2].y,remguns[i2].z,remguns[i2].map);
+}
+}
+for(uint s=0; s<shelters.length; s++)
+{
+if(get_3d_distance(sat_bombs[i].x,sat_bombs[i].y,sat_bombs[i].z,shelters[s].x,shelters[s].y,shelters[s].z)<=30&&shelters[s].map==sat_bombs[i].map)
+shelters[s].hit(random(5000,15000),sat_bombs[i].owner+"'s sat_bomb");
+}
+for(uint v=0; v<vs.length; v++)
+{
+if(get_3d_distance(sat_bombs[i].x,sat_bombs[i].y,sat_bombs[i].z,vs[v].x,vs[v].y,vs[v].z)<=30&&vs[v].map==sat_bombs[i].map)
+vs[v].hit(random(5000,15000),sat_bombs[i].owner+"'s sat_bomb");
+}
+int index=get_player_index_from(sat_bombs[i].owner);
+if(index>-1)
+{
+players[index].sbombs-=1;
+}
+sat_bombs.remove_at(i);
+}
+}
+}
+}
+void place_sat_bomb(int x,int y, int z, string map,string owner, int code)
+{
+sat_bomb bomb1(x,y,z,map,owner,code);
+sat_bombs.insert_last(bomb1);
+}
+void destroy_all_sat_bombs()
+{
+sat_bombs.resize(0);
+}
+void create_sat_bomb_from_datastream(string data)
+{
+dictionary d=deserialize(data);
+int x=dget_int(d,"x"),y=dget_int(d,"y"),z=dget_int(d,"z"),code=dget_int(d,"code");
+string map=dget_string(d,"map"),owner=dget_string(d,"owner");
+sat_bomb m1(x,y,z,map,owner,code);
+sat_bombs.insert_last(m1);
+}
+void create_sat_bomb_array_from_datastream(string stream)
+{
+dictionary@ temp=deserialize(stream);
+string[] keys=temp.get_keys();
+for(uint i=0; i<keys.length; i++)
+{
+string val=dget_string(temp,keys[i]);
+create_sat_bomb_from_datastream(val);
+}
+@temp=null;
+}
+string[] create_datastream_from_sat_bomb(sat_bomb@ m)
+{
+dictionary d;
+d.set("x",m.x);d.set("y",m.y);d.set("z",m.z);d.set("owner",m.owner);d.set("map",m.map);d.set("code",m.code);
+string[] ret(2);
+ret[0]=randomstring(5);
+ret[1]=serialize(d);
+return ret;
+}
+string create_datastream_from_sat_bomb_array()
+{
+dictionary d;
+for(uint i=0; i<sat_bombs.length; i++)
+{
+string[] r=create_datastream_from_sat_bomb(sat_bombs[i]);
+d.set(r[0],r[1]);
+}
+return serialize(d);
+}
