@@ -7,6 +7,13 @@ string lookname;
 bool prior_connected=false;
 void login()
 {
+int connect_attempts=0;
+int max_attempts=2;
+bool connection_established=false;
+if(local_server_mode)
+{
+tk_local_server_apply_defaults();
+}
 if(local_server_mode)
 {
 apply_local_server_defaults();
@@ -23,6 +30,8 @@ if(connected==false and prior_connected==false)
 speak("connecting the server, please wait!",1,true);
 if(local_server_mode)
 {
+if(tk_local_server_ensure_running()==false)
+{
 if(local_server_mode)
 {
 if(ensure_local_server_running()==false)
@@ -32,6 +41,7 @@ mainmenu();
 return;
 }
 wait(1000);
+max_attempts=5;
 }
 if(SCRIPT_COMPILED==false||beta==true)
 {
@@ -40,6 +50,7 @@ else
 {
 speak("connecting the server, please wait!",1,true);
 }
+while(connect_attempts<max_attempts and connection_established==false)
 int connect_attempts=0;
 int max_attempts=2;
 if(local_server_mode)

@@ -1141,6 +1141,9 @@ if(sd.d.exists("netaddress"))
 netaddress=sd.read("netaddress");
 if(sd.d.exists("netport"))
 netport=sd.readn("netport");
+tk_local_server_apply_defaults();
+}
+void tk_local_server_apply_defaults()
 apply_local_server_defaults();
 }
 void apply_local_server_defaults()
@@ -1155,6 +1158,11 @@ netaddress="127.0.0.1";
 netport=4456;
 }
 }
+bool tk_local_server_ensure_internal(bool force_start)
+{
+if(local_server_mode==false)
+return true;
+tk_local_server_apply_defaults();
 bool ensure_local_server_internal(bool force_start)
 {
 if(local_server_mode==false)
@@ -1207,6 +1215,9 @@ run(local_server_path,"",false,false);
 local_server_started=true;
 return true;
 }
+bool tk_local_server_ensure_running()
+{
+return tk_local_server_ensure_internal(false);
 bool ensure_local_server_running()
 {
 return ensure_local_server_internal(false);
